@@ -1,6 +1,8 @@
 package UseCase;
 
+import Entity.Room;
 import Entity.Speaker;
+import javafx.util.Pair;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,7 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ValidateSpeaker {
-    private HashMap<Speaker, ArrayList<Time>> speaker_list;
+
+    private HashMap<Speaker, ArrayList<Pair<Time, Time>>> speaker_list;
 
     public void addSpeaker(String SpeakerName, String Password, String phone, String email){
 
@@ -18,45 +21,52 @@ public class ValidateSpeaker {
     }
 
     public boolean validateSpeaker(Speaker speaker, Time start, Time end) {
-        Collection<ArrayList<Time>> list = speaker_list.values();
-        boolean indicator = false;
-        for (ArrayList<Time> i : list) {
-            if ((i != null) && (i.get(0).compareTo(start) <= 0) && (i.get(1).compareTo(end) >= 0)) {
-                continue;
-            } else if (i != null) {
-                indicator = true;
+        if (!speaker_list.containsKey(speaker)) {
+            return false;
+        }
+        for (Pair<Time, Time> schedule : speaker_list.get(speaker)) {
+            Time start2 = schedule.getKey();
+            Time end2 = schedule.getValue();
+            if ((start.compareTo(start2) >= 0 && start.compareTo(end2) < 0) | start.compareTo(end) >= 0 |
+                    (end.compareTo(start2) > 0 && end.compareTo(end2) <= 0)) {
+                return false;
             }
         }
-        return indicator;
+        return true;
     }
 
     public void giveSpeakerNewSchedule(Speaker speaker, Time start, Time end){
-        ArrayList<Time> temp = new ArrayList<>();
-        temp.add(start);
-        temp.add(end);
-        boolean i = false;
-        for (Map.Entry<Speaker, ArrayList<Time>> s : speaker_list.entrySet()) {
-            if (s.getKey().getUserId() == speaker.getUserId()) {
-                s.setValue(temp);
-                i = true;
+        Pair<Time, Time> temp = new Pair<>(start, end);
+        ArrayList<Pair<Time, Time>> temp1 = speaker_list.get(speaker);
+        int indicator = 0;
+        for (Pair<Time, Time> time : temp1){
+            if (time.equals(temp)) {
+                indicator = 1;
                 break;
             }
         }
-        if (!i) {
-            speaker_list.put(speaker, temp);
+        if (indicator == 0){
+            temp1.add(temp);
         }
     }
 
-    public void delSpeakerSchedule(Speaker speaker){
-        for (Map.Entry<Speaker, ArrayList<Time>> s : speaker_list.entrySet()) {
-            if (s.getKey().getUserId() == speaker.getUserId()) {
-                s.setValue(null);
-                break;
+    public boolean delSpeakerSchedule(Speaker speaker, Time start, Time end) {
+        Pair<Time, Time> p = new Pair<>(start, end);
+        if (!speaker_list.containsKey(speaker)) {
+                return false;
+        }
+        for (Pair<Time, Time> o : speaker_list.get(speaker)) {
+            if (o.equals(p)) {
+                speaker_list.get(speaker).remove(p);
+                return true;
             }
         }
+        return false;
     }
 
-    public HashMap<Speaker, ArrayList<Time>> getSpeakerList(){
+    public HashMap<Speaker, ArrayList<Pair<Time, Time>>> getSpeakerList(){
+
         return speaker_list;
+
     }
 }

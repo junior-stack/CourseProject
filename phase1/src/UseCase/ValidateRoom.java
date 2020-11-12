@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 /**
  * Created by yezhou on 2020/11/12
  **/
+
 public class ValidateRoom implements Serializable {
     private HashMap<Room, ArrayList<Pair<Time, Time>>> rooms_list;
     private static final Logger logger = Logger.getLogger(ValidateRoom.class.getName());

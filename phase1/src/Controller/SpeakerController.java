@@ -2,6 +2,8 @@ package Controller;
 
 import Entity.Speaker;
 import UseCase.ValidateSpeaker;
+import javafx.util.Pair;
+
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,8 +21,8 @@ public class SpeakerController {
         vs.giveSpeakerNewSchedule(speaker, start, end);
     }
 
-    public void delSpeakerSchedule(Speaker speaker){
-        vs.delSpeakerSchedule(speaker);
+    public void delSpeakerSchedule(Speaker speaker, Time start, Time end){
+        vs.delSpeakerSchedule(speaker, start, end);
     }
 
     public boolean validateSpeaker(Speaker speaker, Time start, Time end){
@@ -31,7 +33,7 @@ public class SpeakerController {
         vs.addSpeaker(SpeakerName, Password, phone, email);
     }
 
-    public HashMap<Speaker, ArrayList<Time>> getSpeakerSchedule(){
+    public HashMap<Speaker, ArrayList<Pair<Time, Time>>> getSpeakerSchedule(){
         return vs.getSpeakerList();
     }
 
