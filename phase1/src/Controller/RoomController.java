@@ -2,12 +2,11 @@ package Controller;
 
 import Entity.Room;
 import UseCase.ValidateRoom;
-import javafx.util.Pair;
-
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+import javafx.util.Pair;
 
 /**
  * Created by yezhou on 2020/11/12

@@ -11,33 +11,33 @@ import java.util.HashMap;
 
 public class SpeakerController {
 
-    private ValidateSpeaker vs;
+  private ValidateSpeaker vs;
 
-    public SpeakerController(){
-        ValidateSpeaker vs = new ValidateSpeaker();
-    }
+  public SpeakerController() {
+    ValidateSpeaker vs = new ValidateSpeaker();
+  }
 
-    public void giveSpeakerNewSchedule(Speaker speaker, Time start, Time end){
-        vs.giveSpeakerNewSchedule(speaker, start, end);
-    }
+  public void giveSpeakerNewSchedule(Speaker speaker, Time start, Time end) {
+    vs.giveSpeakerNewSchedule(speaker, start, end);
+  }
 
-    public void delSpeakerSchedule(Speaker speaker, Time start, Time end){
-        vs.delSpeakerSchedule(speaker, start, end);
-    }
+  public void delSpeakerSchedule(Speaker speaker, Time start, Time end) {
+    vs.delSpeakerSchedule(speaker, start, end);
+  }
 
-    public boolean validateSpeaker(Speaker speaker, Time start, Time end){
-        return vs.validateSpeaker(speaker, start, end);
-    }
+  public boolean validateSpeaker(Speaker speaker, Time start, Time end) {
+    return vs.validateSpeaker(speaker, start, end);
+  }
 
-    public void addSpeaker(String SpeakerName, String Password, String phone, String email){
-        vs.addSpeaker(SpeakerName, Password, phone, email);
-    }
+  public void addSpeaker(String SpeakerName, String Password, String phone, String email) {
+    vs.addSpeaker(SpeakerName, Password, phone, email);
+  }
 
-    public HashMap<Speaker, ArrayList<Pair<Time, Time>>> getSpeakerSchedule(){
-        return vs.getSpeakerList();
-    }
+  public HashMap<Speaker, ArrayList<Pair<Time, Time>>> getSpeakerSchedule() {
+    return vs.getSpeakerList();
+  }
 
-    public Collection<Speaker> getSpeakers(){
-        return vs.getSpeakerList().keySet();
-    }
+  public Collection<Speaker> getSpeakers() {
+    return vs.getSpeakerList().keySet();
+  }
 }
