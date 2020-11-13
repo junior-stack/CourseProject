@@ -3,6 +3,7 @@ package Controller;
 import UseCase.UserAccountManager;
 
 public class UserAccountsController {
+  private UserAccountManager userAccountManager;
 
   public UserAccountsController(UserAccountManager userAccountManager) {
     this.userAccountManager = userAccountManager;

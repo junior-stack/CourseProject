@@ -68,7 +68,7 @@ public class EventManager {
     for (Event e : eventpool) {
       if (e.getId() == id) {
         eventpool.remove(e);
-        vr.del_room_schedule(event.getRoom(), event.getStartTime(), event.getEndTime());
+        vr.del_room_schedule(event.getRoomId(), event.getStartTime(), event.getEndTime());
         vs.delSpeakerSchedule(event.getSpeaker(), event.getStartTime(), event.getEndTime());
         return true;
       }

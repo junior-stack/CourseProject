@@ -9,14 +9,14 @@ public class Event {
   //之后改一个更好的办法编号
   private static int counter = 0;
   protected int speakerId;        //是否用protected?
-  private final int eventId;
+  private int eventId;
 
   private int organizerId;                 // OrganizerID  要给么event？再想想
   private int roomId;
   private Time startTime;
   private Time endTime;
   private String topic;
-  private final List<Integer> attendees = new ArrayList<>();
+  private List<Integer> attendees = new ArrayList<>();
   //private int remaining; // remaining 放Room 还是Event?
   // 做signup event 的人确认如何validate.
   // 要先在use case 里面checkuser在event 自己的时间内是否已经参加别的event..... 专门validater method
@@ -34,10 +34,6 @@ public class Event {
 
   public int getId() {
     return eventId;
-  }
-
-  public int getRoomId() {
-    return roomId;
   }
 
   public void setRoomId(int roomId) {
@@ -76,11 +72,11 @@ public class Event {
     this.attendees.add(attendee.getUserId());
   }
 
-  public int getRoom() {
+  public int getRoomId(){
     return roomId;
   }
 
-  public int getSpeaker() {
+  public int getSpeaker(){
     return speakerId;
   }
 
@@ -97,5 +93,7 @@ public class Event {
         ", attendees=" + attendees +
         '}';
   }
+
+
 }
 
