@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class ValidateSpeaker {
 
-  private HashMap<Speaker, ArrayList<Pair<Time, Time>>> speaker_list;
+  private HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list;
 
   public void addSpeaker(String SpeakerName, String Password, String phone, String email) {
 
@@ -24,9 +24,9 @@ public class ValidateSpeaker {
     if (!speaker_list.containsKey(speaker)) {
       return false;
     }
-    for (Pair<Time, Time> schedule : speaker_list.get(speaker)) {
-      Time start2 = schedule.getKey();
-      Time end2 = schedule.getValue();
+    for (ArrayList<Time> schedule : speaker_list.get(speaker)) {
+      Time start2 = schedule.get(0);
+      Time end2 = schedule.get(1);
       if ((start.compareTo(start2) >= 0 && start.compareTo(end2) < 0) | start.compareTo(end) >= 0 |
           (end.compareTo(start2) > 0 && end.compareTo(end2) <= 0)) {
         return false;
@@ -36,10 +36,12 @@ public class ValidateSpeaker {
   }
 
   public void giveSpeakerNewSchedule(Speaker speaker, Time start, Time end) {
-    Pair<Time, Time> temp = new Pair<>(start, end);
-    ArrayList<Pair<Time, Time>> temp1 = speaker_list.get(speaker);
+    ArrayList<Time> temp = new ArrayList<>();
+    temp.add(start);
+    temp.add(end);
+    ArrayList<ArrayList<Time>> temp1 = speaker_list.get(speaker);
     int indicator = 0;
-    for (Pair<Time, Time> time : temp1) {
+    for (ArrayList<Time> time : temp1) {
       if (time.equals(temp)) {
         indicator = 1;
         break;
@@ -51,11 +53,13 @@ public class ValidateSpeaker {
   }
 
   public boolean delSpeakerSchedule(Speaker speaker, Time start, Time end) {
-    Pair<Time, Time> p = new Pair<>(start, end);
+    ArrayList<Time> p = new ArrayList<>();
+    p.add(start);
+    p.add(end);
     if (!speaker_list.containsKey(speaker)) {
       return false;
     }
-    for (Pair<Time, Time> o : speaker_list.get(speaker)) {
+    for (ArrayList<Time> o : speaker_list.get(speaker)) {
       if (o.equals(p)) {
         speaker_list.get(speaker).remove(p);
         return true;
@@ -64,7 +68,7 @@ public class ValidateSpeaker {
     return false;
   }
 
-  public HashMap<Speaker, ArrayList<Pair<Time, Time>>> getSpeakerList() {
+  public HashMap<Speaker, ArrayList<ArrayList<Time>>> getSpeakerList() {
 
     return speaker_list;
 

@@ -33,7 +33,7 @@ public class SpeakerController {
     vs.addSpeaker(SpeakerName, Password, phone, email);
   }
 
-  public HashMap<Speaker, ArrayList<Pair<Time, Time>>> getSpeakerSchedule() {
+  public HashMap<Speaker, ArrayList<ArrayList<Time>>> getSpeakerSchedule() {
     return vs.getSpeakerList();
   }
 
