@@ -2,7 +2,6 @@ package UseCase;
 
 import Entity.Room;
 import Entity.Speaker;
-import javafx.util.Pair;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -52,17 +51,18 @@ public class ValidateSpeaker {
     }
   }
 
-  public boolean delSpeakerSchedule(Speaker speaker, Time start, Time end) {
+  public boolean delSpeakerSchedule(int speaker_ID, Time start, Time end) {
     ArrayList<Time> p = new ArrayList<>();
     p.add(start);
     p.add(end);
-    if (!speaker_list.containsKey(speaker)) {
-      return false;
-    }
-    for (ArrayList<Time> o : speaker_list.get(speaker)) {
-      if (o.equals(p)) {
-        speaker_list.get(speaker).remove(p);
-        return true;
+    for (Speaker sp: speaker_list.keySet()){
+      if(speaker_ID == sp.getUserId()){
+        for (ArrayList<Time> o : speaker_list.get(sp)) {
+          if (o.equals(p)) {
+            speaker_list.get(sp).remove(p);
+            return true;
+          }
+        }
       }
     }
     return false;
@@ -72,5 +72,17 @@ public class ValidateSpeaker {
 
     return speaker_list;
 
+  }
+
+  public Speaker get_sp(int sp_ID){
+    HashMap<Integer, Speaker> tmp = null;
+    try {
+      for (Speaker sp : this.getSpeakerList().keySet()) {
+        tmp.put(sp.getUserId(), sp);
+      }
+      return tmp.get(sp_ID);
+    }catch(NullPointerException e){
+      return new Speaker("", "", "", "");
+    }
   }
 }

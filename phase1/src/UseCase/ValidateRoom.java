@@ -9,6 +9,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -24,7 +25,7 @@ public class ValidateRoom implements Serializable {
   private static final Logger logger = Logger.getLogger(ValidateRoom.class.getName());
   private static final Handler handler = new ConsoleHandler();
 
-  public HashMap<Room, ArrayList<Pair<Time>>> get_rooms_list() {
+  public HashMap<Room, ArrayList<ArrayList<Time>>> get_rooms_list() {
     return rooms_list;
   }
 
@@ -59,26 +60,45 @@ public class ValidateRoom implements Serializable {
     rooms_list.get(rm).add(p);
   }
 
-  public boolean del_room_schedule(Room rm, Time start, Time end) {
+  public boolean del_room_schedule(int rm_ID, Time start, Time end) {
     ArrayList<Time> p = new ArrayList<>();
     p.add(start);
     p.add(end);
-    try {
-      if (!rooms_list.containsKey(rm)) {
-        return false;
-      }
-    } catch (IndexOutOfBoundsException e) {
-      e.printStackTrace();
-      return false;
-    }
-    for (ArrayList<Time> o : rooms_list.get(rm)) {
-      if (o.equals(p)) {
-        rooms_list.get(rm).remove(p);
-        return true;
+    for (Room r: rooms_list.keySet()){
+      if(rm_ID == r.getRoomId()){
+        for (ArrayList<Time> o : rooms_list.get(r)) {
+          if (o.equals(p)) {
+            rooms_list.get(r).remove(p);
+            return true;
+          }
+        }
       }
     }
     return false;
   }
+
+  public Room get_rm(int rm_ID){
+    HashMap<Integer, Room> tmp = null;
+    try {
+      for (Room rm : this.get_rooms_list().keySet()) {
+        tmp.put(rm.getRoomId(), rm);
+      }
+      return tmp.get(rm_ID);
+    }catch (NullPointerException e){
+      return new Room(0, 0);
+    }
+  }
+
+/*  public Room get_rm(int rm_ID){
+    Room r = null;
+    for(Room rm: this.get_rooms_list().keySet()){
+      if(rm.getRoomId() == rm_ID){
+        r = rm;
+        break;
+      }
+    }
+    return r;
+  }*/
 
 
 

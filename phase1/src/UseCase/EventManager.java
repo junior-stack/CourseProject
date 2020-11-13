@@ -10,35 +10,39 @@ import java.util.ArrayList;
 
 public class EventManager {
 
-  private ArrayList<Event> eventpool;
+  private static ArrayList<Event> eventpool;
 
-  public boolean checkIsEventValid(int EventID, Room rm, Time start, Time end, Speaker sp, ValidateRoom vr, ValidateSpeaker vs){
+  public boolean checkIsEventValid(Room rm, Time start, Time end, Speaker sp, ValidateRoom vr, ValidateSpeaker vs){
+    Time beggining = java.sql.Time.valueOf("09:00:00");
+    Time ending = java.sql.Time.valueOf("17:00:00");
 
 
 
-
-    if (diff > 3600000){return false;}
+    if (start.compareTo(beggining) < 0 && end.compareTo(ending) > 0){return false;}
 
     try {
-      if (vs.validateSpeaker(sp, start, end) && vr.validateRoom(rm, start, end) && (start.getHours() >=9
-      && start.getTime() <= 16 && end.getHours() <= 17 && end.getHours() >=10)){
+      if (vs.validateSpeaker(sp, start, end) && vr.validateRoom(rm, start, end)){
         return true;
       }
-    } catch (DoubleBooking | InvertedTime doubleBooking) {
+    } catch (DoubleBooking doubleBooking) {
+      System.out.println(doubleBooking.getMessage());
+      return false;
+    }catch(InvertedTime e){
+      System.out.println(e.getMessage());
       return false;
     }
     return false;
   }
 
-  public void addEvent(int EventID, Room rm, Time start, Time end, Speaker sp, String topic, ValidateRoom vr, ValidateSpeaker vs){
+  public void addEvent(Room rm, Time start, Time end, Speaker sp, String topic, ValidateRoom vr, ValidateSpeaker vs){
 
     Event event = new Event(rm.getRoomId(), start, end, topic);
 
     eventpool.add(event);
 
-    vr.del_room_schedule(rm, start, end);
+    vr.give_room_schedule(rm, start, end);
 
-    vs.validateSpeaker(sp, start, end);
+    vs.giveSpeakerNewSchedule(sp, start, end);
   }
 
   public boolean delEvent(Event event, ValidateRoom vr, ValidateSpeaker vs){
@@ -59,13 +63,21 @@ public class EventManager {
   public boolean editEvent(Event old, Room new_rm, Time start, Time end, String topic, Speaker new_sp, ValidateRoom vr, ValidateSpeaker vs){
 
     int id = old.getId();
+    Room old_rm;
+    Speaker old_sp;
 
     for (Event e : eventpool){
       if (e.getId() == id){
-        if (checkIsEventValid(old.getId(), new_rm, start, end, new_sp)){
-          delEvent(old, vr, vs);
-          addEvent(old.getRoomId(), new_rm, start, end, new_sp, topic, vr, vs);
+        delEvent(old,vr, vs);
+        if(this.checkIsEventValid(new_rm, start, end, new_sp, vr, vs)){
+          this.addEvent(new_rm, start, end, new_sp, topic, vr, vs);
           return true;
+        }
+        else{
+          old_rm = vr.get_rm(old.getRoomId());
+          old_sp = vs.get_sp(old.getSpeaker());
+          this.addEvent(old_rm, start, end, old_sp, topic, vr, vs);
+          return false;
         }
       }
     }
