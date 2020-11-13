@@ -3,7 +3,6 @@ package UseCase;
 import Entity.Room;
 import exception.DoubleBooking;
 import exception.InvertedTime;
-import javafx.util.Pair;
 
 import java.io.*;
 import java.sql.Time;
@@ -21,11 +20,11 @@ import java.util.logging.Logger;
 
 public class ValidateRoom implements Serializable {
 
-  private HashMap<Room, ArrayList<Pair<Time, Time>>> rooms_list;
+  private HashMap<Room, ArrayList<ArrayList<Time>>> rooms_list;
   private static final Logger logger = Logger.getLogger(ValidateRoom.class.getName());
   private static final Handler handler = new ConsoleHandler();
 
-  public HashMap<Room, ArrayList<Pair<Time, Time>>> get_rooms_list() {
+  public HashMap<Room, ArrayList<Pair<Time>>> get_rooms_list() {
     return rooms_list;
   }
 
@@ -39,9 +38,9 @@ public class ValidateRoom implements Serializable {
     if (!rooms_list.containsKey(rm)) {
       return false;
     }
-    for (Pair<Time, Time> schedule : rooms_list.get(rm)) {
-      Time start2 = schedule.getKey();
-      Time end2 = schedule.getValue();
+    for (ArrayList<Time> schedule : rooms_list.get(rm)) {
+      Time start2 = schedule.get(0);
+      Time end2 = schedule.get(1);
       if (start.compareTo(start2) >= 0 && start.compareTo(end2) < 0) {
         throw new exception.DoubleBooking(rm, schedule);
       } else if (start.compareTo(end) >= 0) {
@@ -54,12 +53,16 @@ public class ValidateRoom implements Serializable {
   }
 
   public void give_room_schedule(Room rm, Time start, Time end) {
-    Pair<Time, Time> p = new Pair<>(start, end);
+    ArrayList<Time> p = new ArrayList<>();
+    p.add(start);
+    p.add(end);
     rooms_list.get(rm).add(p);
   }
 
   public boolean del_room_schedule(Room rm, Time start, Time end) {
-    Pair<Time, Time> p = new Pair<>(start, end);
+    ArrayList<Time> p = new ArrayList<>();
+    p.add(start);
+    p.add(end);
     try {
       if (!rooms_list.containsKey(rm)) {
         return false;
@@ -68,7 +71,7 @@ public class ValidateRoom implements Serializable {
       e.printStackTrace();
       return false;
     }
-    for (Pair<Time, Time> o : rooms_list.get(rm)) {
+    for (ArrayList<Time> o : rooms_list.get(rm)) {
       if (o.equals(p)) {
         rooms_list.get(rm).remove(p);
         return true;
