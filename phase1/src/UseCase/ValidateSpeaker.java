@@ -1,16 +1,13 @@
 package UseCase;
 
-import Entity.Room;
 import Entity.Speaker;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
 
 public class ValidateSpeaker {
 
-  private HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list;
+  private static HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list = new HashMap<>();
 
   public void addSpeaker(String SpeakerName, String Password, String phone, String email) {
 
@@ -51,7 +48,7 @@ public class ValidateSpeaker {
     }
   }
 
-  public boolean delSpeakerSchedule(int speaker_ID, Time start, Time end) {
+  public void delSpeakerSchedule(int speaker_ID, Time start, Time end) {
     ArrayList<Time> p = new ArrayList<>();
     p.add(start);
     p.add(end);
@@ -60,12 +57,11 @@ public class ValidateSpeaker {
         for (ArrayList<Time> o : speaker_list.get(sp)) {
           if (o.equals(p)) {
             speaker_list.get(sp).remove(p);
-            return true;
+            return;
           }
         }
       }
     }
-    return false;
   }
 
   public HashMap<Speaker, ArrayList<ArrayList<Time>>> getSpeakerList() {
@@ -75,14 +71,15 @@ public class ValidateSpeaker {
   }
 
   public Speaker get_sp(int sp_ID){
-    HashMap<Integer, Speaker> tmp = null;
+    HashMap<Integer, Speaker> tmp = new HashMap<>();
     try {
       for (Speaker sp : this.getSpeakerList().keySet()) {
         tmp.put(sp.getUserId(), sp);
       }
       return tmp.get(sp_ID);
     }catch(NullPointerException e){
-      return new Speaker("", "", "", "");
+      System.out.println("There is no speaker in the system with that ID");
     }
+    return null;
   }
 }

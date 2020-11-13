@@ -1,15 +1,12 @@
 package UseCase;
 
 import Entity.Room;
-import exception.DoubleBooking;
 import exception.InvertedTime;
 
 import java.io.*;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
-import java.util.Set;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -21,7 +18,7 @@ import java.util.logging.Logger;
 
 public class ValidateRoom implements Serializable {
 
-  private HashMap<Room, ArrayList<ArrayList<Time>>> rooms_list;
+  private static HashMap<Room, ArrayList<ArrayList<Time>>> rooms_list = new HashMap<>();
   private static final Logger logger = Logger.getLogger(ValidateRoom.class.getName());
   private static final Handler handler = new ConsoleHandler();
 
@@ -60,7 +57,7 @@ public class ValidateRoom implements Serializable {
     rooms_list.get(rm).add(p);
   }
 
-  public boolean del_room_schedule(int rm_ID, Time start, Time end) {
+  public void del_room_schedule(int rm_ID, Time start, Time end) {
     ArrayList<Time> p = new ArrayList<>();
     p.add(start);
     p.add(end);
@@ -69,25 +66,26 @@ public class ValidateRoom implements Serializable {
         for (ArrayList<Time> o : rooms_list.get(r)) {
           if (o.equals(p)) {
             rooms_list.get(r).remove(p);
-            return true;
+            return;
           }
         }
       }
     }
-    return false;
   }
 
-  public Room get_rm(int rm_ID){
-    HashMap<Integer, Room> tmp = null;
+  public Room get_rm(int rm_ID) throws RuntimeException{
+    HashMap<Integer, Room> tmp = new HashMap<>();
     try {
       for (Room rm : this.get_rooms_list().keySet()) {
         tmp.put(rm.getRoomId(), rm);
       }
-      return tmp.get(rm_ID);
+
     }catch (NullPointerException e){
-      return new Room(0, 0);
+      System.out.println("There is no room inside the system with that room_ID");
     }
+    return tmp.get(rm_ID);
   }
+
 
 /*  public Room get_rm(int rm_ID){
     Room r = null;
@@ -118,7 +116,7 @@ public class ValidateRoom implements Serializable {
     }
 */
 
-  public static ValidateRoom readFromFile(String path) throws ClassNotFoundException {
+  /*public static ValidateRoom readFromFile(String path) throws ClassNotFoundException {
 
     try {
       InputStream file = new FileInputStream(path);
@@ -145,7 +143,7 @@ public class ValidateRoom implements Serializable {
     // serialize the Map
     output.writeObject(this); //students);
     output.close();
-  }
+  }*/
 }
 
 

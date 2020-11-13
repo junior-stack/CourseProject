@@ -22,7 +22,7 @@ public class SpeakerController {
   }
 
   public void delSpeakerSchedule(Speaker speaker, Time start, Time end) {
-    vs.delSpeakerSchedule(speaker, start, end);
+    vs.delSpeakerSchedule(speaker.getUserId(), start, end);
   }
 
   public boolean validateSpeaker(Speaker speaker, Time start, Time end) {

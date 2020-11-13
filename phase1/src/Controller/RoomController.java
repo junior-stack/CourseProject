@@ -41,7 +41,7 @@ public class RoomController {
         return vr.get_rooms_list().keySet();
     }
 
-    public HashMap<Room, ArrayList<Pair<Time, Time>>> get_rooms_schedule(){
+    public HashMap<Room, ArrayList<ArrayList<Time>>> get_rooms_schedule(){
         return vr.get_rooms_list();
     }
 }
