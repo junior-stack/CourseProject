@@ -76,6 +76,14 @@ public class Event {
     this.attendees.add(attendee.getUserId());
   }
 
+  public int getRoom(){
+    return roomId;
+  }
+
+  public int getSpeaker(){
+    return speakerId;
+  }
+
 
   @Override
   public String toString() {

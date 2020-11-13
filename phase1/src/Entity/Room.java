@@ -33,4 +33,17 @@ public class Room {
         ", capacity=" + capacity +
         '}';
   }
+
+  @Override
+  public boolean equals(Object other){
+    if(!(other instanceof Room)){
+      return false;
+    }
+    return this.getRoomId() == ((Room) other).getRoomId() && this.getCapacity() == ((Room) other).getCapacity();
+  }
+
+  @Override
+  public int hashCode(){
+    return this.getRoomId();
+  }
 }

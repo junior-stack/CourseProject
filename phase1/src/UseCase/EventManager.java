@@ -12,13 +12,10 @@ public class EventManager {
 
   private ArrayList<Event> eventpool;
 
-  public boolean checkIsEventValid(int EventID, Room rm, Time start, Time end, Speaker sp){
+  public boolean checkIsEventValid(int EventID, Room rm, Time start, Time end, Speaker sp, ValidateRoom vr, ValidateSpeaker vs){
 
-    ValidateSpeaker vs = new ValidateSpeaker();
 
-    ValidateRoom vr = new ValidateRoom();
 
-    long diff = end.getTime() - start.getTime();
 
     if (diff > 3600000){return false;}
 
