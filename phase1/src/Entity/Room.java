@@ -35,15 +35,16 @@ public class Room {
   }
 
   @Override
-  public boolean equals(Object other){
-    if(!(other instanceof Room)){
+  public boolean equals(Object other) {
+    if (!(other instanceof Room)) {
       return false;
     }
-    return this.getRoomId() == ((Room) other).getRoomId() && this.getCapacity() == ((Room) other).getCapacity();
+    return this.getRoomId() == ((Room) other).getRoomId() && this.getCapacity() == ((Room) other)
+        .getCapacity();
   }
 
   @Override
-  public int hashCode(){
+  public int hashCode() {
     return this.getRoomId();
   }
 }

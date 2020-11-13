@@ -2,8 +2,6 @@ package Controller;
 
 import Entity.Speaker;
 import UseCase.ValidateSpeaker;
-import javafx.util.Pair;
-
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collection;

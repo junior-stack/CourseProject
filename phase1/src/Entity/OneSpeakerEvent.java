@@ -1,8 +1,6 @@
 package Entity;
 
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.List;
 
 public class OneSpeakerEvent extends Event {
 

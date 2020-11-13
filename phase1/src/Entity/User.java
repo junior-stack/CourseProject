@@ -12,13 +12,13 @@ public abstract class User implements Serializable {
   private static int counter = 0;
   protected String identity;
 
-  private int userId;
+  private final int userId;
   private String username;
   private String password;
   private String phone;
   private String email;
-  private List<Integer> events;
-  private Map<User, List<String>> chatHistory;   //确认一下java hashmap 的key 可以mutable?
+  private final List<Integer> events;
+  private final Map<User, List<String>> chatHistory;   //确认一下java hashmap 的key 可以mutable?
   //做messenge 功能的人确认什么样子的attributes 好做、
 
 

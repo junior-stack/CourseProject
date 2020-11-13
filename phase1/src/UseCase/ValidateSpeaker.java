@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class ValidateSpeaker {
 
-  private static HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list = new HashMap<>();
+  private static final HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list = new HashMap<>();
 
   public void addSpeaker(String SpeakerName, String Password, String phone, String email) {
 
@@ -52,8 +52,8 @@ public class ValidateSpeaker {
     ArrayList<Time> p = new ArrayList<>();
     p.add(start);
     p.add(end);
-    for (Speaker sp: speaker_list.keySet()){
-      if(speaker_ID == sp.getUserId()){
+    for (Speaker sp : speaker_list.keySet()) {
+      if (speaker_ID == sp.getUserId()) {
         for (ArrayList<Time> o : speaker_list.get(sp)) {
           if (o.equals(p)) {
             speaker_list.get(sp).remove(p);
@@ -70,14 +70,14 @@ public class ValidateSpeaker {
 
   }
 
-  public Speaker get_sp(int sp_ID){
+  public Speaker get_sp(int sp_ID) {
     HashMap<Integer, Speaker> tmp = new HashMap<>();
     try {
       for (Speaker sp : this.getSpeakerList().keySet()) {
         tmp.put(sp.getUserId(), sp);
       }
       return tmp.get(sp_ID);
-    }catch(NullPointerException e){
+    } catch (NullPointerException e) {
       System.out.println("There is no speaker in the system with that ID");
     }
     return null;
