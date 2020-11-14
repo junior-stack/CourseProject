@@ -110,7 +110,7 @@ public class UserAccountManager {
         return emailCollection;
     }
     public String getUserInfo (String email){
-        for (User i: userList){if (i.getEmail()==(email)){return i.toString();}}
+        for (User i: userList){if (i.getEmail().equals(email)){return i.toString();}}
         return "User does not exist";
     }
 
