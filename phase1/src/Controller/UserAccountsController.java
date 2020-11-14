@@ -16,10 +16,11 @@ public class UserAccountsController {
   }
 
   public boolean create(String identity, String username, String password, String phone, String email) {
-    if (String identity = "Attendee";){
+    if (identity.equals("Attendee")){
       return userAccountManager.createAttendee(username, password, phone, email); }
-    if (String identity = "Speaker";){
-      return speakerAccountManager.createSpeaker((username, password, phone, email); }
+    if (identity.equals("Speaker")){
+      return speakerAccountManager.createSpeaker(username, password, phone, email); }
+    return false;
   }
 
   public boolean exist(String email){
