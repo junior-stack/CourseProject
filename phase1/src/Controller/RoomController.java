@@ -19,19 +19,11 @@ public class RoomController {
     this.vr = vr;
   }
 
-  public void confirmaddroom() {
-    Scanner keyboard = new Scanner(System.in);
-    System.out.println("enter an integer");
-    int roomID = keyboard.nextInt();
-    System.out.println("enter room capacity");
-    String capacity = keyboard.nextLine();
+  public void confirmaddroom(int roomID, String capacity) {
     vr.addRoom(roomID, capacity);
   }
 
-  public boolean confirmdeleteroom() {
-    Scanner keyboard = new Scanner(System.in);
-    System.out.println("enter an integer");
-    int roomID = keyboard.nextInt();
+  public boolean confirmdeleteroom(int roomID) {
     for (Room o : vr.get_rooms_list().keySet()) {
       if (o.getRoomId() == roomID) {
         if (vr.get_rooms_list().get(o).isEmpty()) {

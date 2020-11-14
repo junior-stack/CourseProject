@@ -57,7 +57,6 @@ public class ValidateSpeaker {
         for (ArrayList<Time> o : speaker_list.get(sp)) {
           if (o.equals(p)) {
             speaker_list.get(sp).remove(p);
-            return;
           }
         }
       }
