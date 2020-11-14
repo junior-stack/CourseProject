@@ -16,12 +16,12 @@ import java.util.logging.Logger;
 
 public class ValidateRoom implements Serializable {
 
-  private static HashMap<Room, ArrayList<ArrayList<Time>>> rooms_list;
+  public static HashMap<Room, ArrayList<ArrayList<Time>>> rooms_list;
   private static final Logger logger = Logger.getLogger(ValidateRoom.class.getName());
   private static final Handler handler = new ConsoleHandler();
 
   public ValidateRoom(HashMap<Room, ArrayList<ArrayList<Time>>> room_list){
-    this.rooms_list = room_list;
+    ValidateRoom.rooms_list = room_list;
   }
 
   public HashMap<Room, ArrayList<ArrayList<Time>>> get_rooms_list() {
