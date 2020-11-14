@@ -22,8 +22,6 @@ public class UserAccountsController {
       return speakerAccountManager.createSpeaker((username, password, phone, email); }
   }
 
-}
-
   public boolean exist(String email){
     return userAccountManager.existingUser(email);
   }
