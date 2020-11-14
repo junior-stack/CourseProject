@@ -24,7 +24,7 @@ public class ValidateRoom implements Serializable {
     return rooms_list;
   }
 
-  public void addRoom(int roomID, int capacity) {
+  public void addRoom(int roomID, String capacity) {
     Room rm = new Room(roomID, capacity);
     rooms_list.put(rm, new ArrayList<>());
   }
