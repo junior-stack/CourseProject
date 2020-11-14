@@ -1,0 +1,96 @@
+package Controller;
+
+import Entity.Event;
+import Entity.Room;
+import Entity.Speaker;
+import UseCase.EventManager;
+import UseCase.ValidateRoom;
+import UseCase.ValidateSpeaker;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Set;
+
+public class ScheduleFasce {
+
+  private EventController ec;
+  private SpeakerController sc;
+  private RoomController rc;
+
+  public ScheduleFasce(String email){
+    HashMap<Room, ArrayList<ArrayList<Time>>> rooms_list = new HashMap<>();
+    HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list = new HashMap<>();
+    ValidateRoom vr = new ValidateRoom(rooms_list);
+    rc = new RoomController(vr);
+    ValidateSpeaker vs = new ValidateSpeaker(speaker_list);
+    sc = new SpeakerController(vs);
+    EventManager em = new EventManager(vr, vs);
+    ec = new EventController(em);
+  }
+
+  // EventController
+  public boolean ConfirmAddEvent(int rm_ID, String start, String end, int speaker_ID,
+      String topic){
+    return ec.ConfirmAddEvent(rm_ID, start, end, speaker_ID, topic);
+  }
+
+  public boolean ConfirmDeleteEvent(int eventID){
+    return ec.ConfirmDeleteEvent(eventID);
+  }
+
+  public boolean ConfirmEditEvent(int old_event_ID, int new_room_ID, String st, String en,
+      String topic, int sp_ID){
+    return ec.ConfirmEditEvent(old_event_ID, new_room_ID, st, en, topic, sp_ID);
+  }
+
+  public HashMap<Integer, Event> ShowAllEvents() {
+
+    return ec.ShowAllEvents();
+  }
+
+  public Event get_single_event(int event_ID) {
+
+    return ec.get_single_event(event_ID);
+  }
+
+  // SpeakerController
+  public void delSpeakerSchedule(int speakerID, Time start, Time end) {
+
+    sc.delSpeakerSchedule(speakerID, start, end);
+  }
+
+  public void addSpeaker(String SpeakerName, String Password, String phone, String email) {
+
+    sc.addSpeaker(SpeakerName, Password, phone, email);
+  }
+
+  public HashMap<Speaker, ArrayList<ArrayList<Time>>> getSpeakerSchedule() {
+    return sc.getSpeakerSchedule();
+  }
+
+  public Collection<Speaker> getSpeakers() {
+
+    return sc.getSpeakers();
+  }
+
+
+  // RoomController
+  public void confirmaddroom(int roomID, int capacity) {
+    rc.confirmaddroom(roomID, capacity);
+  }
+
+  public boolean confirmdeleteroom(int roomID) {
+    return rc.confirmdeleteroom(roomID);
+  }
+
+  public Set<Room> get_rooms() {
+
+    return rc.get_rooms();
+  }
+
+  public HashMap<Room, ArrayList<ArrayList<Time>>> get_rooms_schedule() {
+    return get_rooms_schedule();
+  }
+
+}

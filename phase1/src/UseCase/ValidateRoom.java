@@ -16,15 +16,19 @@ import java.util.logging.Logger;
 
 public class ValidateRoom implements Serializable {
 
-  private static final HashMap<Room, ArrayList<ArrayList<Time>>> rooms_list = new HashMap<>();
+  public static HashMap<Room, ArrayList<ArrayList<Time>>> rooms_list;
   private static final Logger logger = Logger.getLogger(ValidateRoom.class.getName());
   private static final Handler handler = new ConsoleHandler();
+
+  public ValidateRoom(HashMap<Room, ArrayList<ArrayList<Time>>> room_list){
+    ValidateRoom.rooms_list = room_list;
+  }
 
   public HashMap<Room, ArrayList<ArrayList<Time>>> get_rooms_list() {
     return rooms_list;
   }
 
-  public void addRoom(int roomID, String capacity) {
+  public void addRoom(int roomID, int capacity) {
     Room rm = new Room(roomID, capacity);
     rooms_list.put(rm, new ArrayList<>());
   }

@@ -8,7 +8,7 @@ import java.util.Map;
 
 public abstract class User implements Serializable {
 
-    //之后改一个更好的办法编号 , hashcode? 或是constructor factory？
+    //之后改一个更好的办法编号 , hashcode? 或是constructor factory？(我们觉着这样最简洁直观，改id没有太大必要）
     private static int counter = 0;
     protected String identity;
 
@@ -86,21 +86,17 @@ public abstract class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                ", Identity=" + identity +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", events=" + events +
-                '}';
+            "userId=" + userId +
+            ", username='" + username + '\'' +
+            ", password='" + password + '\'' +
+            ", phone='" + phone + '\'' +
+            ", email='" + email + '\'' +
+            ", events=" + events +
+            ", Identity=" + identity +
+            '}';
     }
-    @Override
-    public abstract boolean equals(Object other);
-    @Override
-    public int hashCode() {
-        return this.getUserId();
-    }
+
+
 }
 
 

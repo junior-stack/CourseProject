@@ -19,7 +19,7 @@ public class RoomController {
     this.vr = vr;
   }
 
-  public void confirmaddroom(int roomID, String capacity) {
+  public void confirmaddroom(int roomID, int capacity) {
     vr.addRoom(roomID, capacity);
   }
 
