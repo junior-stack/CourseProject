@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 public class EventManager {
 
-  private static final ArrayList<Event> eventpool = new ArrayList<>();
+  public static final ArrayList<Event> eventpool = new ArrayList<>();
   private final ValidateRoom vr;
   private final ValidateSpeaker vs;
 
