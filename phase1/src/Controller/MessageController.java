@@ -13,14 +13,19 @@ import java.util.Map;
 public class MessageController {
 
   private final MessageManager mm;
-  private final User user;
+  private User user;
   private final String userType;
   private final Map<String, String> emailToIdentity = new HashMap<>();
 
-  public MessageController(User u) {
-    user = u;
+  public MessageController(String email) {
+    List<User> users = UserAccountManager.userList;
+    for (User u : users){
+      if (u.getEmail().equals(email)){
+        user = u;}
+    }
     mm = new MessageManager();
-    userType = u.getIdentity();
+    assert user != null;
+    userType = user.getIdentity();
     List<User> userList = UserAccountManager.userList;
     for (User user : userList) {
       emailToIdentity.put(user.getEmail(), user.getIdentity());
