@@ -1,49 +1,50 @@
 package Controller;
 
-import Entity.Organizer;
-import Entity.Speaker;
-import Entity.User;
+
+import Gateway.Igateway;
+import Gateway.InitializeOrganizers;
+import Gateway.UserDataAccess;
+import Presenter.LoginPresenter;
 import UseCase.OrganizerAccountManager;
 import UseCase.SpeakerAccountManager;
 import UseCase.UserAccountManager;
-import org.w3c.dom.ls.LSException;
-import org.w3c.dom.ls.LSInput;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class RegisterLoginFacade {
-  private static UserAccountsController userAccountsController;
-  private static SpeakerAccountManager speakerAccountManager;
-  private static OrganizerAccountManager organizerAccountManager;
+  private UserAccountsController uac;
+  private SpeakerAccountManager sam;
+  private OrganizerAccountManager oam;
+  private LoginPresenter lp;
+  private UserAccountManager uam;
 
-  public RegisterLoginFacade(UserAccountsController userAccountsController,
-      SpeakerAccountManager speakerAccountManager,
-      OrganizerAccountManager organizerAccountManager){
+  private InitializeOrganizers io = new InitializeOrganizers();
+  private Igateway ig = new UserDataAccess();
+
+  public RegisterLoginFacade(){
+    ArrayList users = ig.read();
+    oam = new OrganizerAccountManager();
+    List newOrganizer = oam.getOrganizerList(io.initialize());
+    if (newOrganizer !=null) {users.addAll(newOrganizer);}
 
 
-    List<User> userList = userAccountsController.getUserAccountManager().getUserList();
-    List<User> speakerList = speakerAccountManager.getSpeakerList();
-    List<User> organizerList = organizerAccountManager.getOrganizerList();
+    sam = new SpeakerAccountManager()
 
-    List<String> emails = userAccountsController.getUserAccountManager().getAllEmails();
-
-    for (User organizer : organizerList){
-      if (!emails.contains(organizer.getEmail())){
-        userList.add(organizer);
-        emails.add(organizer.getEmail());
-      }
-
-      for (User speaker : speakerList){
-        if (!emails.contains(speaker.getEmail())){
-          userList.add(speaker);
-          emails.add(speaker.getEmail());
-        }
-      }
-    }
 
   }
 
 
+
+
+  }
+
+
+
+
+
+  public RegisterLoginFacade(U
 
 
 

@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class UserDataAccess {
+public class UserDataAccess implements Igateway {
 
-    public void write(List users) {
+    @Override
+    public void write(List list) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream("data/UserAccounts");
             ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream);
-            outputStream.writeObject(users);
+            outputStream.writeObject(list);
             outputStream.close();
             fileOutputStream.close();
             System.out.println("Data has been saved to database");
@@ -21,6 +22,7 @@ public class UserDataAccess {
     }
 
 
+    @Override
     public ArrayList read() {
         ArrayList users = new ArrayList();
 

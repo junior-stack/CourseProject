@@ -10,20 +10,21 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
-public class ScheduleFasce {
+public class ScheduleFacade {
 
   private EventController ec;
   private SpeakerController sc;
   private RoomController rc;
+  private EventManager em;
 
-  public ScheduleFasce(String email){
+  public ScheduleFacade(String email){
     HashMap<Room, ArrayList<ArrayList<Time>>> rooms_list = new HashMap<>();
     HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list = new HashMap<>();
     ValidateRoom vr = new ValidateRoom(rooms_list);
     rc = new RoomController(vr);
     ValidateSpeaker vs = new ValidateSpeaker(speaker_list);
     sc = new SpeakerController(vs);
-    EventManager em = new EventManager(vr, vs);
+    em = new EventManager(vr, vs,);
     ec = new EventController(em);
   }
 

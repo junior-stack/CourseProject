@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class MessageController {
 
-  private final MessageManager mm;
+  private MessageManager mm;
 
   public MessageController(String email) {
     mm = new MessageManager(email);

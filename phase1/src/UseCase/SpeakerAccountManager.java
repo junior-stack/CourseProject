@@ -3,15 +3,19 @@ package UseCase;
 import Entity.Speaker;
 import Entity.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
 public class SpeakerAccountManager {
-  public static List<User> speakerList;
 
-  public SpeakerAccountManager(List<User> speakerList){SpeakerAccountManager.speakerList = speakerList;}
+  private static List<Speaker> speakerList=new ArrayList<>();
 
-  public List<User> getSpeakerList() {
+  public SpeakerAccountManager(List<Speaker> speakerList) {
+    if (speakerList!=null && speakerList.size()>0) {SpeakerAccountManager.speakerList.addAll(speakerList);}
+  }
+
+  public List<Speaker> getSpeakerList() {
     return speakerList;}
 
   public boolean createSpeaker(String username, String password, String phone, String email){
@@ -26,7 +30,6 @@ public class SpeakerAccountManager {
     System.out.println("The Speaker account has been successfully created");
     return true;
   }
-
 
   private boolean isValidEmail(String email){
     // Create a regular expression format for a valid email
@@ -47,18 +50,17 @@ public class SpeakerAccountManager {
   }
 
   private boolean isValidPhone(String phone) {
-    return phone.matches("[0-9]+");
+    return phone.matches("^\\(?([0-9]{3})\\)?[-]?([0-9]{3})[-]?([0-9]{4})$");
   }
 
-
-  public boolean verifySpeaker(String email, String password) {
-    for (User i : speakerList) {
-      if ((i.getEmail().equals(email)) && i.getPassword().equals(password)) {
-        System.out.println("The speaker account has been successfully created");
-        return true; }
+  public List helperfilterspeaker(List list) {
+    ArrayList speakers = new ArrayList();
+    if (list != null && list.size() > 0) {
+      for (i:list) {
+      }
     }
-    System.out.println("The speaker account can't be successfully created");
-    return false;
-  }
+    return speakers;
 
+
+  }
 }

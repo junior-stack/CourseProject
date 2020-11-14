@@ -17,9 +17,10 @@ import java.util.logging.Logger;
  * Created by yezhou on 2020/11/12
  **/
 
-public class ValidateRoom implements Serializable {
+public class ValidateRoom {
 
   public static HashMap<Room, HashMap<ArrayList<Time>, Integer>> rooms_list;
+
   private static final Logger logger = Logger.getLogger(ValidateRoom.class.getName());
   private static final Handler handler = new ConsoleHandler();
 
