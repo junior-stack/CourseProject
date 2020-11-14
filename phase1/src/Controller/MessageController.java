@@ -27,18 +27,36 @@ public class MessageController {
     }
   }
 
+  // generate all user 可以单发的emails
+  public List<String> generateEmail(){
+    List<String> lst = new ArrayList<>();
+    for (String e : emailToIdentity.keySet()){
+      if (userType.equals("Attendee")) {
+        if (emailToIdentity.get(e).equals("Attendee")) {
+          lst.add(e);}
+      } else if (userType.equals("Organizer")){
+        if (emailToIdentity.get(e).equals("Attendee") || emailToIdentity.get(e).equals("Speaker")) {
+          lst.add(e); }
+      } else {
+        lst.addAll(MessageManager.messageStorage.get(user.getEmail()).keySet());
+      }
+    }
+    return lst;
+  }
+
+
   // String message, String mode: 单发/群发
   public boolean sendMessage(String mode, String message, String email, String targetIdentity,
       List<Integer> eventIds) {
     if (mode.equals("single")) {
-      if (user.getIdentity().equals("Attendee") || (user.getIdentity().equals("Organizer"))) {
+      if (userType.equals("Attendee") || (userType.equals("Organizer"))) {
         return attendeeOrganizerSingleMessage(email, message);
       }
       return speakerRespondMessage(email, message);
     } else {
-      if (user.getIdentity().equals("Attendee")) {
+      if (userType.equals("Attendee")) {
         return false;
-      } else if (user.getIdentity().equals("Organizer")) {
+      } else if (userType.equals("Organizer")) {
         return organizerMultipleMessage(targetIdentity, message);
       } else {
         return speakerMultipleMessage(eventIds, message);
