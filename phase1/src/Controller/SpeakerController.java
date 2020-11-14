@@ -14,8 +14,8 @@ public class SpeakerController {
 
   private ValidateSpeaker vs;
 
-  public SpeakerController() {
-    ValidateSpeaker vs = new ValidateSpeaker();
+  public SpeakerController(ValidateSpeaker vs) {
+    this.vs = vs;
   }
 
   public void delSpeakerSchedule(int speakerID, Time start, Time end) {

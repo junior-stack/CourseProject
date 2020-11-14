@@ -7,7 +7,11 @@ import java.util.HashMap;
 
 public class ValidateSpeaker {
 
-  private static final HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list = new HashMap<>();
+  private static HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list;
+
+  public ValidateSpeaker(HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list){
+    this.speaker_list = speaker_list;
+  }
 
   public void addSpeaker(String SpeakerName, String Password, String phone, String email) {
 
