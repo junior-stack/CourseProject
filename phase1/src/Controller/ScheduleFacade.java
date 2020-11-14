@@ -1,6 +1,8 @@
 package Controller;
 
 
+import Entity.Room;
+import Entity.Speaker;
 import UseCase.EventManager;
 import UseCase.ValidateRoom;
 import UseCase.ValidateSpeaker;

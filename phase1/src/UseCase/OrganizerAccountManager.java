@@ -36,5 +36,14 @@ public class OrganizerAccountManager {
     public List<User> getOrganizerList(List<String> organizers) {
         return organizerList;
     }
+    public List filterexistingspeaker(List<User>list) {
+        ArrayList speakers = new ArrayList();
+        if (list != null && list.size() > 0) {
+            for (User i:list){if (i.getIdentity().equals("Speaker")){speakers.add(i);}
+            }
+        }
+        return speakers;
+
+    }
 
 }

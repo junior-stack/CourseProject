@@ -11,6 +11,8 @@ public class SpeakerAccountManager {
 
   private static List<Speaker> speakerList=new ArrayList<>();
 
+  public SpeakerAccountManager() {}
+
   public SpeakerAccountManager(List<Speaker> speakerList) {
     if (speakerList!=null && speakerList.size()>0) {SpeakerAccountManager.speakerList.addAll(speakerList);}
   }
@@ -53,14 +55,13 @@ public class SpeakerAccountManager {
     return phone.matches("^\\(?([0-9]{3})\\)?[-]?([0-9]{3})[-]?([0-9]{4})$");
   }
 
-  public List helperfilterspeaker(List list) {
+  public List filterexistingspeaker(List<User>list) {
     ArrayList speakers = new ArrayList();
     if (list != null && list.size() > 0) {
-      for (i:list) {
+      for (User i:list){if (i.getIdentity().equals("Speaker")){speakers.add(i);}
       }
     }
     return speakers;
-
 
   }
 }

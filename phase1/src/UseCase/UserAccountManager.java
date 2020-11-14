@@ -15,8 +15,13 @@ public class UserAccountManager {
 
     public static List<User> userList;
 
+
     public UserAccountManager(List<User> userList) {
+
         UserAccountManager.userList = userList;
+        SpeakerAccountManager sam = new SpeakerAccountManager();
+        userList.addAll(sam.getSpeakerList());
+
     }
 
     public boolean createAttendee(String username, String password, String phone, String email) {
