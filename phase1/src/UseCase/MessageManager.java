@@ -9,12 +9,13 @@ import java.util.Map;
 
 public class MessageManager {
 
-  public static Map<String, Map<String, List<String>>> messageStorage = new HashMap<>();
+  public static Map<String, Map<String, List<String>>> messageStorage;
+
   private User user;
   private final String userType;
   private final Map<String, String> emailToIdentity = new HashMap<>();
 
-  public MessageManager(String email){
+  public MessageManager(String email,messageStorage){
     List<User> users = UserAccountManager.userList;
     for (User u : users){
       if (u.getEmail().equals(email)){

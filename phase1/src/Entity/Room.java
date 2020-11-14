@@ -1,6 +1,8 @@
 package Entity;
 
-public class Room {
+import java.io.Serializable;
+
+public class Room implements Serializable {
 
   final int roomId;
   private int capacity;

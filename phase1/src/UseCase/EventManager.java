@@ -11,13 +11,15 @@ import java.util.HashMap;
 
 public class EventManager {
 
-  public static final ArrayList<Event> eventpool = new ArrayList<>();
-  private final ValidateRoom vr;
-  private final ValidateSpeaker vs;
+  public static ArrayList<Event> eventpool;
 
-  public EventManager(ValidateRoom vr, ValidateSpeaker vs) {
+  private ValidateRoom vr;
+  private ValidateSpeaker vs;
+
+  public EventManager(ValidateRoom vr, ValidateSpeaker vs,ArrayList<Event> eventpool ) {
     this.vr = vr;
     this.vs = vs;
+    EventManager.eventpool=eventpool;
   }
 
   public ValidateRoom get_vr() {

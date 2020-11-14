@@ -1,10 +1,11 @@
 package Entity;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Event {
+public class Event implements Serializable {
 
   //之后改一个更好的办法编号
   private static int counter = 0;
