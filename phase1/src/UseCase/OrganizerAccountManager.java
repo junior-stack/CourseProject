@@ -32,8 +32,12 @@ public class OrganizerAccountManager {
     return false;
   }
 
-  public List<User> getOrganizerList(List<String> organizers) {
+  public List<User> loadOrganizerList(List<String> organizers) {
     createOrganizer(organizers);
+    return organizerList;
+  }
+
+  public List<User> getOrganizerList() {
     return organizerList;
   }
 
