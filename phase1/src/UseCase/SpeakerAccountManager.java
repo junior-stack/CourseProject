@@ -55,13 +55,4 @@ public class SpeakerAccountManager {
     return phone.matches("^\\(?([0-9]{3})\\)?[-]?([0-9]{3})[-]?([0-9]{4})$");
   }
 
-  public List filterexistingspeaker(List<User>list) {
-    ArrayList speakers = new ArrayList();
-    if (list != null && list.size() > 0) {
-      for (User i:list){if (i.getIdentity().equals("Speaker")){speakers.add(i);}
-      }
-    }
-    return speakers;
-
-  }
 }

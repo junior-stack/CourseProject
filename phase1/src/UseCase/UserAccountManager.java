@@ -25,6 +25,8 @@ public class UserAccountManager {
     }
 
     public boolean createAttendee(String username, String password, String phone, String email) {
+        if(existingUser(email)){System.out.println("Please choose different email");}
+
         if (!this.isValidEmail(email)) {
             System.out.println("The email address is invalid");
             return false;
