@@ -2,14 +2,12 @@ package UseCase;
 
 import Entity.Room;
 import exception.InvertedTime;
-
-import java.io.*;
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -18,7 +16,7 @@ import java.util.logging.Logger;
 
 public class ValidateRoom implements Serializable {
 
-  private static HashMap<Room, ArrayList<ArrayList<Time>>> rooms_list = new HashMap<>();
+  private static final HashMap<Room, ArrayList<ArrayList<Time>>> rooms_list = new HashMap<>();
   private static final Logger logger = Logger.getLogger(ValidateRoom.class.getName());
   private static final Handler handler = new ConsoleHandler();
 
@@ -26,7 +24,7 @@ public class ValidateRoom implements Serializable {
     return rooms_list;
   }
 
-  public void addRoom(int roomID, int capacity) {
+  public void addRoom(int roomID, String capacity) {
     Room rm = new Room(roomID, capacity);
     rooms_list.put(rm, new ArrayList<>());
   }
@@ -61,8 +59,8 @@ public class ValidateRoom implements Serializable {
     ArrayList<Time> p = new ArrayList<>();
     p.add(start);
     p.add(end);
-    for (Room r: rooms_list.keySet()){
-      if(rm_ID == r.getRoomId()){
+    for (Room r : rooms_list.keySet()) {
+      if (rm_ID == r.getRoomId()) {
         for (ArrayList<Time> o : rooms_list.get(r)) {
           if (o.equals(p)) {
             rooms_list.get(r).remove(p);
@@ -73,14 +71,14 @@ public class ValidateRoom implements Serializable {
     }
   }
 
-  public Room get_rm(int rm_ID) throws RuntimeException{
+  public Room get_rm(int rm_ID) throws RuntimeException {
     HashMap<Integer, Room> tmp = new HashMap<>();
     try {
       for (Room rm : this.get_rooms_list().keySet()) {
         tmp.put(rm.getRoomId(), rm);
       }
 
-    }catch (NullPointerException e){
+    } catch (NullPointerException e) {
       System.out.println("There is no room inside the system with that room_ID");
     }
     return tmp.get(rm_ID);

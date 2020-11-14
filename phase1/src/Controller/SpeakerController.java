@@ -1,13 +1,14 @@
 package Controller;
 
+import Entity.Room;
 import Entity.Speaker;
+import UseCase.ValidateRoom;
 import UseCase.ValidateSpeaker;
-import javafx.util.Pair;
-
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class SpeakerController {
 
@@ -17,19 +18,13 @@ public class SpeakerController {
     ValidateSpeaker vs = new ValidateSpeaker();
   }
 
-  public void giveSpeakerNewSchedule(Speaker speaker, Time start, Time end) {
-    vs.giveSpeakerNewSchedule(speaker, start, end);
-  }
+  public void delSpeakerSchedule(int speakerID, Time start, Time end) {
 
-  public void delSpeakerSchedule(Speaker speaker, Time start, Time end) {
-    vs.delSpeakerSchedule(speaker.getUserId(), start, end);
-  }
-
-  public boolean validateSpeaker(Speaker speaker, Time start, Time end) {
-    return vs.validateSpeaker(speaker, start, end);
+    vs.delSpeakerSchedule(speakerID, start, end);
   }
 
   public void addSpeaker(String SpeakerName, String Password, String phone, String email) {
+
     vs.addSpeaker(SpeakerName, Password, phone, email);
   }
 

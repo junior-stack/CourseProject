@@ -36,10 +36,6 @@ public class Event {
     return eventId;
   }
 
-  public int getRoomId() {
-    return roomId;
-  }
-
   public void setRoomId(int roomId) {
     this.roomId = roomId;
   }
@@ -76,7 +72,7 @@ public class Event {
     this.attendees.add(attendee.getUserId());
   }
 
-  public int getRoom(){
+  public int getRoomId(){
     return roomId;
   }
 
@@ -97,5 +93,7 @@ public class Event {
         ", attendees=" + attendees +
         '}';
   }
+
+
 }
 
