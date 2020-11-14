@@ -120,5 +120,13 @@ public class EventManager {
     }
     return events;
   }
+
+  public HashMap<Integer, String> get_events_info(){
+    HashMap<Integer, String> events_info = new HashMap<>();
+    for(Event e: eventpool){
+      events_info.put(e.getId(), e.toString());
+    }
+    return events_info;
+  }
 }
 

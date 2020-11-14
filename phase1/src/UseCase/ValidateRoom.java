@@ -24,8 +24,16 @@ public class ValidateRoom implements Serializable {
     ValidateRoom.rooms_list = room_list;
   }
 
-  public HashMap<Room, ArrayList<ArrayList<Time>>> get_rooms_list() {
+  public HashMap<Room, ArrayList<ArrayList<Time>>> get_rooms_list(){
     return rooms_list;
+  }
+
+  public HashMap<Integer, ArrayList<ArrayList<Time>>> get_rooms_schedule() {
+    HashMap<Integer, ArrayList<ArrayList<Time>>> tmp = new HashMap<>();
+    for(Room rm: rooms_list.keySet()){
+      tmp.put(rm.getRoomId(), rooms_list.get(rm));
+    }
+    return tmp;
   }
 
   public void addRoom(int roomID, int capacity) {
@@ -86,6 +94,18 @@ public class ValidateRoom implements Serializable {
       System.out.println("There is no room inside the system with that room_ID");
     }
     return tmp.get(rm_ID);
+  }
+
+  public HashMap<Integer, String> get_rms_info(){
+    HashMap<Integer, String> tmp = new HashMap<>();
+    for (Room rm : this.get_rooms_list().keySet()) {
+      tmp.put(rm.getRoomId(), rm.toString());
+    }
+    return tmp;
+  }
+
+  public void deleteRoom(Room rm){
+    rooms_list.remove(rm);
   }
 
 

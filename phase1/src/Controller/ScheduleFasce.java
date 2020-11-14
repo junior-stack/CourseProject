@@ -1,8 +1,6 @@
 package Controller;
 
-import Entity.Event;
-import Entity.Room;
-import Entity.Speaker;
+
 import UseCase.EventManager;
 import UseCase.ValidateRoom;
 import UseCase.ValidateSpeaker;
@@ -44,12 +42,12 @@ public class ScheduleFasce {
     return ec.ConfirmEditEvent(old_event_ID, new_room_ID, st, en, topic, sp_ID);
   }
 
-  public HashMap<Integer, Event> ShowAllEvents() {
+  public HashMap<Integer, String> ShowAllEvents() {   //Event -> String;改EventController
 
     return ec.ShowAllEvents();
   }
 
-  public Event get_single_event(int event_ID) {
+  public String get_single_event(int event_ID) {
 
     return ec.get_single_event(event_ID);
   }
@@ -65,12 +63,11 @@ public class ScheduleFasce {
     sc.addSpeaker(SpeakerName, Password, phone, email);
   }
 
-  public HashMap<Speaker, ArrayList<ArrayList<Time>>> getSpeakerSchedule() {
+  public HashMap<Integer, ArrayList<ArrayList<Time>>> getSpeakerSchedule() {
     return sc.getSpeakerSchedule();
   }
 
-  public Collection<Speaker> getSpeakers() {
-
+  public HashMap<Integer, String> getSpeakers() {  //Speaker_ID
     return sc.getSpeakers();
   }
 
@@ -84,13 +81,12 @@ public class ScheduleFasce {
     return rc.confirmdeleteroom(roomID);
   }
 
-  public Set<Room> get_rooms() {
-
+  public HashMap<Integer, String> get_rooms() {
     return rc.get_rooms();
   }
 
-  public HashMap<Room, ArrayList<ArrayList<Time>>> get_rooms_schedule() {
-    return get_rooms_schedule();
+  public HashMap<Integer, ArrayList<ArrayList<Time>>> get_rooms_schedule() {
+    return rc.get_rooms_schedule();
   }
 
 }

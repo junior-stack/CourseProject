@@ -67,16 +67,20 @@ public class ValidateSpeaker {
     }
   }
 
-  public HashMap<Speaker, ArrayList<ArrayList<Time>>> getSpeakerList() {
+  public HashMap<Integer, ArrayList<ArrayList<Time>>> getSpeakerList() {
 
-    return speaker_list;
+    HashMap<Integer, ArrayList<ArrayList<Time>>> tmp = new HashMap<>();
+    for (Speaker sp : speaker_list.keySet()) {
+      tmp.put(sp.getUserId(), speaker_list.get(sp));
+    }
+    return tmp;
 
   }
 
   public Speaker get_sp(int sp_ID) {
     HashMap<Integer, Speaker> tmp = new HashMap<>();
     try {
-      for (Speaker sp : this.getSpeakerList().keySet()) {
+      for (Speaker sp : speaker_list.keySet()) {
         tmp.put(sp.getUserId(), sp);
       }
       return tmp.get(sp_ID);
@@ -84,5 +88,23 @@ public class ValidateSpeaker {
       System.out.println("There is no speaker in the system with that ID");
     }
     return null;
+  }
+
+  public String get_sp_info(int sp_ID){
+    HashMap<Integer, String> tmp = this.get_speakers_info();
+    try {
+      return tmp.get(sp_ID);
+    } catch (NullPointerException e) {
+      System.out.println("There is no speaker in the system with that ID");
+    }
+    return null;
+  }
+
+  public HashMap<Integer, String> get_speakers_info(){
+    HashMap<Integer, String> tmp = new HashMap<>();
+    for (Speaker sp : speaker_list.keySet()) {
+      tmp.put(sp.getUserId(), sp.toString());
+    }
+    return tmp;
   }
 }

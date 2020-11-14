@@ -1,7 +1,7 @@
 package Controller;
 
-import Entity.Room;
-import Entity.Speaker;
+
+
 import UseCase.ValidateRoom;
 import UseCase.ValidateSpeaker;
 import java.sql.Time;
@@ -28,11 +28,11 @@ public class SpeakerController {
     vs.addSpeaker(SpeakerName, Password, phone, email);
   }
 
-  public HashMap<Speaker, ArrayList<ArrayList<Time>>> getSpeakerSchedule() {
+  public HashMap<Integer, ArrayList<ArrayList<Time>>> getSpeakerSchedule() {
     return vs.getSpeakerList();
   }
 
-  public Collection<Speaker> getSpeakers() {
-    return vs.getSpeakerList().keySet();
+  public HashMap<Integer, String> getSpeakers() {
+    return vs.get_speakers_info();
   }
 }

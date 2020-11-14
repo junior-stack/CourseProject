@@ -1,6 +1,6 @@
 package Controller;
 
-import Entity.Room;
+
 import UseCase.ValidateRoom;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -24,25 +24,19 @@ public class RoomController {
   }
 
   public boolean confirmdeleteroom(int roomID) {
-    for (Room o : vr.get_rooms_list().keySet()) {
-      if (o.getRoomId() == roomID) {
-        if (vr.get_rooms_list().get(o).isEmpty()) {
-          vr.get_rooms_list().remove(o);
-          return true;
-        } else {
-          return false;
-        }
-      }
+    HashMap<Integer, ArrayList<ArrayList<Time>>> room_schedule = vr.get_rooms_schedule();
+    if(room_schedule.get(roomID).isEmpty()){
+      vr.deleteRoom(vr.get_rm(roomID));
+      return true;
     }
     return false;
   }
 
-  public Set<Room> get_rooms() {
-
-    return vr.get_rooms_list().keySet();
+  public HashMap<Integer, String> get_rooms() {
+    return vr.get_rms_info();
   }
 
-  public HashMap<Room, ArrayList<ArrayList<Time>>> get_rooms_schedule() {
-    return vr.get_rooms_list();
+  public HashMap<Integer, ArrayList<ArrayList<Time>>> get_rooms_schedule() {
+    return vr.get_rooms_schedule();
   }
 }
