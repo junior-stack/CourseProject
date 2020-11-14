@@ -68,8 +68,8 @@ public class Event {
     return attendees;
   }
 
-  public void addAttendee(Attendee attendee) {
-    this.attendees.add(attendee.getUserId());
+  public void addAttendee(int attendee_id) {
+    this.attendees.add(attendee_id);
   }
 
   public int getRoomId(){

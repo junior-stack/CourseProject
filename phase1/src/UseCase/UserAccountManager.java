@@ -87,4 +87,14 @@ public class UserAccountManager {
     return emailCollection;
   }
 
+  public User get_user(int user_id) throws Exception {
+
+    for (User u : userList) {
+      if(u.getUserId() == user_id){
+        return u;
+      }
+    }
+    throw new Exception();
+  }
+
 }

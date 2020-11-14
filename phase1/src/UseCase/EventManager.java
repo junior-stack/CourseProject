@@ -128,5 +128,15 @@ public class EventManager {
     }
     return events_info;
   }
+
+  public ArrayList<String> browse(String topic){
+    ArrayList<String> result = new ArrayList<>();
+    for(Event e: eventpool){
+      if(e.getTopic().equals(topic)){
+        result.add(e.toString());
+      }
+    }
+    return result;
+  }
 }
 

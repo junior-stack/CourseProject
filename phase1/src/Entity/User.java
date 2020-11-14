@@ -75,8 +75,8 @@ public abstract class User implements Serializable {
         return events;
     }
 
-    public void addEvents(OneSpeakerEvent oneSpeakerEvent) {
-        this.events.add(oneSpeakerEvent.getId());
+    public void addEvents(int event_id) {
+        this.events.add(event_id);
     }
 
     public String getIdentity() {
