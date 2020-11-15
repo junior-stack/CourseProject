@@ -129,13 +129,11 @@ public class ValidateRoom {
     return rooms_list.get(rm).get(event_time) == 0;
   }
 
-  public void signroom(Room rm, Event e){
+  public void signroom(Event e, Room rm){
     for(ArrayList<Time> time: rooms_list.get(rm).keySet()){
       if(time.get(0).equals(e.getStartTime()) && time.get(1).equals(e.getEndTime())) {
         Integer m = rooms_list.get(rm).get(time);
         rooms_list.get(rm).replace(time, m - 1);
-      }
-      return;
       }
     }
   }
@@ -150,63 +148,6 @@ public class ValidateRoom {
   }
 
 
-/*  public Room get_rm(int rm_ID){
-    Room r = null;
-    for(Room rm: this.get_rooms_list().keySet()){
-      if(rm.getRoomId() == rm_ID){
-        r = rm;
-        break;
-      }
-    }
-    return r;
-  }*/
-
-
-
-/*    public void readFromCSVFile(String filePath) throws FileNotFoundException {
-
-        // FileInputStream can be used for reading raw bytes
-        Scanner scanner = new Scanner(new FileInputStream(filePath));
-        String[] record;
-        Room rm;
-
-        while (scanner.hasNextLine()) {
-            record = scanner.nextLine().split(",");
-            rm = new Room((int) record[0], (int) record[1]);
-            rooms_list.put(rm, null);
-        }
-        scanner.close();
-    }
-*/
-
-  /*public static ValidateRoom readFromFile(String path) throws ClassNotFoundException {
-
-    try {
-      InputStream file = new FileInputStream(path);
-      InputStream buffer = new BufferedInputStream(file);
-      ObjectInput input = new ObjectInputStream(buffer);
-
-      // deserialize the StudentManager
-      ValidateRoom sm = (ValidateRoom) input.readObject();
-      input.close();
-      return sm;
-    } catch (IOException ex) {
-      logger.log(Level.SEVERE, "Cannot read from input file, returning" +
-          "a new StudentManager.", ex);
-      return new ValidateRoom();
-    }
-  }
-
-  public void saveToFile(String filePath) throws IOException {
-
-    OutputStream file = new FileOutputStream(filePath);
-    OutputStream buffer = new BufferedOutputStream(file);
-    ObjectOutput output = new ObjectOutputStream(buffer);
-
-    // serialize the Map
-    output.writeObject(this); //students);
-    output.close();
-  }*/
 }
 
 

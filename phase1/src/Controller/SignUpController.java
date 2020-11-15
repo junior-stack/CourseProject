@@ -34,6 +34,8 @@ public class SignUpController {
     return em.browse(topic);
   }
 
-  public boolean signup(int event_id)
+  public boolean signup(int event_id){
+
+  }
 
 }

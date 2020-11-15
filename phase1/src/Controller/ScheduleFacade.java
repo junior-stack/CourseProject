@@ -22,11 +22,12 @@ public class ScheduleFacade {
   public ScheduleFacade(String email){
     HashMap<Room, ArrayList<ArrayList<Time>>> rooms_list = new HashMap<>();
     HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list = new HashMap<>();
+    ArrayList<Event> events = new ArrayList<Event>();
     ValidateRoom vr = new ValidateRoom(rooms_list);
     rc = new RoomController(vr);
     ValidateSpeaker vs = new ValidateSpeaker(speaker_list);
     sc = new SpeakerController(vs);
-    em = new EventManager(vr, vs,);
+    em = new EventManager(vr, vs, events);
     ec = new EventController(em);
   }
 
