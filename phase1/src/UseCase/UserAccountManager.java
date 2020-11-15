@@ -120,5 +120,7 @@ public class UserAccountManager {
     }
     return null;
   }
-
+  public void setNewCounter(int newcounter){
+    User.setCounter(newcounter);
+  }
 }

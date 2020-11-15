@@ -35,6 +35,7 @@ public class LoginFacade {
     sam = new SpeakerAccountManager(existingSpeakers);
 
     uam = new UserAccountManager(users);
+    uam.setNewCounter(users.size());
     uac = new UserAccountsController(uam, sam);
     lp = new LoginPresenter(uam, sam);
   }

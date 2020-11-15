@@ -8,7 +8,6 @@ import java.util.List;
 
 public abstract class User implements Serializable {
 
-  //之后改一个更好的办法编号 , hashcode? 或是constructor factory？(我们觉着这样最简洁直观，改id没有太大必要）
   private static int counter = 0;
   protected String identity;
 
@@ -18,9 +17,6 @@ public abstract class User implements Serializable {
   private String phone;
   private String email;
   private final List<Integer> events;
-  //确认一下java hashmap 的key 可以mutable?
-  //做messenge 功能的人确认什么样子的attributes 好做、
-
 
   public User(String username, String password, String phone, String email) {
     this.userId = counter;
@@ -31,6 +27,9 @@ public abstract class User implements Serializable {
     this.events = new ArrayList<>();
     counter++;
 
+  }
+  public static void setCounter(int counter) {
+    User.counter = counter;
   }
 
   public int getUserId() {
