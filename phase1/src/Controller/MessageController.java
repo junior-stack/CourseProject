@@ -9,8 +9,8 @@ public class MessageController {
 
   private MessageManager mm;
 
-  public MessageController(String email) {
-    mm = new MessageManager(email);
+  public MessageController(String email, Map<String, Map<String, List<String>>> previousMessageStorage) {
+    mm = new MessageManager(email, previousMessageStorage);
   }
 
   // generate all user 可以单发的emails
@@ -19,7 +19,8 @@ public class MessageController {
   }
 
 
-  // String message, String mode: 单发/群发
+  // String message, String mode: 单发/群发, Speaker 群发 给 eventIds 表示想要群发的event, Organizer 群发给 targetIdentity
+  // either "Attendee" or "Organizer", 表示群发的种类。当parameter 用不到的时候给 empty string or empty list.
   public boolean sendMessages(String mode, String message, String email, String targetIdentity,
       List<Integer> eventIds) {
     return mm.sendMessage(mode, message, email, targetIdentity, eventIds);
