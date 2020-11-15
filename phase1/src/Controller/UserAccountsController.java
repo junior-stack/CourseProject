@@ -29,13 +29,8 @@ public class UserAccountsController {
 
 
   public boolean createAttendee(String username, String password, String phone, String email) {
-    if (existingUser(email)) {
-      return false;
-    } else {
-      userAccountManager.createAttendee(username, password, phone, email);
-      return true;
-    }
-
+    if (existingUser(email)) return false;
+    return userAccountManager.createAttendee(username, password, phone, email);
   }
 
   public void createSpeaker(String username, String password, String phone, String email) {
