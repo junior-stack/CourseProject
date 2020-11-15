@@ -140,5 +140,13 @@ public class EventManager {
     }
     return result;
   }
+
+  public ArrayList<String> get_events_lst(){
+    ArrayList<String> tmp = new ArrayList<>();
+    for(Event e: eventpool){
+      tmp.add(e.getId() + "-" + e.getTopic());
+    }
+    return tmp;
+  }
 }
 

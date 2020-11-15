@@ -3,6 +3,7 @@ package Controller;
 
 import UseCase.EventManager;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -48,6 +49,9 @@ public class EventController {
     return em.get_events_info().get(event_ID);
   }
 
-
+  /*Return an arrayList of strings that prints all events in "eventId-event.topic*/
+  public ArrayList<String> get_events_lst(){
+    return em.get_events_lst();
+  }
 
 }
