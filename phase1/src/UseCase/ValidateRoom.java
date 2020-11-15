@@ -119,13 +119,14 @@ public class ValidateRoom {
     rooms_list.remove(rm);
   }
 
-  public boolean check_room_is_full(Event e, Room rm){
+  public boolean check_room_is_full(Event e, Room rm) {
     ArrayList<Time> event_time = new ArrayList<>();
-    for(ArrayList<Time> time: rooms_list.get(rm).keySet()){
-      if(time.get(0).equals(e.getStartTime()) && time.get(1).equals(e.getEndTime())) {
+    for (ArrayList<Time> time : rooms_list.get(rm).keySet()) {
+      if (time.get(0).equals(e.getStartTime()) && time.get(1).equals(e.getEndTime())) {
         event_time = time;
         break;
       }
+    }
     return rooms_list.get(rm).get(event_time) == 0;
   }
 
