@@ -5,6 +5,7 @@ import Entity.User;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -104,6 +105,15 @@ public class UserAccountManager {
     public String getUserInfo (String email){
         for (User i: userList){if (i.getEmail().equals(email)){return i.toString();}}
         return "User does not exist";
+    }
+
+    public User get_single_user(Integer user_id){
+        for(User u: userList){
+            if(u.getUserId() == user_id){
+                return u;
+            }
+        }
+        return null;
     }
 
 }
