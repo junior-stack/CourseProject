@@ -8,9 +8,8 @@ import UseCase.ValidateRoom;
 import UseCase.ValidateSpeaker;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Set;
+
 
 public class ScheduleFacade {
 

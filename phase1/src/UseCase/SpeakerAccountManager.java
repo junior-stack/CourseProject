@@ -1,8 +1,6 @@
 package UseCase;
 
 import Entity.Speaker;
-import Entity.User;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;

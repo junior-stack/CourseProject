@@ -2,7 +2,6 @@ package UseCase;
 
 import Entity.Event;
 import Entity.User;
-import exception.SignupConflict;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
