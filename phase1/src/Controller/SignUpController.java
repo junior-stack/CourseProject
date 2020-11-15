@@ -4,6 +4,7 @@ import UseCase.EventManager;
 import UseCase.UserAccountManager;
 import UseCase.Userschedule;
 import UseCase.ValidateRoom;
+import exception.SignupConflict;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,7 +20,7 @@ public class SignUpController {
 
   public ArrayList<String> vieweventRegister(){
     try {
-      return us.get_user_schedule_info(uam.get_user(user_id));
+      return us.get_user_schedule_info(uam.get_single_user(user_id));
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -34,8 +35,24 @@ public class SignUpController {
     return em.browse(topic);
   }
 
-  public boolean signup(int event_id){
+  public void signup(int event_id, int rm_id) throws SignupConflict {
+      if (us.CheckUserIsBusy(uam.get_single_user(user_id), em.get_event(event_id))){
+        if(!vr.check_room_is_full(em.get_event(event_id), vr.get_rm(rm_id))){
+          us.addUserSchedule(uam.get_single_user(user_id), em.get_event(event_id));
+        }
+        else{
+          System.out.println("The room is full");
+        }
+      }
+      throw new SignupConflict(uam.get_single_user(user_id), em.get_event(event_id));
+  }
 
+  public boolean cancelEvent(int event_id, int rm_id){
+    if(us.deleteUserschedule(uam.get_single_user(user_id), em.get_event(event_id))){
+      vr.deleteRoom(vr.get_rm(rm_id));
+      return true;
+    }
+    return false;
   }
 
 }

@@ -103,7 +103,7 @@ public class UserAccountManager {
     }
 
     public List<String> getAllEmails() {
-        ArrayList<String> emailCollection = new ArrayList<String>();
+        ArrayList<String> emailCollection = new ArrayList<>();
         for (User user : userList) {
             emailCollection.add(user.getEmail());
         }
@@ -112,6 +112,15 @@ public class UserAccountManager {
     public String getUserInfo (String email){
         for (User i: userList){if (i.getEmail().equals(email)){return i.toString();}}
         return "User does not exist";
+    }
+
+    public User get_single_user(Integer user_id){
+        for(User u: userList){
+            if(u.getUserId() == user_id){
+                return u;
+            }
+        }
+        return null;
     }
 
 

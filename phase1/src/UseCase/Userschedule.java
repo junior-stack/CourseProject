@@ -17,15 +17,15 @@ public class Userschedule {
     return user_schedule.get(user);
   }
 
-  public boolean CheckUserIsBusy(User user, Event e) throws SignupConflict {
+  public boolean CheckUserIsBusy(User user, Event e){
     Time start = e.getStartTime();
     Time end = e.getEndTime();
     for(Event event: user_schedule.get(user)){
       if(start.compareTo(event.getStartTime()) >= 0 && start.compareTo(event.getStartTime()) < 0){
-        throw new SignupConflict(user, event);
+        return false;
       }
       else if(end.compareTo(event.getStartTime()) >0 && end.compareTo(event.getEndTime())<=0){
-        throw new SignupConflict(user, e);
+        return false;
       }
     }
     return true;
