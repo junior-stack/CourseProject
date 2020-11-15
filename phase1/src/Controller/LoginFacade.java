@@ -24,17 +24,18 @@ public class LoginFacade {
 
     public LoginFacade() {
         ArrayList users = ig.read();
-        oam = new OrganizerAccountManager();
-        List newOrganizer = oam.getOrganizerList(io.initialize());
-        if (newOrganizer != null) {
-            users.addAll(newOrganizer);
+
+        if (users.size()==0) {
+            oam = new OrganizerAccountManager(users);
+            oam.createOrganizer(io.initialize());
         }
+        oam = new OrganizerAccountManager();
         List existingSpeakers = oam.filterexistingspeaker(users);
         sam = new SpeakerAccountManager(existingSpeakers);
 
         uam = new UserAccountManager(users);
         uac = new UserAccountsController(uam, sam);
-        lp = new LoginPresenter(uam);
+        lp = new LoginPresenter(uam,sam);
     }
 
     public ArrayList readusers() {
@@ -43,6 +44,9 @@ public class LoginFacade {
 
     public void register(String username, String password, String phone, String email) {
         uac.createAttendee(username, password, phone, email);
+    }
+    public void createspeaker(String username, String password, String phone, String email){
+        uac.createSpeaker(username, password, phone, email);
     }
 
     public boolean login(String email, String password) {
@@ -56,6 +60,10 @@ public class LoginFacade {
     public String getUserIdentity(String email) {
         return lp.getUserIdenity(email);
     }
+
+    public List getallUsers(){return lp.allUserInfo();}
+
+    public List getallSpeakers(){return lp.allSpeakerInfo();}
 
     public void save(){ig.write(UserAccountManager.userList);}
 

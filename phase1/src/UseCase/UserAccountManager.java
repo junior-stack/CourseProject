@@ -1,31 +1,27 @@
 package UseCase;
 
 import Entity.Attendee;
-import Entity.Speaker;
 import Entity.User;
-import Entity.Organizer;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-import java.util.regex.Matcher;
+
 
 
 public class UserAccountManager {
 
     public static List<User> userList;
 
-
     public UserAccountManager(List<User> userList) {
 
         UserAccountManager.userList = userList;
-        SpeakerAccountManager sam = new SpeakerAccountManager();
-        userList.addAll(sam.getSpeakerList());
 
     }
 
     public boolean createAttendee(String username, String password, String phone, String email) {
-        if(existingUser(email)){System.out.println("Please choose different email");}
+
 
         if (!this.isValidEmail(email)) {
             System.out.println("The email address is invalid");
@@ -69,14 +65,6 @@ public class UserAccountManager {
         return phone.matches("^\\(?([0-9]{3})\\)?[-]?([0-9]{3})[-]?([0-9]{4})$");
     }
 
-    public boolean existingUser(String email) {
-        for (User i : userList) {
-            if (i.getEmail().equals(email)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     public boolean verifyUser(String email, String password) {
         for (User i : userList) {
@@ -89,8 +77,12 @@ public class UserAccountManager {
         return false;
     }
 
-    public List<User> getUserList() {
-        return userList;
+    public List<String> getUserList() {
+        List users = new ArrayList();
+        for (User i:userList){users.add(i.toString());}
+        return users;
+
+
     }
 
     public String getUserIdentity(String email) {
@@ -102,8 +94,8 @@ public class UserAccountManager {
         return "User does not exist";
     }
 
-    public List<String> getAllEmails() {
-        ArrayList<String> emailCollection = new ArrayList<>();
+    public static List<String> getAllEmails() {
+        ArrayList<String> emailCollection = new ArrayList<String>();
         for (User user : userList) {
             emailCollection.add(user.getEmail());
         }
@@ -113,17 +105,5 @@ public class UserAccountManager {
         for (User i: userList){if (i.getEmail().equals(email)){return i.toString();}}
         return "User does not exist";
     }
-
-    public User get_single_user(Integer user_id){
-        for(User u: userList){
-            if(u.getUserId() == user_id){
-                return u;
-            }
-        }
-        return null;
-    }
-
-
-
 
 }

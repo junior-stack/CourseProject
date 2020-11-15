@@ -9,18 +9,19 @@ import java.util.regex.Pattern;
 
 public class SpeakerAccountManager {
 
-  private static List<Speaker> speakerList=new ArrayList<>();
-
-  public SpeakerAccountManager() {}
+  public static List<Speaker> speakerList;
 
   public SpeakerAccountManager(List<Speaker> speakerList) {
-    if (speakerList!=null && speakerList.size()>0) {SpeakerAccountManager.speakerList.addAll(speakerList);}
+    SpeakerAccountManager.speakerList=speakerList;
   }
 
-  public List<Speaker> getSpeakerList() {
-    return speakerList;}
+  public List getSpeakerList() {
+    List speakers = new ArrayList();
+    for (Speaker i:speakerList){speakers.add(i.toString());}
+    return speakers; }
 
   public boolean createSpeaker(String username, String password, String phone, String email){
+
     if (!this.isValidEmail(email)){
       System.out.println("The email address is invalid"); return false;}
     if (!this.isValidPassword(password)){
@@ -28,7 +29,9 @@ public class SpeakerAccountManager {
     if (!this.isValidPhone(phone)){
       System.out.println("Phone number should only contain numeric characters"); return false;}
 
-    speakerList.add(new Speaker(username, password, phone, email));
+    Speaker newSpeaker = new Speaker(username, password, phone, email);
+    speakerList.add(newSpeaker);
+    UserAccountManager.userList.add(newSpeaker);
     System.out.println("The Speaker account has been successfully created");
     return true;
   }
@@ -36,9 +39,9 @@ public class SpeakerAccountManager {
   private boolean isValidEmail(String email){
     // Create a regular expression format for a valid email
     String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
-        "[a-zA-Z0-9_+&*-]+)*@" +
-        "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-        "A-Z]{0,9}$";
+            "[a-zA-Z0-9_+&*-]+)*@" +
+            "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+            "A-Z]{0,9}$";
     //Check if the email address matches the regex format
     Pattern emailPat = Pattern.compile(emailRegex);
     if (email == null){
@@ -54,5 +57,6 @@ public class SpeakerAccountManager {
   private boolean isValidPhone(String phone) {
     return phone.matches("^\\(?([0-9]{3})\\)?[-]?([0-9]{3})[-]?([0-9]{4})$");
   }
+
 
 }

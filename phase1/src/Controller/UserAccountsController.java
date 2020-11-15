@@ -4,28 +4,43 @@ package Controller;
 import UseCase.SpeakerAccountManager;
 import UseCase.UserAccountManager;
 
+
 public class UserAccountsController {
-  private static UserAccountManager userAccountManager;
-  private static SpeakerAccountManager speakerAccountManager;
+  private UserAccountManager userAccountManager;
+  private SpeakerAccountManager speakerAccountManager;
+
 
   public UserAccountsController(UserAccountManager userAccountManager, SpeakerAccountManager speakerAccountManager) {
-    UserAccountsController.userAccountManager = userAccountManager;
-    UserAccountsController.speakerAccountManager = speakerAccountManager;
+    this.userAccountManager = userAccountManager;
+    this.speakerAccountManager = speakerAccountManager;
+
   }
 
-  public void createAttendee(String username, String password, String phone, String email) {
+  public boolean existingUser(String email) {
+    for ( String i : UserAccountManager.getAllEmails()) {
+      if (i.equals(email)) {
+        return true;
+      }
+    }
+    return false;
+  }
 
-    userAccountManager.createAttendee(username, password, phone, email);
+
+  public void createAttendee(String username, String password, String phone, String email) {
+    if(existingUser(email)){System.out.println("Email has been registed, please use different email");}
+    else {userAccountManager.createAttendee(username, password, phone, email);}
 
   }
   public void createSpeaker(String username, String password, String phone, String email) {
-
-    speakerAccountManager.createSpeaker(username, password, phone, email);
+    if(existingUser(email)){System.out.println("Email has been registed, please use different email");}
+    else{speakerAccountManager.createSpeaker(username, password, phone, email);}
 
   }
 
   public boolean verify(String email, String password) {
     return userAccountManager.verifyUser(email, password);
   }
+
+
 
 }
