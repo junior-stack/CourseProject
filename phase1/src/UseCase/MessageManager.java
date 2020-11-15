@@ -15,7 +15,8 @@ public class MessageManager {
   private final String userType;
   private final Map<String, String> emailToIdentity = new HashMap<>();
 
-  public MessageManager(String email,messageStorage){
+  public MessageManager(String email,Map<String, Map<String, List<String>>> previousMessageStorage){
+    messageStorage = previousMessageStorage;
     List<User> users = UserAccountManager.userList;
     for (User u : users){
       if (u.getEmail().equals(email)){
@@ -165,7 +166,8 @@ public class MessageManager {
     return lst;
   }
 
-  // String message, String mode: 单发/群发
+  // String message, String mode: 单发/群发, Speaker 群发 给 eventIds 表示想要群发的event, Organizer 群发给 targetIdentity
+  // either "Attendee" or "Organizer", 表示群发的种类。当parameter 用不到的时候给 empty string or empty list.
   public boolean sendMessage(String mode, String message, String email, String targetIdentity,
                              List<Integer> eventIds) {
     if (mode.equals("single")) {
