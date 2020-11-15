@@ -17,6 +17,10 @@ public class TextUI {
   SignUpController suc = new SignUpController();
   MessageController mc = new MessageController(email);
 
+  public void run() throws InterruptedException {
+    UserMenu();
+  }
+
   private void UserMenu() throws InterruptedException {
     while (true) {
       Scanner sc = new Scanner(System.in);
@@ -324,13 +328,13 @@ public class TextUI {
       isSuceess = suc.signup(event_ID); /*Room id拿不到*/
       if (isSuccess) {
         System.out.printf("[%s] Signed Up Successful!"
-            + "\n Automatically redirect to main menu after 2 second.");
+            + "\nAutomatically redirect to main menu after 2 second.");
         Thread.sleep(2000);
         AttendeeMenu(email);
         break;
       } else {
         System.out.printf("[%s] Signed Up Failed!"
-            + "\n Automatically redirect to main menu after 2 second.");
+            + "\nAutomatically redirect to main menu after 2 second.");
         Thread.sleep(2000);
         AttendeeMenu(email);
         break;
@@ -370,12 +374,64 @@ public class TextUI {
     }
   }
 
-  private void ManageSignUpEventsMenu(String email) {
+  private void ManageSignUpEventsMenu(String email) throws InterruptedException {
+    while (true) {
+      Scanner sc = new Scanner(System.in);
+      System.out.println(suc.ViewAllEvents());
+      System.out.println("The form of event is <ID> - <NAME>"
+          + "\nPlease enter the corresponding number to continue..."
+          + "\n1 - Cancel Event"
+          + "\n2 - Go Back");
 
+      int choice;
+      while (true) {
+        try {
+          System.out.println("Your choice: ");
+          choice = sc.nextInt();
+          break;
+        } catch (InputMismatchException e) {
+          System.out.println("Invalid input, please try again.");
+          System.out.println("Your choice: ");
+          sc.nextInt();
+        }
+      }
+
+      switch (choice) {
+        case 1:
+          System.out.println("Please enter the event <ID> you want to cancel: ");
+          int event_id;
+          while (true) {
+            try {
+              event_id = sc.nextInt();
+              break;
+            } catch (InputMismatchException e) {
+              System.out.println("Invalid input, please try again.");
+              System.out.println("Please enter the event <ID> you want to cancel: ");
+              sc.nextInt();
+            }
+          }
+          boolean isSuccess = suc.cancelEvent(event_id); /*拿不了Room*/
+          if (isSuccess) {
+            System.out.printf("[%d] Cancel Successful!"
+                + "\nAutomatically redirect to main menu after 2 second.", event_id);
+            Thread.sleep(2000);
+            AttendeeMenu(email);
+            break;
+          } else {
+            System.out.printf("[%d] Cancel Failed!"
+                + "\nAutomatically redirect to main menu after 2 second.", event_id);
+            Thread.sleep(2000);
+            AttendeeMenu(email);
+            break;
+          }
+        case 2:
+          SignUpEventsMenu(email);
+      }
+    }
   }
 
   private void ViewAllMessagesMenu(String email) {
-
+    
   }
 
   private void SignOutRedirect() throws InterruptedException {
