@@ -23,20 +23,20 @@ public class UserAccountManager {
   public boolean createAttendee(String username, String password, String phone, String email) {
 
     if (!this.isValidEmail(email)) {
-      System.out.println("The email address is invalid");
+//      System.out.println("The email address is invalid");
       return false;
     }
     if (!this.isValidPassword(password)) {
-      System.out.println("Password cannot contain space nor be blank");
+//      System.out.println("Password cannot contain space nor be blank");
       return false;
     }
     if (!this.isValidPhone(phone)) {
-      System.out.println("Phone number should only contain numeric characters");
+//      System.out.println("Phone number should only contain numeric characters");
       return false;
     }
 
     userList.add(new Attendee(username, password, phone, email));
-    System.out.println("The User account has been successfully created.");
+//    System.out.println("The User account has been successfully created.");
     return true;
   }
 

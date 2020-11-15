@@ -43,8 +43,8 @@ public class LoginFacade {
     return ig.read();
   }
 
-  public void register(String username, String password, String phone, String email) {
-    uac.createAttendee(username, password, phone, email);
+  public boolean register(String username, String password, String phone, String email) {
+    return uac.createAttendee(username, password, phone, email);
   }
 
   public void createspeaker(String username, String password, String phone, String email) {

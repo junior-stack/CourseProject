@@ -28,11 +28,12 @@ public class UserAccountsController {
   }
 
 
-  public void createAttendee(String username, String password, String phone, String email) {
+  public boolean createAttendee(String username, String password, String phone, String email) {
     if (existingUser(email)) {
-      System.out.println("Email has been registed, please use different email");
+      return false;
     } else {
       userAccountManager.createAttendee(username, password, phone, email);
+      return true;
     }
 
   }
