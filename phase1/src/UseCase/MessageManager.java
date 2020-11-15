@@ -15,12 +15,14 @@ public class MessageManager {
   private final String userType;
   private final Map<String, String> emailToIdentity = new HashMap<>();
 
-  public MessageManager(String email,Map<String, Map<String, List<String>>> previousMessageStorage){
+  public MessageManager(String email,
+      Map<String, Map<String, List<String>>> previousMessageStorage) {
     messageStorage = previousMessageStorage;
     List<User> users = UserAccountManager.userList;
-    for (User u : users){
-      if (u.getEmail().equals(email)){
-        user = u;}
+    for (User u : users) {
+      if (u.getEmail().equals(email)) {
+        user = u;
+      }
     }
     assert user != null;
     userType = user.getIdentity();
@@ -67,7 +69,9 @@ public class MessageManager {
         if (email.equals(user.getEmail())) {
           if (result.containsKey(email)) {
             result.get(email).addAll(messageStorage.get(e).get(email));
-          } else {result.put(e, messageStorage.get(e).get(email));}
+          } else {
+            result.put(e, messageStorage.get(e).get(email));
+          }
         }
       }
     }
@@ -77,7 +81,7 @@ public class MessageManager {
   // Attendee,Organizer 只能单发 message
   public boolean attendeeOrganizerSingleMessage(String email, String message) {
     if (emailToIdentity.get(email).equals("Attendee") || emailToIdentity.get(email)
-            .equals("Speaker")) {
+        .equals("Speaker")) {
       singleMessageRequest(email, message);
       return true;
     }
@@ -150,15 +154,17 @@ public class MessageManager {
   }
 
   // generate all user 可以单发的emails
-  public List<String> generateEmail(){
+  public List<String> generateEmail() {
     List<String> lst = new ArrayList<>();
-    for (String e : emailToIdentity.keySet()){
+    for (String e : emailToIdentity.keySet()) {
       if (userType.equals("Attendee")) {
         if (emailToIdentity.get(e).equals("Attendee")) {
-          lst.add(e);}
-      } else if (userType.equals("Organizer")){
+          lst.add(e);
+        }
+      } else if (userType.equals("Organizer")) {
         if (emailToIdentity.get(e).equals("Attendee") || emailToIdentity.get(e).equals("Speaker")) {
-          lst.add(e); }
+          lst.add(e);
+        }
       } else {
         lst.addAll(MessageManager.messageStorage.get(user.getEmail()).keySet());
       }
@@ -169,7 +175,7 @@ public class MessageManager {
   // String message, String mode: 单发/群发, Speaker 群发 给 eventIds 表示想要群发的event, Organizer 群发给 targetIdentity
   // either "Attendee" or "Organizer", 表示群发的种类。当parameter 用不到的时候给 empty string or empty list.
   public boolean sendMessage(String mode, String message, String email, String targetIdentity,
-                             List<Integer> eventIds) {
+      List<Integer> eventIds) {
     if (mode.equals("single")) {
       if (userType.equals("Attendee") || (userType.equals("Organizer"))) {
         return attendeeOrganizerSingleMessage(email, message);
@@ -180,7 +186,9 @@ public class MessageManager {
         return false;
       } else if (userType.equals("Organizer")) {
         return organizerMultipleMessage(targetIdentity, message);
-      } else {return speakerMultipleMessage(eventIds, message);}
+      } else {
+        return speakerMultipleMessage(eventIds, message);
+      }
     }
   }
 }

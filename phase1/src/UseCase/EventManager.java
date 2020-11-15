@@ -16,10 +16,10 @@ public class EventManager {
   private ValidateRoom vr;
   private ValidateSpeaker vs;
 
-  public EventManager(ValidateRoom vr, ValidateSpeaker vs,ArrayList<Event> eventpool ) {
+  public EventManager(ValidateRoom vr, ValidateSpeaker vs, ArrayList<Event> eventpool) {
     this.vr = vr;
     this.vs = vs;
-    EventManager.eventpool=eventpool;
+    EventManager.eventpool = eventpool;
   }
 
   public ValidateRoom get_vr() {
@@ -123,27 +123,27 @@ public class EventManager {
     return events;
   }
 
-  public HashMap<Integer, String> get_events_info(){
+  public HashMap<Integer, String> get_events_info() {
     HashMap<Integer, String> events_info = new HashMap<>();
-    for(Event e: eventpool){
+    for (Event e : eventpool) {
       events_info.put(e.getId(), e.toString());
     }
     return events_info;
   }
 
-  public ArrayList<String> browse(String topic){
+  public ArrayList<String> browse(String topic) {
     ArrayList<String> result = new ArrayList<>();
-    for(Event e: eventpool){
-      if(e.getTopic().equals(topic)){
+    for (Event e : eventpool) {
+      if (e.getTopic().equals(topic)) {
         result.add(e.toString());
       }
     }
     return result;
   }
 
-  public ArrayList<String> get_events_lst(){
+  public ArrayList<String> get_events_lst() {
     ArrayList<String> tmp = new ArrayList<>();
-    for(Event e: eventpool){
+    for (Event e : eventpool) {
       tmp.add(e.getId() + "-" + e.getTopic());
     }
     return tmp;

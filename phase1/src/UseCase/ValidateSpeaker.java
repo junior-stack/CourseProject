@@ -9,7 +9,7 @@ public class ValidateSpeaker {
 
   public static HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list;
 
-  public ValidateSpeaker(HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list){
+  public ValidateSpeaker(HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list) {
     ValidateSpeaker.speaker_list = speaker_list;
   }
 
@@ -90,7 +90,7 @@ public class ValidateSpeaker {
     return null;
   }
 
-  public String get_sp_info(int sp_ID){
+  public String get_sp_info(int sp_ID) {
     HashMap<Integer, String> tmp = this.get_speakers_info();
     try {
       return tmp.get(sp_ID);
@@ -100,7 +100,7 @@ public class ValidateSpeaker {
     return null;
   }
 
-  public HashMap<Integer, String> get_speakers_info(){
+  public HashMap<Integer, String> get_speakers_info() {
     HashMap<Integer, String> tmp = new HashMap<>();
     for (Speaker sp : speaker_list.keySet()) {
       tmp.put(sp.getUserId(), sp.toString());

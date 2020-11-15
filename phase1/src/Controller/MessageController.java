@@ -9,12 +9,13 @@ public class MessageController {
 
   private MessageManager mm;
 
-  public MessageController(String email, Map<String, Map<String, List<String>>> previousMessageStorage) {
+  public MessageController(String email,
+      Map<String, Map<String, List<String>>> previousMessageStorage) {
     mm = new MessageManager(email, previousMessageStorage);
   }
 
   // generate all user 可以单发的emails
-  public List<String> generateEmailList(){
+  public List<String> generateEmailList() {
     return mm.generateEmail();
   }
 
