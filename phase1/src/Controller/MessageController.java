@@ -1,7 +1,11 @@
 package Controller;
 
 
+import Gateway.MapGateway;
+import Gateway.MessageDataAccess;
 import UseCase.MessageManager;
+import UseCase.UserAccountManager;
+
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +13,11 @@ public class MessageController {
 
   private MessageManager mm;
 
-  public MessageController(String email, Map<String, Map<String, List<String>>> previousMessageStorage) {
+  private MapGateway mg = new MessageDataAccess();
+
+  public MessageController(String email) {
+
+    Map previousMessageStorage = mg.read();
     mm = new MessageManager(email, previousMessageStorage);
   }
 
@@ -54,4 +62,6 @@ public class MessageController {
   public Map<String, List<String>> sentAllMessages() {
     return mm.sentMessages();
   }
+
+  public void saveMessage(){mg.write(MessageManager.messageStorage);}
 }
