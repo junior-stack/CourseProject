@@ -1,4 +1,3 @@
-/*
 package UI;
 
 import Controller.LoginFacade;
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import javax.swing.text.View;
 
 public class TextUI {
 
@@ -148,10 +146,9 @@ public class TextUI {
     }
   }
 
-  */
-/*
+  /*
    * 这是一个semi autofill的登录界面
-   *//*
+   */
 
   private void LoginMenu(String email, String password) throws InterruptedException {
     while (true) {
@@ -180,6 +177,7 @@ public class TextUI {
       switch (choice) {
         case 1:
           isSuccess = lf.login(email, password);
+
           if (isSuccess) {
             String userType = lf.getUserIdentity(email);
             switch (userType) {
@@ -242,7 +240,7 @@ public class TextUI {
           }
           System.out.println("You have not signed up any events yet, please sign up.");
         case 3:
-          if (mc.readAllMessages(email) != null) {
+          if (mc.readAllMessages() != null) {
             ViewAllMessagesMenu(email);
             break;
           }
@@ -260,6 +258,7 @@ public class TextUI {
       System.out.println("[All Events Menu] Please enter the corresponding number to continue..."
           + "\n1 - View All Events"
           + "\n2 - Go Back");
+
       int choice;
       while (true) {
         try {
@@ -330,9 +329,7 @@ public class TextUI {
         }
       }
 
-      isSuceess = suc.signup(event_ID); */
-/*Room id拿不到*//*
-
+      isSuceess = suc.signup(event_ID); /*Room id拿不到*/
       if (isSuccess) {
         System.out.printf("[%s] Signed Up Successful!"
             + "\nAutomatically redirect to main menu after 2 second.");
@@ -418,8 +415,7 @@ public class TextUI {
               sc.nextInt();
             }
           }
-          boolean isSuccess = suc.cancelEvent(event_id); */
-/*拿不了Room*//*
+          boolean isSuccess = suc.cancelEvent(event_id); /*拿不了Room*/
 
           if (isSuccess) {
             System.out.printf("[%d] Cancel Successful!"
