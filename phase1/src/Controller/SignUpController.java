@@ -19,7 +19,7 @@ public class SignUpController {
   private EventManager em;
   private String email;
 
-  public ArrayList<String> vieweventRegister() {
+  public ArrayList<String> viewEventRegister() {
     try {
       return us.get_user_schedule_info(uam.get_single_user(uam.get_user_id(email)));
     } catch (Exception e) {
@@ -36,26 +36,28 @@ public class SignUpController {
     return em.browse(topic);
   }
 
-  public void signup(int event_id, int rm_id) throws SignupConflict {
+  public boolean signup(int event_id, int rm_id) {
     if (us.CheckUserIsBusy(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id))) {
       if (!vr.check_room_is_full(em.get_event(event_id), vr.get_rm(rm_id))) {
         us.addUserSchedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id));
+        return true;
       } else {
-        System.out.println("The room is full");
+        return false;
       }
     }
-    throw new SignupConflict(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id));
+    return false;
   }
 
-  public void signup(int event_id) throws SignupConflict {
+  public boolean signup(int event_id) {
     if (us.CheckUserIsBusy(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id))) {
       if (!vr.check_room_is_full(em.get_event(event_id), vr.get_rm(em.get_event_spots(em.get_event(event_id)).get(0)))) {
         us.addUserSchedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id));
+        return true;
       } else {
-        System.out.println("The room is full");
+        return false;
       }
     }
-    throw new SignupConflict(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id));
+    return false;
   }
 
   public boolean cancelEvent(int event_id, int rm_id) {

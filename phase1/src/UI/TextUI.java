@@ -59,7 +59,7 @@ public class TextUI {
       Scanner sc = new Scanner(System.in);
       System.out.println("[Register Menu] Please enter your email and password to continue...");
 
-      String username = null, password = null, phone = null;
+      String username, password, phone;
       while (true) {
         try {
           System.out.print("Username: ");
@@ -91,11 +91,11 @@ public class TextUI {
                 + "\nPassword: %s"
                 + "\nAutomatically redirect to Login Menu after 2 seconds",
             email, password);
-        Thread.sleep(2000);
+        wait(2000);
         LoginMenu(email, password);
         break;
       } else {
-        System.out.println("Register failed, please try agagin.");
+        System.out.println("Register failed, please try again.");
         UserMenu();
         break;
       }
@@ -139,7 +139,7 @@ public class TextUI {
             break;
         }
       } else {
-        System.out.println("Login failed, please try agagin.");
+        System.out.println("Login failed, please try again.");
         UserMenu();
         break;
       }
@@ -192,7 +192,7 @@ public class TextUI {
                 break;
             }
           } else {
-            System.out.println("Login failed, please try agagin.");
+            System.out.println("Login failed, please try again.");
             UserMenu();
             break;
           }
@@ -329,17 +329,17 @@ public class TextUI {
         }
       }
 
-      isSuceess = suc.signup(event_ID); /*Room id拿不到*/
+      boolean isSuccess = suc.signup(event_ID); /*Room id拿不到*/
       if (isSuccess) {
         System.out.printf("[%s] Signed Up Successful!"
-            + "\nAutomatically redirect to main menu after 2 second.");
-        Thread.sleep(2000);
+            + "\nAutomatically redirect to main menu after 2 second.", event_ID);
+        wait(2000);
         AttendeeMenu(email);
         break;
       } else {
         System.out.printf("[%s] Signed Up Failed!"
-            + "\nAutomatically redirect to main menu after 2 second.");
-        Thread.sleep(2000);
+            + "\nAutomatically redirect to main menu after 2 second.", event_ID);
+        wait(2000);
         AttendeeMenu(email);
         break;
       }
@@ -420,13 +420,13 @@ public class TextUI {
           if (isSuccess) {
             System.out.printf("[%d] Cancel Successful!"
                 + "\nAutomatically redirect to main menu after 2 second.", event_id);
-            Thread.sleep(2000);
+            wait(2000);
             AttendeeMenu(email);
             break;
           } else {
             System.out.printf("[%d] Cancel Failed!"
                 + "\nAutomatically redirect to main menu after 2 second.", event_id);
-            Thread.sleep(2000);
+            wait(2000);
             AttendeeMenu(email);
             break;
           }
@@ -449,18 +449,18 @@ public class TextUI {
               sc.nextLine();
             }
           }
-          List<Integer> evetIds = new ArrayList<>();
-          boolean isSent = mc.sendMessages("Single", message, targetEmail, "", evetIds);
+          List<Integer> eventIds = new ArrayList<>();
+          boolean isSent = mc.sendMessages("Single", message, targetEmail, "", eventIds);
           if (isSent) {
             System.out.printf("[%s: %s] Message Sent Successful!"
                 + "\nAutomatically redirect to main menu after 2 second.", targetEmail, message);
-            Thread.sleep(2000);
+            wait(2000);
             AttendeeMenu(email);
             break;
           } else {
             System.out.printf("[%s: %s] Message Sent Failed!"
                 + "\nAutomatically redirect to main menu after 2 second.", targetEmail, message);
-            Thread.sleep(2000);
+            wait(2000);
             AttendeeMenu(email);
             break;
           }
