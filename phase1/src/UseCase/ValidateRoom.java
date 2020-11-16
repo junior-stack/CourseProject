@@ -26,9 +26,10 @@ public class ValidateRoom {
   public HashMap<Room, ArrayList<ArrayList<Time>>> get_rooms_list() {
     HashMap<Room, ArrayList<ArrayList<Time>>> tmp = new HashMap<>();
     for (Room rm : rooms_list.keySet()) {
-      Set temp1=rooms_list.get(rm).keySet();//// 为了test 改过
-      ArrayList temp2 = new ArrayList();//// 为了test 改过
-      for (Object i:temp1){temp2.add(i);}//// 为了test 改过
+      Set<ArrayList<Time>> temp1=rooms_list.get(rm).keySet();//// 为了test 改过
+      ArrayList<ArrayList<Time>> temp2 = new ArrayList<>();//// 为了test 改过
+      //// 为了test 改过
+      temp2.addAll(temp1);
       tmp.put(rm, temp2);
     }
     return tmp;
@@ -38,16 +39,22 @@ public class ValidateRoom {
     HashMap<Integer, ArrayList<ArrayList<Time>>> tmp = new HashMap<>();
     for (Room rm : rooms_list.keySet()) {
       Collection<ArrayList<Time>> tmp2 = rooms_list.get(rm).keySet();
-      ArrayList temp2 = new ArrayList();//// 为了test 改过
-      for (Object i:tmp2){temp2.add(i);}
+      ArrayList<ArrayList<Time>> temp2 = new ArrayList<>();//// 为了test 改过
+      temp2.addAll(tmp2);
       tmp.put(rm.getRoomId(), temp2);
     }
     return tmp;
   }
 
-  public void addRoom(int roomID, int capacity) {
+  public boolean addRoom(int roomID, int capacity) {
     Room rm = new Room(roomID, capacity);
+    for(Room r: rooms_list.keySet()){
+      if(r.getRoomId() == roomID){
+        return false;
+      }
+    }
     rooms_list.put(rm, new HashMap<>());
+    return true;
   }
 
   public boolean validateRoom(Room rm, Time start, Time end)

@@ -4,6 +4,7 @@ import Entity.Speaker;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 public class ValidateSpeaker {
 
@@ -13,11 +14,24 @@ public class ValidateSpeaker {
     ValidateSpeaker.speaker_list = speaker_list;
   }
 
-  public void addSpeaker(String SpeakerName, String Password, String phone, String email) {
+  public boolean addSpeaker(String SpeakerName, String Password, String phone, String email) {
+    if (!this.isValidEmail(email)) {
+      System.out.println("The email address is invalid");
+      return false;
+    }
+    if (!this.isValidPassword(Password)) {
+      System.out.println("Password cannot contain space nor be blank");
+      return false;
+    }
+    if (!this.isValidPhone(phone)) {
+      System.out.println("Phone number should only contain numeric characters");
+      return false;
+    }
 
     Speaker speaker = new Speaker(SpeakerName, Password, phone, email);
 
     speaker_list.put(speaker, null);
+    return true;
   }
 
   public boolean validateSpeaker(Speaker speaker, Time start, Time end) {
@@ -117,5 +131,28 @@ public class ValidateSpeaker {
       tmp.put(sp.getUserId(), sp.toString());
     }
     return tmp;
+  }
+
+  private boolean isValidEmail(String email) {
+    // Create a regular expression format for a valid email
+    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
+        "[a-zA-Z0-9_+&*-]+)*@" +
+        "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+        "A-Z]{0,9}$";
+    //Check if the email address matches the regex format
+    Pattern emailPat = Pattern.compile(emailRegex);
+    if (email == null) {
+      return false;
+    }
+
+    return emailPat.matcher(email).matches();
+  }
+
+  private boolean isValidPassword(String password) {
+    return !password.isEmpty() && !password.contains(" ");
+  }
+
+  private boolean isValidPhone(String phone) {
+    return phone.matches("^\\(?([0-9]{3})\\)?[-]?([0-9]{3})[-]?([0-9]{4})$");
   }
 }

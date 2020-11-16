@@ -19,9 +19,9 @@ public class SpeakerController {
     vs.delSpeakerSchedule(speakerID, start, end);
   }
 
-  public void addSpeaker(String SpeakerName, String Password, String phone, String email) {
+  public boolean addSpeaker(String SpeakerName, String Password, String phone, String email) {
 
-    vs.addSpeaker(SpeakerName, Password, phone, email);
+    return vs.addSpeaker(SpeakerName, Password, phone, email);
   }
 
   public HashMap<Integer, ArrayList<ArrayList<Time>>> getSpeakerSchedule() {

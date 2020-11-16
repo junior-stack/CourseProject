@@ -1,3 +1,4 @@
+/*
 package UI;
 
 import Controller.LoginFacade;
@@ -147,9 +148,11 @@ public class TextUI {
     }
   }
 
-  /*
+  */
+/*
    * 这是一个semi autofill的登录界面
-   */
+   *//*
+
   private void LoginMenu(String email, String password) throws InterruptedException {
     while (true) {
       Scanner sc = new Scanner(System.in);
@@ -327,7 +330,9 @@ public class TextUI {
         }
       }
 
-      isSuceess = suc.signup(event_ID); /*Room id拿不到*/
+      isSuceess = suc.signup(event_ID); */
+/*Room id拿不到*//*
+
       if (isSuccess) {
         System.out.printf("[%s] Signed Up Successful!"
             + "\nAutomatically redirect to main menu after 2 second.");
@@ -413,7 +418,9 @@ public class TextUI {
               sc.nextInt();
             }
           }
-          boolean isSuccess = suc.cancelEvent(event_id); /*拿不了Room*/
+          boolean isSuccess = suc.cancelEvent(event_id); */
+/*拿不了Room*//*
+
           if (isSuccess) {
             System.out.printf("[%d] Cancel Successful!"
                 + "\nAutomatically redirect to main menu after 2 second.", event_id);
@@ -496,3 +503,4 @@ public class TextUI {
             + "\n");
   }
 }
+*/

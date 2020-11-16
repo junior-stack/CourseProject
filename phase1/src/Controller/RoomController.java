@@ -18,8 +18,8 @@ public class RoomController {
     this.vr = vr;
   }
 
-  public void confirmaddroom(int roomID, int capacity) {
-    vr.addRoom(roomID, capacity);
+  public boolean confirmaddroom(int roomID, int capacity) {
+    return vr.addRoom(roomID, capacity);
   }
 
   public boolean confirmdeleteroom(int roomID) {

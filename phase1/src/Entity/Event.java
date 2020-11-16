@@ -81,6 +81,10 @@ public class Event implements Serializable {
     return speakerId;
   }
 
+  public void SetSpeaker(int sp_id){
+    speakerId = sp_id;
+  }
+
 
   @Override
   public String toString() {

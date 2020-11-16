@@ -47,6 +47,7 @@ public class ScheduleFacade {
 
   public boolean ConfirmEditEvent(int old_event_ID, int new_room_ID, String st, String en,
       String topic, int sp_ID) {
+
     return ec.ConfirmEditEvent(old_event_ID, new_room_ID, st, en, topic, sp_ID);
   }
 
@@ -66,9 +67,9 @@ public class ScheduleFacade {
     sc.delSpeakerSchedule(speakerID, start, end);
   }
 
-  public void addSpeaker(String SpeakerName, String Password, String phone, String email) {
+  public boolean addSpeaker(String SpeakerName, String Password, String phone, String email) {
 
-    sc.addSpeaker(SpeakerName, Password, phone, email);
+    return sc.addSpeaker(SpeakerName, Password, phone, email);
   }
 
   public HashMap<Integer, ArrayList<ArrayList<Time>>> getSpeakerSchedule() {
@@ -81,8 +82,8 @@ public class ScheduleFacade {
 
 
   // RoomController
-  public void confirmaddroom(int roomID, int capacity) {
-    rc.confirmaddroom(roomID, capacity);
+  public boolean confirmaddroom(int roomID) {
+    return rc.confirmaddroom(roomID, 2);
   }
 
   public boolean confirmdeleteroom(int roomID) {

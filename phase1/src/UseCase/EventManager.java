@@ -34,7 +34,7 @@ public class EventManager {
     Time beggining = java.sql.Time.valueOf("09:00:00");
     Time ending = java.sql.Time.valueOf("17:00:00");
 
-    if (start.compareTo(beggining) < 0 && end.compareTo(ending) > 0) {
+    if (start.compareTo(beggining) < 0 | end.compareTo(ending) > 0) {
       return false;
     }
 
@@ -63,9 +63,22 @@ public class EventManager {
     vs.giveSpeakerNewSchedule(sp, start, end);
   }
 
-  public boolean delEvent(Event event) {
+  public void addEvent(Event e){
+    eventpool.add(e);
 
-    int id = event.getId();
+    vr.give_room_schedule(vr.get_rm(e.getRoomId()), e.getStartTime(), e.getEndTime());
+
+    vs.giveSpeakerNewSchedule(vs.get_sp(e.getSpeaker()), e.getStartTime(), e.getEndTime());
+  }
+
+  public boolean delEvent(Event event) {
+    int id;
+    try {
+      id = event.getId();
+    }catch(NullPointerException e){
+      System.out.println("There is no event with such id to be deleted");
+      return false;
+    }
 
     for (Event e : eventpool) {
       if (e.getId() == id) {
@@ -80,21 +93,34 @@ public class EventManager {
 
   public boolean editEvent(Event old, Room new_rm, Time start, Time end, String topic,
       Speaker new_sp) {
+    int id;
+    try {
+      id = old.getId();
+    }catch (NullPointerException e){
+      System.out.println("There is no event with such id to edit");
+      return false;
+    }
 
-    int id = old.getId();
-    Room old_rm;
-    Speaker old_sp;
+    long time_difference = end.getTime() - start.getTime();
+    if(time_difference > 3600000){
+      return false;
+    }
+
+
 
     for (Event e : eventpool) {
       if (e.getId() == id) {
         this.delEvent(old);
         if (this.checkIsEventValid(new_rm, start, end, new_sp)) {
-          this.addEvent(new_rm, start, end, new_sp, topic);
+          old.setStartTime(start);
+          old.setEndTime(end);
+          old.setRoomId(new_rm.getRoomId());
+          old.setTopic(topic);
+          old.SetSpeaker(new_sp.getUserId());
+          this.addEvent(old);
           return true;
         } else {
-          old_rm = vr.get_rm(old.getRoomId());
-          old_sp = vs.get_sp(old.getSpeaker());
-          this.addEvent(old_rm, start, end, old_sp, topic);
+          this.addEvent(old);
           return false;
         }
       }
@@ -152,6 +178,10 @@ public class EventManager {
     ArrayList<Integer> spots_list = new ArrayList<>();
     spots_list.add(e.getRoomId());
     return spots_list;
+  }
+
+  public ArrayList<Event> get_eventpool(){
+    return eventpool;
   }
 }
 

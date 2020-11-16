@@ -21,8 +21,8 @@ public class EventController {
       String topic) {
     Time st = java.sql.Time.valueOf(start);
     Time en = java.sql.Time.valueOf(end);
-    long time_difference = st.getTime() -en.getTime();
-    if(time_difference > 360000){
+    long time_difference = en.getTime() - st.getTime();
+    if(time_difference > 3600000){
       return false;
     }
     if (em.checkIsEventValid(em.get_vr().get_rm(rm_ID), st, en, em.get_vs().get_sp(speaker_ID))) {
@@ -41,6 +41,12 @@ public class EventController {
       String topic, int sp_ID) {
     Time start = java.sql.Time.valueOf(st);
     Time end = java.sql.Time.valueOf(en);
+    Time beggining = java.sql.Time.valueOf("09:00:00");
+    Time ending = java.sql.Time.valueOf("17:00:00");
+
+    if (start.compareTo(beggining) < 0 | end.compareTo(ending) > 0) {
+      return false;
+    }
     return em
         .editEvent(em.get_event(old_event_ID), em.get_vr().get_rm(new_room_ID), start, end, topic,
             em.get_vs().get_sp(sp_ID));
