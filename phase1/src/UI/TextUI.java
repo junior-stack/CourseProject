@@ -146,13 +146,10 @@ public class TextUI {
     }
   }
 
-<<<<<<< HEAD
+
   /*
    * 这是一个semi autofill的登录界面
    */
-=======
->>>>>>> b53af07d1f11133b418e70dd03cc12a5bed0082e
-
   private void LoginMenu(String email, String password) throws InterruptedException {
     while (true) {
       Scanner sc = new Scanner(System.in);
@@ -332,10 +329,7 @@ public class TextUI {
         }
       }
 
-<<<<<<< HEAD
       isSuceess = suc.signup(event_ID); /*Room id拿不到*/
-=======
->>>>>>> b53af07d1f11133b418e70dd03cc12a5bed0082e
       if (isSuccess) {
         System.out.printf("[%s] Signed Up Successful!"
             + "\nAutomatically redirect to main menu after 2 second.");
@@ -421,11 +415,8 @@ public class TextUI {
               sc.nextInt();
             }
           }
-<<<<<<< HEAD
+		  
           boolean isSuccess = suc.cancelEvent(event_id); /*拿不了Room*/
-=======
->>>>>>> b53af07d1f11133b418e70dd03cc12a5bed0082e
-
           if (isSuccess) {
             System.out.printf("[%d] Cancel Successful!"
                 + "\nAutomatically redirect to main menu after 2 second.", event_id);
