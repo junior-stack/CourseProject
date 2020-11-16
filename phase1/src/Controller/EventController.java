@@ -54,4 +54,7 @@ public class EventController {
     return em.get_events_lst();
   }
 
+  public ArrayList<Integer> get_spots(Integer event_id){
+    return em.get_event_spots(em.get_event(event_id));
+  }
 }
