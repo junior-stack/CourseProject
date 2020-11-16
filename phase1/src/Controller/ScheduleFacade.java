@@ -1,8 +1,7 @@
 package Controller;
 
 
-import Entity.Room;
-import Entity.Speaker;
+import Gateway.*;
 import UseCase.EventManager;
 import UseCase.ValidateRoom;
 import UseCase.ValidateSpeaker;
@@ -18,13 +17,19 @@ public class ScheduleFacade {
   private RoomController rc;
   private EventManager em;
 
-  public ScheduleFacade(String email) {
-    HashMap<Room, ArrayList<ArrayList<Time>>> rooms_list = new HashMap<>();
-    HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list = new HashMap<>();
-    ArrayList<Event> events = new ArrayList<Event>();
+  private Igateway ig = new EventDataAccess();
+  private MapGateway rm = new RoomDataAccess();
+  private MapGateway ss = new SpeakerScheduleDataAccess();
+
+  public ScheduleFacade() {
+    ArrayList events = ig.read();
+    HashMap rooms_list = rm.read();
+    HashMap speaker_list = ss.read();
+
     ValidateRoom vr = new ValidateRoom(rooms_list);
     rc = new RoomController(vr);
     ValidateSpeaker vs = new ValidateSpeaker(speaker_list);
+
     sc = new SpeakerController(vs);
     em = new EventManager(vr, vs, events);
     ec = new EventController(em);
@@ -91,5 +96,9 @@ public class ScheduleFacade {
   public HashMap<Integer, ArrayList<ArrayList<Time>>> get_rooms_schedule() {
     return rc.get_rooms_schedule();
   }
+  public void saveevents(){ig.write(EventManager.eventpool);}
+  public void saverooms(){rm.write(ValidateRoom.rooms_list);}
+  public void savespeakerschedule(){ss.write(ValidateSpeaker.speaker_list);}
+
 
 }
