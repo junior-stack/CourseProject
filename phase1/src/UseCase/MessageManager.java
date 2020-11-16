@@ -15,6 +15,11 @@ public class MessageManager {
   private final String userType;
   private final Map<String, String> emailToIdentity = new HashMap<>();
 
+  /**
+   * This is a constructor for MessageManager.
+   * @param email This represents the email address of the current user.
+   * @param previousMessageStorage This represents all messages before the program restarts.
+   */
   public MessageManager(String email,
       Map<String, Map<String, List<String>>> previousMessageStorage) {
     messageStorage = previousMessageStorage;
@@ -32,6 +37,11 @@ public class MessageManager {
     }
   }
 
+  /**
+   * Current user Send message to the target email address.
+   * @param email This is the target email address.
+   * @param message This is the message to be sent.
+   */
   public void singleMessageRequest(String email, String message) {
     String localEmail = user.getEmail();
     if (messageStorage.containsKey(email)) {
@@ -48,13 +58,22 @@ public class MessageManager {
     }
   }
 
-
+  /**
+   * Current user send messages to a list of target email addresses.
+   * @param emails This is the list containing all target email addresses.
+   * @param message This is the message to be sent.
+   */
   public void multipleMessageRequest(List<String> emails, String message) {
     for (String e : emails) {
       singleMessageRequest(e, message);
     }
   }
 
+  /**
+   * Current user read all messages that the user has received.
+   * @return Map This returns a map where each key represents another user email address
+   * and the corresponding value is a list containing all messages sent by the user in the key.
+   */
   public Map<String, List<String>> readMessages() {
     if (!messageStorage.containsKey(user.getEmail())) {
       return null;
@@ -62,6 +81,11 @@ public class MessageManager {
     return messageStorage.get(user.getEmail());
   }
 
+  /**
+   * Current user read all messages that the user has sent.
+   * @return Map This returns a map where each key represents another user email address
+   * and the corresponding value is a list containing all messages sent by the current user to the user in the key.
+   */
   public Map<String, List<String>> sentMessages() {
     Map<String, List<String>> result = new HashMap<>();
     for (String e : messageStorage.keySet()) {
@@ -78,7 +102,12 @@ public class MessageManager {
     return result;
   }
 
-  // Attendee,Organizer 只能单发 message
+  /**
+   * Attendee or Organizer send a single message to the target email address.
+   * @param email This is the target email.
+   * @param message This is the message to be sent.
+   * @return boolean This returns true iff the message is sent successfully, otherwise false.
+   */
   public boolean attendeeOrganizerSingleMessage(String email, String message) {
     if (emailToIdentity.get(email).equals("Attendee") || emailToIdentity.get(email)
         .equals("Speaker")) {
@@ -88,7 +117,12 @@ public class MessageManager {
     return false;
   }
 
-  //Speaker responds to attendee
+  /**
+   * Speaker respond a single message to the target email address.
+   * @param email This is the target email.
+   * @param message This is the message to be sent.
+   * @return boolean This returns true iff the message is sent successfully, otherwise false.
+   */
   public boolean speakerRespondMessage(String email, String message) {
     List<String> messages = MessageManager.messageStorage.get(user.getEmail()).get(email);
     if (messages != null) {
@@ -98,11 +132,13 @@ public class MessageManager {
     return false;
   }
 
-  // Organizer 群发attendees, speakers.
+  /**
+   * Organizer send messages to all Speakers and Attendees.
+   * @param targetIdentity This is either "Speakers" or "Attendees".
+   * @param message This is the message to be sent.
+   * @return boolean This returns true iff the message is sent successfully, otherwise false.
+   */
   public boolean organizerMultipleMessage(String targetIdentity, String message) {
-    if (targetIdentity.equals("Organizer")) {
-      return false;
-    }
     if (targetIdentity.equals("Attendees")) {
       List<String> emails = new ArrayList<>();
       for (String e : emailToIdentity.keySet()) {
@@ -111,6 +147,7 @@ public class MessageManager {
         }
       }
       multipleMessageRequest(emails, message);
+      return true;
     }
     if (targetIdentity.equals("Speakers")) {
       List<String> emails = new ArrayList<>();
@@ -120,11 +157,17 @@ public class MessageManager {
         }
       }
       multipleMessageRequest(emails, message);
+      return true;
     }
-    return true;
+    return false;
   }
 
-  //Speaker 群发 attendees of one/multiple talks
+  /**
+   * Speaker send messages to all Attendees in the given events.
+   * @param eventIds This is a list containing all eventIds that the Speaker wants to send message to.
+   * @param message This is the message to be sent.
+   * @return boolean This returns true iff the message is sent successfully, otherwise false.
+   */
   public boolean speakerMultipleMessage(List<Integer> eventIds, String message) {
     List<Event> events = EventManager.eventpool;
     List<Event> e = new ArrayList<>();
@@ -153,7 +196,10 @@ public class MessageManager {
     return true;
   }
 
-  // generate all user 可以单发的emails
+  /**
+   * This method is to generate email addresses that the current user could send the message to.
+   * @return List This returns a list of email addresses that the current user could send the message to.
+   */
   public List<String> generateEmail() {
     List<String> lst = new ArrayList<>();
     for (String e : emailToIdentity.keySet()) {
@@ -172,16 +218,25 @@ public class MessageManager {
     return lst;
   }
 
-  // String message, String mode: 单发/群发, Speaker 群发 给 eventIds 表示想要群发的event, Organizer 群发给 targetIdentity
-  // either "Attendee" or "Organizer", 表示群发的种类。当parameter 用不到的时候给 empty string or empty list.
+  /**
+   * This is the method used to send message(s) by the current user.
+   * @param mode This is either "Single" or "Multiple".
+   * @param message This is the message to be sent.
+   * @param email When mode is "Single", this represents the target email address.
+   * @param targetIdentity When Organizer send multiple messages, this represents the group of people who will receive
+   *                       the message. This is either "Attendees" or "Speakers".
+   * @param eventIds When Speaker send multiple messages, this represents the group of events that the Speaker wants
+   *                 to send message to.
+   * @return boolean This returns true iff the message is sent successfully, otherwise false.
+   */
   public boolean sendMessage(String mode, String message, String email, String targetIdentity,
       List<Integer> eventIds) {
-    if (mode.equals("single")) {
+    if (mode.equals("Single")) {
       if (userType.equals("Attendee") || (userType.equals("Organizer"))) {
         return attendeeOrganizerSingleMessage(email, message);
       }
-      return speakerRespondMessage(email, message);
-    } else {
+      return speakerRespondMessage(email, message);}
+    if (mode.equals("Multiple")){
       if (userType.equals("Attendee")) {
         return false;
       } else if (userType.equals("Organizer")) {
@@ -190,5 +245,6 @@ public class MessageManager {
         return speakerMultipleMessage(eventIds, message);
       }
     }
+    return false;
   }
 }
