@@ -24,6 +24,7 @@ public class ValidateSpeaker {
     if (!speaker_list.containsKey(speaker)) {
       return false;
     }
+    if (speaker_list.get(speaker)==null){return true;}
     for (ArrayList<Time> schedule : speaker_list.get(speaker)) {
       Time start2 = schedule.get(0);
       Time end2 = schedule.get(1);
@@ -39,8 +40,14 @@ public class ValidateSpeaker {
     ArrayList<Time> temp = new ArrayList<>();
     temp.add(start);
     temp.add(end);
+    ArrayList<ArrayList<Time>> tmp = new ArrayList<>();
+    tmp.add(temp);
     ArrayList<ArrayList<Time>> temp1 = speaker_list.get(speaker);
     int indicator = 0;
+    if(temp1 == null){
+      speaker_list.replace(speaker, tmp);
+      return;
+    }
     for (ArrayList<Time> time : temp1) {
       if (time.equals(temp)) {
         indicator = 1;
@@ -56,9 +63,13 @@ public class ValidateSpeaker {
     ArrayList<Time> p = new ArrayList<>();
     p.add(start);
     p.add(end);
+    if(speaker_list.get(this.get_sp(speaker_ID)) == null){
+      return;
+    }
     for (Speaker sp : speaker_list.keySet()) {
       if (speaker_ID == sp.getUserId()) {
-        for (ArrayList<Time> o : speaker_list.get(sp)) {
+        ArrayList<ArrayList<Time>> tmp = (ArrayList<ArrayList<Time>>) speaker_list.get(sp).clone();
+        for (ArrayList<Time> o : tmp) {
           if (o.equals(p)) {
             speaker_list.get(sp).remove(p);
           }

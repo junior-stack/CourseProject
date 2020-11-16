@@ -21,6 +21,10 @@ public class EventController {
       String topic) {
     Time st = java.sql.Time.valueOf(start);
     Time en = java.sql.Time.valueOf(end);
+    long time_difference = st.getTime() -en.getTime();
+    if(time_difference > 360000){
+      return false;
+    }
     if (em.checkIsEventValid(em.get_vr().get_rm(rm_ID), st, en, em.get_vs().get_sp(speaker_ID))) {
       em.addEvent(em.get_vr().get_rm(rm_ID), st, en, em.get_vs().get_sp(speaker_ID), topic);
       return true;

@@ -118,4 +118,13 @@ public class UserAccountManager {
   public void setNewCounter(int newcounter){
     User.setCounter(newcounter);
   }
+
+  public Integer get_user_id(String email){
+    for(User u: userList){
+      if(u.getEmail().equals(email)){
+        return u.getUserId();
+      }
+    }
+    return null;
+  }
 }

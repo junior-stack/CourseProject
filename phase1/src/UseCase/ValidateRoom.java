@@ -7,9 +7,8 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Handler;
-import java.util.logging.Logger;
+import java.util.Set;
+
 
 /**
  * Created by yezhou on 2020/11/12
@@ -19,8 +18,6 @@ public class ValidateRoom {
 
   public static HashMap<Room, HashMap<ArrayList<Time>, Integer>> rooms_list;
 
-  private static final Logger logger = Logger.getLogger(ValidateRoom.class.getName());
-  private static final Handler handler = new ConsoleHandler();
 
   public ValidateRoom(HashMap<Room, HashMap<ArrayList<Time>, Integer>> room_list) {
     ValidateRoom.rooms_list = room_list;
@@ -29,8 +26,10 @@ public class ValidateRoom {
   public HashMap<Room, ArrayList<ArrayList<Time>>> get_rooms_list() {
     HashMap<Room, ArrayList<ArrayList<Time>>> tmp = new HashMap<>();
     for (Room rm : rooms_list.keySet()) {
-      Collection<ArrayList<Time>> tmp2 = rooms_list.get(rm).keySet();
-      tmp.put(rm, (ArrayList<ArrayList<Time>>) tmp2);
+      Set temp1=rooms_list.get(rm).keySet();//// 为了test 改过
+      ArrayList temp2 = new ArrayList();//// 为了test 改过
+      for (Object i:temp1){temp2.add(i);}//// 为了test 改过
+      tmp.put(rm, temp2);
     }
     return tmp;
   }
@@ -39,7 +38,9 @@ public class ValidateRoom {
     HashMap<Integer, ArrayList<ArrayList<Time>>> tmp = new HashMap<>();
     for (Room rm : rooms_list.keySet()) {
       Collection<ArrayList<Time>> tmp2 = rooms_list.get(rm).keySet();
-      tmp.put(rm.getRoomId(), (ArrayList<ArrayList<Time>>) tmp2);
+      ArrayList temp2 = new ArrayList();//// 为了test 改过
+      for (Object i:tmp2){temp2.add(i);}
+      tmp.put(rm.getRoomId(), temp2);
     }
     return tmp;
   }
@@ -70,7 +71,6 @@ public class ValidateRoom {
 
   public void give_room_schedule(Room rm, Time start, Time end) {
     ArrayList<Time> p = new ArrayList<>();
-    HashMap<ArrayList<Time>, Integer> schedule = new HashMap<>();
     p.add(start);
     p.add(end);
     rooms_list.get(rm).put(p, rm.getCapacity());
