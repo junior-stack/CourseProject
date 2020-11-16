@@ -4,7 +4,9 @@ import Controller.LoginFacade;
 import Controller.MessageController;
 import Controller.ScheduleFacade;
 import Controller.SignUpController;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 import javax.swing.text.View;
 
@@ -13,7 +15,7 @@ public class TextUI {
   private String email;
 
   LoginFacade lf = new LoginFacade();
-  ScheduleFacade sf = new ScheduleFacade(email);
+  ScheduleFacade sf = new ScheduleFacade();
   SignUpController suc = new SignUpController();
   MessageController mc = new MessageController(email);
 
@@ -381,7 +383,8 @@ public class TextUI {
       System.out.println("The form of event is <ID> - <NAME>"
           + "\nPlease enter the corresponding number to continue..."
           + "\n1 - Cancel Event"
-          + "\n2 - Go Back");
+          + "\n2 - Send Message"
+          + "\n3 - Go Back");
 
       int choice;
       while (true) {
@@ -398,10 +401,10 @@ public class TextUI {
 
       switch (choice) {
         case 1:
-          System.out.println("Please enter the event <ID> you want to cancel: ");
           int event_id;
           while (true) {
             try {
+              System.out.println("Please enter the event <ID> you want to cancel: ");
               event_id = sc.nextInt();
               break;
             } catch (InputMismatchException e) {
@@ -425,13 +428,50 @@ public class TextUI {
             break;
           }
         case 2:
+          String targetEmail, message;
+          while (true) {
+            try {
+              System.out.println("Please enter target's email and your message: ");
+              System.out.print("Target Email: ");
+              targetEmail = sc.nextLine();
+              System.out.print("Message: ");
+              message = sc.nextLine();
+              break;
+            } catch (InputMismatchException e) {
+              System.out.println("Invalid input, please try again.");
+              System.out.println("Please enter target's email and your message: ");
+              System.out.print("Target Email: ");
+              sc.nextLine();
+              System.out.print("Message: ");
+              sc.nextLine();
+            }
+          }
+          List<Integer> evetIds = new ArrayList<>();
+          boolean isSent = mc.sendMessages("Single", message, targetEmail, "", evetIds);
+          if (isSent) {
+            System.out.printf("[%s: %s] Message Sent Successful!"
+                + "\nAutomatically redirect to main menu after 2 second.", targetEmail, message);
+            Thread.sleep(2000);
+            AttendeeMenu(email);
+            break;
+          } else {
+            System.out.printf("[%s: %s] Message Sent Failed!"
+                + "\nAutomatically redirect to main menu after 2 second.", targetEmail, message);
+            Thread.sleep(2000);
+            AttendeeMenu(email);
+            break;
+          }
+        case 3:
           SignUpEventsMenu(email);
       }
     }
   }
 
   private void ViewAllMessagesMenu(String email) {
-    
+    Scanner sc = new Scanner(System.in);
+    System.out.println("[All Message Menu] Please enter the corresponding number to continue..."
+        + "\n1"
+        + "\n2");
   }
 
   private void SignOutRedirect() throws InterruptedException {

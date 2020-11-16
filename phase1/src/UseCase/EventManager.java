@@ -148,5 +148,10 @@ public class EventManager {
     }
     return tmp;
   }
+  public ArrayList<Integer> get_event_spots(Event e){
+    ArrayList<Integer> spots_list = new ArrayList<>();
+    spots_list.add(e.getRoomId());
+    return spots_list;
+  }
 }
 
