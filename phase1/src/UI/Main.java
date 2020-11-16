@@ -1,4 +1,3 @@
-/*
 package UI;
 
 public class Main {
@@ -9,4 +8,3 @@ public class Main {
   }
 
 }
-*/

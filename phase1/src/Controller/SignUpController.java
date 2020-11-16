@@ -66,4 +66,12 @@ public class SignUpController {
     return false;
   }
 
+  public boolean cancelEvent(int event_id){
+    if (us.deleteUserschedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id))) {
+      vr.deleteRoom(vr.get_rm(em.get_event_spots(em.get_event(event_id)).get(0)));
+      return true;
+    }
+    return false;
+  }
+
 }
