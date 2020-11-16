@@ -45,17 +45,14 @@ public class MessageManager {
   public void singleMessageRequest(String email, String message) {
     String localEmail = user.getEmail();
     if (messageStorage.containsKey(email)) {
-      if (messageStorage.get(email).containsKey(localEmail)) {
-        messageStorage.get(email).get(localEmail).add(message);
-      } else {
+      if (!messageStorage.get(email).containsKey(localEmail)) {
         messageStorage.get(email).put(localEmail, new ArrayList<>());
-        messageStorage.get(email).get(localEmail).add(message);
       }
     } else {
       messageStorage.put(email, new HashMap<>());
       messageStorage.get(email).put(localEmail, new ArrayList<>());
-      messageStorage.get(email).get(localEmail).add(message);
     }
+    messageStorage.get(email).get(localEmail).add(message);
   }
 
   /**
