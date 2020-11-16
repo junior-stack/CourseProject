@@ -37,7 +37,9 @@ public class EventController {
       String topic, int sp_ID) {
     Time start = java.sql.Time.valueOf(st);
     Time end = java.sql.Time.valueOf(en);
-    return em.editEvent(em.get_event(old_event_ID), em.get_vr().get_rm(new_room_ID), start, end, topic, em.get_vs().get_sp(sp_ID));
+    return em
+        .editEvent(em.get_event(old_event_ID), em.get_vr().get_rm(new_room_ID), start, end, topic,
+            em.get_vs().get_sp(sp_ID));
 
   }
 
@@ -50,7 +52,7 @@ public class EventController {
   }
 
   /*Return an arrayList of strings that prints all events in "eventId-event.topic*/
-  public ArrayList<String> get_events_lst(){
+  public ArrayList<String> get_events_lst() {
     return em.get_events_lst();
   }
 

@@ -1,7 +1,6 @@
 package Controller;
 
 
-
 import UseCase.ValidateSpeaker;
 import java.sql.Time;
 import java.util.ArrayList;

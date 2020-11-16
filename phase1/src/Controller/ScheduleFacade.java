@@ -18,7 +18,7 @@ public class ScheduleFacade {
   private RoomController rc;
   private EventManager em;
 
-  public ScheduleFacade(String email){
+  public ScheduleFacade(String email) {
     HashMap<Room, ArrayList<ArrayList<Time>>> rooms_list = new HashMap<>();
     HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list = new HashMap<>();
     ArrayList<Event> events = new ArrayList<Event>();
@@ -32,16 +32,16 @@ public class ScheduleFacade {
 
   // EventController
   public boolean ConfirmAddEvent(int rm_ID, String start, String end, int speaker_ID,
-      String topic){
+      String topic) {
     return ec.ConfirmAddEvent(rm_ID, start, end, speaker_ID, topic);
   }
 
-  public boolean ConfirmDeleteEvent(int eventID){
+  public boolean ConfirmDeleteEvent(int eventID) {
     return ec.ConfirmDeleteEvent(eventID);
   }
 
   public boolean ConfirmEditEvent(int old_event_ID, int new_room_ID, String st, String en,
-      String topic, int sp_ID){
+      String topic, int sp_ID) {
     return ec.ConfirmEditEvent(old_event_ID, new_room_ID, st, en, topic, sp_ID);
   }
 

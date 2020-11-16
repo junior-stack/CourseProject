@@ -24,7 +24,7 @@ public class RoomController {
 
   public boolean confirmdeleteroom(int roomID) {
     HashMap<Integer, ArrayList<ArrayList<Time>>> room_schedule = vr.get_rooms_schedule();
-    if(room_schedule.get(roomID).isEmpty()){
+    if (room_schedule.get(roomID).isEmpty()) {
       vr.deleteRoom(vr.get_rm(roomID));
       return true;
     }

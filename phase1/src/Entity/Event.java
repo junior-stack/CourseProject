@@ -73,11 +73,11 @@ public class Event implements Serializable {
     this.attendees.add(attendee_id);
   }
 
-  public int getRoomId(){
+  public int getRoomId() {
     return roomId;
   }
 
-  public int getSpeaker(){
+  public int getSpeaker() {
     return speakerId;
   }
 

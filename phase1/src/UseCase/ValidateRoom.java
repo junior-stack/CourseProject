@@ -22,13 +22,13 @@ public class ValidateRoom {
   private static final Logger logger = Logger.getLogger(ValidateRoom.class.getName());
   private static final Handler handler = new ConsoleHandler();
 
-  public ValidateRoom(HashMap<Room, HashMap<ArrayList<Time>, Integer>> room_list){
+  public ValidateRoom(HashMap<Room, HashMap<ArrayList<Time>, Integer>> room_list) {
     ValidateRoom.rooms_list = room_list;
   }
 
-  public HashMap<Room, ArrayList<ArrayList<Time>>> get_rooms_list(){
+  public HashMap<Room, ArrayList<ArrayList<Time>>> get_rooms_list() {
     HashMap<Room, ArrayList<ArrayList<Time>>> tmp = new HashMap<>();
-    for(Room rm: rooms_list.keySet()){
+    for (Room rm : rooms_list.keySet()) {
       Collection<ArrayList<Time>> tmp2 = rooms_list.get(rm).keySet();
       tmp.put(rm, (ArrayList<ArrayList<Time>>) tmp2);
     }
@@ -37,7 +37,7 @@ public class ValidateRoom {
 
   public HashMap<Integer, ArrayList<ArrayList<Time>>> get_rooms_schedule() {
     HashMap<Integer, ArrayList<ArrayList<Time>>> tmp = new HashMap<>();
-    for(Room rm: rooms_list.keySet()){
+    for (Room rm : rooms_list.keySet()) {
       Collection<ArrayList<Time>> tmp2 = rooms_list.get(rm).keySet();
       tmp.put(rm.getRoomId(), (ArrayList<ArrayList<Time>>) tmp2);
     }
@@ -105,7 +105,7 @@ public class ValidateRoom {
     return tmp.get(rm_ID);
   }
 
-  public HashMap<Integer, String> get_rms_info(){
+  public HashMap<Integer, String> get_rms_info() {
     HashMap<Integer, String> tmp = new HashMap<>();
     for (Room rm : this.get_rooms_list().keySet()) {
       tmp.put(rm.getRoomId(), rm.toString());
@@ -113,7 +113,7 @@ public class ValidateRoom {
     return tmp;
   }
 
-  public void deleteRoom(Room rm){
+  public void deleteRoom(Room rm) {
     rooms_list.remove(rm);
   }
 
@@ -128,18 +128,18 @@ public class ValidateRoom {
     return rooms_list.get(rm).get(event_time) == 0;
   }
 
-  public void signroom(Event e, Room rm){
-    for(ArrayList<Time> time: rooms_list.get(rm).keySet()){
-      if(time.get(0).equals(e.getStartTime()) && time.get(1).equals(e.getEndTime())) {
+  public void signroom(Event e, Room rm) {
+    for (ArrayList<Time> time : rooms_list.get(rm).keySet()) {
+      if (time.get(0).equals(e.getStartTime()) && time.get(1).equals(e.getEndTime())) {
         Integer m = rooms_list.get(rm).get(time);
         rooms_list.get(rm).replace(time, m - 1);
       }
     }
   }
 
-  public void cancelroom(Room rm, Event e){
-    for(ArrayList<Time> time: rooms_list.get(rm).keySet()){
-      if(time.get(0).equals(e.getStartTime()) && time.get(1).equals(e.getEndTime())) {
+  public void cancelroom(Room rm, Event e) {
+    for (ArrayList<Time> time : rooms_list.get(rm).keySet()) {
+      if (time.get(0).equals(e.getStartTime()) && time.get(1).equals(e.getEndTime())) {
         Integer m = rooms_list.get(rm).get(time);
         rooms_list.get(rm).replace(time, m + 1);
       }

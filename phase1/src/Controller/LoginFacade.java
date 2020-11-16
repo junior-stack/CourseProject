@@ -13,58 +13,67 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoginFacade {
-    private UserAccountsController uac;
-    private SpeakerAccountManager sam;
-    private OrganizerAccountManager oam;
-    private LoginPresenter lp;
-    private UserAccountManager uam;
 
-    private InitializeOrganizers io = new InitializeOrganizers();
-    private Igateway ig = new UserDataAccess();
+  private UserAccountsController uac;
+  private SpeakerAccountManager sam;
+  private OrganizerAccountManager oam;
+  private LoginPresenter lp;
+  private UserAccountManager uam;
 
-    public LoginFacade() {
-        ArrayList users = ig.read();
+  private InitializeOrganizers io = new InitializeOrganizers();
+  private Igateway ig = new UserDataAccess();
 
-        if (users.size()==0) {
-            oam = new OrganizerAccountManager(users);
-            oam.createOrganizer(io.initialize());
-        }
-        oam = new OrganizerAccountManager();
-        List existingSpeakers = oam.filterexistingspeaker(users);
-        sam = new SpeakerAccountManager(existingSpeakers);
+  public LoginFacade() {
+    ArrayList users = ig.read();
 
-        uam = new UserAccountManager(users);
-        uac = new UserAccountsController(uam, sam);
-        lp = new LoginPresenter(uam,sam);
+    if (users.size() == 0) {
+      oam = new OrganizerAccountManager(users);
+      oam.createOrganizer(io.initialize());
     }
+    oam = new OrganizerAccountManager();
+    List existingSpeakers = oam.filterexistingspeaker(users);
+    sam = new SpeakerAccountManager(existingSpeakers);
 
-    public ArrayList readusers() {
-        return ig.read();
-    }
+    uam = new UserAccountManager(users);
+    uam.setNewCounter(users.size());
+    uac = new UserAccountsController(uam, sam);
+    lp = new LoginPresenter(uam, sam);
+  }
 
-    public void register(String username, String password, String phone, String email) {
-        uac.createAttendee(username, password, phone, email);
-    }
-    public void createspeaker(String username, String password, String phone, String email){
-        uac.createSpeaker(username, password, phone, email);
-    }
+  public ArrayList readusers() {
+    return ig.read();
+  }
 
-    public boolean login(String email, String password) {
-        return uac.verify(email, password);
-    }
+  public boolean register(String username, String password, String phone, String email) {
+    return uac.createAttendee(username, password, phone, email);
+  }
 
-    public String getUserInfo(String email) {
-        return lp.getUserInfo(email);
-    }
+  public void createspeaker(String username, String password, String phone, String email) {
+    uac.createSpeaker(username, password, phone, email);
+  }
 
-    public String getUserIdentity(String email) {
-        return lp.getUserIdenity(email);
-    }
+  public boolean login(String email, String password) {
+    return uac.verify(email, password);
+  }
 
-    public List getallUsers(){return lp.allUserInfo();}
+  public String getUserInfo(String email) {
+    return lp.getUserInfo(email);
+  }
 
-    public List getallSpeakers(){return lp.allSpeakerInfo();}
+  public String getUserIdentity(String email) {
+    return lp.getUserIdenity(email);
+  }
 
-    public void save(){ig.write(UserAccountManager.userList);}
+  public List getallUsers() {
+    return lp.allUserInfo();
+  }
+
+  public List getallSpeakers() {
+    return lp.allSpeakerInfo();
+  }
+
+  public void save() {
+    ig.write(UserAccountManager.userList);
+  }
 
 }

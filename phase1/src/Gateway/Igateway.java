@@ -5,8 +5,8 @@ import java.util.List;
 
 public interface Igateway {
 
-    public void write(List list);
+  public void write(List list);
 
-    public ArrayList read();
+  public ArrayList read();
 
 }
