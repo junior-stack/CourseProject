@@ -47,9 +47,28 @@ public class SignUpController {
     throw new SignupConflict(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id));
   }
 
+  public void signup(int event_id) throws SignupConflict {
+    if (us.CheckUserIsBusy(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id))) {
+      if (!vr.check_room_is_full(em.get_event(event_id), vr.get_rm(em.get_event_spots(em.get_event(event_id)).get(0)))) {
+        us.addUserSchedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id));
+      } else {
+        System.out.println("The room is full");
+      }
+    }
+    throw new SignupConflict(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id));
+  }
+
   public boolean cancelEvent(int event_id, int rm_id) {
     if (us.deleteUserschedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id))) {
       vr.deleteRoom(vr.get_rm(rm_id));
+      return true;
+    }
+    return false;
+  }
+
+  public boolean cancelEvent(int event_id){
+    if (us.deleteUserschedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id))) {
+      vr.deleteRoom(vr.get_rm(em.get_event_spots(em.get_event(event_id)).get(0)));
       return true;
     }
     return false;
