@@ -13,6 +13,10 @@ public class Userschedule {
 
   public HashMap<User, ArrayList<Event>> user_schedule;
 
+  public Userschedule(HashMap<User, ArrayList<Event>> user_schedule) {
+    this.user_schedule = user_schedule;
+  }
+
   public ArrayList<Event> get_user_schedule(User user) {
     return user_schedule.get(user);
   }

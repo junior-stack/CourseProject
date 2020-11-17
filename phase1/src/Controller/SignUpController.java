@@ -1,9 +1,9 @@
 package Controller;
 
-import UseCase.EventManager;
-import UseCase.UserAccountManager;
-import UseCase.Userschedule;
-import UseCase.ValidateRoom;
+import Gateway.MapGateway;
+import Gateway.SpeakerScheduleDataAccess;
+import Gateway.UserScheduleDataAccess;
+import UseCase.*;
 import exception.SignupConflict;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,12 +12,29 @@ import java.util.HashMap;
  * Created by yezhou on 2020/11/14
  **/
 public class SignUpController {
-
+  //这三个数据同步有问题，需要修改, 再想想
   private ValidateRoom vr;
-  private Userschedule us;
-  private UserAccountManager uam;
   private EventManager em;
+  private UserAccountManager uam;
+  ////这三个数据同步有问题，需要修改, 再想想
+
+  private MapGateway mg = new UserScheduleDataAccess();
+  private Userschedule us;
   private String email;
+
+  public SignUpController(String email) {
+
+    HashMap userschedule = mg.read();
+    us = new Userschedule(userschedule);
+    this.email = email;
+
+    ////这三个数据同步有问题，需要修改, 再想想
+    this.vr = new ValidateRoom(new HashMap<>());
+    this.em = new EventManager(vr,new ValidateSpeaker(new HashMap<>()),new ArrayList<>());
+    this.uam = new UserAccountManager(new ArrayList<>());
+    ////这三个数据同步有问题，需要修改, 再想想
+
+  }
 
   public ArrayList<String> viewEventRegister() {
     try {
