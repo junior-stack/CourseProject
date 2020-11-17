@@ -12,27 +12,24 @@ import java.util.HashMap;
  * Created by yezhou on 2020/11/14
  **/
 public class SignUpController {
-  //这三个数据同步有问题，需要修改, 再想想
+
   private ValidateRoom vr;
   private EventManager em;
   private UserAccountManager uam;
-  ////这三个数据同步有问题，需要修改, 再想想
 
   private MapGateway mg = new UserScheduleDataAccess();
   private Userschedule us;
   private String email;
 
-  public SignUpController(String email) {
+  public SignUpController(String email, UserAccountManager userAccountManager, ValidateRoom validateRoom, EventManager eventManager) {
 
     HashMap userschedule = mg.read();
     us = new Userschedule(userschedule);
     this.email = email;
 
-    ////这三个数据同步有问题，需要修改, 再想想
-    this.vr = new ValidateRoom(new HashMap<>());
-    this.em = new EventManager(vr,new ValidateSpeaker(new HashMap<>()),new ArrayList<>());
-    this.uam = new UserAccountManager(new ArrayList<>());
-    ////这三个数据同步有问题，需要修改, 再想想
+    this.vr = validateRoom ;
+    this.em = eventManager;
+    this.uam = userAccountManager;
 
   }
 
@@ -92,5 +89,7 @@ public class SignUpController {
     }
     return false;
   }
+
+  public void saveuserschedule(){mg.write(Userschedule.user_schedule);};
 
 }

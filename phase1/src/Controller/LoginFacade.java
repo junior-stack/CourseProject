@@ -20,6 +20,8 @@ public class LoginFacade {
   private LoginPresenter lp;
   private UserAccountManager uam;
 
+
+
   private InitializeOrganizers io = new InitializeOrganizers();
   private Igateway ig = new UserDataAccess();
 
@@ -71,6 +73,11 @@ public class LoginFacade {
   public List getallSpeakers() {
     return lp.allSpeakerInfo();
   }
+
+  public UserAccountManager getUam() {
+    return uam;
+  }
+
 
   public void save() {
     ig.write(UserAccountManager.userList);
