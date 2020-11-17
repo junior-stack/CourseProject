@@ -416,7 +416,7 @@ public class TextUI {
             }
           }
 		  
-          boolean isSuccess = suc.cancelEvent(event_id); /*拿不了Room*/
+          boolean isSuccess = suc.cancelEvent(event_id);
           if (isSuccess) {
             System.out.printf("[%d] Cancel Successful!"
                 + "\nAutomatically redirect to main menu after 2 second.", event_id);
