@@ -15,7 +15,7 @@ public class TextUI {
 
   LoginFacade lf = new LoginFacade();
   ScheduleFacade sf = new ScheduleFacade();
-  SignUpController suc = new SignUpController();
+  SignUpController suc = new SignUpController(email,lf.getUam(),sf.getVr(),sf.getEm());
   MessageController mc = new MessageController(email);
 
   public void run() throws InterruptedException {
