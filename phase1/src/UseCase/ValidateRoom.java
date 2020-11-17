@@ -89,7 +89,9 @@ public class ValidateRoom {
     p.add(end);
     for (Room r : rooms_list.keySet()) {
       if (rm_ID == r.getRoomId()) {
-        for (ArrayList<Time> o : rooms_list.get(r).keySet()) {
+        ArrayList<ArrayList<Time>> tmp = new ArrayList<>();
+        tmp.addAll(rooms_list.get(r).keySet());
+        for (ArrayList<Time> o : tmp) {
           if (o.equals(p)) {
             rooms_list.get(r).remove(p);
             return;

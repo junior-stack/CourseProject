@@ -79,8 +79,9 @@ public class EventManager {
       System.out.println("There is no event with such id to be deleted");
       return false;
     }
-
-    for (Event e : eventpool) {
+    ArrayList<Event> eventpool_copy = new ArrayList<>();
+    eventpool_copy.addAll(eventpool);
+    for (Event e : eventpool_copy) {
       if (e.getId() == id) {
         eventpool.remove(e);
         vr.del_room_schedule(event.getRoomId(), event.getStartTime(), event.getEndTime());
@@ -106,9 +107,9 @@ public class EventManager {
       return false;
     }
 
-
-
-    for (Event e : eventpool) {
+    ArrayList<Event> tmp = new ArrayList<>();
+    tmp.addAll(eventpool);
+    for (Event e : tmp) {
       if (e.getId() == id) {
         this.delEvent(old);
         if (this.checkIsEventValid(new_rm, start, end, new_sp)) {
