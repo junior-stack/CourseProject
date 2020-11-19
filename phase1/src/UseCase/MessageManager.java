@@ -198,8 +198,14 @@ public class MessageManager {
         if (emailToIdentity.get(e).equals("Attendee") || emailToIdentity.get(e).equals("Speaker")) {
           lst.add(e);
         }
-      } else {
-        lst.addAll(MessageManager.messageStorage.get(user.getEmail()).keySet());
+      }
+    }
+    if (userType.equals("Speaker")) {
+      Map<String, List<String>> temp = MessageManager.messageStorage.get(user.getEmail());
+      for (String email : temp.keySet()) {
+        if (emailToIdentity.get(email).equals("Attendee")) {
+          lst.add(email);
+        }
       }
     }
     return lst;
