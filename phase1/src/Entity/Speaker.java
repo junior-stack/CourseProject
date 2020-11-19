@@ -2,14 +2,16 @@ package Entity;
 
 /**
  * This class represents an Speaker.
+ *
  * @author Jun Xing
  * @version 1.0
  */
 public class Speaker extends User {
 
   /**
-   * This method creates an Instance of Speaker. Username, password phone, email are required.
-   * Also a Speaker has an identity of "Speaker".
+   * This method creates an Instance of Speaker. Username, password phone, email are required. Also
+   * a Speaker has an identity of "Speaker".
+   *
    * @param username
    * @param password
    * @param phone
@@ -24,6 +26,7 @@ public class Speaker extends User {
    * This method return whether other Object is equals to this Speaker. They are equal when the
    * Object is an instance of Speaker and they have the same userId, password, username, events
    * list, email, phone and identity.
+   *
    * @param other
    * @return boolean of whether other Object is equals to this Speaker.
    */

@@ -2,7 +2,6 @@ package Presenter;
 
 import UseCase.SpeakerAccountManager;
 import UseCase.UserAccountManager;
-
 import java.util.List;
 
 

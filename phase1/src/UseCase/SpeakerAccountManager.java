@@ -4,8 +4,10 @@ import Entity.Speaker;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+
 /**
  * A class representing a SpeakerAccountManager
+ *
  * @author Ziwei Jia & Yufei Wang
  * @version 1.0
  */
@@ -15,6 +17,7 @@ public class SpeakerAccountManager {
 
   /**
    * Create a UserAccountManager with given speakerList.
+   *
    * @param speakerList
    */
   public SpeakerAccountManager(List<Speaker> speakerList) {
@@ -23,6 +26,7 @@ public class SpeakerAccountManager {
 
   /**
    * This method returns a List of strings representing all the speakers in the speakerList.
+   *
    * @return List of strings representing all the speakers in the speakerList
    */
   public List getSpeakerList() {
@@ -35,6 +39,7 @@ public class SpeakerAccountManager {
 
   /**
    * This method creates an speaker with giving username, password, phone and email.
+   *
    * @param username
    * @param password
    * @param phone
@@ -65,6 +70,7 @@ public class SpeakerAccountManager {
 
   /**
    * This method checks is the email is valid.
+   *
    * @param email
    * @return boolean whether email is valid or not.
    */
@@ -85,6 +91,7 @@ public class SpeakerAccountManager {
 
   /**
    * This method checks is the password is valid.
+   *
    * @param password
    * @return boolean whether password is valid or not.
    */
@@ -94,6 +101,7 @@ public class SpeakerAccountManager {
 
   /**
    * This method checks is the phone is valid.
+   *
    * @param phone
    * @return boolean whether phone is valid or not.
    */

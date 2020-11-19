@@ -7,8 +7,6 @@ import Presenter.LoginPresenter;
 import UseCase.OrganizerAccountManager;
 import UseCase.SpeakerAccountManager;
 import UseCase.UserAccountManager;
-
-
 import java.util.ArrayList;
 import java.util.List;
 

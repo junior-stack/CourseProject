@@ -1,19 +1,28 @@
 package Gateway;
 
-import java.io.*;
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A class representing UserDataAccess.
+ *
  * @author Jun Xing
  * @version 1.0
  */
 public class UserDataAccess implements Igateway {
 
   /**
-   * This method save the List of UserData to the database (data/UserAccounts) and print
-   * "Data has been saved to database", otherwise print IOException with details.
+   * This method save the List of UserData to the database (data/UserAccounts) and print "Data has
+   * been saved to database", otherwise print IOException with details.
+   *
    * @param list
    */
   @Override
@@ -34,6 +43,7 @@ public class UserDataAccess implements Igateway {
   /**
    * Read the UserData in the database (data/UserAccounts) into an ArrayList. Print exception with
    * detail otherwise.
+   *
    * @return The ArratList of all UserData in the database
    */
   @Override

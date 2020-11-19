@@ -2,10 +2,11 @@ package Entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+
 /**
  * This class represents an Attendee.
+ *
  * @author Jun Xing
  * @version 1.0
  */
@@ -22,9 +23,10 @@ public abstract class User implements Serializable {
   private final List<Integer> events;
 
   /**
-   * This method creates an instance of User, In order to do this, username, password, phone,
-   * and email are required. Also, a unique userId and a event list are generated and each Users
-   * has an Identity of Attendee or Organizer or Speaker.
+   * This method creates an instance of User, In order to do this, username, password, phone, and
+   * email are required. Also, a unique userId and a event list are generated and each Users has an
+   * Identity of Attendee or Organizer or Speaker.
+   *
    * @param username
    * @param password
    * @param phone
@@ -43,6 +45,7 @@ public abstract class User implements Serializable {
 
   /**
    * This method sets a User's counter.
+   *
    * @param counter
    */
   public static void setCounter(int counter) {
@@ -51,6 +54,7 @@ public abstract class User implements Serializable {
 
   /**
    * This method returns a User's Id.
+   *
    * @return User's Id
    */
   public int getUserId() {
@@ -59,6 +63,7 @@ public abstract class User implements Serializable {
 
   /**
    * This method returns a User's Username.
+   *
    * @return User's Username
    */
   public String getUsername() {
@@ -67,6 +72,7 @@ public abstract class User implements Serializable {
 
   /**
    * This method sets a User's Username.
+   *
    * @param username
    */
   public void setUsername(String username) {
@@ -75,6 +81,7 @@ public abstract class User implements Serializable {
 
   /**
    * This method returns a User's Password.
+   *
    * @return User's Password
    */
   public String getPassword() {
@@ -83,6 +90,7 @@ public abstract class User implements Serializable {
 
   /**
    * This method sets a User's Password.
+   *
    * @param password
    */
   public void setPassword(String password) {
@@ -91,6 +99,7 @@ public abstract class User implements Serializable {
 
   /**
    * This method returns a User's Phone.
+   *
    * @return User's Phone
    */
   public String getPhone() {
@@ -99,6 +108,7 @@ public abstract class User implements Serializable {
 
   /**
    * This method sets a User's Phone.
+   *
    * @param phone
    */
   public void setPhone(String phone) {
@@ -107,6 +117,7 @@ public abstract class User implements Serializable {
 
   /**
    * This method returns a User's Email.
+   *
    * @return User's Email
    */
   public String getEmail() {
@@ -115,6 +126,7 @@ public abstract class User implements Serializable {
 
   /**
    * This method sets a User's Email.
+   *
    * @param email
    */
   public void setEmail(String email) {
@@ -125,6 +137,7 @@ public abstract class User implements Serializable {
    * This method returns User's related events which means for an attendee, this should return
    * events it signed up for; for an organizer, this should return events it organized and for a
    * speaker, this should return events it's supposed to lecture.
+   *
    * @return User's related events
    */
   public List<Integer> getEvents() {
@@ -133,6 +146,7 @@ public abstract class User implements Serializable {
 
   /**
    * This method add an event to the User's List of event.
+   *
    * @param event_id
    */
   public void addEvents(int event_id) {
@@ -142,6 +156,7 @@ public abstract class User implements Serializable {
   /**
    * This method returns a User's Identity which means return it's a Speaker, an Organizer or an
    * Attendee.
+   *
    * @return User's Identity
    */
   public String getIdentity() {
@@ -151,6 +166,7 @@ public abstract class User implements Serializable {
   /**
    * This method returns a string representation of the User, including its userId, username,
    * password, phone, email, related events and identity.
+   *
    * @return a string representation of the User
    */
   @Override

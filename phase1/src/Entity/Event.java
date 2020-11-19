@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * This class represents an Event.
+ *
  * @author Jun Xing
  * @version 1.0
  */
@@ -29,8 +30,9 @@ public class Event implements Serializable {
   // 做signup event 的人可以参照课上学生enroll course 的例子。
 
   /**
-   * This method creates an Instance of Event. Every event has a unique eventId, a speaker,
-   * a related roomId, a topic, its startTime and endTime and a List of attendees.
+   * This method creates an Instance of Event. Every event has a unique eventId, a speaker, a
+   * related roomId, a topic, its startTime and endTime and a List of attendees.
+   *
    * @param roomId
    * @param startTime
    * @param endTime
@@ -48,6 +50,7 @@ public class Event implements Serializable {
 
   /**
    * This method return a Event's eventId.
+   *
    * @return Event's eventId
    */
   public int getId() {
@@ -56,6 +59,7 @@ public class Event implements Serializable {
 
   /**
    * This method sets a Event's roomId.
+   *
    * @param roomId
    */
   public void setRoomId(int roomId) {
@@ -64,6 +68,7 @@ public class Event implements Serializable {
 
   /**
    * This method returns a Event's startTime.
+   *
    * @return Event's startTime.
    */
   public Time getStartTime() {
@@ -72,6 +77,7 @@ public class Event implements Serializable {
 
   /**
    * This method sets a Event's startTime.
+   *
    * @param startTime
    */
   public void setStartTime(Time startTime) {
@@ -80,6 +86,7 @@ public class Event implements Serializable {
 
   /**
    * This method returns a Event's endTime.
+   *
    * @return Event's endTime.
    */
   public Time getEndTime() {
@@ -88,6 +95,7 @@ public class Event implements Serializable {
 
   /**
    * This method sets a Event's endTime.
+   *
    * @param endTime
    */
   public void setEndTime(Time endTime) {
@@ -96,6 +104,7 @@ public class Event implements Serializable {
 
   /**
    * This method returns a Event's topic.
+   *
    * @return Event's topic
    */
   public String getTopic() {
@@ -104,6 +113,7 @@ public class Event implements Serializable {
 
   /**
    * This method sets a Event's topic.
+   *
    * @param topic
    */
   public void setTopic(String topic) {
@@ -112,6 +122,7 @@ public class Event implements Serializable {
 
   /**
    * This method returns a List of all attendees' attendeeId.
+   *
    * @return List of all attendees' attendeeId
    */
   public List<Integer> getAllAttendee() {
@@ -120,6 +131,7 @@ public class Event implements Serializable {
 
   /**
    * This method add a new attendee to the Event by adding its attendeeId to the List of attendees.
+   *
    * @param attendee_id
    */
   public void addAttendee(int attendee_id) {
@@ -128,6 +140,7 @@ public class Event implements Serializable {
 
   /**
    * This method returns a Event's roomId.
+   *
    * @return Event's roomId
    */
   public int getRoomId() {
@@ -136,6 +149,7 @@ public class Event implements Serializable {
 
   /**
    * This method return the speaker of this Event.
+   *
    * @return Event's speaker
    */
   public int getSpeaker() {
@@ -144,9 +158,10 @@ public class Event implements Serializable {
 
   /**
    * This method sets a Event's speaker.
+   *
    * @param sp_id
    */
-  public void SetSpeaker(int sp_id){
+  public void SetSpeaker(int sp_id) {
     speakerId = sp_id;
   }
 
@@ -154,6 +169,7 @@ public class Event implements Serializable {
   /**
    * This method returns a string representation of the Event, including its eventId, speakerId,
    * roomId, startTime, endTime, topic and attendees' attendeeId.
+   *
    * @return a string representation of the Event
    */
   @Override

@@ -1,10 +1,11 @@
 package Controller;
 
 import Gateway.MapGateway;
-import Gateway.SpeakerScheduleDataAccess;
 import Gateway.UserScheduleDataAccess;
-import UseCase.*;
-
+import UseCase.EventManager;
+import UseCase.UserAccountManager;
+import UseCase.Userschedule;
+import UseCase.ValidateRoom;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,13 +22,14 @@ public class SignUpController {
   private Userschedule us;
   private String email;
 
-  public SignUpController(String email, UserAccountManager userAccountManager, ValidateRoom validateRoom, EventManager eventManager) {
+  public SignUpController(String email, UserAccountManager userAccountManager,
+      ValidateRoom validateRoom, EventManager eventManager) {
 
     HashMap userschedule = mg.read();
     us = new Userschedule(userschedule);
     this.email = email;
 
-    this.vr = validateRoom ;
+    this.vr = validateRoom;
     this.em = eventManager;
     this.uam = userAccountManager;
 
@@ -44,6 +46,7 @@ public class SignUpController {
 
   /**
    * This method return a list of all events and their information
+   *
    * @return a map of all event and their information
    */
   public HashMap<Integer, String> ViewAllEvents() {
@@ -52,6 +55,7 @@ public class SignUpController {
 
   /**
    * This method return all topics.
+   *
    * @return a list of all topics of events
    */
   public ArrayList<String> browse(String topic) {
@@ -72,13 +76,16 @@ public class SignUpController {
   }
 
   /**
-   * This method enable a user to sign up an event, retuern true if the user's time and event could fit.
+   * This method enable a user to sign up an event, retuern true if the user's time and event could
+   * fit.
+   *
    * @return boolean wheather the sign up process is successful
    */
 
   public boolean signup(int event_id) {
     if (us.CheckUserIsBusy(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id))) {
-      if (!vr.check_room_is_full(em.get_event(event_id), vr.get_rm(em.get_event_spots(em.get_event(event_id)).get(0)))) {
+      if (!vr.check_room_is_full(em.get_event(event_id),
+          vr.get_rm(em.get_event_spots(em.get_event(event_id)).get(0)))) {
         us.addUserSchedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id));
         return true;
       } else {
@@ -89,7 +96,8 @@ public class SignUpController {
   }
 
   public boolean cancelEvent(int event_id, int rm_id) {
-    if (us.deleteUserschedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id))) {
+    if (us
+        .deleteUserschedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id))) {
       vr.deleteRoom(vr.get_rm(rm_id));
       return true;
     }
@@ -99,16 +107,22 @@ public class SignUpController {
 
   /**
    * This method enable a user to drop a event, retuern true if the user drop off from the event.
+   *
    * @return boolean wheather drop off process is successful
    */
-  public boolean cancelEvent(int event_id){
-    if (us.deleteUserschedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id))) {
+  public boolean cancelEvent(int event_id) {
+    if (us
+        .deleteUserschedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id))) {
       vr.deleteRoom(vr.get_rm(em.get_event_spots(em.get_event(event_id)).get(0)));
       return true;
     }
     return false;
   }
 
-  public void saveuserschedule(){mg.write(Userschedule.user_schedule);};
+  public void saveuserschedule() {
+    mg.write(Userschedule.user_schedule);
+  }
+
+  ;
 
 }
