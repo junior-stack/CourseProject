@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 public class TextUI {
 
@@ -17,6 +16,8 @@ public class TextUI {
    * Global variables
    */
   private String email;
+  private String password;
+  private int choice;
 
   LoginFacade lf = new LoginFacade();
   ScheduleFacade sf = new ScheduleFacade();
@@ -30,39 +31,41 @@ public class TextUI {
     UserMenu();
   }
 
+  /*
+   * ====================== User Register, Login & Switch Main Menu ===============================
+   */
+
   /**
    * The first menu user will see, contains 2 options. One for register(attendee only), and one for
    * anyone to login. The user must enter the number shows before "-" to continue.
    */
   private void UserMenu() {
-    while (true) {
-      Scanner sc = new Scanner(System.in);
-      System.out.println(
-          "Welcome to our project! \n Please enter the corresponding number to complete an action: "
-              + "\n1 - Register(Attendee ONLY)"
-              + "\n2 - Login");
+    Scanner sc = new Scanner(System.in);
+    System.out.println("===================================================================");
+    System.out.println(
+        "Welcome to our project! \n Please enter the corresponding number to complete an action: "
+            + "\n1 - Register(Attendee ONLY)"
+            + "\n2 - Login");
+    System.out.println("===================================================================");
 
-      int choice = 0;
-      while (true) {
-        try {
-          System.out.print("Your choice: ");
-          choice = sc.nextInt();
-          break;
-        } catch (InputMismatchException e) {
-          System.out.println("Invalid input, please try again.");
-          System.out.print("Your choice: ");
-          sc.nextInt();
-        }
-      }
+    UserOptionsHelper(sc);
 
-      switch (choice) {
-        case 1:
-          RegisterMenu();
-          break;
-        case 2:
-          LoginMenu();
-          break;
-      }
+    switch (choice) {
+      case 1:
+        RegisterMenu();
+      case 2:
+        LoginMenu();
+    }
+  }
+
+  private void UserOptionsHelper(Scanner sc) {
+    try {
+      System.out.print("Your choice: ");
+      choice = sc.nextInt();
+    } catch (InputMismatchException e) {
+      System.out.println("Invalid input, please try again.");
+      System.out.print("Your choice: ");
+      sc.nextInt();
     }
   }
 
@@ -76,31 +79,33 @@ public class TextUI {
   private void RegisterMenu() {
     while (true) {
       Scanner sc = new Scanner(System.in);
+      System.out.println("===================================================================");
       System.out.println("[Register Menu] Please enter your email and password to continue...");
+      System.out.println("===================================================================");
 
-      String username, password, phone;
-      while (true) {
-        try {
-          System.out.print("Username: ");
-          username = sc.nextLine();
-          System.out.print("Password: ");
-          password = sc.nextLine();
-          System.out.print("Phone: ");
-          phone = sc.nextLine();
-          System.out.print("Email: ");
-          email = sc.nextLine();
-          break;
-        } catch (InputMismatchException e) {
-          System.out.println("Invalid input, please try again.");
-          System.out.print("Username: ");
-          sc.nextLine();
-          System.out.print("Password: ");
-          sc.nextLine();
-          System.out.print("Phone: ");
-          sc.nextLine();
-          System.out.print("Email: ");
-          sc.nextLine();
-        }
+      String username;
+      String phone;
+      try {
+        System.out.print("Username: ");
+        username = sc.nextLine();
+        System.out.print("Password: ");
+        password = sc.nextLine();
+        System.out.print("Phone: ");
+        System.out.print("Phone: ");
+        phone = sc.nextLine();
+        System.out.print("Email: ");
+        email = sc.nextLine();
+      } catch (InputMismatchException e) {
+        System.out.println("Invalid input, please try again.");
+        System.out.print("Username: ");
+        sc.nextLine();
+        System.out.print("Password: ");
+        sc.nextLine();
+        System.out.print("Phone: ");
+        sc.nextLine();
+        System.out.print("Email: ");
+        sc.nextLine();
+        continue;
       }
 
       boolean isSuccess = lf.register(username, password, phone, email);
@@ -110,13 +115,13 @@ public class TextUI {
                 + "\nPassword: %s"
                 + "\nRedirecting to login menu...",
             email, password);
+        lf.save();
         LoginMenu(email, password);
-        break;
       } else {
         System.out.println("Register failed, please try again.");
         UserMenu();
-        break;
       }
+      return;
     }
   }
 
@@ -129,44 +134,27 @@ public class TextUI {
   private void LoginMenu() {
     while (true) {
       Scanner sc = new Scanner(System.in);
+      System.out.println("===================================================================");
       System.out.println("[Login Menu] Please enter your email and password to continue...");
+      System.out.println("===================================================================");
 
-      String password = null;
-      while (true) {
-        try {
-          System.out.print("Email: ");
-          email = sc.nextLine();
-          System.out.print("Password: ");
-          password = sc.nextLine();
-          break;
-        } catch (InputMismatchException e) {
-          System.out.println("Invalid input, please try again.");
-          System.out.print("Email: ");
-          sc.nextLine();
-          System.out.print("Password: ");
-          sc.nextLine();
-        }
+      try {
+        System.out.print("Email: ");
+        email = sc.nextLine();
+        System.out.print("Password: ");
+        password = sc.nextLine();
+      } catch (InputMismatchException e) {
+        System.out.println("Invalid input, please try again.");
+        System.out.print("Email: ");
+        sc.nextLine();
+        System.out.print("Password: ");
+        sc.nextLine();
+        continue;
       }
 
       boolean isSuccess = lf.login(email, password);
-      if (isSuccess) {
-        String userType = lf.getUserIdentity(email);
-        switch (userType) {
-          case "Attendee":
-            AttendeeMenu(email);
-            break;
-          case "Organizer":
-            OrganizerMenu(email);
-            break;
-          case "Speaker":
-            SpeakerMenu(email);
-            break;
-        }
-      } else {
-        System.out.println("Login failed, please try again.");
-        UserMenu();
-        break;
-      }
+      SwitchMenu(email, isSuccess);
+      return;
     }
   }
 
@@ -182,54 +170,52 @@ public class TextUI {
   private void LoginMenu(String email, String password) {
     while (true) {
       Scanner sc = new Scanner(System.in);
+      System.out.println("===================================================================");
       System.out.printf("[Login Menu] Please enter the corresponding number to continue..."
               + "Email: %s"
               + "Password: %s"
               + "\n1 - Confirm Login"
               + "\n2 - Has another account?",
           email, password);
+      System.out.println("===================================================================");
 
-      int choice = 0;
-      while (true) {
-        try {
-          System.out.print("Your choice: ");
-          choice = sc.nextInt();
-          break;
-        } catch (InputMismatchException e) {
-          System.out.println("Invalid input, please try again.");
-          System.out.print("Your choice: ");
-          sc.nextInt();
-        }
-      }
+      UserOptionsHelper(sc);
 
-      boolean isSuccess = false;
+      boolean isSuccess = lf.login(email, password);
       switch (choice) {
         case 1:
-          isSuccess = lf.login(email, password);
-          if (isSuccess) {
-            String userType = lf.getUserIdentity(email);
-            switch (userType) {
-              case "Attendee":
-                AttendeeMenu(email);
-                break;
-              case "Organizer":
-                OrganizerMenu(email);
-                break;
-              case "Speaker":
-                SpeakerMenu(email);
-                break;
-            }
-          } else {
-            System.out.println("Login failed, please try again.");
-            UserMenu();
-            break;
-          }
+          SwitchMenu(email, isSuccess);
+          break;
         case 2:
           LoginMenu();
-          break;
+          return;
       }
     }
   }
+
+  private void SwitchMenu(String email, boolean isSuccess) {
+    if (isSuccess) {
+      String userType = lf.getUserIdentity(email);
+      switch (userType) {
+        case "Attendee":
+          AttendeeMenu(email);
+          break;
+        case "Organizer":
+          OrganizerMenu(email);
+          break;
+        case "Speaker":
+          SpeakerMenu(email);
+          break;
+      }
+    } else {
+      System.out.println("Login failed, please try again.");
+      UserMenu();
+    }
+  }
+
+  /*
+   * =================================== Attendee Menu ===========================================
+   */
 
   /**
    * This is the first big screen section, used for attendees. Once attendee logged in successfully
@@ -240,25 +226,16 @@ public class TextUI {
   private void AttendeeMenu(String email) {
     while (true) {
       Scanner sc = new Scanner(System.in);
+      System.out.println("===================================================================");
       System.out.println(
           "[Attendee Menu] Please enter the corresponding number to complete an action"
               + "\n1 - View All Events"
               + "\n2 - View All Signed Up Events"
               + "\n3 - View All Messages"
               + "\n4 - Sign Out");
+      System.out.println("===================================================================");
 
-      int choice;
-      while (true) {
-        try {
-          System.out.print("Your choice: ");
-          choice = sc.nextInt();
-          break;
-        } catch (InputMismatchException e) {
-          System.out.println("Invalid input, please try again.");
-          System.out.print("Your choice: ");
-          sc.nextInt();
-        }
-      }
+      UserOptionsHelper(sc);
 
       switch (choice) {
         case 1:
@@ -281,7 +258,7 @@ public class TextUI {
           System.out.println("You don't have any messages yet. Please check again later.");
         case 4:
           SignOutRedirect();
-          break;
+          return;
       }
     }
   }
@@ -294,22 +271,13 @@ public class TextUI {
   private void ViewAllEventsMenu(String email) {
     while (true) {
       Scanner sc = new Scanner(System.in);
+      System.out.println("===================================================================");
       System.out.println("[All Events Menu] Please enter the corresponding number to continue..."
           + "\n1 - View All Events"
           + "\n2 - Go Back");
+      System.out.println("===================================================================");
 
-      int choice;
-      while (true) {
-        try {
-          System.out.print("Your choice: ");
-          choice = sc.nextInt();
-          break;
-        } catch (InputMismatchException e) {
-          System.out.println("Invalid input, please try again.");
-          System.out.print("Your choice: ");
-          sc.nextInt();
-        }
-      }
+      UserOptionsHelper(sc);
 
       String userType = lf.getUserIdentity(email);
 
@@ -326,7 +294,7 @@ public class TextUI {
             break;
           } else {
             System.out.println("You do not have permission to view all events");
-            break;
+            return;
           }
       }
     }
@@ -341,24 +309,23 @@ public class TextUI {
     while (true) {
       Scanner sc = new Scanner(System.in);
       sf.ShowAllEvents();
+      System.out.println("===================================================================");
       System.out.println("The form of event is <ID> - <NAME>"
           + "\n Please enter the corresponding event <ID> to sign up or 'BACK' to go back");
+      System.out.println("===================================================================");
 
       String input;
-      while (true) {
-        try {
-          System.out.print("Event <ID> or 'BACK'");
-          input = sc.nextLine();
-          if (input.equals("BACK")) {
-            ViewAllEventsMenu(email);
-            break;
-          }
-          break;
-        } catch (InputMismatchException e) {
-          System.out.println("Invalid input, please try again.");
-          System.out.print("Event <ID> or 'BACK'");
-          sc.nextLine();
+      try {
+        System.out.print("Event <ID> or 'BACK'");
+        input = sc.nextLine();
+        if (input.equals("BACK")) {
+          ViewAllEventsMenu(email);
         }
+      } catch (InputMismatchException e) {
+        System.out.println("Invalid input, please try again.");
+        System.out.print("Event <ID> or 'BACK'");
+        sc.nextLine();
+        continue;
       }
 
       int event_ID;
@@ -373,18 +340,16 @@ public class TextUI {
         }
       }
 
-      boolean isSuccess = suc.signup(event_ID); /*Room id拿不到*/
+      boolean isSuccess = suc.signup(event_ID);
       if (isSuccess) {
         System.out.printf("[%s] Signed Up Successful!"
             + "\nRedirecting to main menu...", event_ID);
-        AttendeeMenu(email);
-        break;
       } else {
         System.out.printf("[%s] Signed Up Failed!"
             + "\nRedirecting to main menu...", event_ID);
-        AttendeeMenu(email);
-        break;
       }
+      AttendeeMenu(email);
+      return;
     }
   }
 
@@ -396,31 +361,22 @@ public class TextUI {
   private void ViewAllSignedUpEventsMenu(String email) {
     while (true) {
       Scanner sc = new Scanner(System.in);
+      System.out.println("===================================================================");
       System.out.println(
           "[Signed Up Events Menu] Please enter the corresponding number to continue..."
               + "\n1 - View all signed up events"
               + "\n2 - Go Back");
+      System.out.println("===================================================================");
 
-      int choice;
-      while (true) {
-        try {
-          System.out.print("Your choice: ");
-          choice = sc.nextInt();
-          break;
-        } catch (InputMismatchException e) {
-          System.out.println("Invalid input, please try again.");
-          System.out.print("Your choice: ");
-          sc.nextInt();
-        }
-      }
+      UserOptionsHelper(sc);
 
       switch (choice) {
         case 1:
           ManageSignUpEventsMenu(email);
-          break;
+          return;
         case 2:
           AttendeeMenu(email);
-          break;
+          return;
       }
     }
   }
@@ -433,88 +389,83 @@ public class TextUI {
   private void ManageSignUpEventsMenu(String email) {
     while (true) {
       Scanner sc = new Scanner(System.in);
+      System.out.println("===================================================================");
       System.out.println(suc.ViewAllEvents());
       System.out.println("The form of event is <ID> - <NAME>"
           + "\nPlease enter the corresponding number to continue..."
           + "\n1 - Cancel Event"
           + "\n2 - Send Message"
           + "\n3 - Go Back");
+      System.out.println("===================================================================");
 
-      int choice;
-      while (true) {
-        try {
-          System.out.println("Your choice: ");
-          choice = sc.nextInt();
-          break;
-        } catch (InputMismatchException e) {
-          System.out.println("Invalid input, please try again.");
-          System.out.println("Your choice: ");
-          sc.nextInt();
-        }
+      try {
+        System.out.println("Your choice: ");
+        choice = sc.nextInt();
+      } catch (InputMismatchException e) {
+        System.out.println("Invalid input, please try again.");
+        System.out.println("Your choice: ");
+        sc.nextInt();
+        continue;
       }
 
+      String targetEmail;
+      String message;
+      int event_id;
       switch (choice) {
         case 1:
-          int event_id;
-          while (true) {
-            try {
-              System.out.println("Please enter the event <ID> you want to cancel: ");
-              event_id = sc.nextInt();
-              break;
-            } catch (InputMismatchException e) {
-              System.out.println("Invalid input, please try again.");
-              System.out.println("Please enter the event <ID> you want to cancel: ");
-              sc.nextInt();
-            }
+          try {
+            System.out.println("Please enter the event <ID> you want to cancel: ");
+            event_id = sc.nextInt();
+          } catch (InputMismatchException e) {
+            System.out.println("Invalid input, please try again.");
+            System.out.println("Please enter the event <ID> you want to cancel: ");
+            sc.nextInt();
+            continue;
           }
 
           boolean isSuccess = suc.cancelEvent(event_id);
           if (isSuccess) {
             System.out.printf("[%d] Cancel Successful!"
                 + "\nRedirecting to main menu...", event_id);
-            break;
           } else {
             System.out.printf("[%d] Cancel Failed!"
                 + "\nRedirecting to main menu...", event_id);
             AttendeeMenu(email);
-            break;
           }
+          break;
         case 2:
-          String targetEmail, message;
-          while (true) {
-            System.out.println(mc.generateEmailList());
-            try {
-              System.out.println("Please enter target's email and your message: ");
-              System.out.print("Target Email: ");
-              targetEmail = sc.nextLine();
-              System.out.print("Message: ");
-              message = sc.nextLine();
-              break;
-            } catch (InputMismatchException e) {
-              System.out.println("Invalid input, please try again.");
-              System.out.println("Please enter target's email and your message: ");
-              System.out.print("Target Email: ");
-              sc.nextLine();
-              System.out.print("Message: ");
-              sc.nextLine();
-            }
+          System.out.println(mc.generateEmailList());
+          try {
+            System.out.println("Please enter target's email and your message: ");
+            System.out.print("Target Email: ");
+            targetEmail = sc.nextLine();
+            System.out.print("Message: ");
+            message = sc.nextLine();
+          } catch (InputMismatchException e) {
+            System.out.println("Invalid input, please try again.");
+            System.out.println("Please enter target's email and your message: ");
+            System.out.print("Target Email: ");
+            sc.nextLine();
+            System.out.print("Message: ");
+            sc.nextLine();
+            continue;
           }
+
           List<Integer> eventIds = new ArrayList<>();
           boolean isSent = mc.sendMessages("Single", message, targetEmail, "",
               eventIds);
           if (isSent) {
             System.out.printf("[%s: %s] Message Sent Successful!"
                 + "\nRedirecting to main menu...", targetEmail, message);
-            AttendeeMenu(email);
-            break;
           } else {
             System.out.printf("[%s: %s] Message Sent Failed!"
                 + "\nRedirecting to main menu...", targetEmail, message);
-            AttendeeMenu(email);
-            break;
           }
+          AttendeeMenu(email);
+          break;
         case 3:
           SignUpEventsMenu(email);
+          return;
       }
     }
   }
@@ -526,21 +477,13 @@ public class TextUI {
    */
   private void ViewAllMessagesMenu(String email) {
     Scanner sc = new Scanner(System.in);
-    System.out.println("[All Message Menu] Please enter the corresponding number to continue..."
+    System.out.println("===================================================================");
+    System.out.println("[Message Menu] Please enter the corresponding number to continue..."
         + "\n1 - Show all messages"
         + "\n2 - Go back");
-    int choice;
-    while (true) {
-      try {
-        System.out.print("Your choice: ");
-        choice = sc.nextInt();
-        break;
-      } catch (InputMismatchException e) {
-        System.out.println("Invalid input, please try again.");
-        System.out.print("Your choice: ");
-        sc.nextInt();
-      }
-    }
+    System.out.println("===================================================================");
+
+    UserOptionsHelper(sc);
 
     switch (choice) {
       case 1:
@@ -568,17 +511,31 @@ public class TextUI {
         if (isSuccess) {
           System.out.printf("[%s : %s] Message replied successful!"
               + "\nRedirecting to main menu...", targetEmail, message);
-          AttendeeMenu(email);
         } else {
           System.out.printf("[%s : %s] Message replied failed!"
               + "\nRedirecting to main menu...", targetEmail, message);
+        }
+        if (lf.getUserIdentity(email).equals("Attendee")) {
           AttendeeMenu(email);
         }
+        if (lf.getUserIdentity(email).equals("Speaker")) {
+          SpeakerMenu(email);
+        }
+        break;
       case 2:
-        ManageSignUpEventsMenu(email);
+        if (lf.getUserIdentity(email).equals("Attendee")) {
+          ManageSignUpEventsMenu(email);
+        }
+        if (lf.getUserIdentity(email).equals("Speaker")) {
+          SpeakerMenu(email);
+        }
         break;
     }
   }
+
+  /*
+   * ===================================== Speaker Menu ==========================================
+   */
 
   /**
    * This is the third big screen section, used for attendees. Once attendee logged in successfully
@@ -587,14 +544,133 @@ public class TextUI {
    * @param email - email is inputted in login menu.
    */
   private void SpeakerMenu(String email) {
+    while (true) {
+      Scanner sc = new Scanner(System.in);
+      System.out.println("===================================================================");
+      System.out.println(
+          "[Speaker Menu] Please enter the corresponding number to complete an action"
+              + "\n1 - View all signed up events"
+              + "\n2 - View all messages"
+              + "\n3 - Sign Out");
+      System.out.println("===================================================================");
+
+      try {
+        System.out.print("Your choice: ");
+        choice = sc.nextInt();
+      } catch (InputMismatchException e) {
+        System.out.println("Invalid input, please try again.");
+        System.out.print("Your choice: ");
+        sc.nextInt();
+      }
+
+      switch (choice) {
+        case 1:
+          SpeakerViewAllSignedUpEvents(email);
+          break;
+        case 2:
+          ViewAllMessagesMenu(email);
+          break;
+        case 3:
+          SignOutRedirect();
+          return;
+      }
+    }
+  }
+
+  private void SpeakerViewAllSignedUpEvents(String email) {
     Scanner sc = new Scanner(System.in);
-    System.out.println(
-        "Welcome to Speaker Menu! Please enter the corresponding number to complete an action"
-            + "\n"
-            + "\n");
+    System.out.println(suc.ViewAllEvents());
+    System.out.println("===================================================================");
+    System.out.println("[Message Menu] Please enter the corresponding number to continue..."
+        + "\n1 - Send message to single person"
+        + "\n2 - Send message to attendees");
+    System.out.println("===================================================================");
+
+    try {
+      System.out.print("Your choice: ");
+      choice = sc.nextInt();
+    } catch (InputMismatchException e) {
+      System.out.println("Invalid input, please try again.");
+      System.out.print("Your choice: ");
+      sc.nextInt();
+    }
+
+    switch (choice) {
+      case 1:
+        while (true) {
+          System.out.println(mc.generateEmailList());
+          String targetEmail;
+          String message;
+
+          try {
+            System.out.println("Please enter target's email and your message: ");
+            System.out.print("Target Email: ");
+            targetEmail = sc.nextLine();
+            System.out.print("Message: ");
+            message = sc.nextLine();
+          } catch (InputMismatchException e) {
+            System.out.println("Invalid input, please try again.");
+            System.out.println("Please enter target's email and your message: ");
+            System.out.print("Target Email: ");
+            sc.nextLine();
+            System.out.print("Message: ");
+            sc.nextLine();
+            continue;
+          }
+
+          List<Integer> eventIds = new ArrayList<>();
+          boolean isSent = mc.sendMessages("Single", message, targetEmail, "",
+              eventIds);
+          if (isSent) {
+            System.out.printf("[%s: %s] Message Sent Successful!"
+                + "\nRedirecting to main menu...", targetEmail, message);
+          } else {
+            System.out.printf("[%s: %s] Message Sent Failed!"
+                + "\nRedirecting to main menu...", targetEmail, message);
+          }
+          SpeakerMenu(email);
+          break;
+        }
+      case 2:
+        while (true) {
+          String message;
+          int event_id;
+          try {
+            System.out.println("Please enter the event ID and your message to send...");
+            System.out.print("Event Id: ");
+            event_id = sc.nextInt();
+            System.out.print("Message: ");
+            message = sc.nextLine();
+          } catch (InputMismatchException e) {
+            System.out.println("Invalid input, please try again.");
+            System.out.print("Event Id: ");
+            sc.nextInt();
+            System.out.print("Message: ");
+            sc.nextLine();
+            continue;
+          }
+
+          List<Integer> eventIds = new ArrayList<>();
+          eventIds.add(event_id);
+          boolean isSent = mc.sendMessages("Multiple", message, "", "Attendee",
+              eventIds);
+          if (isSent) {
+            System.out.printf("[%s: %s] Message Sent Successful!"
+                + "\nRedirecting to main menu...", sf.get_single_event(event_id), message);
+          } else {
+            System.out.printf("[%s: %s] Message Sent Failed!"
+                + "\nRedirecting to main menu...", sf.get_single_event(event_id), message);
+          }
+          SpeakerMenu(email);
+          break;
+        }
+    }
   }
 
 
+  /*
+   * ==================================== Organizer Menu ========================================
+   */
 
   /**
    * This is the second big screen section, used for attendees. Once attendee logged in successfully
@@ -609,8 +685,6 @@ public class TextUI {
             + "\n"
             + "\n");
   }
-
-
 
 
   /**
