@@ -17,6 +17,17 @@ public class EventController {
     this.em = em;
   }
 
+
+  /**
+   * This method return whether the event is successfully arranged and confirmed.
+   * It takes in information of the event (room, time, speaker) and try to arrange it.
+   * It only returns true when the event is a valid one and is successfully arranged.
+   * @param rm_ID room id where the event will take place
+   * @param start the start time of this event
+   * @param end the end time of this event
+   * @param speaker_ID the id of the speaker of this event
+   * @return boolean of whether the event is confirmed.
+   */
   public boolean ConfirmAddEvent(int rm_ID, String start, String end, int speaker_ID,
       String topic) {
     Time st = java.sql.Time.valueOf(start);
@@ -32,11 +43,27 @@ public class EventController {
     return false;
   }
 
+  /**
+   * This method return whether a particular event is successfully deleted according the the id of this event.
+   * @param eventID the id of a particular event
+   * @return boolean of whether the event is deleted.
+   */
   public boolean ConfirmDeleteEvent(int eventID) {
     return em.delEvent(em.get_event(eventID));
   }
 
 
+  /**
+   * This method return all information of the event after editing.
+   * It includes event Id, room id, time of the event, topic, speaker.
+   * @param old_event_ID event id
+   * @param new_room_ID room id where the event will take place
+   * @param st the start time of this event
+   * @param en the end time of this event
+   * @param topic the topic of the event
+   * @param sp_ID speaker id
+   * @return all information of the event.
+   */
   public boolean ConfirmEditEvent(int old_event_ID, int new_room_ID, String st, String en,
       String topic, int sp_ID) {
     Time start = java.sql.Time.valueOf(st);
@@ -53,10 +80,20 @@ public class EventController {
 
   }
 
+  /**
+   * This method return a list of all events.
+   * @return a map of all events.
+   */
   public HashMap<Integer, String> ShowAllEvents() {
     return em.get_events_info();
   }
 
+
+  /**
+   * This method return all information of a particular event.
+   * It includes event Id, room id, time of the event, topic, speaker.
+   * @return all information of the event.
+   */
   public String get_single_event(int event_ID) {
     return em.get_events_info().get(event_ID);
   }
