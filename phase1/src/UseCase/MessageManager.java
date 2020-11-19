@@ -9,32 +9,22 @@ import java.util.Map;
 
 public class MessageManager {
 
-  public static Map<String, Map<String, List<String>>> messageStorage;
+  public static HashMap<String, HashMap<String, List<String>>> messageStorage;
 
-  private User user;
+  private final User user;
   private final String userType;
-  private final Map<String, String> emailToIdentity = new HashMap<>();
+  private final Map<String, String> emailToIdentity;
 
   /**
    * This is a constructor for MessageManager.
    * @param email This represents the email address of the current user.
    * @param previousMessageStorage This represents all messages before the program restarts.
    */
-  public MessageManager(String email,
-      Map<String, Map<String, List<String>>> previousMessageStorage) {
+  public MessageManager(String email, HashMap<String, HashMap<String, List<String>>> previousMessageStorage) {
     messageStorage = previousMessageStorage;
-    List<User> users = UserAccountManager.userList;
-    for (User u : users) {
-      if (u.getEmail().equals(email)) {
-        user = u;
-      }
-    }
-    assert user != null;
+    user = UserAccountManager.getUserFromEmail(email);
     userType = user.getIdentity();
-    List<User> userList = UserAccountManager.userList;
-    for (User user : userList) {
-      emailToIdentity.put(user.getEmail(), user.getIdentity());
-    }
+    emailToIdentity = UserAccountManager.getEmailToIdentityMap();
   }
 
   /**
@@ -73,7 +63,7 @@ public class MessageManager {
    */
   public Map<String, List<String>> readMessages() {
     if (!messageStorage.containsKey(user.getEmail())) {
-      return null;
+      return new HashMap<>();
     }
     return messageStorage.get(user.getEmail());
   }
