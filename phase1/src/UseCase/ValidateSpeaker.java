@@ -6,14 +6,35 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
+
+/**
+ * A class representing a ValidateRoom.
+ * @author Ye Zhou &
+ * @version 1.0
+ **/
 public class ValidateSpeaker {
 
   public static HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list;
 
+  /**
+   * Create a ValidateRoom with given speaker_list. A speaker_list is
+   * a HashMap of
+   * {Speaker to event schedule which is [ArrayLists of ArrayList of (start and end time)]}.
+   * @param speaker_list
+   */
   public ValidateSpeaker(HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list) {
     ValidateSpeaker.speaker_list = speaker_list;
   }
 
+  /**
+   * This method add a speaker to the speaker_list if all parameters meets the requirements. A new
+   * speaker has no Event schedule.
+   * @param SpeakerName
+   * @param Password
+   * @param phone
+   * @param email
+   * @return
+   */
   public boolean addSpeaker(String SpeakerName, String Password, String phone, String email) {
     if (!this.isValidEmail(email)) {
       System.out.println("The email address is invalid");
@@ -34,6 +55,14 @@ public class ValidateSpeaker {
     return true;
   }
 
+  /**
+   * This method check if the speaker is in the system and the speaker is available during the given
+   * star to end time period.
+   * @param speaker
+   * @param start
+   * @param end
+   * @return the boolean of the result
+   */
   public boolean validateSpeaker(Speaker speaker, Time start, Time end) {
     if (!speaker_list.containsKey(speaker)) {
       return false;
@@ -50,6 +79,13 @@ public class ValidateSpeaker {
     return true;
   }
 
+  /**
+   * This method adds a new time spot of start and end time to a speaker's event schedule if the
+   * speaker is available during the start to end time period.
+   * @param speaker
+   * @param start
+   * @param end
+   */
   public void giveSpeakerNewSchedule(Speaker speaker, Time start, Time end) {
     ArrayList<Time> temp = new ArrayList<>();
     temp.add(start);
@@ -73,6 +109,13 @@ public class ValidateSpeaker {
     }
   }
 
+  /**
+   * This method the event with given start and end time from the event schedule of the speaker with
+   * given speakerId.
+   * @param speaker_ID
+   * @param start
+   * @param end
+   */
   public void delSpeakerSchedule(int speaker_ID, Time start, Time end) {
     ArrayList<Time> p = new ArrayList<>();
     p.add(start);
@@ -92,6 +135,10 @@ public class ValidateSpeaker {
     }
   }
 
+  /**
+   * This method returns a HashMap of all speakers' speakerId to their event schedule.
+   * @return HashMap of all speakers' speakerId to their event schedule
+   */
   public HashMap<Integer, ArrayList<ArrayList<Time>>> getSpeakerList() {
 
     HashMap<Integer, ArrayList<ArrayList<Time>>> tmp = new HashMap<>();
@@ -102,6 +149,13 @@ public class ValidateSpeaker {
 
   }
 
+  /**
+   * This method return the Speaker with given speakerId in the system or print
+   * "There is no speaker in the system with that ID" if no speaker in the system has the given
+   * speakerId.
+   * @param sp_ID
+   * @return Speaker with given Id or null if not exist
+   */
   public Speaker get_sp(int sp_ID) {
     HashMap<Integer, Speaker> tmp = new HashMap<>();
     try {
@@ -115,6 +169,12 @@ public class ValidateSpeaker {
     return null;
   }
 
+  /**
+   * Return the string representation of the speaker with given speakerId in the system or print
+   * "There is no speaker in the system with that ID" if not exist.
+   * @param sp_ID
+   * @return string representation of Speaker with given Id or null if not exist
+   */
   public String get_sp_info(int sp_ID) {
     HashMap<Integer, String> tmp = this.get_speakers_info();
     try {
@@ -125,6 +185,10 @@ public class ValidateSpeaker {
     return null;
   }
 
+  /**
+   * This method return a HashMap of all speaker's speakerId to their string representation.
+   * @return HashMap of all speaker's speakerId to their string representation
+   */
   public HashMap<Integer, String> get_speakers_info() {
     HashMap<Integer, String> tmp = new HashMap<>();
     for (Speaker sp : speaker_list.keySet()) {
@@ -133,6 +197,11 @@ public class ValidateSpeaker {
     return tmp;
   }
 
+  /**
+   * This method checks is the email is valid.
+   * @param email
+   * @return boolean whether email is valid or not.
+   */
   private boolean isValidEmail(String email) {
     // Create a regular expression format for a valid email
     String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
@@ -148,10 +217,20 @@ public class ValidateSpeaker {
     return emailPat.matcher(email).matches();
   }
 
+  /**
+   * This method checks is the password is valid.
+   * @param password
+   * @return boolean whether password is valid or not.
+   */
   private boolean isValidPassword(String password) {
     return !password.isEmpty() && !password.contains(" ");
   }
 
+  /**
+   * This method checks is the phone is valid.
+   * @param phone
+   * @return boolean whether phone is valid or not.
+   */
   private boolean isValidPhone(String phone) {
     return phone.matches("^\\(?([0-9]{3})\\)?[-]?([0-9]{3})[-]?([0-9]{4})$");
   }

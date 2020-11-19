@@ -7,6 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A class representing a MessageManager.
+ * @author Zhongyuan Liang &
+ * @version 1.0
+ */
 public class MessageManager {
 
   public static Map<String, Map<String, List<String>>> messageStorage;

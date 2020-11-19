@@ -4,7 +4,18 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * An class representing MessageDataAccess.
+ * @author Jun Xing
+ * @version 1.0
+ */
 public class RoomDataAccess implements MapGateway {
+
+    /**
+     * This method save the Map of RoomData to the database (data/RoomData) and print
+     * "Data has been saved to database", otherwise print IOException with details.
+     * @param map
+     */
     @Override
     public void write(Map map) {
         try {
@@ -20,6 +31,11 @@ public class RoomDataAccess implements MapGateway {
 
     }
 
+    /**
+     * Read the RoomData in the database (data/RoomData) into a HashMap. Print exception with
+     * detail otherwise.
+     * @return The HashMap of all RoomData in the database
+     */
     @Override
     public HashMap read() {
         HashMap rooms = new HashMap();
