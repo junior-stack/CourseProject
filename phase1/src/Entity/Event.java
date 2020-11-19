@@ -5,6 +5,11 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents an Event.
+ * @author Jun Xing
+ * @version 1.0
+ */
 public class Event implements Serializable {
 
   //之后改一个更好的办法编号
@@ -23,6 +28,14 @@ public class Event implements Serializable {
   // 要先在use case 里面checkuser在event 自己的时间内是否已经参加别的event..... 专门validater method
   // 做signup event 的人可以参照课上学生enroll course 的例子。
 
+  /**
+   * This method creates an Instance of Event. Every event has a unique eventId, a speaker,
+   * a related roomId, a topic, its startTime and endTime and a List of attendees.
+   * @param roomId
+   * @param startTime
+   * @param endTime
+   * @param topic
+   */
   public Event(int roomId, Time startTime, Time endTime, String topic) {
     this.eventId = counter;
     this.roomId = roomId;
@@ -33,59 +46,116 @@ public class Event implements Serializable {
     counter++;
   }
 
+  /**
+   * This method return a Event's eventId.
+   * @return Event's eventId
+   */
   public int getId() {
     return eventId;
   }
 
+  /**
+   * This method sets a Event's roomId.
+   * @param roomId
+   */
   public void setRoomId(int roomId) {
     this.roomId = roomId;
   }
 
+  /**
+   * This method returns a Event's startTime.
+   * @return Event's startTime.
+   */
   public Time getStartTime() {
     return startTime;
   }
 
+  /**
+   * This method sets a Event's startTime.
+   * @param startTime
+   */
   public void setStartTime(Time startTime) {
     this.startTime = startTime;
   }
 
+  /**
+   * This method returns a Event's endTime.
+   * @return Event's endTime.
+   */
   public Time getEndTime() {
     return endTime;
   }
 
+  /**
+   * This method sets a Event's endTime.
+   * @param endTime
+   */
   public void setEndTime(Time endTime) {
     this.endTime = endTime;
   }
 
+  /**
+   * This method returns a Event's topic.
+   * @return Event's topic
+   */
   public String getTopic() {
     return topic;
   }
 
+  /**
+   * This method sets a Event's topic.
+   * @param topic
+   */
   public void setTopic(String topic) {
     this.topic = topic;
   }
 
+  /**
+   * This method returns a List of all attendees' attendeeId.
+   * @return List of all attendees' attendeeId
+   */
   public List<Integer> getAllAttendee() {
     return attendees;
   }
 
+  /**
+   * This method add a new attendee to the Event by adding its attendeeId to the List of attendees.
+   * @param attendee_id
+   */
   public void addAttendee(int attendee_id) {
     this.attendees.add(attendee_id);
   }
 
+  /**
+   * This method returns a Event's roomId.
+   * @return Event's roomId
+   */
   public int getRoomId() {
     return roomId;
   }
 
+  /**
+   * This method return the speaker of this Event.
+   * @return Event's speaker
+   */
   public int getSpeaker() {
     return speakerId;
   }
 
+  /**
+   * This method sets a Event's speaker.
+   * @param sp_id
+   */
   public void SetSpeaker(int sp_id){
     speakerId = sp_id;
   }
 
 
+  /**
+   * This method returns a string representation of the Event, including its eventId, speakerId,
+   * roomId, startTime, endTime, topic and attendees' attendeeId.
+   * @return a string representation of the Event
+   */
   @Override
   public String toString() {
     return "Event{" +

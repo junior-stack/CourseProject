@@ -6,20 +6,35 @@ import Entity.User;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class representing a OrganizerAccountManager.
+ * @author Ziwei Jia & Yufei Wang
+ * @version 1.0
+ */
 public class OrganizerAccountManager {
 
   private static List<User> organizerList;
 
-
-  public OrganizerAccountManager(List<User> organizerList) {
+  /**
+   * Create an OrganizerAccountManager with given organizerList.
+   * @param organizerList
+   */  public OrganizerAccountManager(List<User> organizerList) {
     OrganizerAccountManager.organizerList = organizerList;
   }
 
+
+  /**
+   * Create an empty OrganizerAccountManager.
+   */
   public OrganizerAccountManager() {
   }
 
   ;
 
+  /**
+   * This method creates organizers by adding all the organizers from the list.
+   * @param organizers
+   */
   public void createOrganizer(List<String> organizers) {
     if (organizers.size() <= 1) {
       return;
@@ -32,6 +47,11 @@ public class OrganizerAccountManager {
   }
 
 
+  /**
+   * return a List contains all the speakers in the given list of Users.
+   * @param list
+   * @return list of all speakers in the User list
+   */
   public List filterexistingspeaker(List<User> list) {
     ArrayList speakers = new ArrayList();
     if (list != null && list.size() > 0) {

@@ -4,8 +4,18 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class representing EventDataAccess.
+ * @author Jun Xing
+ * @version 1.0
+ */
 public class EventDataAccess implements Igateway{
 
+    /**
+     * This method save the List of EventsData to the database (data/EventsData) and print
+     * "Data has been saved to database", otherwise print IOException with details.
+     * @param list
+     */
     @Override
     public void write(List list) {
         try {
@@ -21,6 +31,11 @@ public class EventDataAccess implements Igateway{
     }
 
 
+    /**
+     * Read the Events in the database (data/EventsData) into an ArrayList. Print exception with
+     * detail otherwise.
+     * @return The ArratList of all Events in the database
+     */
     @Override
     public ArrayList read() {
         ArrayList events = new ArrayList();

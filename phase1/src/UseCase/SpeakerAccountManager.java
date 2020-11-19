@@ -4,15 +4,27 @@ import Entity.Speaker;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-
+/**
+ * A class representing a SpeakerAccountManager
+ * @author Ziwei Jia & Yufei Wang
+ * @version 1.0
+ */
 public class SpeakerAccountManager {
 
   public static List<Speaker> speakerList;
 
+  /**
+   * Create a UserAccountManager with given speakerList.
+   * @param speakerList
+   */
   public SpeakerAccountManager(List<Speaker> speakerList) {
     SpeakerAccountManager.speakerList = speakerList;
   }
 
+  /**
+   * This method returns a List of strings representing all the speakers in the speakerList.
+   * @return List of strings representing all the speakers in the speakerList
+   */
   public List getSpeakerList() {
     List speakers = new ArrayList();
     for (Speaker i : speakerList) {
@@ -21,6 +33,14 @@ public class SpeakerAccountManager {
     return speakers;
   }
 
+  /**
+   * This method creates an speaker with giving username, password, phone and email.
+   * @param username
+   * @param password
+   * @param phone
+   * @param email
+   * @return boolean whether speaker is created or not.
+   */
   public boolean createSpeaker(String username, String password, String phone, String email) {
 
     if (!this.isValidEmail(email)) {
@@ -43,6 +63,11 @@ public class SpeakerAccountManager {
     return true;
   }
 
+  /**
+   * This method checks is the email is valid.
+   * @param email
+   * @return boolean whether email is valid or not.
+   */
   private boolean isValidEmail(String email) {
     // Create a regular expression format for a valid email
     String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
@@ -58,10 +83,20 @@ public class SpeakerAccountManager {
     return emailPat.matcher(email).matches();
   }
 
+  /**
+   * This method checks is the password is valid.
+   * @param password
+   * @return boolean whether password is valid or not.
+   */
   private boolean isValidPassword(String password) {
     return !password.isEmpty() && !password.contains(" ");
   }
 
+  /**
+   * This method checks is the phone is valid.
+   * @param phone
+   * @return boolean whether phone is valid or not.
+   */
   private boolean isValidPhone(String phone) {
     return phone.matches("^\\(?([0-9]{3})\\)?[-]?([0-9]{3})[-]?([0-9]{4})$");
   }

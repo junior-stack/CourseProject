@@ -9,6 +9,11 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * A class representing a EventManager.
+ * @author Hanzhi Zhang &
+ * @version 1.0
+ */
 public class EventManager {
 
   public static ArrayList<Event> eventpool;
@@ -16,20 +21,43 @@ public class EventManager {
   private ValidateRoom vr;
   private ValidateSpeaker vs;
 
+  /**
+   * Create a EventManager with a ValidateRoom, a ValidateSpeaker and an ArrayList of Events.
+   * @param vr
+   * @param vs
+   * @param eventpool
+   */
   public EventManager(ValidateRoom vr, ValidateSpeaker vs, ArrayList<Event> eventpool) {
     this.vr = vr;
     this.vs = vs;
     EventManager.eventpool = eventpool;
   }
 
+  /**
+   * Return the ValidateRoom of this EventManager.
+   * @return ValidateRoom
+   */
   public ValidateRoom get_vr() {
     return vr;
   }
 
+  /**
+   * Return the ValidateSpeaker of this EventManager.
+   * @return
+   */
   public ValidateSpeaker get_vs() {
     return vs;
   }
 
+  /**
+   * Check if: The start is not earlier than 9 am and end if not later than 5 pm and the
+   * room and speaker are both available during the time period from start to end.
+   * @param rm
+   * @param start
+   * @param end
+   * @param sp
+   * @return boolean of the result
+   */
   public boolean checkIsEventValid(Room rm, Time start, Time end, Speaker sp) {
     Time beggining = java.sql.Time.valueOf("09:00:00");
     Time ending = java.sql.Time.valueOf("17:00:00");
@@ -52,6 +80,14 @@ public class EventManager {
     return false;
   }
 
+  /**
+   * Add a Event with given parameters to the system.
+   * @param rm
+   * @param start
+   * @param end
+   * @param sp
+   * @param topic
+   */
   public void addEvent(Room rm, Time start, Time end, Speaker sp, String topic) {
 
     Event event = new Event(rm.getRoomId(), start, end, topic);
@@ -63,6 +99,10 @@ public class EventManager {
     vs.giveSpeakerNewSchedule(sp, start, end);
   }
 
+  /**
+   * Add a constructed Event to the system.
+   * @param e
+   */
   public void addEvent(Event e){
     eventpool.add(e);
 
@@ -71,6 +111,12 @@ public class EventManager {
     vs.giveSpeakerNewSchedule(vs.get_sp(e.getSpeaker()), e.getStartTime(), e.getEndTime());
   }
 
+  /**
+   * Delete the given Event from the system. Print "There is no event with such id to be deleted"
+   * if the event does not exist in the system.
+   * @param event
+   * @return boolean of whether the event is successfully deleted
+   */
   public boolean delEvent(Event event) {
     int id;
     try {
@@ -92,6 +138,18 @@ public class EventManager {
     return false;
   }
 
+  /**
+   * Edit the old Event and assign new room, start_time, end_time, topic, and speaker to it if the
+   * new Event is still valid, otherwise keep the old event unchanged. If there is no such event,
+   * print "There is no event with such id to edit".
+   * @param old
+   * @param new_rm
+   * @param start
+   * @param end
+   * @param topic
+   * @param new_sp
+   * @return boolean of whether the Event is successfully edited
+   */
   public boolean editEvent(Event old, Room new_rm, Time start, Time end, String topic,
       Speaker new_sp) {
     int id;
@@ -129,6 +187,12 @@ public class EventManager {
     return false;
   }
 
+  /**
+   * Return the Event with given eventId in the system. Print "There is no event with such ID" if
+   * no such Event is in the system.
+   * @param event_ID
+   * @return Event with given eventId or null if no such Event
+   */
   public Event get_event(int event_ID) {
     HashMap<Integer, Event> tmp = this.get_events();
     Event event1;
@@ -142,6 +206,10 @@ public class EventManager {
     return null;
   }
 
+  /**
+   * Return a HashMap of all Events' eventId to the related Event.
+   * @return HashMap of all Events' eventId to the related Event
+   */
   public HashMap<Integer, Event> get_events() {
     HashMap<Integer, Event> events = new HashMap<>();
     for (Event e : eventpool) {
@@ -150,6 +218,10 @@ public class EventManager {
     return events;
   }
 
+  /**
+   * Return a HashMap of all Events' eventId to the related Event's string representation.
+   * @return HashMap of all Events' eventId to the related Event's string representation
+   */
   public HashMap<Integer, String> get_events_info() {
     HashMap<Integer, String> events_info = new HashMap<>();
     for (Event e : eventpool) {
@@ -158,6 +230,11 @@ public class EventManager {
     return events_info;
   }
 
+  /**
+   * Return an ArrayList of all the string representation of Events in the system with given topic.
+   * @param topic
+   * @return ArrayList of all the string representation of Events in the system with given topic
+   */
   public ArrayList<String> browse(String topic) {
     ArrayList<String> result = new ArrayList<>();
     for (Event e : eventpool) {
@@ -168,6 +245,11 @@ public class EventManager {
     return result;
   }
 
+  /**
+   * Return an Arraylist all the string representation of eventId-Topic. A string representation
+   * of eventId-Topic is in the form of "eventId-eventTopic".
+   * @return Arraylist all the string representation of eventId-Topic
+   */
   public ArrayList<String> get_events_lst() {
     ArrayList<String> tmp = new ArrayList<>();
     for (Event e : eventpool) {
@@ -175,12 +257,22 @@ public class EventManager {
     }
     return tmp;
   }
+
+  /**
+   * Return an Arraylist of eventId of the given Event.
+   * @param e
+   * @return Arraylist of eventId
+   */
   public ArrayList<Integer> get_event_spots(Event e){
     ArrayList<Integer> spots_list = new ArrayList<>();
     spots_list.add(e.getRoomId());
     return spots_list;
   }
 
+  /**
+   * Get this EventManager's eventpool.
+   * @return eventpool
+   */
   public ArrayList<Event> get_eventpool(){
     return eventpool;
   }

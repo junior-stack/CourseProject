@@ -4,7 +4,18 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * An class representing MessageDataAccess.
+ * @author Jun Xing
+ * @version 1.0
+ */
 public class UserScheduleDataAccess implements MapGateway{
+
+    /**
+     * This method save the Map of UserScheduleData to the database (data/UserScheduleData) and print
+     * "Data has been saved to database", otherwise print IOException with details.
+     * @param map
+     */
     @Override
     public void write(Map map) {
         try {
@@ -19,6 +30,11 @@ public class UserScheduleDataAccess implements MapGateway{
         }
     }
 
+    /**
+     * Read the UserScheduleData in the database (data/UserScheduleData) into a HashMap. Print
+     * exception with detail otherwise.
+     * @return The HashMap of all UserScheduleData in the database
+     */
     @Override
     public HashMap read() {
         HashMap userschedule = new HashMap();
