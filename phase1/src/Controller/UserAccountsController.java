@@ -19,7 +19,9 @@ public class UserAccountsController {
   }
 
   /**
-   * This method check whether there's a user existed with the given email to make sure that the email is unique
+   * This method check whether there's a user existed with the given email to make sure that the
+   * email is unique
+   *
    * @return boolean whether a account with the email exists in the system.
    */
   public boolean existingUser(String email) {
@@ -33,23 +35,27 @@ public class UserAccountsController {
 
   /**
    * This method register a attendee account for the user.
+   *
    * @param username the username for the account
    * @param password the password for the account
-   * @param phone the phone number for the account
-   * @param email the email address of the account
+   * @param phone    the phone number for the account
+   * @param email    the email address of the account
    * @return boolean and signal message whether the creation succeeds.
    */
   public boolean createAttendee(String username, String password, String phone, String email) {
-    if (existingUser(email)) return false;
+    if (existingUser(email)) {
+      return false;
+    }
     return userAccountManager.createAttendee(username, password, phone, email);
   }
 
   /**
    * This method register a speaker account for the user.
+   *
    * @param username the username for the account
    * @param password the password for the account
-   * @param phone the phone number for the account
-   * @param email the email address of the account
+   * @param phone    the phone number for the account
+   * @param email    the email address of the account
    * @return boolean and signal message whether the creation succeeds.
    */
   public void createSpeaker(String username, String password, String phone, String email) {
@@ -63,8 +69,9 @@ public class UserAccountsController {
 
   /**
    * This method checks email and password match the account information
+   *
    * @param password the password for the account
-   * @param email the email address of the account
+   * @param email    the email address of the account
    * @return boolean and signal message whether the verification succeeds.
    */
   public boolean verify(String email, String password) {

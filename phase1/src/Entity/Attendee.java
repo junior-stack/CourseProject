@@ -2,14 +2,16 @@ package Entity;
 
 /**
  * This class represents an Attendee.
+ *
  * @author Jun Xing
  * @version 1.0
  */
 public class Attendee extends User {
 
   /**
-   * This method creates an Instance of Attendee. Username, password phone, email are required.
-   * Also an Attendee has an identity of "Attendee".
+   * This method creates an Instance of Attendee. Username, password phone, email are required. Also
+   * an Attendee has an identity of "Attendee".
+   *
    * @param username
    * @param password
    * @param phone
@@ -24,6 +26,7 @@ public class Attendee extends User {
    * This method return whether other Object is equals to this Attendee. They are equal when the
    * Object is an instance of Attendee and they have the same userId, password, username, events
    * list, email, phone and identity.
+   *
    * @param other
    * @return boolean of whether other Object is equals to this Attendee.
    */

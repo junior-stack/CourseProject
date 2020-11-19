@@ -19,12 +19,13 @@ public class EventController {
 
 
   /**
-   * This method return whether the event is successfully arranged and confirmed.
-   * It takes in information of the event (room, time, speaker) and try to arrange it.
-   * It only returns true when the event is a valid one and is successfully arranged.
-   * @param rm_ID room id where the event will take place
-   * @param start the start time of this event
-   * @param end the end time of this event
+   * This method return whether the event is successfully arranged and confirmed. It takes in
+   * information of the event (room, time, speaker) and try to arrange it. It only returns true when
+   * the event is a valid one and is successfully arranged.
+   *
+   * @param rm_ID      room id where the event will take place
+   * @param start      the start time of this event
+   * @param end        the end time of this event
    * @param speaker_ID the id of the speaker of this event
    * @return boolean of whether the event is confirmed.
    */
@@ -33,7 +34,7 @@ public class EventController {
     Time st = java.sql.Time.valueOf(start);
     Time en = java.sql.Time.valueOf(end);
     long time_difference = en.getTime() - st.getTime();
-    if(time_difference > 3600000){
+    if (time_difference > 3600000) {
       return false;
     }
     if (em.checkIsEventValid(em.get_vr().get_rm(rm_ID), st, en, em.get_vs().get_sp(speaker_ID))) {
@@ -44,7 +45,9 @@ public class EventController {
   }
 
   /**
-   * This method return whether a particular event is successfully deleted according the the id of this event.
+   * This method return whether a particular event is successfully deleted according the the id of
+   * this event.
+   *
    * @param eventID the id of a particular event
    * @return boolean of whether the event is deleted.
    */
@@ -54,14 +57,15 @@ public class EventController {
 
 
   /**
-   * This method return all information of the event after editing.
-   * It includes event Id, room id, time of the event, topic, speaker.
+   * This method return all information of the event after editing. It includes event Id, room id,
+   * time of the event, topic, speaker.
+   *
    * @param old_event_ID event id
-   * @param new_room_ID room id where the event will take place
-   * @param st the start time of this event
-   * @param en the end time of this event
-   * @param topic the topic of the event
-   * @param sp_ID speaker id
+   * @param new_room_ID  room id where the event will take place
+   * @param st           the start time of this event
+   * @param en           the end time of this event
+   * @param topic        the topic of the event
+   * @param sp_ID        speaker id
    * @return all information of the event.
    */
   public boolean ConfirmEditEvent(int old_event_ID, int new_room_ID, String st, String en,
@@ -82,6 +86,7 @@ public class EventController {
 
   /**
    * This method return a list of all events.
+   *
    * @return a map of all events.
    */
   public HashMap<Integer, String> ShowAllEvents() {
@@ -90,8 +95,9 @@ public class EventController {
 
 
   /**
-   * This method return all information of a particular event.
-   * It includes event Id, room id, time of the event, topic, speaker.
+   * This method return all information of a particular event. It includes event Id, room id, time
+   * of the event, topic, speaker.
+   *
    * @return all information of the event.
    */
   public String get_single_event(int event_ID) {
@@ -103,7 +109,7 @@ public class EventController {
     return em.get_events_lst();
   }
 
-  public ArrayList<Integer> get_spots(Integer event_id){
+  public ArrayList<Integer> get_spots(Integer event_id) {
     return em.get_event_spots(em.get_event(event_id));
   }
 }

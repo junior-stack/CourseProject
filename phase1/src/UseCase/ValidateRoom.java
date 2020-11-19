@@ -12,6 +12,7 @@ import java.util.Set;
 
 /**
  * A class representing a ValidateRoom.
+ *
  * @author Ye Zhou &
  * @version 1.0
  **/
@@ -22,8 +23,9 @@ public class ValidateRoom {
 
 
   /**
-   * Create a ValidateRoom with given room_list. A room_list is
-   * a HashMap of {Rooms to [HashMaps of (ArrayList of Time to remaining spots)]}.
+   * Create a ValidateRoom with given room_list. A room_list is a HashMap of {Rooms to [HashMaps of
+   * (ArrayList of Time to remaining spots)]}.
+   *
    * @param room_list
    */
   public ValidateRoom(HashMap<Room, HashMap<ArrayList<Time>, Integer>> room_list) {
@@ -33,12 +35,13 @@ public class ValidateRoom {
   /**
    * Return a HashMap of Rooms to their related Event schedule which is an ArrayList of an ArrayList
    * of a couple of starts and ends time.
+   *
    * @return HashMap of Room to their related Time schedule
    */
   public HashMap<Room, ArrayList<ArrayList<Time>>> get_rooms_list() {
     HashMap<Room, ArrayList<ArrayList<Time>>> tmp = new HashMap<>();
     for (Room rm : rooms_list.keySet()) {
-      Set<ArrayList<Time>> temp1=rooms_list.get(rm).keySet();//// 为了test 改过
+      Set<ArrayList<Time>> temp1 = rooms_list.get(rm).keySet();//// 为了test 改过
       ArrayList<ArrayList<Time>> temp2 = new ArrayList<>();//// 为了test 改过
       //// 为了test 改过
       temp2.addAll(temp1);
@@ -48,8 +51,9 @@ public class ValidateRoom {
   }
 
   /**
-   * Return a HashMap of Rooms' roomId to their related Event schedule which is an
-   * ArrayList of an ArrayList of a couple of starts and ends time.
+   * Return a HashMap of Rooms' roomId to their related Event schedule which is an ArrayList of an
+   * ArrayList of a couple of starts and ends time.
+   *
    * @return HashMap of Rooms' roomId to their related Time schedule
    */
   public HashMap<Integer, ArrayList<ArrayList<Time>>> get_rooms_schedule() {
@@ -65,16 +69,17 @@ public class ValidateRoom {
 
   /**
    * This method add a Room with given roomId and capacity to the ValidateRoom's rooms_list and
-   * return boolean of whether room is added or not. A new room has a empty HashMap since it has
-   * no assigned events.
+   * return boolean of whether room is added or not. A new room has a empty HashMap since it has no
+   * assigned events.
+   *
    * @param roomID
    * @param capacity
    * @return return boolean of whether room is added or not
    */
   public boolean addRoom(int roomID, int capacity) {
     Room rm = new Room(roomID, capacity);
-    for(Room r: rooms_list.keySet()){
-      if(r.getRoomId() == roomID){
+    for (Room r : rooms_list.keySet()) {
+      if (r.getRoomId() == roomID) {
         return false;
       }
     }
@@ -86,6 +91,7 @@ public class ValidateRoom {
    * This method check and return boolean result of: given room exists in the ValidateRoom's
    * room_list and start time is earlier than end time and the time period from start to end is
    * completely available.
+   *
    * @param rm
    * @param start
    * @param end
@@ -115,6 +121,7 @@ public class ValidateRoom {
   /**
    * This method add a couple of start and end time to a room (added to the room_list's mapped
    * value's key_set.
+   *
    * @param rm
    * @param start
    * @param end
@@ -128,6 +135,7 @@ public class ValidateRoom {
 
   /**
    * Remove the Time coupling of start and time of the Event schedule of the room with given rm_ID.
+   *
    * @param rm_ID
    * @param start
    * @param end
@@ -151,8 +159,9 @@ public class ValidateRoom {
   }
 
   /**
-   * Return the Room with given rm_ID in the room_list of the ValidateRoom, print
-   * "There is no room inside the system with that room_ID" if there is no Room with given roomId.
+   * Return the Room with given rm_ID in the room_list of the ValidateRoom, print "There is no room
+   * inside the system with that room_ID" if there is no Room with given roomId.
+   *
    * @param rm_ID
    * @return Room with given roomId
    * @throws RuntimeException
@@ -172,6 +181,7 @@ public class ValidateRoom {
 
   /**
    * Return a HashMap of capacity to the string representation of the Room.
+   *
    * @return HashMap of capacity to the string representation of the Room
    */
   public HashMap<Integer, String> get_rms_info() {
@@ -184,6 +194,7 @@ public class ValidateRoom {
 
   /**
    * This method delete the give room from the system.
+   *
    * @param rm
    */
   public void deleteRoom(Room rm) {
@@ -192,6 +203,7 @@ public class ValidateRoom {
 
   /**
    * This method checks whether the Event in this room is full or not.
+   *
    * @param e
    * @param rm
    * @return boolean of whether the room is full for this event
@@ -209,6 +221,7 @@ public class ValidateRoom {
 
   /**
    * For the given room's given event, reduce the remaining spot by one.
+   *
    * @param e
    * @param rm
    */
@@ -223,6 +236,7 @@ public class ValidateRoom {
 
   /**
    * For the given room's given event, increase the remaining spot by one.
+   *
    * @param e
    * @param rm
    */

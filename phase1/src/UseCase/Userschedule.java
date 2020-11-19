@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 /**
  * A class representing a Userschedule
+ *
  * @author Ye Zhou &
  * @version 1.0
  **/
@@ -18,6 +19,7 @@ public class Userschedule {
   /**
    * Create a Userschedule with given user_schedule. A user_schedule is a HashMap of Users to an
    * ArrayList of Events.
+   *
    * @param user_schedule
    */
   public Userschedule(HashMap<User, ArrayList<Event>> user_schedule) {
@@ -26,6 +28,7 @@ public class Userschedule {
 
   /**
    * Get the Event ArrayList of given user.
+   *
    * @param user
    * @return Event ArrayList of given user
    */
@@ -35,6 +38,7 @@ public class Userschedule {
 
   /**
    * Check if the user is available during the time period of the given Event.
+   *
    * @param user
    * @param e
    * @return boolean of the result
@@ -56,6 +60,7 @@ public class Userschedule {
   /**
    * Add Event to the User's Event ArrayList in this Userschedule, add eventId to the user's List of
    * eventId and add the userId to the Event's list of attendee.
+   *
    * @param u
    * @param e
    */
@@ -68,6 +73,7 @@ public class Userschedule {
   /**
    * Delete Event from the User's Event ArrayList in this Userschedule, remove eventId from the
    * user's List of eventId and remove the userId from the Event's list of attendee.
+   *
    * @param u
    * @param e
    * @return boolean of whether the operation are successfully executed
@@ -83,6 +89,7 @@ public class Userschedule {
 
   /**
    * Return an ArrayList of all string representattion of Event of this User.
+   *
    * @param user
    * @return ArrayList of all string representattion of Event of this User
    */

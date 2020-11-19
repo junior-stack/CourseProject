@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 /**
  * A class representing a ValidateRoom.
+ *
  * @author Ye Zhou &
  * @version 1.0
  **/
@@ -17,9 +18,9 @@ public class ValidateSpeaker {
   public static HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list;
 
   /**
-   * Create a ValidateRoom with given speaker_list. A speaker_list is
-   * a HashMap of
-   * {Speaker to event schedule which is [ArrayLists of ArrayList of (start and end time)]}.
+   * Create a ValidateRoom with given speaker_list. A speaker_list is a HashMap of {Speaker to event
+   * schedule which is [ArrayLists of ArrayList of (start and end time)]}.
+   *
    * @param speaker_list
    */
   public ValidateSpeaker(HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list) {
@@ -29,6 +30,7 @@ public class ValidateSpeaker {
   /**
    * This method add a speaker to the speaker_list if all parameters meets the requirements. A new
    * speaker has no Event schedule.
+   *
    * @param SpeakerName
    * @param Password
    * @param phone
@@ -58,6 +60,7 @@ public class ValidateSpeaker {
   /**
    * This method check if the speaker is in the system and the speaker is available during the given
    * star to end time period.
+   *
    * @param speaker
    * @param start
    * @param end
@@ -67,7 +70,9 @@ public class ValidateSpeaker {
     if (!speaker_list.containsKey(speaker)) {
       return false;
     }
-    if (speaker_list.get(speaker)==null){return true;}
+    if (speaker_list.get(speaker) == null) {
+      return true;
+    }
     for (ArrayList<Time> schedule : speaker_list.get(speaker)) {
       Time start2 = schedule.get(0);
       Time end2 = schedule.get(1);
@@ -82,6 +87,7 @@ public class ValidateSpeaker {
   /**
    * This method adds a new time spot of start and end time to a speaker's event schedule if the
    * speaker is available during the start to end time period.
+   *
    * @param speaker
    * @param start
    * @param end
@@ -94,7 +100,7 @@ public class ValidateSpeaker {
     tmp.add(temp);
     ArrayList<ArrayList<Time>> temp1 = speaker_list.get(speaker);
     int indicator = 0;
-    if(temp1 == null){
+    if (temp1 == null) {
       speaker_list.replace(speaker, tmp);
       return;
     }
@@ -112,6 +118,7 @@ public class ValidateSpeaker {
   /**
    * This method the event with given start and end time from the event schedule of the speaker with
    * given speakerId.
+   *
    * @param speaker_ID
    * @param start
    * @param end
@@ -120,7 +127,7 @@ public class ValidateSpeaker {
     ArrayList<Time> p = new ArrayList<>();
     p.add(start);
     p.add(end);
-    if(speaker_list.get(this.get_sp(speaker_ID)) == null){
+    if (speaker_list.get(this.get_sp(speaker_ID)) == null) {
       return;
     }
     for (Speaker sp : speaker_list.keySet()) {
@@ -137,6 +144,7 @@ public class ValidateSpeaker {
 
   /**
    * This method returns a HashMap of all speakers' speakerId to their event schedule.
+   *
    * @return HashMap of all speakers' speakerId to their event schedule
    */
   public HashMap<Integer, ArrayList<ArrayList<Time>>> getSpeakerList() {
@@ -150,9 +158,9 @@ public class ValidateSpeaker {
   }
 
   /**
-   * This method return the Speaker with given speakerId in the system or print
-   * "There is no speaker in the system with that ID" if no speaker in the system has the given
-   * speakerId.
+   * This method return the Speaker with given speakerId in the system or print "There is no speaker
+   * in the system with that ID" if no speaker in the system has the given speakerId.
+   *
    * @param sp_ID
    * @return Speaker with given Id or null if not exist
    */
@@ -172,6 +180,7 @@ public class ValidateSpeaker {
   /**
    * Return the string representation of the speaker with given speakerId in the system or print
    * "There is no speaker in the system with that ID" if not exist.
+   *
    * @param sp_ID
    * @return string representation of Speaker with given Id or null if not exist
    */
@@ -187,6 +196,7 @@ public class ValidateSpeaker {
 
   /**
    * This method return a HashMap of all speaker's speakerId to their string representation.
+   *
    * @return HashMap of all speaker's speakerId to their string representation
    */
   public HashMap<Integer, String> get_speakers_info() {
@@ -199,6 +209,7 @@ public class ValidateSpeaker {
 
   /**
    * This method checks is the email is valid.
+   *
    * @param email
    * @return boolean whether email is valid or not.
    */
@@ -219,6 +230,7 @@ public class ValidateSpeaker {
 
   /**
    * This method checks is the password is valid.
+   *
    * @param password
    * @return boolean whether password is valid or not.
    */
@@ -228,6 +240,7 @@ public class ValidateSpeaker {
 
   /**
    * This method checks is the phone is valid.
+   *
    * @param phone
    * @return boolean whether phone is valid or not.
    */

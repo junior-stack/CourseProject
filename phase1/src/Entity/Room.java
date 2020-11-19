@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * This class represents an Room.
+ *
  * @author Jun Xing
  * @version 1.0
  */
@@ -15,6 +16,7 @@ public class Room implements Serializable {
 
   /**
    * This method creates an Instance of Room, a Room has a roomId and capacity.
+   *
    * @param roomId
    * @param capacity
    */
@@ -26,6 +28,7 @@ public class Room implements Serializable {
 
   /**
    * This method returns a Room's roomId.
+   *
    * @return Room's roomId
    */
   public int getRoomId() {
@@ -34,6 +37,7 @@ public class Room implements Serializable {
 
   /**
    * This method returns a Room's capacity.
+   *
    * @return Room's capacity
    */
   public int getCapacity() {
@@ -42,6 +46,7 @@ public class Room implements Serializable {
 
   /**
    * This method sets a Room's capacity.
+   *
    * @param capacity
    */
   public void setCapacity(int capacity) {
@@ -52,6 +57,7 @@ public class Room implements Serializable {
 
   /**
    * This method returns a string representing the Room including its roomId and capacity.
+   *
    * @return a string representing the Room
    */
   @Override
@@ -63,8 +69,9 @@ public class Room implements Serializable {
   }
 
   /**
-   * This method returns whether other Object is equals to this Room. They are equal when the
-   * Object is an instance of Room and they have the same roomId and capacity.
+   * This method returns whether other Object is equals to this Room. They are equal when the Object
+   * is an instance of Room and they have the same roomId and capacity.
+   *
    * @param other
    * @return boolean of whether other Object is equals to this Attendee.
    */
@@ -79,6 +86,7 @@ public class Room implements Serializable {
 
   /**
    * This method returns the integer hashed value of the Room which is exactly the Room's roomId.
+   *
    * @return integer hashed value of the Room
    */
   @Override

@@ -1,11 +1,16 @@
 package Gateway;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Class representing InitializeOrganizers.
+ *
  * @author Jun Xing
  * @version 1.0
  */
@@ -18,6 +23,7 @@ public class InitializeOrganizers {
    * InitializeOrganizers's Organizers (an ArrayList of String). Print Print "File Not Found" if
    * cannot open "data/InitializeOrganizers.csv", print IOException with detail if an I/O exception
    * of some sort has occurred.
+   *
    * @return List of String read from .csv file.
    */
   public List initialize() {

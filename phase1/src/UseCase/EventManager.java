@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 /**
  * A class representing a EventManager.
+ *
  * @author Hanzhi Zhang &
  * @version 1.0
  */
@@ -23,6 +24,7 @@ public class EventManager {
 
   /**
    * Create a EventManager with a ValidateRoom, a ValidateSpeaker and an ArrayList of Events.
+   *
    * @param vr
    * @param vs
    * @param eventpool
@@ -35,6 +37,7 @@ public class EventManager {
 
   /**
    * Return the ValidateRoom of this EventManager.
+   *
    * @return ValidateRoom
    */
   public ValidateRoom get_vr() {
@@ -43,6 +46,7 @@ public class EventManager {
 
   /**
    * Return the ValidateSpeaker of this EventManager.
+   *
    * @return
    */
   public ValidateSpeaker get_vs() {
@@ -50,8 +54,9 @@ public class EventManager {
   }
 
   /**
-   * Check if: The start is not earlier than 9 am and end if not later than 5 pm and the
-   * room and speaker are both available during the time period from start to end.
+   * Check if: The start is not earlier than 9 am and end if not later than 5 pm and the room and
+   * speaker are both available during the time period from start to end.
+   *
    * @param rm
    * @param start
    * @param end
@@ -82,6 +87,7 @@ public class EventManager {
 
   /**
    * Add a Event with given parameters to the system.
+   *
    * @param rm
    * @param start
    * @param end
@@ -101,9 +107,10 @@ public class EventManager {
 
   /**
    * Add a constructed Event to the system.
+   *
    * @param e
    */
-  public void addEvent(Event e){
+  public void addEvent(Event e) {
     eventpool.add(e);
 
     vr.give_room_schedule(vr.get_rm(e.getRoomId()), e.getStartTime(), e.getEndTime());
@@ -112,8 +119,9 @@ public class EventManager {
   }
 
   /**
-   * Delete the given Event from the system. Print "There is no event with such id to be deleted"
-   * if the event does not exist in the system.
+   * Delete the given Event from the system. Print "There is no event with such id to be deleted" if
+   * the event does not exist in the system.
+   *
    * @param event
    * @return boolean of whether the event is successfully deleted
    */
@@ -121,7 +129,7 @@ public class EventManager {
     int id;
     try {
       id = event.getId();
-    }catch(NullPointerException e){
+    } catch (NullPointerException e) {
       System.out.println("There is no event with such id to be deleted");
       return false;
     }
@@ -142,6 +150,7 @@ public class EventManager {
    * Edit the old Event and assign new room, start_time, end_time, topic, and speaker to it if the
    * new Event is still valid, otherwise keep the old event unchanged. If there is no such event,
    * print "There is no event with such id to edit".
+   *
    * @param old
    * @param new_rm
    * @param start
@@ -155,13 +164,13 @@ public class EventManager {
     int id;
     try {
       id = old.getId();
-    }catch (NullPointerException e){
+    } catch (NullPointerException e) {
       System.out.println("There is no event with such id to edit");
       return false;
     }
 
     long time_difference = end.getTime() - start.getTime();
-    if(time_difference > 3600000){
+    if (time_difference > 3600000) {
       return false;
     }
 
@@ -188,8 +197,9 @@ public class EventManager {
   }
 
   /**
-   * Return the Event with given eventId in the system. Print "There is no event with such ID" if
-   * no such Event is in the system.
+   * Return the Event with given eventId in the system. Print "There is no event with such ID" if no
+   * such Event is in the system.
+   *
    * @param event_ID
    * @return Event with given eventId or null if no such Event
    */
@@ -208,6 +218,7 @@ public class EventManager {
 
   /**
    * Return a HashMap of all Events' eventId to the related Event.
+   *
    * @return HashMap of all Events' eventId to the related Event
    */
   public HashMap<Integer, Event> get_events() {
@@ -220,6 +231,7 @@ public class EventManager {
 
   /**
    * Return a HashMap of all Events' eventId to the related Event's string representation.
+   *
    * @return HashMap of all Events' eventId to the related Event's string representation
    */
   public HashMap<Integer, String> get_events_info() {
@@ -232,6 +244,7 @@ public class EventManager {
 
   /**
    * Return an ArrayList of all the string representation of Events in the system with given topic.
+   *
    * @param topic
    * @return ArrayList of all the string representation of Events in the system with given topic
    */
@@ -246,8 +259,9 @@ public class EventManager {
   }
 
   /**
-   * Return an Arraylist all the string representation of eventId-Topic. A string representation
-   * of eventId-Topic is in the form of "eventId-eventTopic".
+   * Return an Arraylist all the string representation of eventId-Topic. A string representation of
+   * eventId-Topic is in the form of "eventId-eventTopic".
+   *
    * @return Arraylist all the string representation of eventId-Topic
    */
   public ArrayList<String> get_events_lst() {
@@ -260,10 +274,11 @@ public class EventManager {
 
   /**
    * Return an Arraylist of eventId of the given Event.
+   *
    * @param e
    * @return Arraylist of eventId
    */
-  public ArrayList<Integer> get_event_spots(Event e){
+  public ArrayList<Integer> get_event_spots(Event e) {
     ArrayList<Integer> spots_list = new ArrayList<>();
     spots_list.add(e.getRoomId());
     return spots_list;
@@ -271,9 +286,10 @@ public class EventManager {
 
   /**
    * Get this EventManager's eventpool.
+   *
    * @return eventpool
    */
-  public ArrayList<Event> get_eventpool(){
+  public ArrayList<Event> get_eventpool() {
     return eventpool;
   }
 }

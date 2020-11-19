@@ -32,6 +32,7 @@ public class SpeakerController {
 
   /**
    * This method return the schedule of a given speaker
+   *
    * @return the schedule of a given speaker
    */
   public HashMap<Integer, ArrayList<ArrayList<Time>>> getSpeakerSchedule() {
@@ -40,6 +41,7 @@ public class SpeakerController {
 
   /**
    * This method return all information of all speakers
+   *
    * @return a map of speakers' information
    */
   public HashMap<Integer, String> getSpeakers() {

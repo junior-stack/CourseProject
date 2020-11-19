@@ -20,6 +20,7 @@ public class RoomController {
 
   /**
    * This method add new room.
+   *
    * @return weather the room is sucessfully added
    */
   public boolean confirmaddroom(int roomID, int capacity) {
@@ -27,13 +28,15 @@ public class RoomController {
   }
 
   /**
-   * This method return whether a particular room is successfully deleted according the the id of this room
+   * This method return whether a particular room is successfully deleted according the the id of
+   * this room
+   *
    * @param roomID the id of a particular room
    * @return boolean of whether the room is deleted.
    */
   public boolean confirmdeleteroom(int roomID) {
     HashMap<Integer, ArrayList<ArrayList<Time>>> room_schedule = vr.get_rooms_schedule();
-    if(!room_schedule.containsKey(roomID)){
+    if (!room_schedule.containsKey(roomID)) {
       return false;
     }
     if (room_schedule.get(roomID).isEmpty()) {
@@ -45,6 +48,7 @@ public class RoomController {
 
   /**
    * This method return a list of all rooms.
+   *
    * @return a map of all rooms and their information
    */
   public HashMap<Integer, String> get_rooms() {
@@ -53,6 +57,7 @@ public class RoomController {
 
   /**
    * This method return information of the schedule
+   *
    * @return a map of scheduled events, room, time information.
    */
   public HashMap<Integer, ArrayList<ArrayList<Time>>> get_rooms_schedule() {

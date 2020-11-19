@@ -4,6 +4,7 @@ import java.sql.Time;
 
 /**
  * This class represents an OneSpeakerEvent.
+ *
  * @author Jun Xing
  * @version 1.0
  */
@@ -12,6 +13,7 @@ public class OneSpeakerEvent extends Event {
   /**
    * This method creates an Instance of OneSpeakerEvent. Every OneSpeakerEvent has a unique eventId,
    * one speaker, a related roomId, a topic, its startTime and endTime and a List of attendees.
+   *
    * @param speakerId
    * @param roomId
    * @param startTime
@@ -25,6 +27,7 @@ public class OneSpeakerEvent extends Event {
 
   /**
    * This method returns a OneSpeakerEvent's speakerId.
+   *
    * @return OneSpeakerEvent's speakerId
    */
   public int getSpeakerId() {
@@ -33,6 +36,7 @@ public class OneSpeakerEvent extends Event {
 
   /**
    * This method sets a OneSpeakerEvent's speakerId
+   *
    * @param speakerId
    */
   public void setSpeakerId(int speakerId) {

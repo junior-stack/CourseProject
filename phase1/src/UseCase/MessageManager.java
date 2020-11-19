@@ -9,6 +9,7 @@ import java.util.Map;
 
 /**
  * A class representing a MessageManager.
+ *
  * @author Zhongyuan Liang &
  * @version 1.0
  */
@@ -22,10 +23,12 @@ public class MessageManager {
 
   /**
    * This is a constructor for MessageManager.
-   * @param email This represents the email address of the current user.
+   *
+   * @param email                  This represents the email address of the current user.
    * @param previousMessageStorage This represents all messages before the program restarts.
    */
-  public MessageManager(String email, HashMap<String, HashMap<String, List<String>>> previousMessageStorage) {
+  public MessageManager(String email,
+      HashMap<String, HashMap<String, List<String>>> previousMessageStorage) {
     messageStorage = previousMessageStorage;
     user = UserAccountManager.getUserFromEmail(email);
     userType = user.getIdentity();
@@ -34,7 +37,8 @@ public class MessageManager {
 
   /**
    * Current user Send message to the target email address.
-   * @param email This is the target email address.
+   *
+   * @param email   This is the target email address.
    * @param message This is the message to be sent.
    */
   public void singleMessageRequest(String email, String message) {
@@ -52,7 +56,8 @@ public class MessageManager {
 
   /**
    * Current user send messages to a list of target email addresses.
-   * @param emails This is the list containing all target email addresses.
+   *
+   * @param emails  This is the list containing all target email addresses.
    * @param message This is the message to be sent.
    */
   public void multipleMessageRequest(List<String> emails, String message) {
@@ -63,8 +68,9 @@ public class MessageManager {
 
   /**
    * Current user read all messages that the user has received.
-   * @return Map This returns a map where each key represents another user email address
-   * and the corresponding value is a list containing all messages sent by the user in the key.
+   *
+   * @return Map This returns a map where each key represents another user email address and the
+   * corresponding value is a list containing all messages sent by the user in the key.
    */
   public Map<String, List<String>> readMessages() {
     if (!messageStorage.containsKey(user.getEmail())) {
@@ -75,8 +81,10 @@ public class MessageManager {
 
   /**
    * Current user read all messages that the user has sent.
-   * @return Map This returns a map where each key represents another user email address
-   * and the corresponding value is a list containing all messages sent by the current user to the user in the key.
+   *
+   * @return Map This returns a map where each key represents another user email address and the
+   * corresponding value is a list containing all messages sent by the current user to the user in
+   * the key.
    */
   public Map<String, List<String>> sentMessages() {
     Map<String, List<String>> result = new HashMap<>();
@@ -96,7 +104,8 @@ public class MessageManager {
 
   /**
    * Attendee or Organizer send a single message to the target email address.
-   * @param email This is the target email.
+   *
+   * @param email   This is the target email.
    * @param message This is the message to be sent.
    * @return boolean This returns true iff the message is sent successfully, otherwise false.
    */
@@ -111,7 +120,8 @@ public class MessageManager {
 
   /**
    * Speaker respond a single message to the target email address.
-   * @param email This is the target email.
+   *
+   * @param email   This is the target email.
    * @param message This is the message to be sent.
    * @return boolean This returns true iff the message is sent successfully, otherwise false.
    */
@@ -126,8 +136,9 @@ public class MessageManager {
 
   /**
    * Organizer send messages to all Speakers and Attendees.
+   *
    * @param targetIdentity This is either "Speakers" or "Attendees".
-   * @param message This is the message to be sent.
+   * @param message        This is the message to be sent.
    * @return boolean This returns true iff the message is sent successfully, otherwise false.
    */
   public boolean organizerMultipleMessage(String targetIdentity, String message) {
@@ -156,8 +167,10 @@ public class MessageManager {
 
   /**
    * Speaker send messages to all Attendees in the given events.
-   * @param eventIds This is a list containing all eventIds that the Speaker wants to send message to.
-   * @param message This is the message to be sent.
+   *
+   * @param eventIds This is a list containing all eventIds that the Speaker wants to send message
+   *                 to.
+   * @param message  This is the message to be sent.
    * @return boolean This returns true iff the message is sent successfully, otherwise false.
    */
   public boolean speakerMultipleMessage(List<Integer> eventIds, String message) {
@@ -190,7 +203,9 @@ public class MessageManager {
 
   /**
    * This method is to generate email addresses that the current user could send the message to.
-   * @return List This returns a list of email addresses that the current user could send the message to.
+   *
+   * @return List This returns a list of email addresses that the current user could send the
+   * message to.
    */
   public List<String> generateEmail() {
     List<String> lst = new ArrayList<>();
@@ -218,13 +233,15 @@ public class MessageManager {
 
   /**
    * This is the method used to send message(s) by the current user.
-   * @param mode This is either "Single" or "Multiple".
-   * @param message This is the message to be sent.
-   * @param email When mode is "Single", this represents the target email address.
-   * @param targetIdentity When Organizer send multiple messages, this represents the group of people who will receive
-   *                       the message. This is either "Attendees" or "Speakers".
-   * @param eventIds When Speaker send multiple messages, this represents the group of events that the Speaker wants
-   *                 to send message to.
+   *
+   * @param mode           This is either "Single" or "Multiple".
+   * @param message        This is the message to be sent.
+   * @param email          When mode is "Single", this represents the target email address.
+   * @param targetIdentity When Organizer send multiple messages, this represents the group of
+   *                       people who will receive the message. This is either "Attendees" or
+   *                       "Speakers".
+   * @param eventIds       When Speaker send multiple messages, this represents the group of events
+   *                       that the Speaker wants to send message to.
    * @return boolean This returns true iff the message is sent successfully, otherwise false.
    */
   public boolean sendMessage(String mode, String message, String email, String targetIdentity,
@@ -233,8 +250,9 @@ public class MessageManager {
       if (userType.equals("Attendee") || (userType.equals("Organizer"))) {
         return attendeeOrganizerSingleMessage(email, message);
       }
-      return speakerRespondMessage(email, message);}
-    if (mode.equals("Multiple")){
+      return speakerRespondMessage(email, message);
+    }
+    if (mode.equals("Multiple")) {
       if (userType.equals("Attendee")) {
         return false;
       } else if (userType.equals("Organizer")) {
