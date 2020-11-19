@@ -8,21 +8,33 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 public class TextUI {
 
+
+  /**
+   * Global variables
+   */
   private String email;
 
   LoginFacade lf = new LoginFacade();
   ScheduleFacade sf = new ScheduleFacade();
-  SignUpController suc = new SignUpController(email,lf.getUam(),sf.getVr(),sf.getEm());
+  SignUpController suc = new SignUpController(email, lf.getUam(), sf.getVr(), sf.getEm());
   MessageController mc = new MessageController(email);
 
-  public void run() throws InterruptedException {
+  /**
+   * Method to run the whole program
+   */
+  public void run() {
     UserMenu();
   }
 
-  private void UserMenu() throws InterruptedException {
+  /**
+   * The first menu user will see, contains 2 options. One for register(attendee only), and one for
+   * anyone to login. The user must enter the number shows before "-" to continue.
+   */
+  private void UserMenu() {
     while (true) {
       Scanner sc = new Scanner(System.in);
       System.out.println(
@@ -54,7 +66,14 @@ public class TextUI {
     }
   }
 
-  private void RegisterMenu() throws InterruptedException {
+  /**
+   * This is the register menu after user enter "1" in the user menu. This menu only allows attendee
+   * to register. User have to enter their username, password, phone and email to continue. If the
+   * input type doesn't match the program, users have to enter their info again until the type is
+   * correct. If they failed to login, the program will display a message to tell them login failed
+   * and automatically redirect them back to user menu and start again.
+   */
+  private void RegisterMenu() {
     while (true) {
       Scanner sc = new Scanner(System.in);
       System.out.println("[Register Menu] Please enter your email and password to continue...");
@@ -89,9 +108,8 @@ public class TextUI {
         System.out.printf("Register successful! Please remember your email and password."
                 + "\nEmail: %s"
                 + "\nPassword: %s"
-                + "\nAutomatically redirect to Login Menu after 2 seconds",
+                + "\nRedirecting to login menu...",
             email, password);
-        wait(2000);
         LoginMenu(email, password);
         break;
       } else {
@@ -102,7 +120,13 @@ public class TextUI {
     }
   }
 
-  private void LoginMenu() throws InterruptedException {
+  /**
+   * This is a manually login menu for users to enter their information by hands to login. If the
+   * input type doesn't match the program, users have to enter their info again until the type is
+   * correct. If they failed to login, the program will display a message to tell them login failed
+   * and automatically redirect them back to user menu and start again.
+   */
+  private void LoginMenu() {
     while (true) {
       Scanner sc = new Scanner(System.in);
       System.out.println("[Login Menu] Please enter your email and password to continue...");
@@ -146,11 +170,16 @@ public class TextUI {
     }
   }
 
-
-  /*
-   * 这是一个semi autofill的登录界面
+  /**
+   * This is a semi-autofill login menu. The reason I called it semi is because it can only be used
+   * after register menu. User won't get access to this menu after enter "2" in the user menu.
+   * However, user do get a chance to manually input their info if they have another account by just
+   * simply enter "2" in the console.
+   *
+   * @param email    - email automatically inputted from RegisterMenu.
+   * @param password - password automatically inputted from RegisterMenu.
    */
-  private void LoginMenu(String email, String password) throws InterruptedException {
+  private void LoginMenu(String email, String password) {
     while (true) {
       Scanner sc = new Scanner(System.in);
       System.out.printf("[Login Menu] Please enter the corresponding number to continue..."
@@ -177,7 +206,6 @@ public class TextUI {
       switch (choice) {
         case 1:
           isSuccess = lf.login(email, password);
-
           if (isSuccess) {
             String userType = lf.getUserIdentity(email);
             switch (userType) {
@@ -203,7 +231,13 @@ public class TextUI {
     }
   }
 
-  private void AttendeeMenu(String email) throws InterruptedException {
+  /**
+   * This is the first big screen section, used for attendees. Once attendee logged in successfully
+   * the program will prompt more options for them to select.
+   *
+   * @param email - email is inputted in login menu.
+   */
+  private void AttendeeMenu(String email) {
     while (true) {
       Scanner sc = new Scanner(System.in);
       System.out.println(
@@ -252,7 +286,12 @@ public class TextUI {
     }
   }
 
-  private void ViewAllEventsMenu(String email) throws InterruptedException {
+  /**
+   * This is one of the three large sections under attendee menu.
+   *
+   * @param email - email is inputted in login menu.
+   */
+  private void ViewAllEventsMenu(String email) {
     while (true) {
       Scanner sc = new Scanner(System.in);
       System.out.println("[All Events Menu] Please enter the corresponding number to continue..."
@@ -293,7 +332,12 @@ public class TextUI {
     }
   }
 
-  private void SignUpEventsMenu(String email) throws InterruptedException {
+  /**
+   * This is a small menu under view all events menu.
+   *
+   * @param email - email is inputted in login menu.
+   */
+  private void SignUpEventsMenu(String email) {
     while (true) {
       Scanner sc = new Scanner(System.in);
       sf.ShowAllEvents();
@@ -332,21 +376,24 @@ public class TextUI {
       boolean isSuccess = suc.signup(event_ID); /*Room id拿不到*/
       if (isSuccess) {
         System.out.printf("[%s] Signed Up Successful!"
-            + "\nAutomatically redirect to main menu after 2 second.", event_ID);
-        wait(2000);
+            + "\nRedirecting to main menu...", event_ID);
         AttendeeMenu(email);
         break;
       } else {
         System.out.printf("[%s] Signed Up Failed!"
-            + "\nAutomatically redirect to main menu after 2 second.", event_ID);
-        wait(2000);
+            + "\nRedirecting to main menu...", event_ID);
         AttendeeMenu(email);
         break;
       }
     }
   }
 
-  private void ViewAllSignedUpEventsMenu(String email) throws InterruptedException {
+  /**
+   * This is the second large sections under attendee menu.
+   *
+   * @param email - email is inputted in login menu.
+   */
+  private void ViewAllSignedUpEventsMenu(String email) {
     while (true) {
       Scanner sc = new Scanner(System.in);
       System.out.println(
@@ -378,7 +425,12 @@ public class TextUI {
     }
   }
 
-  private void ManageSignUpEventsMenu(String email) throws InterruptedException {
+  /**
+   * This is the second large sections under attendee menu.
+   *
+   * @param email - email is inputted in login menu.
+   */
+  private void ManageSignUpEventsMenu(String email) {
     while (true) {
       Scanner sc = new Scanner(System.in);
       System.out.println(suc.ViewAllEvents());
@@ -415,24 +467,22 @@ public class TextUI {
               sc.nextInt();
             }
           }
-		  
+
           boolean isSuccess = suc.cancelEvent(event_id);
           if (isSuccess) {
             System.out.printf("[%d] Cancel Successful!"
-                + "\nAutomatically redirect to main menu after 2 second.", event_id);
-            wait(2000);
-            AttendeeMenu(email);
+                + "\nRedirecting to main menu...", event_id);
             break;
           } else {
             System.out.printf("[%d] Cancel Failed!"
-                + "\nAutomatically redirect to main menu after 2 second.", event_id);
-            wait(2000);
+                + "\nRedirecting to main menu...", event_id);
             AttendeeMenu(email);
             break;
           }
         case 2:
           String targetEmail, message;
           while (true) {
+            System.out.println(mc.generateEmailList());
             try {
               System.out.println("Please enter target's email and your message: ");
               System.out.print("Target Email: ");
@@ -450,17 +500,16 @@ public class TextUI {
             }
           }
           List<Integer> eventIds = new ArrayList<>();
-          boolean isSent = mc.sendMessages("Single", message, targetEmail, "", eventIds);
+          boolean isSent = mc.sendMessages("Single", message, targetEmail, "",
+              eventIds);
           if (isSent) {
             System.out.printf("[%s: %s] Message Sent Successful!"
-                + "\nAutomatically redirect to main menu after 2 second.", targetEmail, message);
-            wait(2000);
+                + "\nRedirecting to main menu...", targetEmail, message);
             AttendeeMenu(email);
             break;
           } else {
             System.out.printf("[%s: %s] Message Sent Failed!"
-                + "\nAutomatically redirect to main menu after 2 second.", targetEmail, message);
-            wait(2000);
+                + "\nRedirecting to main menu...", targetEmail, message);
             AttendeeMenu(email);
             break;
           }
@@ -470,19 +519,89 @@ public class TextUI {
     }
   }
 
+  /**
+   * This is the third large sections under attendee menu.
+   *
+   * @param email - email is inputted in login menu.
+   */
   private void ViewAllMessagesMenu(String email) {
     Scanner sc = new Scanner(System.in);
     System.out.println("[All Message Menu] Please enter the corresponding number to continue..."
-        + "\n1"
-        + "\n2");
+        + "\n1 - Show all messages"
+        + "\n2 - Go back");
+    int choice;
+    while (true) {
+      try {
+        System.out.print("Your choice: ");
+        choice = sc.nextInt();
+        break;
+      } catch (InputMismatchException e) {
+        System.out.println("Invalid input, please try again.");
+        System.out.print("Your choice: ");
+        sc.nextInt();
+      }
+    }
+
+    switch (choice) {
+      case 1:
+        System.out.println(mc.readAllMessages());
+        System.out.println("Please enter the target email and your message to reply: ");
+        String targetEmail = "", message = "";
+        try {
+          System.out.print("Target Email: ");
+          targetEmail = sc.nextLine();
+          System.out.print("Your Message: ");
+          message = sc.nextLine();
+          break;
+        } catch (InputMismatchException e) {
+          System.out.println("Invalid input, please try again.");
+          System.out.print("Target Email: ");
+          sc.nextLine();
+          System.out.print("Your Message: ");
+          sc.nextLine();
+        }
+
+        List<Integer> eventIds = new ArrayList<>();
+        boolean isSuccess = mc.sendMessages("Single", message, targetEmail, "",
+            eventIds);
+
+        if (isSuccess) {
+          System.out.printf("[%s : %s] Message replied successful!"
+              + "\nRedirecting to main menu...", targetEmail, message);
+          AttendeeMenu(email);
+        } else {
+          System.out.printf("[%s : %s] Message replied failed!"
+              + "\nRedirecting to main menu...", targetEmail, message);
+          AttendeeMenu(email);
+        }
+      case 2:
+        ManageSignUpEventsMenu(email);
+        break;
+    }
   }
 
-  private void SignOutRedirect() throws InterruptedException {
-    System.out.println("Signing Out...");
-    Thread.sleep(2000);
-    UserMenu();
+  /**
+   * This is the third big screen section, used for attendees. Once attendee logged in successfully
+   * the program will prompt more options for them to select.
+   *
+   * @param email - email is inputted in login menu.
+   */
+  private void SpeakerMenu(String email) {
+    Scanner sc = new Scanner(System.in);
+    System.out.println(
+        "Welcome to Speaker Menu! Please enter the corresponding number to complete an action"
+            + "\n"
+            + "\n");
   }
 
+
+
+  /**
+   * This is the second big screen section, used for attendees. Once attendee logged in successfully
+   * the program will prompt more options for them to select.
+   *
+   * @param email - email is inputted in login menu.
+   */
   private void OrganizerMenu(String email) {
     Scanner sc = new Scanner(System.in);
     System.out.println(
@@ -491,11 +610,14 @@ public class TextUI {
             + "\n");
   }
 
-  private void SpeakerMenu(String email) {
-    Scanner sc = new Scanner(System.in);
-    System.out.println(
-        "Welcome to Speaker Menu! Please enter the corresponding number to complete an action"
-            + "\n"
-            + "\n");
+
+
+
+  /**
+   * This is a method to tell the user its account will be signing out.
+   */
+  private void SignOutRedirect() {
+    System.out.println("Signing Out...");
+    UserMenu();
   }
 }

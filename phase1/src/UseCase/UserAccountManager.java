@@ -202,4 +202,21 @@ public class UserAccountManager {
     }
     return null;
   }
+
+  public static User getUserFromEmail(String email){
+    for (User u : userList) {
+      if (u.getEmail().equals(email)) {
+        return u;
+      }
+    }
+    return null;
+  }
+
+  public static HashMap<String, String> getEmailToIdentityMap(){
+    HashMap<String, String> emailToIdentity = new HashMap<>();
+    for (User user : userList) {
+      emailToIdentity.put(user.getEmail(), user.getIdentity());
+    }
+    return emailToIdentity;
+  }
 }

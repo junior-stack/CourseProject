@@ -6,6 +6,7 @@ import Gateway.MessageDataAccess;
 import UseCase.MessageManager;
 import UseCase.UserAccountManager;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,8 +18,14 @@ public class MessageController {
 
   public MessageController(String email) {
 
-    Map previousMessageStorage = mg.read();
-    mm = new MessageManager(email, previousMessageStorage);
+    List<String> allEmails = UserAccountManager.getAllEmails();
+    if (allEmails.contains(email)){
+      HashMap<String, HashMap<String, List<String>>> previousMessageStorage = mg.read();
+      mm = new MessageManager(email, previousMessageStorage);
+    }
+    else{
+      //这里不知道加什么，是email不在allemails里，即不创建新的messageManager
+    }
   }
 
   /**
