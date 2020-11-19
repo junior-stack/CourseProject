@@ -3,8 +3,6 @@ package UseCase;
 import Entity.Event;
 import Entity.Room;
 import Entity.Speaker;
-import exception.DoubleBooking;
-import exception.InvertedTime;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,17 +64,10 @@ public class EventManager {
       return false;
     }
 
-    try {
       if (vs.validateSpeaker(sp, start, end) && vr.validateRoom(rm, start, end)) {
         return true;
       }
-    } catch (DoubleBooking doubleBooking) {
-      System.out.println(doubleBooking.getMessage());
-      return false;
-    } catch (InvertedTime e) {
-      System.out.println(e.getMessage());
-      return false;
-    }
+
     return false;
   }
 

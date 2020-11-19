@@ -2,7 +2,6 @@ package UseCase;
 
 import Entity.Event;
 import Entity.Room;
-import exception.InvertedTime;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -94,7 +93,7 @@ public class ValidateRoom {
    * @throws InvertedTime
    */
   public boolean validateRoom(Room rm, Time start, Time end)
-      throws exception.DoubleBooking, InvertedTime {
+      {
     if (!rooms_list.containsKey(rm)) {
       return false;
     }
@@ -102,11 +101,11 @@ public class ValidateRoom {
       Time start2 = schedule.get(0);
       Time end2 = schedule.get(1);
       if (start.compareTo(start2) >= 0 && start.compareTo(end2) < 0) {
-        throw new exception.DoubleBooking(rm, schedule);
+        return false;
       } else if (start.compareTo(end) >= 0) {
-        throw new exception.InvertedTime();
+        return false;
       } else if (end.compareTo(start2) > 0 && end.compareTo(end2) <= 0) {
-        throw new exception.DoubleBooking(rm, schedule);
+        return false;
       }
     }
     return true;

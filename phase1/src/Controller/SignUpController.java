@@ -4,7 +4,7 @@ import Gateway.MapGateway;
 import Gateway.SpeakerScheduleDataAccess;
 import Gateway.UserScheduleDataAccess;
 import UseCase.*;
-import exception.SignupConflict;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
