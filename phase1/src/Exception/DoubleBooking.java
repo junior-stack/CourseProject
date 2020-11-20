@@ -1,4 +1,4 @@
-package exception;
+package Exception;
 
 import Entity.Room;
 import java.sql.Time;
