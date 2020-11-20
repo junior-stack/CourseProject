@@ -147,7 +147,7 @@ public class UserAccountManager implements AccountManager {
    *
    * @return List of all emails
    */
-  public List<String> getAllEmails() {
+  public static List<String> getAllEmails() {
     ArrayList<String> emailCollection = new ArrayList ();
     for (User user : userList) {
       emailCollection.add(user.getEmail());
@@ -162,7 +162,7 @@ public class UserAccountManager implements AccountManager {
    */
   @Override
   public boolean existingUser(String email) {
-    for ( String i : this.getAllEmails()) {
+    for ( String i : UserAccountManager.getAllEmails()) {
       if (i.equals(email)) {
         return true;
       }
