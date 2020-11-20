@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * A class representing a MessageManager.
  *
- * @author Zhongyuan Liang &
+ * @author Zhongyuan Liang & Jiahao Zhang
  * @version 1.0
  */
 public class MessageManager {
