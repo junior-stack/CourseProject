@@ -1,7 +1,8 @@
 package Controller;
 
 
-import UseCase.ValidateRoom;
+import UseCase.RoomManager;
+
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,9 +13,9 @@ import java.util.HashMap;
  **/
 public class RoomController {
 
-  private ValidateRoom vr;
+  private RoomManager vr;
 
-  public RoomController(ValidateRoom vr) {
+  public RoomController(RoomManager vr) {
     this.vr = vr;
   }
 

@@ -7,8 +7,9 @@ import Gateway.MapGateway;
 import Gateway.RoomDataAccess;
 import Gateway.SpeakerScheduleDataAccess;
 import UseCase.EventManager;
-import UseCase.ValidateRoom;
-import UseCase.ValidateSpeaker;
+import UseCase.RoomManager;
+import UseCase.SpeakerScheduleManager;
+
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,8 +28,8 @@ public class ScheduleFacade {
   private EventManager em;
 
 
-  private ValidateRoom vr;
-  private ValidateSpeaker vs;
+  private RoomManager vr;
+  private SpeakerScheduleManager vs;
 
   private Igateway ig = new EventDataAccess();
   private MapGateway rm = new RoomDataAccess();
@@ -39,9 +40,9 @@ public class ScheduleFacade {
     HashMap rooms_list = rm.read();
     HashMap speaker_list = ss.read();
 
-    vr = new ValidateRoom(rooms_list);
+    vr = new RoomManager(rooms_list);
     rc = new RoomController(vr);
-    vs = new ValidateSpeaker(speaker_list);
+    vs = new SpeakerScheduleManager(speaker_list);
 
     sc = new SpeakerController(vs);
     em = new EventManager(vr, vs, events);
@@ -116,7 +117,7 @@ public class ScheduleFacade {
     return em;
   }
 
-  public ValidateRoom getVr() {
+  public RoomManager getVr() {
     return vr;
   }
 
@@ -125,11 +126,11 @@ public class ScheduleFacade {
   }
 
   public void saverooms() {
-    rm.write(ValidateRoom.rooms_list);
+    rm.write(RoomManager.rooms_list);
   }
 
   public void savespeakerschedule() {
-    ss.write(ValidateSpeaker.speaker_list);
+    ss.write(SpeakerScheduleManager.speaker_list);
   }
 
 

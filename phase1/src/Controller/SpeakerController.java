@@ -1,7 +1,8 @@
 package Controller;
 
 
-import UseCase.ValidateSpeaker;
+import UseCase.SpeakerScheduleManager;
+
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,9 +15,9 @@ import java.util.HashMap;
  **/
 public class SpeakerController {
 
-  private ValidateSpeaker vs;
+  private SpeakerScheduleManager vs;
 
-  public SpeakerController(ValidateSpeaker vs) {
+  public SpeakerController(SpeakerScheduleManager vs) {
     this.vs = vs;
   }
 

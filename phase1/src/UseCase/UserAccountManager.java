@@ -60,7 +60,6 @@ public class UserAccountManager implements AccountManager {
       return false;
     }
     userList.add(new Attendee(username, password, phone, email));
-    System.out.println("Created Attendee");
     return true;
   }
   /**
@@ -79,7 +78,6 @@ public class UserAccountManager implements AccountManager {
       return false;
     }
     userList.add(new Speaker(username, password, phone, email));
-    System.out.println("Created Speaker");
     return true;
   }
   /**

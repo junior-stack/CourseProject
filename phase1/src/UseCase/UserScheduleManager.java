@@ -7,23 +7,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * A class representing a Userschedule
+ * A class representing a UserScheduleManager
  *
  * @author Ye Zhou &
  * @version 1.0
  **/
-public class Userschedule {
+public class UserScheduleManager {
 
   public static HashMap<User, ArrayList<Event>> user_schedule;
 
   /**
-   * Create a Userschedule with given user_schedule. A user_schedule is a HashMap of Users to an
+   * Create a UserScheduleManager with given user_schedule. A user_schedule is a HashMap of Users to an
    * ArrayList of Events.
    *
    * @param user_schedule
    */
-  public Userschedule(HashMap<User, ArrayList<Event>> user_schedule) {
-    Userschedule.user_schedule = user_schedule;
+  public UserScheduleManager(HashMap<User, ArrayList<Event>> user_schedule) {
+    UserScheduleManager.user_schedule = user_schedule;
   }
 
   /**
@@ -58,7 +58,7 @@ public class Userschedule {
   }
 
   /**
-   * Add Event to the User's Event ArrayList in this Userschedule, add eventId to the user's List of
+   * Add Event to the User's Event ArrayList in this UserScheduleManager, add eventId to the user's List of
    * eventId and add the userId to the Event's list of attendee.
    *
    * @param u
@@ -71,7 +71,7 @@ public class Userschedule {
   }
 
   /**
-   * Delete Event from the User's Event ArrayList in this Userschedule, remove eventId from the
+   * Delete Event from the User's Event ArrayList in this UserScheduleManager, remove eventId from the
    * user's List of eventId and remove the userId from the Event's list of attendee.
    *
    * @param u

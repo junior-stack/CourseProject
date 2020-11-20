@@ -8,23 +8,23 @@ import java.util.regex.Pattern;
 
 
 /**
- * A class representing a ValidateRoom.
+ * A class representing a RoomManager.
  *
  * @author Ye Zhou & Hanzhi Zhang
  * @version 1.0
  **/
-public class ValidateSpeaker {
+public class SpeakerScheduleManager {
 
   public static HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list;
 
   /**
-   * Create a ValidateRoom with given speaker_list. A speaker_list is a HashMap of {Speaker to event
+   * Create a RoomManager with given speaker_list. A speaker_list is a HashMap of {Speaker to event
    * schedule which is [ArrayLists of ArrayList of (start and end time)]}.
    *
    * @param speaker_list
    */
-  public ValidateSpeaker(HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list) {
-    ValidateSpeaker.speaker_list = speaker_list;
+  public SpeakerScheduleManager(HashMap<Speaker, ArrayList<ArrayList<Time>>> speaker_list) {
+    SpeakerScheduleManager.speaker_list = speaker_list;
   }
 
   /**

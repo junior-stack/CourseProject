@@ -3,7 +3,6 @@ package UseCase;
 import Entity.Event;
 import Entity.Room;
 import Entity.Speaker;
-import Entity.User;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -19,37 +18,37 @@ public class EventManager {
 
   public static ArrayList<Event> eventpool;
 
-  private ValidateRoom vr;
-  private ValidateSpeaker vs;
+  private RoomManager vr;
+  private SpeakerScheduleManager vs;
 
   /**
-   * Create a EventManager with a ValidateRoom, a ValidateSpeaker and an ArrayList of Events.
+   * Create a EventManager with a RoomManager, a SpeakerScheduleManager and an ArrayList of Events.
    *
    * @param vr
    * @param vs
    * @param eventpool
    */
-  public EventManager(ValidateRoom vr, ValidateSpeaker vs, ArrayList<Event> eventpool) {
+  public EventManager(RoomManager vr, SpeakerScheduleManager vs, ArrayList<Event> eventpool) {
     this.vr = vr;
     this.vs = vs;
     EventManager.eventpool = eventpool;
   }
 
   /**
-   * Return the ValidateRoom of this EventManager.
+   * Return the RoomManager of this EventManager.
    *
-   * @return ValidateRoom
+   * @return RoomManager
    */
-  public ValidateRoom get_vr() {
+  public RoomManager get_vr() {
     return vr;
   }
 
   /**
-   * Return the ValidateSpeaker of this EventManager.
+   * Return the SpeakerScheduleManager of this EventManager.
    *
    * @return
    */
-  public ValidateSpeaker get_vs() {
+  public SpeakerScheduleManager get_vs() {
     return vs;
   }
 

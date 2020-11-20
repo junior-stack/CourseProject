@@ -10,25 +10,25 @@ import java.util.Set;
 
 
 /**
- * A class representing a ValidateRoom.
+ * A class representing a RoomManager.
  *
  * @author Ye Zhou &
  * @version 1.0
  **/
 
-public class ValidateRoom {
+public class RoomManager {
 
   public static HashMap<Room, HashMap<ArrayList<Time>, Integer>> rooms_list;
 
 
   /**
-   * Create a ValidateRoom with given room_list. A room_list is a HashMap of {Rooms to [HashMaps of
+   * Create a RoomManager with given room_list. A room_list is a HashMap of {Rooms to [HashMaps of
    * (ArrayList of Time to remaining spots)]}.
    *
    * @param room_list
    */
-  public ValidateRoom(HashMap<Room, HashMap<ArrayList<Time>, Integer>> room_list) {
-    ValidateRoom.rooms_list = room_list;
+  public RoomManager(HashMap<Room, HashMap<ArrayList<Time>, Integer>> room_list) {
+    RoomManager.rooms_list = room_list;
   }
 
   /**
@@ -67,7 +67,7 @@ public class ValidateRoom {
   }
 
   /**
-   * This method add a Room with given roomId and capacity to the ValidateRoom's rooms_list and
+   * This method add a Room with given roomId and capacity to the RoomManager's rooms_list and
    * return boolean of whether room is added or not. A new room has a empty HashMap since it has no
    * assigned events.
    *
@@ -86,7 +86,7 @@ public class ValidateRoom {
   }
 
   /**
-   * This method check and return boolean result of: given room exists in the ValidateRoom's
+   * This method check and return boolean result of: given room exists in the RoomManager's
    * room_list and start time is earlier than end time and the time period from start to end is
    * completely available.
    *
@@ -157,7 +157,7 @@ public class ValidateRoom {
   }
 
   /**
-   * Return the Room with given rm_ID in the room_list of the ValidateRoom, print "There is no room
+   * Return the Room with given rm_ID in the room_list of the RoomManager, print "There is no room
    * inside the system with that room_ID" if there is no Room with given roomId.
    *
    * @param rm_ID
