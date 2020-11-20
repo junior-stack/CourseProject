@@ -3,6 +3,8 @@ package UseCase;
 import Entity.Event;
 import Entity.Room;
 import Entity.Speaker;
+import Entity.User;
+
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -282,6 +284,15 @@ public class EventManager {
    */
   public ArrayList<Event> get_eventpool() {
     return eventpool;
+  }
+
+  /**
+   * This method sets up a new counter.
+   *
+   * @param newcounter
+   */
+  public void setNewCounter(int newcounter) {
+    Event.setCounter(newcounter);
   }
 }
 

@@ -42,6 +42,14 @@ public class Event implements Serializable {
   }
 
   /**
+   * This method sets a User's counter.
+   *
+   * @param counter
+   */
+  public static void setCounter(int counter) {
+    Event.counter = counter;
+  }
+  /**
    * This method return a Event's eventId.
    *
    * @return Event's eventId

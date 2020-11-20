@@ -45,6 +45,7 @@ public class ScheduleFacade {
 
     sc = new SpeakerController(vs);
     em = new EventManager(vr, vs, events);
+    em.setNewCounter(events.size());
     ec = new EventController(em);
   }
 

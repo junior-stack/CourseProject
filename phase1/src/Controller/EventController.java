@@ -14,6 +14,7 @@ public class EventController {
   private final EventManager em;
 
   public EventController(EventManager em) {
+
     this.em = em;
   }
 
