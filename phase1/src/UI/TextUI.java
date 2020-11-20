@@ -11,18 +11,13 @@ import java.util.Scanner;
 
 public class TextUI {
 
-
-  /**
-   * Global variables
-   */
-  private String email;
-  private String password;
+  private final LoginFacade lf = new LoginFacade();
+  private final ScheduleFacade sf = new ScheduleFacade();
+  private String email, password;
+  private final SignUpController suc = new SignUpController(email, lf.getUam(), sf.getVr(),
+      sf.getEm());
+  private final MessageController mc = new MessageController(email);
   private int choice;
-
-  LoginFacade lf = new LoginFacade();
-  ScheduleFacade sf = new ScheduleFacade();
-  SignUpController suc = new SignUpController(email, lf.getUam(), sf.getVr(), sf.getEm());
-  MessageController mc = new MessageController(email);
 
   /**
    * Method to run the whole program
@@ -90,8 +85,7 @@ public class TextUI {
         username = sc.nextLine();
         System.out.print("Password: ");
         password = sc.nextLine();
-        System.out.print("Phone: ");
-        System.out.print("Phone: ");
+        System.out.print("Phone (XXX-XXX-XXXX or (XXX)XXX-XXXX): ");
         phone = sc.nextLine();
         System.out.print("Email: ");
         email = sc.nextLine();
@@ -198,13 +192,13 @@ public class TextUI {
       String userType = lf.getUserIdentity(email);
       switch (userType) {
         case "Attendee":
-          AttendeeMenu(email);
+          AttendeeMenuUI(email);
           break;
         case "Organizer":
-          OrganizerMenu(email);
+          OrganizerMenuUI(email);
           break;
         case "Speaker":
-          SpeakerMenu(email);
+          SpeakerMenuUI(email);
           break;
       }
     } else {
@@ -223,10 +217,11 @@ public class TextUI {
    *
    * @param email - email is inputted in login menu.
    */
-  private void AttendeeMenu(String email) {
+  private void AttendeeMenuUI(String email) {
     while (true) {
       Scanner sc = new Scanner(System.in);
       System.out.println("===================================================================");
+      System.out.println(lf.getUserInfo(email));
       System.out.println(
           "[Attendee Menu] Please enter the corresponding number to complete an action"
               + "\n1 - View All Events"
@@ -240,24 +235,24 @@ public class TextUI {
       switch (choice) {
         case 1:
           if (sf.ShowAllEvents() != null) {
-            ViewAllEventsMenu(email);
+            ViewAllEventsMenuUI(email);
             break;
           }
           System.out.println("There are current no available events. Please check again later.");
         case 2:
           if (suc.ViewAllEvents() != null) {
-            ViewAllSignedUpEventsMenu(email);
+            ViewSignUpEventsUI(email);
             break;
           }
           System.out.println("You have not signed up any events yet, please sign up.");
         case 3:
           if (mc.readAllMessages() != null) {
-            ViewAllMessagesMenu(email);
+            ManageOneToOneMessageUI(email);
             break;
           }
           System.out.println("You don't have any messages yet. Please check again later.");
         case 4:
-          SignOutRedirect();
+          SignOutRedirectUI();
           return;
       }
     }
@@ -268,7 +263,7 @@ public class TextUI {
    *
    * @param email - email is inputted in login menu.
    */
-  private void ViewAllEventsMenu(String email) {
+  private void ViewAllEventsMenuUI(String email) {
     while (true) {
       Scanner sc = new Scanner(System.in);
       System.out.println("===================================================================");
@@ -283,14 +278,14 @@ public class TextUI {
 
       switch (choice) {
         case 1:
-          SignUpEventsMenu(email);
+          ManageSignUpEventsUI(email);
           break;
         case 2:
           if (userType.equals("Attendee")) {
-            AttendeeMenu(email);
+            AttendeeMenuUI(email);
             break;
           } else if (userType.equals("Organizer")) {
-            OrganizerMenu(email);
+            OrganizerMenuUI(email);
             break;
           } else {
             System.out.println("You do not have permission to view all events");
@@ -305,7 +300,7 @@ public class TextUI {
    *
    * @param email - email is inputted in login menu.
    */
-  private void SignUpEventsMenu(String email) {
+  private void ManageSignUpEventsUI(String email) {
     while (true) {
       Scanner sc = new Scanner(System.in);
       sf.ShowAllEvents();
@@ -319,7 +314,7 @@ public class TextUI {
         System.out.print("Event <ID> or 'BACK'");
         input = sc.nextLine();
         if (input.equals("BACK")) {
-          ViewAllEventsMenu(email);
+          ViewAllEventsMenuUI(email);
         }
       } catch (InputMismatchException e) {
         System.out.println("Invalid input, please try again.");
@@ -348,7 +343,7 @@ public class TextUI {
         System.out.printf("[%s] Signed Up Failed!"
             + "\nRedirecting to main menu...", event_ID);
       }
-      AttendeeMenu(email);
+      AttendeeMenuUI(email);
       return;
     }
   }
@@ -358,7 +353,7 @@ public class TextUI {
    *
    * @param email - email is inputted in login menu.
    */
-  private void ViewAllSignedUpEventsMenu(String email) {
+  private void ViewSignUpEventsUI(String email) {
     while (true) {
       Scanner sc = new Scanner(System.in);
       System.out.println("===================================================================");
@@ -372,10 +367,10 @@ public class TextUI {
 
       switch (choice) {
         case 1:
-          ManageSignUpEventsMenu(email);
+          ManageSignUpEventsMenuUI(email);
           return;
         case 2:
-          AttendeeMenu(email);
+          AttendeeMenuUI(email);
           return;
       }
     }
@@ -386,7 +381,7 @@ public class TextUI {
    *
    * @param email - email is inputted in login menu.
    */
-  private void ManageSignUpEventsMenu(String email) {
+  private void ManageSignUpEventsMenuUI(String email) {
     while (true) {
       Scanner sc = new Scanner(System.in);
       System.out.println("===================================================================");
@@ -430,7 +425,7 @@ public class TextUI {
           } else {
             System.out.printf("[%d] Cancel Failed!"
                 + "\nRedirecting to main menu...", event_id);
-            AttendeeMenu(email);
+            AttendeeMenuUI(email);
           }
           break;
         case 2:
@@ -461,10 +456,10 @@ public class TextUI {
             System.out.printf("[%s: %s] Message Sent Failed!"
                 + "\nRedirecting to main menu...", targetEmail, message);
           }
-          AttendeeMenu(email);
+          AttendeeMenuUI(email);
           break;
         case 3:
-          SignUpEventsMenu(email);
+          ManageSignUpEventsUI(email);
           return;
       }
     }
@@ -475,7 +470,7 @@ public class TextUI {
    *
    * @param email - email is inputted in login menu.
    */
-  private void ViewAllMessagesMenu(String email) {
+  private void ManageOneToOneMessageUI(String email) {
     Scanner sc = new Scanner(System.in);
     System.out.println("===================================================================");
     System.out.println("[Message Menu] Please enter the corresponding number to continue..."
@@ -516,18 +511,24 @@ public class TextUI {
               + "\nRedirecting to main menu...", targetEmail, message);
         }
         if (lf.getUserIdentity(email).equals("Attendee")) {
-          AttendeeMenu(email);
+          AttendeeMenuUI(email);
         }
         if (lf.getUserIdentity(email).equals("Speaker")) {
-          SpeakerMenu(email);
+          SpeakerMenuUI(email);
+        }
+        if (lf.getUserIdentity(email).equals("Organizer")) {
+          OrganizerMenuUI(email);
         }
         break;
       case 2:
         if (lf.getUserIdentity(email).equals("Attendee")) {
-          ManageSignUpEventsMenu(email);
+          ManageSignUpEventsMenuUI(email);
         }
         if (lf.getUserIdentity(email).equals("Speaker")) {
-          SpeakerMenu(email);
+          SpeakerMenuUI(email);
+        }
+        if (lf.getUserIdentity(email).equals("Organizer")) {
+          OrganizerMenuUI(email);
         }
         break;
     }
@@ -543,10 +544,11 @@ public class TextUI {
    *
    * @param email - email is inputted in login menu.
    */
-  private void SpeakerMenu(String email) {
+  private void SpeakerMenuUI(String email) {
     while (true) {
       Scanner sc = new Scanner(System.in);
       System.out.println("===================================================================");
+      System.out.println(lf.getUserInfo(email));
       System.out.println(
           "[Speaker Menu] Please enter the corresponding number to complete an action"
               + "\n1 - View all signed up events"
@@ -565,25 +567,32 @@ public class TextUI {
 
       switch (choice) {
         case 1:
-          SpeakerViewAllSignedUpEvents(email);
+          SpeakerSignUpEventsUI(email);
           break;
         case 2:
-          ViewAllMessagesMenu(email);
+          ManageOneToOneMessageUI(email);
           break;
         case 3:
-          SignOutRedirect();
+          SignOutRedirectUI();
           return;
       }
     }
   }
 
-  private void SpeakerViewAllSignedUpEvents(String email) {
+  /**
+   * This is the Speaker's view all signed up events function that will display 3 options and the
+   * speaker would have to choose 1 of them to send a message, or go back.
+   *
+   * @param email - email is inputted in login menu.
+   */
+  private void SpeakerSignUpEventsUI(String email) {
     Scanner sc = new Scanner(System.in);
     System.out.println(suc.ViewAllEvents());
     System.out.println("===================================================================");
     System.out.println("[Message Menu] Please enter the corresponding number to continue..."
         + "\n1 - Send message to single person"
-        + "\n2 - Send message to attendees");
+        + "\n2 - Send message to attendees"
+        + "\n3 - Go Back");
     System.out.println("===================================================================");
 
     try {
@@ -628,7 +637,7 @@ public class TextUI {
             System.out.printf("[%s: %s] Message Sent Failed!"
                 + "\nRedirecting to main menu...", targetEmail, message);
           }
-          SpeakerMenu(email);
+          SpeakerMenuUI(email);
           break;
         }
       case 2:
@@ -661,9 +670,11 @@ public class TextUI {
             System.out.printf("[%s: %s] Message Sent Failed!"
                 + "\nRedirecting to main menu...", sf.get_single_event(event_id), message);
           }
-          SpeakerMenu(email);
+          SpeakerMenuUI(email);
           break;
         }
+      case 3:
+        SpeakerMenuUI(email);
     }
   }
 
@@ -678,19 +689,197 @@ public class TextUI {
    *
    * @param email - email is inputted in login menu.
    */
-  private void OrganizerMenu(String email) {
+  private void OrganizerMenuUI(String email) {
+    while (true) {
+      Scanner sc = new Scanner(System.in);
+      System.out.println("===================================================================");
+      System.out.println(lf.getUserInfo(email));
+      System.out.println(
+          "[Organizer Menu] Please enter the corresponding number to complete an action"
+              + "\n1 - Manage Events"
+              + "\n2 - Manage Messages"
+              + "\n3 - Manage Speaker"
+              + "\n4 - Manage Room"
+              + "\n5 - Sign Out");
+      System.out.println("===================================================================");
+      try {
+        System.out.print("Your choice: ");
+        choice = sc.nextInt();
+      } catch (InputMismatchException e) {
+        System.out.println("Invalid input, please try again.");
+        System.out.print("Your choice: ");
+        sc.nextInt();
+        continue;
+      }
+
+      switch (choice) {
+        case 1:
+          ManageEventsUI(email);
+          break;
+        case 2:
+          ManageOneToOneMessageUI(email);
+          break;
+        case 3:
+          ManageSpeakerUI(email);
+          break;
+        case 4:
+          ManageRoomUI(email);
+          break;
+        case 5:
+          SignOutRedirectUI();
+          return;
+      }
+    }
+  }
+
+  private void ManageEventsUI(String email) {
+
+  }
+
+  /**
+   * This is the manage speaker function inside organizer that give the organizer permission to
+   * create speaker's account. (By our assumption inside README.md that speakers cannot create its
+   * own account)
+   *
+   * @param email - email is inputted in login menu.
+   */
+  private void ManageSpeakerUI(String email) {
     Scanner sc = new Scanner(System.in);
-    System.out.println(
-        "Welcome to Organizer Menu! Please enter the corresponding number to complete an action"
-            + "\n"
-            + "\n");
+    System.out.println("[Manage Speaker UI]"
+        + "\n1 - Create Speaker Account"
+        + "\n2 - Go Back");
+    try {
+      System.out.print("Your choice: ");
+      choice = sc.nextInt();
+    } catch (InputMismatchException e) {
+      System.out.println("Invalid input, please try again.");
+      System.out.print("Your choice: ");
+      sc.nextInt();
+    }
+
+    switch (choice) {
+      case 1:
+        System.out.println("Please enter the details to add a new speaker account...");
+        String speakerName, speakerPhone, speakerPassword, speakerEmail;
+        try {
+          System.out.print("Speaker Name: ");
+          speakerName = sc.nextLine();
+          System.out.print("Password: ");
+          speakerPassword = sc.nextLine();
+          System.out.print("Phone: ");
+          speakerPhone = sc.nextLine();
+          System.out.print("Email: ");
+          speakerEmail = sc.nextLine();
+        } catch (InputMismatchException e) {
+          System.out.println("Invalid input, please try again.");
+          System.out.print("Speaker Name: ");
+          speakerName = sc.nextLine();
+          System.out.print("Password: ");
+          speakerPassword = sc.nextLine();
+          System.out.print("Phone: ");
+          speakerPhone = sc.nextLine();
+          System.out.print("Email: ");
+          speakerEmail = sc.nextLine();
+        }
+
+        boolean isAdded = sf.addSpeaker(speakerName, speakerPassword, speakerPhone, speakerEmail);
+        if (isAdded) {
+          System.out.printf("[%s: %s] Speaker Add Successful!"
+              + "\nRedirecting to main menu...", speakerName, speakerPassword);
+        } else {
+          System.out.printf("[%s: %s] Speaker Add Failed!"
+              + "\nRedirecting to main menu...", speakerName, speakerPassword);
+        }
+        OrganizerMenuUI(email);
+        break;
+      case 2:
+        OrganizerMenuUI(email);
+        break;
+    }
+  }
+
+  /**
+   * This is the manage room function for organizers that will give 3 options, add room, delete room
+   * or go back.
+   *
+   * @param email - email is inputted in login menu.
+   */
+  private void ManageRoomUI(String email) {
+    while (true) {
+      Scanner sc = new Scanner(System.in);
+      System.out.println("[Manage Room UI]"
+          + "\n1 - Add Room"
+          + "\n2 - Delete Room"
+          + "\n3 - Go Back");
+      try {
+        System.out.print("Your choice: ");
+        choice = sc.nextInt();
+      } catch (InputMismatchException e) {
+        System.out.println("Invalid input, please try again.");
+        System.out.print("Your choice: ");
+        sc.nextInt();
+      }
+
+      int roomId = 0, capacity = 0;
+      switch (choice) {
+        case 1:
+          System.out.println("Please enter the room ID and capacity to create a new room");
+          try {
+            System.out.print("Room ID: ");
+            roomId = sc.nextInt();
+            System.out.print("Capacity: ");
+            capacity = sc.nextInt();
+          } catch (InputMismatchException e) {
+            System.out.println("Invalid input, please try again.");
+            System.out.print("Room ID: ");
+            sc.nextInt();
+            System.out.print("Capacity: ");
+            sc.nextInt();
+          }
+          boolean isAdded = sf.confirmaddroom(roomId, capacity);
+          if (isAdded) {
+            System.out.printf("[%d] Room Added Successful!"
+                + "\nRedirecting to main menu...", roomId);
+            sf.saverooms();
+          } else {
+            System.out.printf("[%d] Room Added Failed!"
+                + "\nRedirecting to main menu...", roomId);
+          }
+          OrganizerMenuUI(email);
+          break;
+        case 2:
+          System.out.println("Please enter a room ID to continue...");
+          try {
+            System.out.print("Room ID: ");
+            roomId = sc.nextInt();
+          } catch (InputMismatchException e) {
+            System.out.println("Invalid input, please try again.");
+            System.out.print("Room ID: ");
+            sc.nextInt();
+          }
+
+          boolean isDeleted = sf.confirmdeleteroom(roomId);
+          if (isDeleted) {
+            System.out.printf("[%d] Room Deleted Successful!"
+                + "\nRedirecting to main menu...", roomId);
+          } else {
+            System.out.printf("[%d] Room Deleted Failed!"
+                + "\nRedirecting to main menu...", roomId);
+          }
+          SpeakerMenuUI(email);
+          break;
+        case 3:
+          OrganizerMenuUI(email);
+          return;
+      }
+    }
   }
 
 
   /**
    * This is a method to tell the user its account will be signing out.
    */
-  private void SignOutRedirect() {
+  private void SignOutRedirectUI() {
     System.out.println("Signing Out...");
     UserMenu();
   }
