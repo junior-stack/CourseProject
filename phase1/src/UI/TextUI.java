@@ -22,7 +22,7 @@ public class TextUI {
   private String email, password;
   private final SignUpController suc = new SignUpController(email, lf.getUam(), sf.getVr(),
       sf.getEm());
-  private final MessageController mc = new MessageController(email);
+  MessageController mc = new MessageController(email);
   private int choice;
 
   /**
@@ -86,7 +86,7 @@ public class TextUI {
     while (true) {
       Scanner sc = new Scanner(System.in);
       System.out.println("===================================================================");
-      System.out.println("[Register Menu] Please enter your email and password to continue...");
+      System.out.println("[Register Menu] Please enter your details to continue...");
       System.out.println("===================================================================");
 
       String username;
@@ -210,12 +210,15 @@ public class TextUI {
       String userType = lf.getUserIdentity(email);
       switch (userType) {
         case "Attendee":
+          mc = new MessageController(email);
           AttendeeMenuUI(email);
           break;
         case "Organizer":
+          mc = new MessageController(email);
           OrganizerMenuUI(email);
           break;
         case "Speaker":
+          mc = new MessageController(email);
           SpeakerMenuUI(email);
           break;
       }
@@ -257,18 +260,21 @@ public class TextUI {
             break;
           }
           System.out.println("There are current no available events. Please check again later.");
+          break;
         case 2:
           if (suc.ViewAllEvents() != null) {
             ViewSignUpEventsUI(email);
             break;
           }
           System.out.println("You have not signed up any events yet, please sign up.");
+          break;
         case 3:
           if (!mc.readAllMessages().isEmpty()) {
             ManageOneToOneMessageUI(email);
             break;
           }
           System.out.println("You don't have any messages yet. Please check again later.");
+          break;
         case 4:
           SignOutRedirectUI();
           return;
