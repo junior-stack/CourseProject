@@ -72,11 +72,10 @@ public class ValidateRoom {
    * assigned events.
    *
    * @param roomName
-   * @param capacity
    * @return return boolean of whether room is added or not
    */
-  public boolean addRoom(int roomName, int capacity) {
-    Room rm = new Room(roomName, capacity);
+  public boolean addRoom(int roomName) {
+    Room rm = new Room(roomName);
     for (Room r : rooms_list.keySet()) {
       if (r.getRoomName() == roomName) {
         return false;
@@ -95,7 +94,7 @@ public class ValidateRoom {
    * @param start
    * @param end
    * @return boolean of whether the room and start and end time are valid
-   * @throws exception.DoubleBooking
+   * @throws Exception.DoubleBooking
    * @throws InvertedTime
    */
   public boolean validateRoom(Room rm, Time start, Time end)

@@ -96,7 +96,7 @@ public class ScheduleFacade {
 
   // RoomController
   public boolean confirmaddroom(int roomID) {
-    return rc.confirmaddroom(roomID, 2);
+    return rc.confirmaddroom(roomID);
   }
 
   public boolean confirmdeleteroom(int roomID) {

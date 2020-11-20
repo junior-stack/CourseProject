@@ -87,6 +87,9 @@ public class SignUpController {
       if (!vr.check_room_is_full(em.get_event(event_id),
           vr.get_rm(em.get_event_spots(em.get_event(event_id)).get(0)))) {
         us.addUserSchedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id));
+
+        vr.signroom(em.get_event(event_id), vr.get_rm(em.get_event(event_id).getRoomId()));
+
         return true;
       } else {
         return false;
@@ -99,6 +102,8 @@ public class SignUpController {
     if (us
         .deleteUserschedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id))) {
       vr.deleteRoom(vr.get_rm(rm_id));
+
+      vr.cancelroom(vr.get_rm(em.get_event(event_id).getRoomId()), em.get_event(event_id));
       return true;
     }
     return false;
@@ -114,6 +119,8 @@ public class SignUpController {
     if (us
         .deleteUserschedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id))) {
       vr.deleteRoom(vr.get_rm(em.get_event_spots(em.get_event(event_id)).get(0)));
+
+      vr.cancelroom(vr.get_rm(em.get_event(event_id).getRoomId()), em.get_event(event_id));
       return true;
     }
     return false;

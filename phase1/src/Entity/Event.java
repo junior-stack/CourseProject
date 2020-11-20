@@ -13,21 +13,14 @@ import java.util.List;
  */
 public class Event implements Serializable {
 
-  //之后改一个更好的办法编号
   private static int counter = 0;
-  protected int speakerId;        //是否用protected?
+  protected int speakerId;
   private final int eventId;
-
-  private int organizerId;                 // OrganizerID  要给么event？再想想
   private int roomId;
   private Time startTime;
   private Time endTime;
   private String topic;
   private final List<Integer> attendees = new ArrayList<>();
-  //private int remaining; // remaining 放Room 还是Event?
-  // 做signup event 的人确认如何validate.
-  // 要先在use case 里面checkuser在event 自己的时间内是否已经参加别的event..... 专门validater method
-  // 做signup event 的人可以参照课上学生enroll course 的例子。
 
   /**
    * This method creates an Instance of Event. Every event has a unique eventId, a speaker, a

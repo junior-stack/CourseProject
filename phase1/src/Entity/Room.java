@@ -12,18 +12,17 @@ public class Room implements Serializable {
 
   final int roomName;
   private int capacity;
-  private int remainingSpot;
+
 
   /**
    * This method creates an Instance of Room, a Room has a roomId and capacity.
    *
    * @param roomName
-   * @param capacity
    */
-  public Room(int roomName, int capacity) {
+  public Room(int roomName) {
     this.roomName = roomName;
-    this.capacity = capacity;
-    //this.remainingSpot = capacity;
+    this.capacity = 2;
+
   }
 
   /**

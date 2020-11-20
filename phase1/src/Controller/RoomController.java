@@ -23,8 +23,8 @@ public class RoomController {
    *
    * @return weather the room is sucessfully added
    */
-  public boolean confirmaddroom(int roomName, int capacity) {
-    return vr.addRoom(roomName, capacity);
+  public boolean confirmaddroom(int roomName) {
+    return vr.addRoom(roomName);
   }
 
   /**
