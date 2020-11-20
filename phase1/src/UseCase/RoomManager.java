@@ -8,6 +8,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
+import Exception.*;
+
 
 /**
  * A class representing a RoomManager.
@@ -94,7 +96,7 @@ public class RoomManager {
    * @param start
    * @param end
    * @return boolean of whether the room and start and end time are valid
-   * @throws Exception.DoubleBooking
+   * @throws DoubleBooking
    * @throws InvertedTime
    */
   public boolean validateRoom(Room rm, Time start, Time end)
