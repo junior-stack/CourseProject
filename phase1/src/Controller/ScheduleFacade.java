@@ -13,7 +13,12 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/**
+ * A class representing a ScheduleFacade.
+ *
+ * @author Ye Zhou & Hanzhi Zhang
+ * @version 1.0
+ **/
 public class ScheduleFacade {
 
   private EventController ec;

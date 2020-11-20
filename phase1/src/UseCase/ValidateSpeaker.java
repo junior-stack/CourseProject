@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 /**
  * A class representing a ValidateRoom.
  *
- * @author Ye Zhou &
+ * @author Ye Zhou & Hanzhi Zhang
  * @version 1.0
  **/
 public class ValidateSpeaker {
