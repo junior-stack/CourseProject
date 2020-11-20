@@ -246,7 +246,7 @@ public class TextUI {
           }
           System.out.println("You have not signed up any events yet, please sign up.");
         case 3:
-          if (mc.readAllMessages() != null) {
+          if (!mc.readAllMessages().isEmpty()) {
             ManageOneToOneMessageUI(email);
             break;
           }
@@ -274,20 +274,13 @@ public class TextUI {
 
       UserOptionsHelper(sc);
 
-      String userType = lf.getUserIdentity(email);
-
       switch (choice) {
         case 1:
           ManageAllEventsUI(email);
           break;
         case 2:
-          if (userType.equals("Attendee")) {
-            AttendeeMenuUI(email);
-            break;
-          } else {
-            System.out.println("You do not have permission to view all events");
-            return;
-          }
+          AttendeeMenuUI(email);
+          return;
       }
     }
   }
@@ -751,14 +744,231 @@ public class TextUI {
 
       switch (choice) {
         case 1:
+          OrganizerViewEventsUI();
+          break;
         case 2:
+          OrganizerAddEventUI();
+          break;
         case 3:
+          OrganizerDeleteEventUI();
+          break;
         case 4:
+          OrganizerEditEventUI();
+          break;
         case 5:
           OrganizerMenuUI(email);
           return;
       }
     }
+  }
+
+  private void OrganizerViewEventsUI() {
+    while (true) {
+      Scanner sc = new Scanner(System.in);
+      sf.ShowAllEvents();
+      System.out.println("===================================================================");
+      System.out.println("The form of event is <ID> - <NAME>"
+          + "\nPlease enter the corresponding number to continue..."
+          + "\n1 - Send message (All speakers)"
+          + "\n2 - Send message (All attendees)"
+          + "\n3 - Go Back");
+      System.out.println("===================================================================");
+
+      try {
+        System.out.print("Your choice: ");
+        choice = sc.nextInt();
+      } catch (InputMismatchException e) {
+        System.out.println("Invalid input, please try again.");
+        System.out.print("Your choice: ");
+        sc.nextInt();
+        continue;
+      }
+
+      int event_ID = 0;
+      String message = "";
+      boolean isSent;
+      switch (choice) {
+        case 1:
+          System.out.println("Please enter the event <ID> and your message to send...");
+          try {
+            System.out.println("Event <ID>: ");
+            event_ID = sc.nextInt();
+            System.out.print("Your message: ");
+            message = sc.nextLine();
+          } catch (InputMismatchException e) {
+            System.out.println("Invalid input, please try again.");
+            System.out.println("Event <ID>: ");
+            event_ID = sc.nextInt();
+            System.out.print("Your message: ");
+            sc.nextLine();
+          }
+
+          List<Integer> eventIds = new ArrayList<>();
+          eventIds.add(event_ID);
+          isSent = mc.sendMessages("Multiple", message, "",
+              "Speaker", eventIds);
+          if (isSent) {
+            System.out.printf("[%s: %s] Message sent successful!"
+                + "\nRedirecting to main menu...", event_ID, message);
+            mc.saveMessage();
+          } else {
+            System.out.printf("[%s: %s] Message sent failed!"
+                + "\nRedirecting to main menu...", event_ID, message);
+          }
+          OrganizerMenuUI(email);
+          break;
+        case 2:
+          System.out.println("Please enter the event <ID> and your message to send...");
+          try {
+            System.out.println("Event <ID>: ");
+            event_ID = sc.nextInt();
+            System.out.print("Your message: ");
+            message = sc.nextLine();
+          } catch (InputMismatchException e) {
+            System.out.println("Invalid input, please try again.");
+            System.out.println("Event <ID>: ");
+            event_ID = sc.nextInt();
+            System.out.print("Your message: ");
+            sc.nextLine();
+          }
+
+          eventIds = new ArrayList<>();
+          eventIds.add(event_ID);
+          isSent = mc.sendMessages("Multiple", message, "",
+              "Attendee", eventIds);
+          if (isSent) {
+            System.out.printf("[%s: %s] Message sent successful!"
+                + "\nRedirecting to main menu...", event_ID, message);
+            mc.saveMessage();
+          } else {
+            System.out.printf("[%s: %s] Message sent failed!"
+                + "\nRedirecting to main menu...", event_ID, message);
+          }
+          OrganizerMenuUI(email);
+          break;
+        case 3:
+          OrganizerMenuUI(email);
+          return;
+      }
+    }
+  }
+
+
+  private void OrganizerAddEventUI() {
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Please enter the following details to add a new event...");
+    int roomNum = 0, speakerId = 0;
+    String startTime = "", endTime = "", eventTopic = "";
+
+    try {
+      System.out.println("Room Number: ");
+      roomNum = sc.nextInt();
+      System.out.println("Start Time (12:05:35 means 5 minutes and 35 seconds past 12pm): ");
+      startTime = sc.nextLine();
+      System.out.println("End Time (12:05:35 means 5 minutes and 35 seconds past 12pm): ");
+      endTime = sc.nextLine();
+      System.out.println("Speaker ID: ");
+      speakerId = sc.nextInt();
+      System.out.println("Event Topic: ");
+      eventTopic = sc.nextLine();
+    } catch (InputMismatchException e) {
+      System.out.println("Invalid input, please try again.");
+      System.out.println("Room Number: ");
+      sc.nextInt();
+      System.out.println("Start Time (12:05:35 means 5 minutes and 35 seconds past 12pm): ");
+      sc.nextLine();
+      System.out.println("End Time (12:05:35 means 5 minutes and 35 seconds past 12pm): ");
+      sc.nextLine();
+      System.out.println("Speaker ID: ");
+      sc.nextInt();
+      System.out.println("Event Topic: ");
+      sc.nextLine();
+    }
+
+    boolean isAdded = sf.ConfirmAddEvent(roomNum, startTime, endTime, speakerId, eventTopic);
+    if (isAdded) {
+      System.out.printf("[%s: %s] Event created successful!"
+          + "\nRedirecting to main menu...", eventTopic, startTime);
+      sf.saveevents();
+    } else {
+      System.out.printf("[%s: %s] Event created failed!"
+          + "\nRedirecting to main menu...", eventTopic, startTime);
+    }
+    SpeakerMenuUI(email);
+  }
+
+  private void OrganizerDeleteEventUI() {
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Please enter the event <ID> to delete an event...");
+    int eventId = 0;
+
+    try {
+      System.out.println("Event ID: ");
+      eventId = sc.nextInt();
+    } catch (InputMismatchException e) {
+      System.out.println("Invalid input, please try again.");
+      System.out.println("Event ID: ");
+      sc.nextInt();
+    }
+
+    boolean isDeleted = sf.ConfirmDeleteEvent(eventId);
+    if (isDeleted) {
+      System.out.printf("[%s] Event deleted successful!"
+          + "\nRedirecting to main menu...", eventId);
+      sf.saveevents();
+    } else {
+      System.out.printf("[%s] Event deleted failed!"
+          + "\nRedirecting to main menu...", eventId);
+    }
+    SpeakerMenuUI(email);
+  }
+
+  private void OrganizerEditEventUI() {
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Please enter the following details to edit an event...");
+    int eventId = 0, roomNum = 0, speakerId = 0;
+    String startTime = "", endTime = "", eventTopic = "";
+
+    try {
+      System.out.println("Event <ID>: ");
+      eventId = sc.nextInt();
+      System.out.println("New room Number: ");
+      roomNum = sc.nextInt();
+      System.out.println("New Start Time (12:05:35 means 5 minutes and 35 seconds past 12pm): ");
+      startTime = sc.nextLine();
+      System.out.println("New End Time (12:05:35 means 5 minutes and 35 seconds past 12pm): ");
+      endTime = sc.nextLine();
+      System.out.println("New Speaker ID: ");
+      speakerId = sc.nextInt();
+      System.out.println("New Event Topic: ");
+      eventTopic = sc.nextLine();
+    } catch (InputMismatchException e) {
+      System.out.println("Invalid input, please try again.");
+      System.out.println("Event <ID>: ");
+      sc.nextInt();
+      System.out.println("New room Number: ");
+      sc.nextInt();
+      System.out.println("New Start Time (12:05:35 means 5 minutes and 35 seconds past 12pm): ");
+      sc.nextLine();
+      System.out.println("New End Time (12:05:35 means 5 minutes and 35 seconds past 12pm): ");
+      sc.nextLine();
+      System.out.println("New Speaker ID: ");
+      sc.nextInt();
+      System.out.println("New Event Topic: ");
+      sc.nextLine();
+    }
+
+    boolean isEdited = sf.ConfirmEditEvent(eventId, roomNum, startTime, endTime,
+        eventTopic, speakerId);
+    if (isEdited) {
+      System.out.printf("[%s] Event edited successful!"
+          + "\nRedirecting to main menu...", eventId);
+      sf.saveevents();
+    } else {
+      System.out.printf("[%s] Event edited failed!"
+          + "\nRedirecting to main menu...", eventId);
+    }
+    SpeakerMenuUI(email);
   }
 
   /**
@@ -787,7 +997,7 @@ public class TextUI {
         System.out.println("Please enter the details to add a new speaker account...");
         String speakerName, speakerPhone, speakerPassword, speakerEmail;
         try {
-          System.out.print("Speaker Name: ");
+          System.out.println("Speaker Name: ");
           speakerName = sc.nextLine();
           System.out.print("Password: ");
           speakerPassword = sc.nextLine();
@@ -797,7 +1007,7 @@ public class TextUI {
           speakerEmail = sc.nextLine();
         } catch (InputMismatchException e) {
           System.out.println("Invalid input, please try again.");
-          System.out.print("Speaker Name: ");
+          System.out.println("Speaker Name: ");
           speakerName = sc.nextLine();
           System.out.print("Password: ");
           speakerPassword = sc.nextLine();
