@@ -61,7 +61,7 @@ public class ValidateRoom {
       Collection<ArrayList<Time>> tmp2 = rooms_list.get(rm).keySet();
       ArrayList<ArrayList<Time>> temp2 = new ArrayList<>();//// 为了test 改过
       temp2.addAll(tmp2);
-      tmp.put(rm.getRoomId(), temp2);
+      tmp.put(rm.getRoomName(), temp2);
     }
     return tmp;
   }
@@ -71,14 +71,14 @@ public class ValidateRoom {
    * return boolean of whether room is added or not. A new room has a empty HashMap since it has no
    * assigned events.
    *
-   * @param roomID
+   * @param roomName
    * @param capacity
    * @return return boolean of whether room is added or not
    */
-  public boolean addRoom(int roomID, int capacity) {
-    Room rm = new Room(roomID, capacity);
+  public boolean addRoom(int roomName, int capacity) {
+    Room rm = new Room(roomName, capacity);
     for (Room r : rooms_list.keySet()) {
-      if (r.getRoomId() == roomID) {
+      if (r.getRoomName() == roomName) {
         return false;
       }
     }
@@ -144,7 +144,7 @@ public class ValidateRoom {
     p.add(start);
     p.add(end);
     for (Room r : rooms_list.keySet()) {
-      if (rm_ID == r.getRoomId()) {
+      if (rm_ID == r.getRoomName()) {
         ArrayList<ArrayList<Time>> tmp = new ArrayList<>();
         tmp.addAll(rooms_list.get(r).keySet());
         for (ArrayList<Time> o : tmp) {
@@ -169,7 +169,7 @@ public class ValidateRoom {
     HashMap<Integer, Room> tmp = new HashMap<>();
     try {
       for (Room rm : this.get_rooms_list().keySet()) {
-        tmp.put(rm.getRoomId(), rm);
+        tmp.put(rm.getRoomName(), rm);
       }
 
     } catch (NullPointerException e) {
@@ -186,7 +186,7 @@ public class ValidateRoom {
   public HashMap<Integer, String> get_rms_info() {
     HashMap<Integer, String> tmp = new HashMap<>();
     for (Room rm : this.get_rooms_list().keySet()) {
-      tmp.put(rm.getRoomId(), rm.toString());
+      tmp.put(rm.getRoomName(), rm.toString());
     }
     return tmp;
   }

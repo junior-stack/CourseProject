@@ -23,24 +23,24 @@ public class RoomController {
    *
    * @return weather the room is sucessfully added
    */
-  public boolean confirmaddroom(int roomID, int capacity) {
-    return vr.addRoom(roomID, capacity);
+  public boolean confirmaddroom(int roomName, int capacity) {
+    return vr.addRoom(roomName, capacity);
   }
 
   /**
    * This method return whether a particular room is successfully deleted according the the id of
    * this room
    *
-   * @param roomID the id of a particular room
+   * @param roomName the id of a particular room
    * @return boolean of whether the room is deleted.
    */
-  public boolean confirmdeleteroom(int roomID) {
+  public boolean confirmdeleteroom(int roomName) {
     HashMap<Integer, ArrayList<ArrayList<Time>>> room_schedule = vr.get_rooms_schedule();
-    if (!room_schedule.containsKey(roomID)) {
+    if (!room_schedule.containsKey(roomName)) {
       return false;
     }
-    if (room_schedule.get(roomID).isEmpty()) {
-      vr.deleteRoom(vr.get_rm(roomID));
+    if (room_schedule.get(roomName).isEmpty()) {
+      vr.deleteRoom(vr.get_rm(roomName));
       return true;
     }
     return false;

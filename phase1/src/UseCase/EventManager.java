@@ -87,7 +87,7 @@ public class EventManager {
    */
   public void addEvent(Room rm, Time start, Time end, Speaker sp, String topic) {
 
-    Event event = new Event(rm.getRoomId(), start, end, topic);
+    Event event = new Event(rm.getRoomName(), start, end, topic);
 
     eventpool.add(event);
 
@@ -173,7 +173,7 @@ public class EventManager {
         if (this.checkIsEventValid(new_rm, start, end, new_sp)) {
           old.setStartTime(start);
           old.setEndTime(end);
-          old.setRoomId(new_rm.getRoomId());
+          old.setRoomId(new_rm.getRoomName());
           old.setTopic(topic);
           old.SetSpeaker(new_sp.getUserId());
           this.addEvent(old);

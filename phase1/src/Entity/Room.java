@@ -10,18 +10,18 @@ import java.io.Serializable;
  */
 public class Room implements Serializable {
 
-  final int roomId;
+  final int roomName;
   private int capacity;
   private int remainingSpot;
 
   /**
    * This method creates an Instance of Room, a Room has a roomId and capacity.
    *
-   * @param roomId
+   * @param roomName
    * @param capacity
    */
-  public Room(int roomId, int capacity) {
-    this.roomId = roomId;
+  public Room(int roomName, int capacity) {
+    this.roomName = roomName;
     this.capacity = capacity;
     //this.remainingSpot = capacity;
   }
@@ -31,8 +31,8 @@ public class Room implements Serializable {
    *
    * @return Room's roomId
    */
-  public int getRoomId() {
-    return roomId;
+  public int getRoomName() {
+    return roomName;
   }
 
   /**
@@ -63,7 +63,7 @@ public class Room implements Serializable {
   @Override
   public String toString() {
     return "Room{" +
-        "roomId=" + roomId +
+        "roomId=" + roomName +
         ", capacity=" + capacity +
         '}';
   }
@@ -80,7 +80,7 @@ public class Room implements Serializable {
     if (!(other instanceof Room)) {
       return false;
     }
-    return this.getRoomId() == ((Room) other).getRoomId() && this.getCapacity() == ((Room) other)
+    return this.getRoomName() == ((Room) other).getRoomName() && this.getCapacity() == ((Room) other)
         .getCapacity();
   }
 
@@ -91,6 +91,6 @@ public class Room implements Serializable {
    */
   @Override
   public int hashCode() {
-    return this.getRoomId();
+    return this.getRoomName();
   }
 }
