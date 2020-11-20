@@ -2,10 +2,10 @@ package Controller;
 
 import Gateway.MapGateway;
 import Gateway.UserScheduleDataAccess;
+import UseCase.AttendeeScheduleManager;
 import UseCase.EventManager;
 import UseCase.RoomManager;
 import UseCase.UserAccountManager;
-import UseCase.UserScheduleManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,14 +20,14 @@ public class SignUpController {
   private UserAccountManager uam;
 
   private MapGateway mg = new UserScheduleDataAccess();
-  private UserScheduleManager us;
+  private AttendeeScheduleManager us;
   private String email;
 
   public SignUpController(String email, UserAccountManager userAccountManager,
                           RoomManager roomManager, EventManager eventManager) {
 
     HashMap userschedule = mg.read();
-    us = new UserScheduleManager(userschedule);
+    us = new AttendeeScheduleManager(userschedule);
     this.email = email;
 
     this.vr = roomManager;
@@ -128,7 +128,7 @@ public class SignUpController {
   }
 
   public void saveuserschedule() {
-    mg.write(UserScheduleManager.user_schedule);
+    mg.write(AttendeeScheduleManager.user_schedule);
   }
 
   ;
