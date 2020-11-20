@@ -9,6 +9,12 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * @author Haohua Ji
+ * @FileName TextUI.java
+ * @Date 2020-11-10
+ */
+
 public class TextUI {
 
   private final LoginFacade lf = new LoginFacade();
@@ -53,6 +59,11 @@ public class TextUI {
     }
   }
 
+  /**
+   * This is a helper method for user choice input.
+   *
+   * @param sc - this is the scanner
+   */
   private void UserOptionsHelper(Scanner sc) {
     try {
       System.out.print("Your choice: ");
@@ -187,6 +198,13 @@ public class TextUI {
     }
   }
 
+  /**
+   * This is a switching menu method after login. If the login process is successful, this method
+   * helps the program to redirect into 1 of the 3 different sections by the identity of the user.
+   *
+   * @param email     - email is inputted in login menu.
+   * @param isSuccess - check if login successful or failed.
+   */
   private void SwitchMenu(String email, boolean isSuccess) {
     if (isSuccess) {
       String userType = lf.getUserIdentity(email);
@@ -722,6 +740,12 @@ public class TextUI {
     }
   }
 
+  /**
+   * This is the manage event section for organizers. Organizer can view, add, edit, delete events
+   * and send messages to specific group of users.
+   *
+   * @param email - email is inputted in login menu.
+   */
   private void ManageEventsUI(String email) {
     while (true) {
       Scanner sc = new Scanner(System.in);
@@ -762,6 +786,10 @@ public class TextUI {
     }
   }
 
+  /**
+   * This is one of the methods from manage events ui. Organizer can send their message to specific
+   * group (speakers or attendees) by enter the event id and message after view all the events.
+   */
   private void OrganizerViewEventsUI() {
     while (true) {
       Scanner sc = new Scanner(System.in);
@@ -853,7 +881,10 @@ public class TextUI {
     }
   }
 
-
+  /**
+   * This is the add event function for organizers. Organizer have to enter the details to create a
+   * new event.
+   */
   private void OrganizerAddEventUI() {
     Scanner sc = new Scanner(System.in);
     System.out.println("Please enter the following details to add a new event...");
@@ -897,6 +928,10 @@ public class TextUI {
     SpeakerMenuUI(email);
   }
 
+  /**
+   * This is the delete event function for organizers. Organizer have to enter the event id to
+   * delete an event.
+   */
   private void OrganizerDeleteEventUI() {
     Scanner sc = new Scanner(System.in);
     System.out.println("Please enter the event <ID> to delete an event...");
@@ -923,6 +958,10 @@ public class TextUI {
     SpeakerMenuUI(email);
   }
 
+  /**
+   * This is the edit event function for organizers. Organizer have to enter the details to edit a
+   * created event.
+   */
   private void OrganizerEditEventUI() {
     Scanner sc = new Scanner(System.in);
     System.out.println("Please enter the following details to edit an event...");
