@@ -10,7 +10,7 @@ import java.util.HashMap;
 /**
  * A class representing a EventManager.
  *
- * @author Hanzhi Zhang &
+ * @author Hanzhi Zhang & Ye Zhou
  * @version 1.0
  */
 public class EventManager {

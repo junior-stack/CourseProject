@@ -15,14 +15,16 @@ public class MessageController {
 
   private MapGateway mg = new MessageDataAccess();
 
+  /**
+   * This is a constructor for MessageController.
+   * @param email This represents the email address of the current user.
+   */
   public MessageController(String email) {
 
     List<String> allEmails = UserAccountManager.getAllEmails();
     if (allEmails.contains(email)) {
       HashMap<String, HashMap<String, List<String>>> previousMessageStorage = mg.read();
       mm = new MessageManager(email, previousMessageStorage);
-    } else {
-      //这里不知道加什么，是email不在allemails里，即不创建新的messageManager
     }
   }
 
@@ -75,6 +77,9 @@ public class MessageController {
     return mm.sentMessages();
   }
 
+  /**
+   * Save the current messages to the database for future view.
+   */
   public void saveMessage() {
     mg.write(MessageManager.messageStorage);
   }
