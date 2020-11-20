@@ -235,7 +235,7 @@ public class TextUI {
       switch (choice) {
         case 1:
           if (sf.ShowAllEvents() != null) {
-            ViewAllEventsMenuUI(email);
+            ViewAllAttendeeEventsMenuUI(email);
             break;
           }
           System.out.println("There are current no available events. Please check again later.");
@@ -263,7 +263,7 @@ public class TextUI {
    *
    * @param email - email is inputted in login menu.
    */
-  private void ViewAllEventsMenuUI(String email) {
+  private void ViewAllAttendeeEventsMenuUI(String email) {
     while (true) {
       Scanner sc = new Scanner(System.in);
       System.out.println("===================================================================");
@@ -278,14 +278,11 @@ public class TextUI {
 
       switch (choice) {
         case 1:
-          ManageSignUpEventsUI(email);
+          ManageAllEventsUI(email);
           break;
         case 2:
           if (userType.equals("Attendee")) {
             AttendeeMenuUI(email);
-            break;
-          } else if (userType.equals("Organizer")) {
-            OrganizerMenuUI(email);
             break;
           } else {
             System.out.println("You do not have permission to view all events");
@@ -300,7 +297,7 @@ public class TextUI {
    *
    * @param email - email is inputted in login menu.
    */
-  private void ManageSignUpEventsUI(String email) {
+  private void ManageAllEventsUI(String email) {
     while (true) {
       Scanner sc = new Scanner(System.in);
       sf.ShowAllEvents();
@@ -314,7 +311,7 @@ public class TextUI {
         System.out.print("Event <ID> or 'BACK'");
         input = sc.nextLine();
         if (input.equals("BACK")) {
-          ViewAllEventsMenuUI(email);
+          ViewAllAttendeeEventsMenuUI(email);
         }
       } catch (InputMismatchException e) {
         System.out.println("Invalid input, please try again.");
@@ -459,7 +456,7 @@ public class TextUI {
           AttendeeMenuUI(email);
           break;
         case 3:
-          ManageSignUpEventsUI(email);
+          ViewAllAttendeeEventsMenuUI(email);
           return;
       }
     }
@@ -733,7 +730,35 @@ public class TextUI {
   }
 
   private void ManageEventsUI(String email) {
+    while (true) {
+      Scanner sc = new Scanner(System.in);
+      System.out.println("[Manage Events] Please enter the corresponding number to continue..."
+          + "\n1 - View all events"
+          + "\n2 - Add event"
+          + "\n3 - Delete event"
+          + "\n4 - Edit event"
+          + "\n5 - Go Back");
 
+      try {
+        System.out.print("Your choice: ");
+        choice = sc.nextInt();
+      } catch (InputMismatchException e) {
+        System.out.println("Invalid input, please try again.");
+        System.out.print("Your choice: ");
+        sc.nextInt();
+        continue;
+      }
+
+      switch (choice) {
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+          OrganizerMenuUI(email);
+          return;
+      }
+    }
   }
 
   /**
@@ -820,23 +845,19 @@ public class TextUI {
         sc.nextInt();
       }
 
-      int roomId = 0, capacity = 0;
+      int roomId = 0;
       switch (choice) {
         case 1:
-          System.out.println("Please enter the room ID and capacity to create a new room");
+          System.out.println("Please enter the room ID to create a new room...");
           try {
             System.out.print("Room ID: ");
             roomId = sc.nextInt();
-            System.out.print("Capacity: ");
-            capacity = sc.nextInt();
           } catch (InputMismatchException e) {
             System.out.println("Invalid input, please try again.");
             System.out.print("Room ID: ");
             sc.nextInt();
-            System.out.print("Capacity: ");
-            sc.nextInt();
           }
-          boolean isAdded = sf.confirmaddroom(roomId, capacity);
+          boolean isAdded = sf.confirmaddroom(roomId);
           if (isAdded) {
             System.out.printf("[%d] Room Added Successful!"
                 + "\nRedirecting to main menu...", roomId);
