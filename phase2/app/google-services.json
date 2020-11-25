@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "86852244633",
+    "firebase_url": "https://iconference-2da5a.firebaseio.com",
+    "project_id": "iconference-2da5a",
+    "storage_bucket": "iconference-2da5a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86852244633:android:dfd80c076d912088155408",
+        "android_client_info": {
+          "package_name": "com.group0014.iconference"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "86852244633-ahoabailib8089p6p63aq5155m8v0a0a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqStGbAXsxA4_XCrosmBIAvPhcJoywWks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "86852244633-ahoabailib8089p6p63aq5155m8v0a0a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
