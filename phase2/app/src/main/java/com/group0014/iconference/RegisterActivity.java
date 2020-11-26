@@ -51,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
       public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
         radioButton = radioGroup.findViewById(checkedId);
         if (radioButton != null && checkedId > -1) {
-          type = (String) radioButton.getText();
+          type = radioButton.getText().toString();
         }
       }
     });
