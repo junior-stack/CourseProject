@@ -44,6 +44,26 @@ public class MessageController {
     }
     return false;
   }
+
+  public boolean sendMultipleMessage(String targetIdentity, String content){
+    if (userType.equals("Organizer")){
+      ArrayList<String> emails = mm.OrganizerGenerateEmail(targetIdentity);
+      mm.multipleMessageRequest(userEmail, emails, content);
+      return true;
+    }
+    return false;
+  }
+
+  //overload
+  public boolean sendMultipleMessage(ArrayList<Integer> eventIds, String content){
+    if (userType.equals("Speaker")){
+      ArrayList<String> emails = mm.SpeakerGenerateEmail(eventIds);
+      mm.multipleMessageRequest(userEmail, emails, content);
+      return true;
+    }
+    return false;
+  }
+
   /**
    * This method is to generate email addresses that the current user could send the message to.
    *
