@@ -256,4 +256,14 @@ public class UserAccountManager implements AccountManager {
     return "";
   }
 
+  public static ArrayList<String> getAllAvailableEmails(String userType){
+    ArrayList<String> allemails = new ArrayList<>();
+    for (User u:userList){
+      if (u.getIdentity().equals(userType)){
+        allemails.add(u.getEmail());
+      }
+    }
+    return allemails;
+  }
+
 }
