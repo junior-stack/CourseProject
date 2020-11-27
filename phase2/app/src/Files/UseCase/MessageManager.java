@@ -119,4 +119,14 @@ public class MessageManager {
         return "";
     }
 
+    public StringBuilder generateMessage(String userEmail, String status){
+        StringBuilder result = new StringBuilder("");
+        for (Message m : messages){
+            if (m.getreceiverEmail().equals(userEmail) && m.getcurrentStatus().equals(status)){
+                result.append(m.toString());
+            }
+        }
+        return result;
+    }
+
 }
