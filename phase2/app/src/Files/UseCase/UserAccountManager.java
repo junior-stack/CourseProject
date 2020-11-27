@@ -217,12 +217,12 @@ public class UserAccountManager implements AccountManager {
    * this method returns a collection of email as key, Identity as value
    * @return
    */
-  public static HashMap<String, String> getEmailToIdentityMap() {
+  public static String getEmailToIdentity(String email) {
     HashMap<String, String> emailToIdentity = new HashMap<>();
     for (User user : userList) {
       emailToIdentity.put(user.getEmail(), user.getIdentity());
     }
-    return emailToIdentity;
+    return emailToIdentity.get(email);
   }
   /**
    * This method sets up a new counter.
@@ -255,4 +255,5 @@ public class UserAccountManager implements AccountManager {
     }
     return "";
   }
+
 }
