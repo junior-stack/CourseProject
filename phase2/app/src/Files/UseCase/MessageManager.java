@@ -94,4 +94,12 @@ public class MessageManager {
         }
     }
 
+    public void archive(int messageId){
+        for (Message m : messages){
+            if (m.getmessageId() == messageId){
+                m.setCurrentStatus("archive");
+            }
+        }
+    }
+
 }
