@@ -17,4 +17,28 @@ public class Message {
         counter++;
     }
 
+    public int getmessageId(){
+        return messageId;
+    }
+
+    public String getsenderEmail(){
+        return senderEmail;
+    }
+
+    public String getreceiverEmail(){
+        return receiverEmail;
+    }
+
+    public String getContent(){
+        return content;
+    }
+
+    public String getcurrentStatus(){
+        return currentStatus;
+    }
+
+    public void setCurrentStatus(String status){
+        currentStatus = status;
+    }
+
 }
