@@ -6,7 +6,15 @@ public class Message {
     private String senderEmail;
     private String receiverEmail;
     private String content;
-    private String status;
+    private String currentStatus;
 
+    public Message(String senderEmail, String receiverEmail, String content){
+        this.messageId = counter;
+        this.senderEmail = senderEmail;
+        this.receiverEmail = receiverEmail;
+        this.content = content;
+        this.currentStatus = "unread";
+        counter++;
+    }
 
 }
