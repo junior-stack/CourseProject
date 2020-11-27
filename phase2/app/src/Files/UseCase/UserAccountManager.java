@@ -247,7 +247,7 @@ public class UserAccountManager implements AccountManager {
 
   }
 
-  public String idToEmail(int Id){
+  public static String idToEmail(int Id){
     for (User u: userList){
       if (u.getUserId() == Id){
         return u.getEmail();
