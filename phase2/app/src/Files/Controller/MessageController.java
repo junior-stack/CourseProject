@@ -6,6 +6,7 @@ import Gateway.MessageDataAccess;
 import UseCase.MessageManager;
 import UseCase.UserAccountManager;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,14 +65,23 @@ public class MessageController {
     return false;
   }
 
-  /**
-   * This method is to generate email addresses that the current user could send the message to.
-   *
-   * @return List This returns a list of email addresses that the current user could send the
-   * message to.
-   */
-  public List<String> generateEmailList() {
-    return mm.generateEmail();
+  public ArrayList<String> generateEmailList() {
+    ArrayList<String> allAttendee= UserAccountManager.getAllAvailableEmails("Attendee");
+    ArrayList<String> allSpeaker= UserAccountManager.getAllAvailableEmails("Speaker");
+    ArrayList<String> emails;
+    if (userType.equals("Attendee") || userType.equals("Organizer")){
+      emails = allAttendee;
+      emails.addAll(allSpeaker);
+    } else {
+      emails = new ArrayList<>();
+      ArrayList<String> allEmails = UserAccountManager.getAllEmails();
+      for (String e: allEmails){
+        if (mm.validateResponse(userEmail, e)){
+          emails.add(e);
+        }
+      }
+    }
+    return emails;
   }
 
   /**

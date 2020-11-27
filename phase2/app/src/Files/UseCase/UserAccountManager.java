@@ -145,7 +145,7 @@ public class UserAccountManager implements AccountManager {
    *
    * @return List of all emails
    */
-  public static List<String> getAllEmails() {
+  public static ArrayList<String> getAllEmails() {
     ArrayList<String> emailCollection = new ArrayList ();
     for (User user : userList) {
       emailCollection.add(user.getEmail());
