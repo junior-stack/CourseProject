@@ -84,6 +84,30 @@ public class MessageController {
     return emails;
   }
 
+  public boolean deleteMessage(int messageId){
+    if (!mm.idToStatus(messageId).equals("")){
+      mm.delete(messageId);
+      return true;
+    }
+    return false;
+  }
+
+  public boolean archiveMessage(int messageId){
+    if (!mm.idToStatus(messageId).equals("delete") && !mm.idToStatus(messageId).equals("")) {
+      mm.archive(messageId);
+      return true;
+    }
+    return false;
+  }
+
+  public boolean unreadMessage(int messageId){
+    if (!mm.idToStatus(messageId).equals("delete") && !mm.idToStatus(messageId).equals("")) {
+      mm.unread(messageId);
+      return true;
+    }
+    return false;
+  }
+
   /**
    * This is the method used to send message(s) by the current user.
    *

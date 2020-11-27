@@ -102,4 +102,21 @@ public class MessageManager {
         }
     }
 
+    public void unread(int messageId){
+        for (Message m : messages){
+            if (m.getmessageId() == messageId){
+                m.setCurrentStatus("unread");
+            }
+        }
+    }
+
+    public String idToStatus(int messageId){
+        for (Message m : messages){
+            if (m.getmessageId() == messageId){
+                return m.getcurrentStatus();
+            }
+        }
+        return "";
+    }
+
 }
