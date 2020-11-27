@@ -246,4 +246,13 @@ public class UserAccountManager implements AccountManager {
     return speakers;
 
   }
+
+  public String idToEmail(int Id){
+    for (User u: userList){
+      if (u.getUserId() == Id){
+        return u.getEmail();
+      }
+    }
+    return "";
+  }
 }
