@@ -45,4 +45,34 @@ public class MessageManager {
         }
         return false;
     }
+
+    public ArrayList<String> OrganizerGenerateEmail(String targetIdentity){
+        List<User> users = UserAccountManager.userList;
+        ArrayList<String> emails = new ArrayList<>();
+        for (User u : users){
+            if (u.getIdentity().equals(targetIdentity)){
+                emails.add(u.getEmail());
+            }
+        }
+        return emails;
+    }
+
+    public ArrayList<String> SpeakerGenerateEmail(ArrayList<Integer> eventIds){
+        List<Event> events = EventManager.eventpool;
+        List<Event> e = new ArrayList<>();
+        for (Event temp: events){
+            if (eventIds.contains(temp.getId())){
+                e.add(temp);
+            }
+        }
+        ArrayList<Integer> userIds = new ArrayList<>();
+        for (Event temp2 : e){
+            userIds.addAll(temp2.getAllAttendee());
+        }
+        ArrayList<String> emails = new ArrayList<>();
+        for (Integer Id: userIds){
+            emails.add(UserAccountManager.idToEmail(Id));
+        }
+        return emails;
+    }
 }
