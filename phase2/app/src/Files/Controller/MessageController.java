@@ -1,9 +1,12 @@
 package Controller;
 
+import Gateway.Igateway;
 import Gateway.MapGateway;
 import Gateway.MessageDataAccess;
 import UseCase.MessageManager;
 import UseCase.UserAccountManager;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,21 +15,35 @@ public class MessageController {
 
   private MessageManager mm;
 
-  private MapGateway mg = new MessageDataAccess();
+  //private Igateway ig = new MessageDataAccess();
 
-  /**
-   * This is a constructor for MessageController.
-   * @param email This represents the email address of the current user.
-   */
-  public MessageController(String email) {
+  private String userType;
+  private String userEmail;
 
-    List<String> allEmails = UserAccountManager.getAllEmails();
-    if (allEmails.contains(email)) {
-      HashMap<String, HashMap<String, List<String>>> previousMessageStorage = mg.read();
-      mm = new MessageManager(email, previousMessageStorage);
-    }
+  public MessageController(String useremail, String userType) {
+
+    this.userType = userType;
+    this.userEmail = useremail;
+    //HashMap<String, HashMap<String, List<String>>> previousMessageStorage = ig.read();
+    // When the gateway is finished, the parameter should be the previous messages.
+    mm = new MessageManager(new ArrayList<>());
   }
 
+  public boolean sendSingleMessage(String targetEmail, String content){
+    String targetIdentity = UserAccountManager.getEmailToIdentity(targetEmail);
+    if (userType.equals("Speaker") && mm.validateResponse(userEmail, targetEmail)){
+      mm.singleMessageRequest(userEmail, targetEmail, content);
+      return true;
+    } else if (userType.equals("Attendee") && !targetIdentity.equals("Organizer")){
+      mm.singleMessageRequest(userEmail, targetEmail, content);
+      return true;
+    } else {
+      if (!targetIdentity.equals("Organizer")){
+        mm.singleMessageRequest(userEmail, targetEmail, content);
+        return true;}
+    }
+    return false;
+  }
   /**
    * This method is to generate email addresses that the current user could send the message to.
    *
@@ -80,6 +97,6 @@ public class MessageController {
    * Save the current messages to the database for future view.
    */
   public void saveMessage() {
-    mg.write(MessageManager.messageStorage);
+    ig.write(mm.getMessages());
   }
 }

@@ -16,14 +16,14 @@ import java.util.Map;
  * @version 1.0
  */
 public class MessageManager {
-    private List<Message> messages = new ArrayList<>();
+    private List<Message> messages;
+
+    public MessageManager(ArrayList<Message> messages){
+        this.messages = messages;
+    }
 
     public List<Message> getMessages(){
         return messages;
-    }
-
-    public MessageManager(ArrayList<Message> messages){
-        this.messages.addAll(messages);
     }
 
     public void singleMessageRequest(String senderEmail, String receiverEmail, String content){
