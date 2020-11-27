@@ -75,4 +75,23 @@ public class MessageManager {
         }
         return emails;
     }
+
+    public ArrayList<Message> readMessages(String receiverEmail, String Status){
+        ArrayList<Message> m = new ArrayList<>();
+        for (Message temp: messages){
+            if (temp.getreceiverEmail().equals(receiverEmail) && temp.getcurrentStatus().equals(Status)){
+                m.add(temp);
+            }
+        }
+        return m;
+    }
+
+    public void delete(int messageId){
+        for (Message m : messages){
+            if (m.getmessageId() == messageId){
+                m.setCurrentStatus("delete");
+            }
+        }
+    }
+
 }
