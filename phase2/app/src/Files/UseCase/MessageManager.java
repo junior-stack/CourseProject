@@ -37,5 +37,12 @@ public class MessageManager {
         }
     }
 
-
+    public boolean validateResponse(String speakerEmail, String receiverEmail){
+        for (Message m : messages){
+            if (m.getsenderEmail().equals(receiverEmail) && m.getsenderEmail().equals(speakerEmail)){
+                return true;
+            }
+        }
+        return false;
+    }
 }
