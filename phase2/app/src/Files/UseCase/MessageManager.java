@@ -21,4 +21,21 @@ public class MessageManager {
     public List<Message> getMessages(){
         return messages;
     }
+
+    public MessageManager(ArrayList<Message> messages){
+        this.messages.addAll(messages);
+    }
+
+    public void singleMessageRequest(String senderEmail, String receiverEmail, String content){
+        Message m = new Message(senderEmail, receiverEmail, content);
+        messages.add(m);
+    }
+
+    public void multipleMessageRequest(String senderEmail, ArrayList<String> receiverEmails, String content){
+        for (String e : receiverEmails){
+            singleMessageRequest(senderEmail, e, content);
+        }
+    }
+
+
 }
