@@ -2,7 +2,7 @@ package UI;
 
 import Controller.LoginFacade;
 import Controller.MessageController;
-import Controller.ScheduleFacade;
+import Controller.Scheduler;
 import Controller.SignUpController;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -18,7 +18,7 @@ import java.util.Scanner;
 public class TextUI {
 
   private final LoginFacade lf = new LoginFacade();
-  private final ScheduleFacade sf = new ScheduleFacade();
+  private final Scheduler sf = new Scheduler();
   private String email, password;
   private final SignUpController suc = new SignUpController(email, lf.getUam(), sf.getVr(),
       sf.getEm());

@@ -1,12 +1,18 @@
 package UseCase;
 
 import Entity.Event;
+import Entity.MultiSpeakerEvent;
+import Entity.NoSpeakerEvent;
+import Entity.OneSpeakerEvent;
 import Entity.Room;
+import Entity.Schedulable;
 import Entity.Speaker;
 
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * A class representing a EventManager.
@@ -14,23 +20,23 @@ import java.util.HashMap;
  * @author Hanzhi Zhang & Ye Zhou
  * @version 1.0
  */
-public class EventManager {
+public class EventManager implements Iterable<Event>{
 
   public static ArrayList<Event> eventpool;
 
-  private RoomManager vr;
-  private SpeakerScheduleManager vs;
+  private SchedulableManager rooms_list;
+  private SchedulableManager speakers_list;
 
   /**
    * Create a EventManager with a RoomManager, a SpeakerScheduleManager and an ArrayList of Events.
    *
-   * @param vr
-   * @param vs
+   * @param rooms_list
+   * @param speakers_list
    * @param eventpool
    */
-  public EventManager(RoomManager vr, SpeakerScheduleManager vs, ArrayList<Event> eventpool) {
-    this.vr = vr;
-    this.vs = vs;
+  public EventManager(SchedulableManager rooms_list, SchedulableManager speakers_list, ArrayList<Event> eventpool) {
+    this.rooms_list = rooms_list;
+    this.speakers_list = speakers_list;
     EventManager.eventpool = eventpool;
   }
 
@@ -39,8 +45,8 @@ public class EventManager {
    *
    * @return RoomManager
    */
-  public RoomManager get_vr() {
-    return vr;
+  public SchedulableManager get_vr() {
+    return rooms_list;
   }
 
   /**
@@ -48,21 +54,21 @@ public class EventManager {
    *
    * @return
    */
-  public SpeakerScheduleManager get_vs() {
-    return vs;
+  public SchedulableManager get_vs() {
+    return speakers_list;
   }
 
   /**
    * Check if: The start is not earlier than 9 am and end if not later than 5 pm and the room and
    * speaker are both available during the time period from start to end.
    *
-   * @param rm
+   * @param rm_id
    * @param start
    * @param end
-   * @param sp
+   * @param sp_id
    * @return boolean of the result
    */
-  public boolean checkIsEventValid(Room rm, Time start, Time end, Speaker sp) {
+  public boolean checkIsEventValid(int rm_id, Time start, Time end, ArrayList<Integer> sp_id) {
     Time beggining = java.sql.Time.valueOf("09:00:00");
     Time ending = java.sql.Time.valueOf("17:00:00");
 
@@ -70,44 +76,71 @@ public class EventManager {
       return false;
     }
 
-      if (vs.validateSpeaker(sp, start, end) && vr.validateRoom(rm, start, end)) {
-        return true;
-      }
 
-    return false;
+    if (!rooms_list.CheckSchedulableAvailable(rm_id, start, end)) {
+      return false;
+    }
+    for(Integer sp: sp_id){
+      if(!speakers_list.CheckSchedulableAvailable(sp, start, end)){
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
    * Add a Event with given parameters to the system.
    *
-   * @param rm
+   * @param rm_id
    * @param start
    * @param end
    * @param sp
    * @param topic
    */
-  public void addEvent(Room rm, Time start, Time end, Speaker sp, String topic) {
+  public void addEvent(int rm_id, Time start, Time end, String topic, int max, String eventtype, ArrayList<Integer> sp) {
 
-    Event event = new Event(rm.getRoomName(), start, end, topic);
+    Event event;
+    if(eventtype.equals("MultipleSpeakerEvent")){
+      event = new MultiSpeakerEvent(rm_id, start, end, topic, max, sp);
+    }
+    else if(eventtype.equals("OneSpeakerEvent")){
+      event = new OneSpeakerEvent(rm_id, start, end, topic, max, sp);
+    }else{
+      event = new NoSpeakerEvent(rm_id, start, end, topic, max);
+    }
 
     eventpool.add(event);
 
-    vr.give_room_schedule(rm, start, end);
+    rooms_list.giveSchedulableNewSchedule(rm_id, start, end);
 
-    vs.giveSpeakerNewSchedule(sp, start, end);
+    for(Integer id: sp){
+      speakers_list.giveSchedulableNewSchedule(id, start, end);
+    }
   }
 
   /**
    * Add a constructed Event to the system.
    *
-   * @param e
+   * @param event
    */
-  public void addEvent(Event e) {
-    eventpool.add(e);
+  public void addEvent(Event event) {
+    eventpool.add(event);
 
-    vr.give_room_schedule(vr.get_rm(e.getRoomId()), e.getStartTime(), e.getEndTime());
-
-    vs.giveSpeakerNewSchedule(vs.get_sp(e.getSpeaker()), e.getStartTime(), e.getEndTime());
+    rooms_list.giveSchedulableNewSchedule(event.getRoomId(), event.getStartTime(), event.getEndTime());
+    if(event instanceof OneSpeakerEvent) {
+      OneSpeakerEvent e = (OneSpeakerEvent) event;
+      for(Integer sp: e.getSpeaker()){
+        speakers_list
+            .giveSchedulableNewSchedule(sp, event.getStartTime(), event.getEndTime());
+      }
+    }
+    else if (event instanceof MultiSpeakerEvent){
+      MultiSpeakerEvent e = (MultiSpeakerEvent) event;
+      for(Integer sp: e.getSpeaker()){
+        speakers_list
+            .giveSchedulableNewSchedule(sp, event.getStartTime(), event.getEndTime());
+      }
+    }
   }
 
   /**
@@ -121,7 +154,7 @@ public class EventManager {
     int id;
     try {
       id = event.getId();
-    } catch (NullPointerException e) {
+    }catch(NullPointerException e){
       System.out.println("There is no event with such id to be deleted");
       return false;
     }
@@ -130,8 +163,10 @@ public class EventManager {
     for (Event e : eventpool_copy) {
       if (e.getId() == id) {
         eventpool.remove(e);
-        vr.del_room_schedule(event.getRoomId(), event.getStartTime(), event.getEndTime());
-        vs.delSpeakerSchedule(event.getSpeaker(), event.getStartTime(), event.getEndTime());
+        rooms_list.delSchedulableSchedule(event.getRoomId(), event.getStartTime(), event.getEndTime());
+        for(Integer sp_id: event.getSpeaker()) {
+          speakers_list.delSchedulableSchedule(sp_id, event.getStartTime(), event.getEndTime());
+        }
         return true;
       }
     }
@@ -143,7 +178,7 @@ public class EventManager {
    * new Event is still valid, otherwise keep the old event unchanged. If there is no such event,
    * print "There is no event with such id to edit".
    *
-   * @param old
+   * @param id
    * @param new_rm
    * @param start
    * @param end
@@ -151,18 +186,11 @@ public class EventManager {
    * @param new_sp
    * @return boolean of whether the Event is successfully edited
    */
-  public boolean editEvent(Event old, Room new_rm, Time start, Time end, String topic,
-      Speaker new_sp) {
-    int id;
+  public boolean editEvent(int id, int new_rm, Time start, Time end, String topic, ArrayList<Integer> new_sp) {
+    Event old;
     try {
-      id = old.getId();
+      old = get_event(id);
     } catch (NullPointerException e) {
-      System.out.println("There is no event with such id to edit");
-      return false;
-    }
-
-    long time_difference = end.getTime() - start.getTime();
-    if (time_difference > 3600000) {
       return false;
     }
 
@@ -174,9 +202,9 @@ public class EventManager {
         if (this.checkIsEventValid(new_rm, start, end, new_sp)) {
           old.setStartTime(start);
           old.setEndTime(end);
-          old.setRoomId(new_rm.getRoomName());
+          old.setRoomId(new_rm);
           old.setTopic(topic);
-          old.SetSpeaker(new_sp.getUserId());
+          old.setSpeakerId(new_sp);
           this.addEvent(old);
           return true;
         } else {
@@ -292,6 +320,50 @@ public class EventManager {
    */
   public void setNewCounter(int newcounter) {
     Event.setCounter(newcounter);
+  }
+
+  public boolean setEventCapacity(int room_id, int event_id, int new_maximum) {
+    Room rm = (Room) rooms_list.get_sch(room_id);
+    int rc = rm.getCapacity();
+    Event e = get_event(event_id);
+    if (new_maximum < e.getAllAttendee().size() | new_maximum > rc) {
+      return false;
+    }
+    e.setMaximum_attentees(new_maximum);
+    return true;
+  }
+
+  @Override
+  public Iterator<Event> iterator() {
+    return new EventManagerIterator();
+  }
+
+
+  private class EventManagerIterator implements Iterator<Event>{
+
+    private int current = 0;
+    @Override
+    public boolean hasNext() {
+      return current < eventpool.size();
+    }
+
+    @Override
+    public Event next() {
+      Event res;
+      try{
+        res = eventpool.get(current);
+      }catch (IndexOutOfBoundsException e){
+        throw new NoSuchElementException();
+      }
+      current += 1;
+      return res;
+
+    }
+
+    @Override
+    public void remove() {
+      eventpool.remove(current - 1);
+    }
   }
 }
 

@@ -1,6 +1,8 @@
 package UseCase;
 
 import Entity.Event;
+import Entity.Room;
+import Entity.Schedulable;
 import Entity.User;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -12,9 +14,9 @@ import java.util.HashMap;
  * @author Ye Zhou &
  * @version 1.0
  **/
-public class AttendeeScheduleManager {
+public class UserScheduleManager {
 
-  public static HashMap<User, ArrayList<Event>> user_schedule;
+  public HashMap<User, ArrayList<Event>> user_schedule;
 
   /**
    * Create a AttendeeScheduleManager with given user_schedule. A user_schedule is a HashMap of Users to an
@@ -22,8 +24,8 @@ public class AttendeeScheduleManager {
    *
    * @param user_schedule
    */
-  public AttendeeScheduleManager(HashMap<User, ArrayList<Event>> user_schedule) {
-    AttendeeScheduleManager.user_schedule = user_schedule;
+  public UserScheduleManager(HashMap<User, ArrayList<Event>> user_schedule) {
+    this.user_schedule = user_schedule;
   }
 
   /**
@@ -46,7 +48,13 @@ public class AttendeeScheduleManager {
   public boolean CheckUserIsBusy(User user, Event e) {
     Time start = e.getStartTime();
     Time end = e.getEndTime();
-    for (Event event : user_schedule.get(user)) {
+    ArrayList<Event> events;
+    try{
+      events = user_schedule.get(user);
+    }catch(NullPointerException x){
+      return true;
+    }
+    for (Event event : events) {
       if (start.compareTo(event.getStartTime()) >= 0 && start.compareTo(event.getStartTime()) < 0) {
         return false;
       } else if (end.compareTo(event.getStartTime()) > 0
@@ -64,10 +72,17 @@ public class AttendeeScheduleManager {
    * @param u
    * @param e
    */
-  public void addUserSchedule(User u, Event e) {
+  public void addUserSchedule(User u, Event e, Schedulable rm) {
+    Room rs = (Room) rm;
+    try{
+      ArrayList<Event> events = user_schedule.get(u);
+    }catch(NullPointerException x){
+      user_schedule.put(u, new ArrayList<>());
+    }
     user_schedule.get(u).add(e);
     u.addEvents(e.getId());
     e.addAttendee(u.getUserId());
+    rs.DecreaseRemainingspot(e.getStartTime(), e.getEndTime());
   }
 
   /**
@@ -78,11 +93,12 @@ public class AttendeeScheduleManager {
    * @param e
    * @return boolean of whether the operation are successfully executed
    */
-  public boolean deleteUserschedule(User u, Event e) {
+  public boolean deleteUserschedule(User u, Event e, Schedulable rm) {
+    Room rs = (Room) rm;
     if (user_schedule.get(u).remove(e)) {
       u.getEvents().remove(e.getId());
       e.getAllAttendee().remove(e.getId());
-      return true;
+      return rs.IncreaseRemainingspot(e.getStartTime(), e.getEndTime());
     }
     return false;
   }

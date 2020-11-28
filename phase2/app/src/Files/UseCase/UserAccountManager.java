@@ -8,6 +8,9 @@ import Entity.User;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
 /**
  * A class representing a UserAccountManager.
  *
@@ -15,7 +18,7 @@ import java.util.List;
  * @version 1.0
  */
 
-public class UserAccountManager implements AccountManager {
+public class UserAccountManager implements AccountManager, Observer {
 
   public static List<User> userList;
   /**
@@ -266,4 +269,8 @@ public class UserAccountManager implements AccountManager {
     return allemails;
   }
 
+  @Override
+  public void update(Observable o, Object arg) {
+    userList.add((User) arg);
+  }
 }

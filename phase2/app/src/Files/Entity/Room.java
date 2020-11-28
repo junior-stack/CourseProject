@@ -1,6 +1,9 @@
 package Entity;
 
 import java.io.Serializable;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * This class represents an Room.
@@ -8,20 +11,20 @@ import java.io.Serializable;
  * @author Jun Xing
  * @version 1.0
  */
-public class Room implements Serializable {
+public class Room implements Serializable, Schedulable {
 
   final int roomName;
   private int capacity;
-
+  public HashMap<ArrayList<Time>, Integer> schedule = new HashMap<>();
 
   /**
    * This method creates an Instance of Room, a Room has a roomId and capacity.
    *
    * @param roomName
    */
-  public Room(int roomName) {
+  public Room(int roomName, int capacity) {
     this.roomName = roomName;
-    this.capacity = 2;
+    this.capacity = capacity;
 
   }
 
@@ -91,5 +94,80 @@ public class Room implements Serializable {
   @Override
   public int hashCode() {
     return this.getRoomName();
+  }
+
+  @Override
+  public boolean CheckSchedulable(Time start, Time end) {
+    for (ArrayList<Time> t : schedule.keySet()) {
+      if (start.compareTo(t.get(0)) >= 0 && start.compareTo(t.get(1)) < 0) {
+        return false;
+      } else if (end.compareTo(t.get(0)) > 0 && end.compareTo(t.get(1)) <= 0) {
+        return false;
+      } else if (start.compareTo(end) >= 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @Override
+  public void giveSchedulableNewSchedule(Time start, Time end) {
+    ArrayList<Time> tmp = new ArrayList<>();
+    tmp.add(start);
+    tmp.add(end);
+    schedule.put(tmp, this.getCapacity());
+  }
+
+  @Override
+  public boolean delSchedulableSchedule(Time start, Time end) {
+    for(ArrayList<Time> t: schedule.keySet()){
+      if(t.get(0).equals(start) && t.get(1).equals(end)){
+        schedule.remove(t);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @Override
+  public ArrayList<ArrayList<Time>> getScheduleableSchedulelist() {
+    ArrayList<ArrayList<Time>> tmp = new ArrayList<>();
+    tmp.addAll(schedule.keySet());
+    return tmp;
+  }
+
+  @Override
+  public String get_sch_info(int sch) {
+    return schedule.toString();
+  }
+
+  @Override
+  public Integer give_id() {
+    return this.getRoomName();
+  }
+
+  @Override
+  public String get_sch_info() {
+    return this.toString();
+  }
+
+  public boolean DecreaseRemainingspot(Time start, Time end) {
+    for(ArrayList<Time> t: schedule.keySet()){
+      if(t.get(0).equals(start) && t.get(1).equals(end)){
+        schedule.replace(t, schedule.get(t) - 1);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public boolean IncreaseRemainingspot(Time start, Time end){
+    for(ArrayList<Time> t: schedule.keySet()){
+      if(t.get(0).equals(start) && t.get(1).equals(end)){
+        schedule.replace(t, schedule.get(t) + 1);
+        return true;
+      }
+    }
+    return false;
   }
 }

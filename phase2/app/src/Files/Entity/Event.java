@@ -11,16 +11,18 @@ import java.util.List;
  * @author Jun Xing
  * @version 1.0
  */
-public class Event implements Serializable {
+public abstract class Event implements Serializable {
 
   private static int counter = 0;
-  protected int speakerId;
-  private final int eventId;
-  private int roomId;
-  private Time startTime;
-  private Time endTime;
-  private String topic;
-  private final List<Integer> attendees = new ArrayList<>();
+  protected ArrayList<Integer> speakerId = new ArrayList<>();
+  String eventtype;
+  final int eventId;
+  int roomId;
+  Time startTime;
+  Time endTime;
+  String topic;
+  final List<Integer> attendees = new ArrayList<>();
+  int maximum_attentees;
 
   /**
    * This method creates an Instance of Event. Every event has a unique eventId, a speaker, a
@@ -31,13 +33,13 @@ public class Event implements Serializable {
    * @param endTime
    * @param topic
    */
-  public Event(int roomId, Time startTime, Time endTime, String topic) {
+  public Event(int roomId, Time startTime, Time endTime, String topic, int max) {
     this.eventId = counter;
     this.roomId = roomId;
     this.topic = topic;
     this.startTime = startTime;
     this.endTime = endTime;
-
+    maximum_attentees = max;
     counter++;
   }
 
@@ -153,17 +155,23 @@ public class Event implements Serializable {
    *
    * @return Event's speaker
    */
-  public int getSpeaker() {
+  public ArrayList<Integer> getSpeaker() {
     return speakerId;
   }
 
   /**
    * This method sets a Event's speaker.
    *
-   * @param sp_id
+   * @param s
    */
-  public void SetSpeaker(int sp_id) {
-    speakerId = sp_id;
+  public abstract void setSpeakerId(ArrayList<Integer> s);
+
+  public void setMaximum_attentees(int maximum_attentees){
+    this.maximum_attentees = maximum_attentees;
+  }
+
+  public int getMaximum_attentees(){
+    return this.maximum_attentees;
   }
 
 

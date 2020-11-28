@@ -1,6 +1,7 @@
 package Entity;
 
 import java.sql.Time;
+import java.util.ArrayList;
 
 /**
  * This class represents an OneSpeakerEvent.
@@ -20,27 +21,34 @@ public class OneSpeakerEvent extends Event {
    * @param endTime
    * @param topic
    */
-  public OneSpeakerEvent(int speakerId, int roomId, Time startTime, Time endTime, String topic) {
-    super(roomId, startTime, endTime, topic);
+  public OneSpeakerEvent(int roomId, Time startTime, Time endTime, String topic, int max, ArrayList<Integer> speakerId) {
+    super(roomId, startTime, endTime, topic, max);
     this.speakerId = speakerId;
   }
 
-  /**
-   * This method returns a OneSpeakerEvent's speakerId.
-   *
-   * @return OneSpeakerEvent's speakerId
-   */
-  public int getSpeakerId() {
-    return speakerId;
-  }
 
   /**
    * This method sets a OneSpeakerEvent's speakerId
    *
-   * @param speakerId
+   * @param s
    */
-  public void setSpeakerId(int speakerId) {
-    this.speakerId = speakerId;
+
+  @Override
+  public void setSpeakerId(ArrayList<Integer> s) {
+    this.speakerId = s;
+  }
+
+  @Override
+  public String toString() {
+    return "Event{" +
+        "id=" + eventId +
+        ", speakerId=" + speakerId +
+        ", roomId=" + roomId +
+        ", startTime=" + startTime +
+        ", endTime=" + endTime +
+        ", topic='" + topic + '\'' +
+        ", attendees=" + attendees +
+        '}';
   }
 
 }

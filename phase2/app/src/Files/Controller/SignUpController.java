@@ -1,12 +1,15 @@
 package Controller;
 
+import Entity.Schedulable;
 import Gateway.MapGateway;
 import Gateway.UserScheduleDataAccess;
-import UseCase.AttendeeScheduleManager;
+import UseCase.SchedulableManager;
+import UseCase.UserScheduleManager;
 import UseCase.EventManager;
 import UseCase.RoomManager;
 import UseCase.UserAccountManager;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,34 +18,41 @@ import java.util.HashMap;
  **/
 public class SignUpController {
 
-  private RoomManager vr;
+  private SchedulableManager rooms_list;
   private EventManager em;
   private UserAccountManager uam;
 
   private MapGateway mg = new UserScheduleDataAccess();
-  private AttendeeScheduleManager us;
+  private UserScheduleManager us;
   private String email;
 
   public SignUpController(String email, UserAccountManager userAccountManager,
-                          RoomManager roomManager, EventManager eventManager) {
+                          SchedulableManager roomManager, EventManager eventManager) {
 
-    HashMap userschedule = mg.read();
-    us = new AttendeeScheduleManager(userschedule);
     this.email = email;
 
-    this.vr = roomManager;
+    this.rooms_list = roomManager ;
     this.em = eventManager;
     this.uam = userAccountManager;
+
+    HashMap userschedule = mg.read();
+    try {
+      if (!userschedule.containsKey(uam.get_single_user(uam.get_user_id(email)))) {
+        userschedule.put(uam.get_single_user(uam.get_user_id(email)), new ArrayList<>());
+      }
+    }catch (NullPointerException e){
+      userschedule.put(uam.get_single_user(uam.get_user_id(email)), new ArrayList<>());
+    }
+    us = new UserScheduleManager(userschedule);
 
   }
 
   public ArrayList<String> viewEventRegister() {
     try {
       return us.get_user_schedule_info(uam.get_single_user(uam.get_user_id(email)));
-    } catch (Exception e) {
-      e.printStackTrace();
+    } catch (NullPointerException e) {
+      return null;
     }
-    return null;
   }
 
   /**
@@ -64,18 +74,6 @@ public class SignUpController {
   }
 
 
-  public boolean signup(int event_id, int rm_id) {
-    if (us.CheckUserIsBusy(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id))) {
-      if (!vr.check_room_is_full(em.get_event(event_id), vr.get_rm(rm_id))) {
-        us.addUserSchedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id));
-        return true;
-      } else {
-        return false;
-      }
-    }
-    return false;
-  }
-
   /**
    * This method enable a user to sign up an event, retuern true if the user's time and event could
    * fit.
@@ -85,27 +83,15 @@ public class SignUpController {
 
   public boolean signup(int event_id) {
     if (us.CheckUserIsBusy(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id))) {
-      if (!vr.check_room_is_full(em.get_event(event_id),
-          vr.get_rm(em.get_event_spots(em.get_event(event_id)).get(0)))) {
-        us.addUserSchedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id));
-
-        vr.signroom(em.get_event(event_id), vr.get_rm(em.get_event(event_id).getRoomId()));
-
+      Time start = em.get_event(event_id).getStartTime();
+      Time end = em.get_event(event_id).getEndTime();
+      if (!rooms_list.CheckSchedulableAvailable(em.get_event(event_id).getRoomId(), start, end)) {
+        us.addUserSchedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id), rooms_list
+            .get_sch(em.get_event(event_id).getRoomId()));
         return true;
-      } else {
-        return false;
       }
-    }
-    return false;
-  }
-
-  public boolean cancelEvent(int event_id, int rm_id) {
-    if (us
-        .deleteUserschedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id))) {
-      vr.deleteRoom(vr.get_rm(rm_id));
-
-      vr.cancelroom(vr.get_rm(em.get_event(event_id).getRoomId()), em.get_event(event_id));
-      return true;
+      else
+        return false;
     }
     return false;
   }
@@ -117,18 +103,17 @@ public class SignUpController {
    * @return boolean wheather drop off process is successful
    */
   public boolean cancelEvent(int event_id) {
-    if (us
-        .deleteUserschedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id))) {
-      vr.deleteRoom(vr.get_rm(em.get_event_spots(em.get_event(event_id)).get(0)));
-
-      vr.cancelroom(vr.get_rm(em.get_event(event_id).getRoomId()), em.get_event(event_id));
+    Time start = em.get_event(event_id).getStartTime();
+    Time end = em.get_event(event_id).getEndTime();
+    if (us.deleteUserschedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id), rooms_list
+        .get_sch(em.get_event(event_id).getRoomId()))) {
       return true;
     }
     return false;
   }
 
   public void saveuserschedule() {
-    mg.write(AttendeeScheduleManager.user_schedule);
+    mg.write(us.user_schedule);
   }
 
   ;
