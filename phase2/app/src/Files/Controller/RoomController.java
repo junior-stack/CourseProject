@@ -1,7 +1,7 @@
 package Controller;
 
 
-import UseCase.RoomManager;
+import UseCase.RoomManagers;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -13,9 +13,9 @@ import java.util.HashMap;
  **/
 public class RoomController {
 
-  private RoomManager vr;
+  private RoomManagers vr;
 
-  public RoomController(RoomManager vr) {
+  public RoomController(RoomManagers vr) {
     this.vr = vr;
   }
 

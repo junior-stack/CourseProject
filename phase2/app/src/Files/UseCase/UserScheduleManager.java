@@ -72,8 +72,7 @@ public class UserScheduleManager {
    * @param u
    * @param e
    */
-  public void addUserSchedule(User u, Event e, Schedulable rm) {
-    Room rs = (Room) rm;
+  public void addUserSchedule(User u, Event e) {
     try{
       ArrayList<Event> events = user_schedule.get(u);
     }catch(NullPointerException x){
@@ -82,7 +81,6 @@ public class UserScheduleManager {
     user_schedule.get(u).add(e);
     u.addEvents(e.getId());
     e.addAttendee(u.getUserId());
-    rs.DecreaseRemainingspot(e.getStartTime(), e.getEndTime());
   }
 
   /**
@@ -93,12 +91,11 @@ public class UserScheduleManager {
    * @param e
    * @return boolean of whether the operation are successfully executed
    */
-  public boolean deleteUserschedule(User u, Event e, Schedulable rm) {
-    Room rs = (Room) rm;
+  public boolean deleteUserschedule(User u, Event e) {
     if (user_schedule.get(u).remove(e)) {
       u.getEvents().remove(e.getId());
       e.getAllAttendee().remove(e.getId());
-      return rs.IncreaseRemainingspot(e.getStartTime(), e.getEndTime());
+      return true;
     }
     return false;
   }

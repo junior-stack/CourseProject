@@ -170,4 +170,11 @@ public class Room implements Serializable, Schedulable {
     }
     return false;
   }
+
+  public Integer getRemainingSpot(Time start, Time end){
+    ArrayList<Time> tmp = new ArrayList<>();
+    tmp.add(start);
+    tmp.add(end);
+    return schedule.get(tmp);
+  }
 }

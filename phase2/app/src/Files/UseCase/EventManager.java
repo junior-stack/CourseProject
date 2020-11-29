@@ -24,39 +24,15 @@ public class EventManager implements Iterable<Event>{
 
   public static ArrayList<Event> eventpool;
 
-  private SchedulableManager rooms_list;
-  private SchedulableManager speakers_list;
-
   /**
    * Create a EventManager with a RoomManager, a SpeakerScheduleManager and an ArrayList of Events.
    *
-   * @param rooms_list
-   * @param speakers_list
    * @param eventpool
    */
-  public EventManager(SchedulableManager rooms_list, SchedulableManager speakers_list, ArrayList<Event> eventpool) {
-    this.rooms_list = rooms_list;
-    this.speakers_list = speakers_list;
+  public EventManager(ArrayList<Event> eventpool) {
     EventManager.eventpool = eventpool;
   }
 
-  /**
-   * Return the RoomManager of this EventManager.
-   *
-   * @return RoomManager
-   */
-  public SchedulableManager get_vr() {
-    return rooms_list;
-  }
-
-  /**
-   * Return the SpeakerScheduleManager of this EventManager.
-   *
-   * @return
-   */
-  public SchedulableManager get_vs() {
-    return speakers_list;
-  }
 
   /**
    * Check if: The start is not earlier than 9 am and end if not later than 5 pm and the room and
@@ -74,16 +50,6 @@ public class EventManager implements Iterable<Event>{
 
     if (start.compareTo(beggining) < 0 | end.compareTo(ending) > 0) {
       return false;
-    }
-
-
-    if (!rooms_list.CheckSchedulableAvailable(rm_id, start, end)) {
-      return false;
-    }
-    for(Integer sp: sp_id){
-      if(!speakers_list.CheckSchedulableAvailable(sp, start, end)){
-        return false;
-      }
     }
     return true;
   }
@@ -108,14 +74,7 @@ public class EventManager implements Iterable<Event>{
     }else{
       event = new NoSpeakerEvent(rm_id, start, end, topic, max);
     }
-
     eventpool.add(event);
-
-    rooms_list.giveSchedulableNewSchedule(rm_id, start, end);
-
-    for(Integer id: sp){
-      speakers_list.giveSchedulableNewSchedule(id, start, end);
-    }
   }
 
   /**
@@ -126,21 +85,6 @@ public class EventManager implements Iterable<Event>{
   public void addEvent(Event event) {
     eventpool.add(event);
 
-    rooms_list.giveSchedulableNewSchedule(event.getRoomId(), event.getStartTime(), event.getEndTime());
-    if(event instanceof OneSpeakerEvent) {
-      OneSpeakerEvent e = (OneSpeakerEvent) event;
-      for(Integer sp: e.getSpeaker()){
-        speakers_list
-            .giveSchedulableNewSchedule(sp, event.getStartTime(), event.getEndTime());
-      }
-    }
-    else if (event instanceof MultiSpeakerEvent){
-      MultiSpeakerEvent e = (MultiSpeakerEvent) event;
-      for(Integer sp: e.getSpeaker()){
-        speakers_list
-            .giveSchedulableNewSchedule(sp, event.getStartTime(), event.getEndTime());
-      }
-    }
   }
 
   /**
@@ -163,10 +107,6 @@ public class EventManager implements Iterable<Event>{
     for (Event e : eventpool_copy) {
       if (e.getId() == id) {
         eventpool.remove(e);
-        rooms_list.delSchedulableSchedule(event.getRoomId(), event.getStartTime(), event.getEndTime());
-        for(Integer sp_id: event.getSpeaker()) {
-          speakers_list.delSchedulableSchedule(sp_id, event.getStartTime(), event.getEndTime());
-        }
         return true;
       }
     }
@@ -190,7 +130,8 @@ public class EventManager implements Iterable<Event>{
     Event old;
     try {
       old = get_event(id);
-    } catch (NullPointerException e) {
+    }catch (NullPointerException e){
+      System.out.println("There is no event with such id to edit");
       return false;
     }
 
@@ -322,15 +263,32 @@ public class EventManager implements Iterable<Event>{
     Event.setCounter(newcounter);
   }
 
-  public boolean setEventCapacity(int room_id, int event_id, int new_maximum) {
-    Room rm = (Room) rooms_list.get_sch(room_id);
-    int rc = rm.getCapacity();
+  public boolean setEventCapacity(int event_id, int new_maximum) {
     Event e = get_event(event_id);
-    if (new_maximum < e.getAllAttendee().size() | new_maximum > rc) {
+    if (new_maximum < e.getCountAttendeeEnrolled()) {
       return false;
     }
     e.setMaximum_attentees(new_maximum);
     return true;
+  }
+
+
+  public Integer getLocation(int eventID){
+    return this.get_event(eventID).getRoomId();
+  }
+
+  public ArrayList<Time> gettime(int eventID){
+    ArrayList<Time> tmp = new ArrayList<>();
+    Event e = get_event(eventID);
+    tmp.add(e.getStartTime());
+    tmp.add(e.getEndTime());
+    return tmp;
+  }
+
+  public ArrayList<Integer> getSpeaker(int eventID){
+    ArrayList<Integer> tmp = new ArrayList<>();
+    Event e = get_event(eventID);
+    return e.getSpeaker();
   }
 
   @Override

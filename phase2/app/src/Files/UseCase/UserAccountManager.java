@@ -18,7 +18,7 @@ import java.util.Observer;
  * @version 1.0
  */
 
-public class UserAccountManager implements AccountManager, Observer {
+public class UserAccountManager implements AccountManager{
 
   public static List<User> userList;
   /**
@@ -269,8 +269,5 @@ public class UserAccountManager implements AccountManager, Observer {
     return allemails;
   }
 
-  @Override
-  public void update(Observable o, Object arg) {
-    userList.add((User) arg);
-  }
+
 }

@@ -174,6 +174,10 @@ public abstract class Event implements Serializable {
     return this.maximum_attentees;
   }
 
+  public int getCountAttendeeEnrolled() {
+    return this.attendees.size();
+  }
+
 
   /**
    * This method returns a string representation of the Event, including its eventId, speakerId,

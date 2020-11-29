@@ -1,12 +1,11 @@
 package Controller;
 
-import Entity.Schedulable;
 import Gateway.MapGateway;
 import Gateway.UserScheduleDataAccess;
+import UseCase.RoomManager;
 import UseCase.SchedulableManager;
 import UseCase.UserScheduleManager;
 import UseCase.EventManager;
-import UseCase.RoomManager;
 import UseCase.UserAccountManager;
 
 import java.sql.Time;
@@ -18,7 +17,7 @@ import java.util.HashMap;
  **/
 public class SignUpController {
 
-  private SchedulableManager rooms_list;
+  private RoomManager rooms_list;
   private EventManager em;
   private UserAccountManager uam;
 
@@ -27,7 +26,7 @@ public class SignUpController {
   private String email;
 
   public SignUpController(String email, UserAccountManager userAccountManager,
-                          SchedulableManager roomManager, EventManager eventManager) {
+                          RoomManager roomManager, EventManager eventManager) {
 
     this.email = email;
 
@@ -85,13 +84,12 @@ public class SignUpController {
     if (us.CheckUserIsBusy(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id))) {
       Time start = em.get_event(event_id).getStartTime();
       Time end = em.get_event(event_id).getEndTime();
-      if (!rooms_list.CheckSchedulableAvailable(em.get_event(event_id).getRoomId(), start, end)) {
-        us.addUserSchedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id), rooms_list
-            .get_sch(em.get_event(event_id).getRoomId()));
+      Integer rm_id = em.getLocation(event_id);
+      if (!rooms_list.CheckRemainingSpot(em.get_event(event_id).getRoomId(), start, end)) {
+        us.addUserSchedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id));
+        rooms_list.DecreaseRemainingSpot(rm_id, start, end);
         return true;
       }
-      else
-        return false;
     }
     return false;
   }
@@ -103,10 +101,10 @@ public class SignUpController {
    * @return boolean wheather drop off process is successful
    */
   public boolean cancelEvent(int event_id) {
-    Time start = em.get_event(event_id).getStartTime();
-    Time end = em.get_event(event_id).getEndTime();
-    if (us.deleteUserschedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id), rooms_list
-        .get_sch(em.get_event(event_id).getRoomId()))) {
+    Integer rm_id = em.getLocation(event_id);
+    ArrayList<Time> time = em.gettime(event_id);
+    if (us.deleteUserschedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id))) {
+      rooms_list.IncreaseRemainingSpot(rm_id, time.get(0), time.get(1));
       return true;
     }
     return false;
