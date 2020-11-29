@@ -8,7 +8,6 @@ import Gateway.MapGateway;
 import Gateway.RoomDataAccess;
 import UseCase.EventManager;
 import UseCase.RoomManager;
-import UseCase.RoomManagers;
 import UseCase.SchedulableManager;
 
 import UseCase.UserAccountManager;
@@ -197,7 +196,7 @@ public class Scheduler {
   }
 
   public void saverooms() {
-    rm.write(RoomManagers.rooms_list);
+    rm.write(rmm.getRooms());
   }
 
 
