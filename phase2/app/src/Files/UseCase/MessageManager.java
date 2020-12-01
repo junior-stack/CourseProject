@@ -18,25 +18,51 @@ import java.util.Map;
 public class MessageManager {
     private List<Message> messages;
 
+    /**
+     * This is a constructor for MessageManager.
+     * @param messages This represents the list of message entities in the system.
+     */
     public MessageManager(ArrayList<Message> messages){
         this.messages = messages;
     }
 
+    /**
+     * This method is a getter for messages.
+     * @return List the list of messages in the system.
+     */
     public List<Message> getMessages(){
         return messages;
     }
 
+    /**
+     * This method is to send a message from senderEmail to receiverEmail with content.
+     * @param senderEmail This represents the sender email.
+     * @param receiverEmail This represents the receiver email.
+     * @param content This represents the content of the message.
+     */
     public void singleMessageRequest(String senderEmail, String receiverEmail, String content){
         Message m = new Message(senderEmail, receiverEmail, content);
         messages.add(m);
     }
 
+    /**
+     * This method is to send multiple messages at the same time from senderEmail to all receiverEmails with content.
+     * @param senderEmail This represents the sender email.
+     * @param receiverEmails This represents a list of all receiver emails.
+     * @param content This represents the content of the message.
+     */
     public void multipleMessageRequest(String senderEmail, ArrayList<String> receiverEmails, String content){
         for (String e : receiverEmails){
             singleMessageRequest(senderEmail, e, content);
         }
     }
 
+    /**
+     * This method is to validate if a speaker can send a single message to the receiver email.
+     * @param speakerEmail This represents the email of the speaker.
+     * @param receiverEmail This represents the target email.
+     * @return boolean true iff the message can be sent.
+     */
     public boolean validateResponse(String speakerEmail, String receiverEmail){
         for (Message m : messages){
             if (m.getsenderEmail().equals(receiverEmail) && m.getsenderEmail().equals(speakerEmail)){
@@ -46,6 +72,11 @@ public class MessageManager {
         return false;
     }
 
+    /**
+     * This method is to generate all emails of the targetIdentity for organizer to send messages.
+     * @param targetIdentity This represents the targetIdentity. Either "Attendee" or "Organizer".
+     * @return ArrayList all emails of the targetIdentity.
+     */
     public ArrayList<String> OrganizerGenerateEmail(String targetIdentity){
         List<User> users = UserAccountManager.userList;
         ArrayList<String> emails = new ArrayList<>();
@@ -57,6 +88,11 @@ public class MessageManager {
         return emails;
     }
 
+    /**
+     * This method is to generate all emails of attendees of certain events for a speaker to send messages.
+     * @param eventIds This represents the List of events the speaker wants to send message to.
+     * @return ArrayList all emails of the attendees of certain events.
+     */
     public ArrayList<String> SpeakerGenerateEmail(ArrayList<Integer> eventIds){
         List<Event> events = EventManager.eventpool;
         List<Event> e = new ArrayList<>();
@@ -76,16 +112,20 @@ public class MessageManager {
         return emails;
     }
 
-    public ArrayList<Message> readMessages(String receiverEmail, String Status){
-        ArrayList<Message> m = new ArrayList<>();
-        for (Message temp: messages){
-            if (temp.getreceiverEmail().equals(receiverEmail) && temp.getcurrentStatus().equals(Status)){
-                m.add(temp);
-            }
-        }
-        return m;
-    }
+//    public ArrayList<Message> readMessages(String receiverEmail, String Status){
+//        ArrayList<Message> m = new ArrayList<>();
+//        for (Message temp: messages){
+//            if (temp.getreceiverEmail().equals(receiverEmail) && temp.getcurrentStatus().equals(Status)){
+//                m.add(temp);
+//            }
+//        }
+//        return m;
+//    }
 
+    /**
+     * This method is to set a message to status "delete".
+     * @param messageId This represents the messageId to be modified.
+     */
     public void delete(int messageId){
         for (Message m : messages){
             if (m.getmessageId() == messageId){
@@ -94,6 +134,10 @@ public class MessageManager {
         }
     }
 
+    /**
+     * This method is to set a message to status "archive".
+     * @param messageId This represents the messageId to be modified.
+     */
     public void archive(int messageId){
         for (Message m : messages){
             if (m.getmessageId() == messageId){
@@ -102,6 +146,10 @@ public class MessageManager {
         }
     }
 
+    /**
+     * This method is to set a message to status "unread".
+     * @param messageId This represents the messageId to be modified.
+     */
     public void unread(int messageId){
         for (Message m : messages){
             if (m.getmessageId() == messageId){
@@ -110,6 +158,11 @@ public class MessageManager {
         }
     }
 
+    /**
+     * This method is to get the status of a certain message.
+     * @param messageId This represents the id of the message.
+     * @return String the status of the message, can be "delete", "archive" or "unread".
+     */
     public String idToStatus(int messageId){
         for (Message m : messages){
             if (m.getmessageId() == messageId){
@@ -119,8 +172,14 @@ public class MessageManager {
         return "";
     }
 
+    /**
+     * This method is to generate all messages in a string with certain status.
+     * @param userEmail This represents the email of a certain user.
+     * @param status This represents the status to be generated.
+     * @return StringBuilder all messages in a string with certain status.
+     */
     public StringBuilder generateMessage(String userEmail, String status){
-        StringBuilder result = new StringBuilder("");
+        StringBuilder result = new StringBuilder();
         for (Message m : messages){
             if (m.getreceiverEmail().equals(userEmail) && m.getcurrentStatus().equals(status)){
                 result.append(m.toString());
