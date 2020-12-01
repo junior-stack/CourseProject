@@ -169,6 +169,10 @@ public class MessageController {
     return mm.generateMessage(userEmail, "archive");
   }
 
+  public StringBuilder generateReadMessage(){
+    return mm.generateMessage(userEmail, "read");
+  }
+
   /**
    * This method is to save current message system to database.
    */
