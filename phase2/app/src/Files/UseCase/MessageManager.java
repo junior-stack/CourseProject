@@ -147,9 +147,20 @@ public class MessageManager {
     }
 
     /**
+     * This method is to set a message to status "read".
+     * @param messageId This represents the id of the message to be modified.
+     */
+    public void read(int messageId){
+        for (Message m : messages){
+            if (m.getmessageId() == messageId){
+                m.setCurrentStatus("read");
+            }
+        }
+    }
+    /**
      * This method is to get the status of a certain message.
      * @param messageId This represents the id of the message.
-     * @return String The status of the message, can be "delete", "archive" or "unread".
+     * @return String The status of the message, can be "delete", "archive", "read" or "unread".
      */
     public String idToStatus(int messageId){
         for (Message m : messages){
@@ -171,6 +182,9 @@ public class MessageManager {
         for (Message m : messages){
             if (m.getreceiverEmail().equals(userEmail) && m.getcurrentStatus().equals(status)){
                 result.append(m.toString());
+                if (status.equals("unread")){
+                    m.setCurrentStatus("read");
+                }
             }
         }
         return result;
