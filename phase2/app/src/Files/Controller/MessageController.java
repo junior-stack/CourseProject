@@ -1,7 +1,6 @@
 package Controller;
 
 import Gateway.Igateway;
-import Gateway.MapGateway;
 import Gateway.MessageDataAccess;
 import UseCase.MessageManager;
 import UseCase.UserAccountManager;

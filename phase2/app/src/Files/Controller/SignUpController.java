@@ -1,9 +1,8 @@
 package Controller;
 
-import Gateway.MapGateway;
+
 import Gateway.UserScheduleDataAccess;
 import UseCase.RoomManager;
-import UseCase.SchedulableManager;
 import UseCase.UserScheduleManager;
 import UseCase.EventManager;
 import UseCase.UserAccountManager;
@@ -81,11 +80,21 @@ public class SignUpController {
    */
 
   public boolean signup(int event_id) {
+    Integer rm_id;
+    ArrayList<Time> time;
+    try{
+      rm_id = em.getLocation(event_id);
+      time = em.gettime(event_id);
+    }catch (NullPointerException e){
+      return false;
+    }
+    if(!rooms_list.CheckRemainingSpot(rm_id, time.get(0), time.get(1))){
+      return false;
+    }
     if (us.CheckUserIsBusy(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id))) {
-      Time start = em.get_event(event_id).getStartTime();
-      Time end = em.get_event(event_id).getEndTime();
-      Integer rm_id = em.getLocation(event_id);
-      if (!rooms_list.CheckRemainingSpot(em.get_event(event_id).getRoomId(), start, end)) {
+      Time start = time.get(0);
+      Time end = time.get(1);
+      if (!rooms_list.CheckRemainingSpot(rm_id, start, end)) {
         us.addUserSchedule(uam.get_single_user(uam.get_user_id(email)), em.get_event(event_id));
         rooms_list.DecreaseRemainingSpot(rm_id, start, end);
         return true;

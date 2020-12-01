@@ -22,7 +22,7 @@ public class SchedulableManager{
 
   public boolean CheckSchedulableAvailable(List<Schedulable> schedulables, Integer id, Time start, Time end){
     for(Schedulable sch: schedulables){
-      if(sch.give_id() == id){
+      if(sch.give_id().equals(id)){
         return sch.CheckSchedulable(start, end);
       }
     }
@@ -31,7 +31,7 @@ public class SchedulableManager{
 
   public void giveSchedulableNewSchedule(List<Schedulable> schedulables, Integer id, Time start, Time end){
     for(Schedulable sch: schedulables){
-      if(sch.give_id() == id){
+      if(sch.give_id().equals(id)){
         sch.giveSchedulableNewSchedule(start, end);
       }
     }
@@ -39,7 +39,7 @@ public class SchedulableManager{
 
   public boolean delSchedulableSchedule(List<Schedulable> schedulables, Integer id, Time start, Time end){
     for(Schedulable sch: schedulables){
-      if(sch.give_id() == id){
+      if(sch.give_id().equals(id)){
         return sch.delSchedulableSchedule(start, end);
       }
     }
@@ -54,14 +54,6 @@ public class SchedulableManager{
     return tmp;
   }
 
-  public String get_sch_info(List<Schedulable> schedulables, int sch_ID){
-    for(Schedulable sch: schedulables){
-      if(sch.give_id() == sch_ID){
-        return sch.get_sch_info();
-      }
-    }
-    return "There is no such item with such id";
-  }
 
   public ArrayList<String> get_schedulables_info(List<Schedulable> schedulables){
     ArrayList<String> tmp = new ArrayList<>();
@@ -71,14 +63,6 @@ public class SchedulableManager{
     return tmp;
   }
 
-  public Schedulable get_sch(List<Schedulable> schedulables, int sch_id){
-    for(Schedulable sch: schedulables){
-      if(sch.give_id() == sch_id){
-        return sch;
-      }
-    }
-    return null;
-  }
 
 
 }

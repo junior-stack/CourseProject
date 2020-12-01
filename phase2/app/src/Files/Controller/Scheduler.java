@@ -1,11 +1,8 @@
 package Controller;
 
 
-import Entity.Schedulable;
 import Gateway.EventDataAccess;
 import Gateway.Igateway;
-import Gateway.MapGateway;
-import Gateway.RoomDataAccess;
 import UseCase.EventManager;
 import UseCase.RoomManager;
 import UseCase.SchedulableManager;
@@ -31,7 +28,6 @@ public class Scheduler {
   private RoomManager rmm;
 
   private Igateway ig = new EventDataAccess();
-  private MapGateway rm = new RoomDataAccess();
 
   public Scheduler(UserAccountManager uam) {
 
@@ -45,10 +41,9 @@ public class Scheduler {
       String topic, int max, String eventtype) {
     Time st = java.sql.Time.valueOf(start);
     Time en = java.sql.Time.valueOf(end);
-    List<> rms= rmm.getRoomList();
-    List<> sps = uam.getSpeakerList();
-
-    if (! (em.checkIsEventValid(rm_ID, st, en, speaker_ID) && sm.CheckSchedulableAvailable(rms, rm_ID, st, en))){
+    List rms= rmm.getRoomList();
+    List sps = uam.getSpeakerList();
+    if (!sm.CheckSchedulableAvailable(rms, rm_ID, st, en)){
       return false;
     }
     for(Integer id: speaker_ID){
@@ -61,17 +56,16 @@ public class Scheduler {
       sm.giveSchedulableNewSchedule(sps, id, st, en);
     }
     sm.giveSchedulableNewSchedule(rms, rm_ID, st, en);
-
     return true;
   }
 
   public boolean ConfirmDeleteEvent(int eventID) {
-    ArrayList<Time> time = em.gettime(eventID);
-    Integer rm = em.getLocation(eventID);
-    ArrayList<Integer> sp = em.getSpeaker(eventID);
-    List<> rms= rmm.getRoomList();
-    List<> sps = uam.getSpeakerList();
-    if(em.delEvent(em.get_event(eventID))) {
+    if(em.delEvent(eventID)) {
+      ArrayList<Time> time = em.gettime(eventID);
+      Integer rm = em.getLocation(eventID);
+      ArrayList<Integer> sp = em.getSpeaker(eventID);
+      List rms= rmm.getRoomList();
+      List sps = uam.getSpeakerList();
       for (Integer i : sp) {
         sm.delSchedulableSchedule(sps, i, time.get(0), time.get(1));
       }
@@ -86,18 +80,19 @@ public class Scheduler {
 
     Time start = java.sql.Time.valueOf(st);
     Time end = java.sql.Time.valueOf(en);
-    Time beggining = java.sql.Time.valueOf("09:00:00");
-    Time ending = java.sql.Time.valueOf("17:00:00");
-
-    if (start.compareTo(beggining) < 0 | end.compareTo(ending) > 0) {
+    Time old_start, old_end;
+    ArrayList<Integer> old_sp;
+    Integer old_rm;
+    List tmp = rmm.getRoomList();
+    List tmp2 = uam.getSpeakerList();
+    try {
+      old_start = em.gettime(old_event_ID).get(0);
+      old_end = em.gettime(old_event_ID).get(1);
+      old_sp = em.getSpeaker(old_event_ID);
+      old_rm = em.getLocation(old_event_ID);
+    }catch (NullPointerException e){
       return false;
     }
-    Time old_start = em.gettime(old_event_ID).get(0);
-    Time old_end = em.gettime(old_event_ID).get(1);
-    ArrayList<Integer> old_sp = em.getSpeaker(old_event_ID);
-    Integer old_rm = em.getLocation(old_event_ID);
-    List<> tmp = rmm.getRoomList();
-    List<> tmp2 = uam.getSpeakerList();
 
     sm.delSchedulableSchedule(tmp, old_rm, old_start, old_end);
     if(!sm.CheckSchedulableAvailable(tmp, new_room_ID, start, end)){
@@ -155,17 +150,12 @@ public class Scheduler {
 
   // RoomController
   public boolean confirmaddroom(int roomID, int capacity) {
-    for(Schedulable sch: rmm.getRoomList()){
-      if(sch.give_id() == roomID){
-        return false;
-      }
-    }
-    rmm.addRoom(roomID, capacity);
-    return true;
+    return rmm.addRoom(roomID, capacity);
   }
 
+
   public boolean confirmdeleteroom(int roomID) {
-    ArrayList<> rmm_list = (ArrayList<Schedulable>) rmm.getRoomList();
+    List rmm_list = rmm.getRoomList();
     HashMap<Integer, ArrayList<ArrayList<Time>>> room_schedule = sm.getScheduleableSchedulelist(rmm_list);
     if(!room_schedule.containsKey(roomID)){
       return false;
@@ -180,9 +170,6 @@ public class Scheduler {
     return sm.get_schedulables_info(rmm.getRoomList());
   }
 
-  public HashMap<Integer, ArrayList<ArrayList<Time>>> get_rooms_schedule() {
-    return sm.getScheduleableSchedulelist(rmm.getRoomList());
-  }
 
   public EventManager getEm() {
     return em;
@@ -192,13 +179,11 @@ public class Scheduler {
     return rmm;
   }
 
-  public void saveevents() {
+  public void savedata() {
     ig.write(EventManager.eventpool);
+    ig.write(rmm.getRooms());
   }
 
-  public void saverooms() {
-    rm.write(rmm.getRooms());
-  }
 
 
 

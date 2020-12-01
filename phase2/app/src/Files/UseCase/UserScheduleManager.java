@@ -73,9 +73,7 @@ public class UserScheduleManager {
    * @param e
    */
   public void addUserSchedule(User u, Event e) {
-    try{
-      ArrayList<Event> events = user_schedule.get(u);
-    }catch(NullPointerException x){
+    if(!user_schedule.containsKey(u)){
       user_schedule.put(u, new ArrayList<>());
     }
     user_schedule.get(u).add(e);
