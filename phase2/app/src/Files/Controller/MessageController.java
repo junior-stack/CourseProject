@@ -43,7 +43,7 @@ public class MessageController {
    * This method sends the message to the target user email from current user.
    * @param targetEmail The email address of the target user.
    * @param content The content of the message.
-   * @return boolean iff the message is sent successfully.
+   * @return boolean True iff the message is sent successfully.
    */
   public boolean sendSingleMessage(String targetEmail, String content){
     String targetIdentity = UserAccountManager.getEmailToIdentity(targetEmail);
@@ -65,7 +65,7 @@ public class MessageController {
    * This method sends message to a group of people with the target identity.
    * @param targetIdentity The target identity group.
    * @param content The content of the message.
-   * @return boolean iff the message is sent successfully.
+   * @return boolean True iff the message is sent successfully.
    */
   public boolean sendMultipleMessage(String targetIdentity, String content){
     if (userType.equals("Organizer")){
@@ -80,7 +80,7 @@ public class MessageController {
    * This method sends message to a group of people who sign up for the events specified in eventIds.
    * @param eventIds The event ids we want to send message to.
    * @param content The content of the message.
-   * @return boolean iff the message is sent successfully.
+   * @return boolean True iff the message is sent successfully.
    */
   public boolean sendMultipleMessage(ArrayList<Integer> eventIds, String content){
     if (userType.equals("Speaker")){
