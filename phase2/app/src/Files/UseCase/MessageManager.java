@@ -110,16 +110,6 @@ public class MessageManager {
         return emails;
     }
 
-//    public ArrayList<Message> readMessages(String receiverEmail, String Status){
-//        ArrayList<Message> m = new ArrayList<>();
-//        for (Message temp: messages){
-//            if (temp.getreceiverEmail().equals(receiverEmail) && temp.getcurrentStatus().equals(Status)){
-//                m.add(temp);
-//            }
-//        }
-//        return m;
-//    }
-
     /**
      * This method is to set a message to status "delete".
      * @param messageId This represents the id of the message to be modified.
