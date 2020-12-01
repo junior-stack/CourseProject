@@ -33,10 +33,11 @@ public class Scheduler {
   private Igateway ig = new EventDataAccess();
   private MapGateway rm = new RoomDataAccess();
 
-  public Scheduler(UserAccountManager uam, RoomManager rmm) {
+  public Scheduler(UserAccountManager uam) {
+
     this.uam = uam;
-    this.rmm = rmm;
-    this.em = new EventManager(ig.read());
+    rmm = new RoomManager(ig.read()); //check later
+    this.em = new EventManager(ig.read()); ////check later
   }
 
   // EventController
@@ -44,8 +45,8 @@ public class Scheduler {
       String topic, int max, String eventtype) {
     Time st = java.sql.Time.valueOf(start);
     Time en = java.sql.Time.valueOf(end);
-    List<Schedulable> rms= rmm.getRoomList();
-    List<Schedulable> sps = uam.getSpeakerList();
+    List<> rms= rmm.getRoomList();
+    List<> sps = uam.getSpeakerList();
 
     if (! (em.checkIsEventValid(rm_ID, st, en, speaker_ID) && sm.CheckSchedulableAvailable(rms, rm_ID, st, en))){
       return false;
@@ -68,8 +69,8 @@ public class Scheduler {
     ArrayList<Time> time = em.gettime(eventID);
     Integer rm = em.getLocation(eventID);
     ArrayList<Integer> sp = em.getSpeaker(eventID);
-    List<Schedulable> rms= rmm.getRoomList();
-    List<Schedulable> sps = uam.getSpeakerList();
+    List<> rms= rmm.getRoomList();
+    List<> sps = uam.getSpeakerList();
     if(em.delEvent(em.get_event(eventID))) {
       for (Integer i : sp) {
         sm.delSchedulableSchedule(sps, i, time.get(0), time.get(1));
@@ -95,8 +96,8 @@ public class Scheduler {
     Time old_end = em.gettime(old_event_ID).get(1);
     ArrayList<Integer> old_sp = em.getSpeaker(old_event_ID);
     Integer old_rm = em.getLocation(old_event_ID);
-    List<Schedulable> tmp = rmm.getRoomList();
-    List<Schedulable> tmp2 = uam.getSpeakerList();
+    List<> tmp = rmm.getRoomList();
+    List<> tmp2 = uam.getSpeakerList();
 
     sm.delSchedulableSchedule(tmp, old_rm, old_start, old_end);
     if(!sm.CheckSchedulableAvailable(tmp, new_room_ID, start, end)){
@@ -164,7 +165,7 @@ public class Scheduler {
   }
 
   public boolean confirmdeleteroom(int roomID) {
-    ArrayList<Schedulable> rmm_list = (ArrayList<Schedulable>) rmm.getRoomList();
+    ArrayList<> rmm_list = (ArrayList<Schedulable>) rmm.getRoomList();
     HashMap<Integer, ArrayList<ArrayList<Time>>> room_schedule = sm.getScheduleableSchedulelist(rmm_list);
     if(!room_schedule.containsKey(roomID)){
       return false;

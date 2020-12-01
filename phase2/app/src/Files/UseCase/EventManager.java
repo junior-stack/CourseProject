@@ -75,6 +75,7 @@ public class EventManager implements Iterable<Event>{
       event = new NoSpeakerEvent(rm_id, start, end, topic, max);
     }
     eventpool.add(event);
+    Collections.sort(eventpool);
   }
 
   /**

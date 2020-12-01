@@ -13,7 +13,7 @@ public class RoomManager {
 
   List<Room> roomList;
 
-  RoomManager(List<Room> roomList){
+  public RoomManager(List<Room> roomList){
     this.roomList = roomList;
   }
 
