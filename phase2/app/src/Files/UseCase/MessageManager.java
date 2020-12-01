@@ -5,9 +5,7 @@ import Entity.Message;
 import Entity.User;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A class representing a MessageManager.
@@ -28,7 +26,7 @@ public class MessageManager {
 
     /**
      * This method is a getter for messages.
-     * @return List the list of messages in the system.
+     * @return List The list of messages in the system.
      */
     public List<Message> getMessages(){
         return messages;
@@ -61,7 +59,7 @@ public class MessageManager {
      * This method is to validate if a speaker can send a single message to the receiver email.
      * @param speakerEmail This represents the email of the speaker.
      * @param receiverEmail This represents the target email.
-     * @return boolean true iff the message can be sent.
+     * @return boolean True iff the message can be sent.
      */
     public boolean validateResponse(String speakerEmail, String receiverEmail){
         for (Message m : messages){
@@ -75,7 +73,7 @@ public class MessageManager {
     /**
      * This method is to generate all emails of the targetIdentity for organizer to send messages.
      * @param targetIdentity This represents the targetIdentity. Either "Attendee" or "Organizer".
-     * @return ArrayList all emails of the targetIdentity.
+     * @return ArrayList All emails of the targetIdentity.
      */
     public ArrayList<String> OrganizerGenerateEmail(String targetIdentity){
         List<User> users = UserAccountManager.userList;
@@ -91,7 +89,7 @@ public class MessageManager {
     /**
      * This method is to generate all emails of attendees of certain events for a speaker to send messages.
      * @param eventIds This represents the List of events the speaker wants to send message to.
-     * @return ArrayList all emails of the attendees of certain events.
+     * @return ArrayList All emails of the attendees of certain events.
      */
     public ArrayList<String> SpeakerGenerateEmail(ArrayList<Integer> eventIds){
         List<Event> events = EventManager.eventpool;
@@ -161,7 +159,7 @@ public class MessageManager {
     /**
      * This method is to get the status of a certain message.
      * @param messageId This represents the id of the message.
-     * @return String the status of the message, can be "delete", "archive" or "unread".
+     * @return String The status of the message, can be "delete", "archive" or "unread".
      */
     public String idToStatus(int messageId){
         for (Message m : messages){
@@ -176,7 +174,7 @@ public class MessageManager {
      * This method is to generate all messages in a string with certain status.
      * @param userEmail This represents the email of a certain user.
      * @param status This represents the status to be generated.
-     * @return StringBuilder all messages in a string with certain status.
+     * @return StringBuilder All messages in a string with certain status.
      */
     public StringBuilder generateMessage(String userEmail, String status){
         StringBuilder result = new StringBuilder();
