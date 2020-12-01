@@ -91,6 +91,10 @@ public class MessageController {
     return false;
   }
 
+  /**
+   * This method is to generate all email addresses that the current user can send message to.
+   * @return ArrayList All user email addresses that the current user can send message to.
+   */
   public ArrayList<String> generateEmailList() {
     ArrayList<String> allAttendee= UserAccountManager.getAllAvailableEmails("Attendee");
     ArrayList<String> allSpeaker= UserAccountManager.getAllAvailableEmails("Speaker");
@@ -110,6 +114,11 @@ public class MessageController {
     return emails;
   }
 
+  /**
+   * This method is to delete a certain message.
+   * @param messageId This represents the id of the message to be modified.
+   * @return boolean True iff the message is deleted successfully.
+   */
   public boolean deleteMessage(int messageId){
     if (!mm.idToStatus(messageId).equals("")){
       mm.delete(messageId);
@@ -118,6 +127,11 @@ public class MessageController {
     return false;
   }
 
+  /**
+   * This method is to archive a certain message.
+   * @param messageId This represents the id of the message to be modified.
+   * @return boolean True iff the message is archived successfully.
+   */
   public boolean archiveMessage(int messageId){
     if (!mm.idToStatus(messageId).equals("delete") && !mm.idToStatus(messageId).equals("")) {
       mm.archive(messageId);
@@ -126,6 +140,11 @@ public class MessageController {
     return false;
   }
 
+  /**
+   * This method is to mark unread of a certain message.
+   * @param messageId This represents the id of the message to be modified.
+   * @return boolean True iff the message is marked unread successfully.
+   */
   public boolean unreadMessage(int messageId){
     if (!mm.idToStatus(messageId).equals("delete") && !mm.idToStatus(messageId).equals("")) {
       mm.unread(messageId);
@@ -134,15 +153,25 @@ public class MessageController {
     return false;
   }
 
+  /**
+   * This method is to generate all unread emails for the current user.
+   * @return StringBuilder The string of all unread emails.
+   */
   public StringBuilder generateUnreadMessage(){
     return mm.generateMessage(userEmail, "unread");
   }
 
+  /**
+   * This method is to generate all archive emails for the current user.
+   * @return StringBuilder The string of all archived emails.
+   */
   public StringBuilder generateArchiveMessage(){
     return mm.generateMessage(userEmail, "archive");
   }
 
-
+  /**
+   * This method is to save current message system to database.
+   */
 //  public void saveMessage() {
 //    ig.write(mm.getMessages());
 //  }
