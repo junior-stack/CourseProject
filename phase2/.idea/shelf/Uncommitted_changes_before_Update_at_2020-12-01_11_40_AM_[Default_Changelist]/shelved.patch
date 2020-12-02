@@ -1,0 +1,1382 @@
+Index: app/src/main/res/layout/activity_start.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<RelativeLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n  xmlns:tools=\"http://schemas.android.com/tools\"\r\n  android:layout_width=\"match_parent\"\r\n  android:layout_height=\"match_parent\"\r\n  android:background=\"@color/colorPrimary\"\r\n  android:gravity=\"center_horizontal\"\r\n  tools:context=\".StartActivity\"\r\n  tools:ignore=\"HardcodedText\">\r\n\r\n  <Button\r\n    android:textStyle=\"bold\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"wrap_content\"\r\n    android:layout_alignParentBottom=\"true\"\r\n    android:background=\"@color/colorPrimary2\"\r\n    android:fontFamily=\"@font/poppins_regular\"\r\n    android:text=\"Register\"\r\n    android:textSize=\"20sp\"\r\n    android:id=\"@+id/register\"/>\r\n\r\n\r\n</RelativeLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_start.xml	(revision 2322d65edf20f39a0b82b546c47107e50e6ab84a)
++++ app/src/main/res/layout/activity_start.xml	(date 1606761035376)
+@@ -1,23 +1,60 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-  xmlns:tools="http://schemas.android.com/tools"
+-  android:layout_width="match_parent"
+-  android:layout_height="match_parent"
+-  android:background="@color/colorPrimary"
+-  android:gravity="center_horizontal"
+-  tools:context=".StartActivity"
+-  tools:ignore="HardcodedText">
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:background="@color/colorPrimary"
++    android:gravity="center_horizontal"
++    tools:context=".StartActivity"
++    tools:ignore="HardcodedText">
+ 
+-  <Button
+-    android:textStyle="bold"
+-    android:layout_width="match_parent"
+-    android:layout_height="wrap_content"
+-    android:layout_alignParentBottom="true"
+-    android:background="@color/colorPrimary2"
+-    android:fontFamily="@font/poppins_regular"
+-    android:text="Register"
+-    android:textSize="20sp"
+-    android:id="@+id/register"/>
++    <TextView
++        android:id="@+id/logoText"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_alignParentTop="true"
++        android:layout_centerHorizontal="true"
++
++        android:layout_marginTop="80dp"
++        android:fontFamily="@font/poppins_semibold"
++        android:text="iConference"
++        android:textColor="@color/colorPrimary2"
++        android:textSize="30sp" />
++
++    <LinearLayout
++        android:id="@+id/btnLL"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_alignParentBottom="true"
++        android:layout_marginHorizontal="10dp"
++        android:layout_marginBottom="10dp">
++
++        <Button
++            android:id="@+id/toLoginActivity"
++            android:layout_width="0dp"
++            android:layout_height="wrap_content"
++            android:layout_marginStart="5dp"
++            android:layout_weight="1"
++            android:background="@color/colorPrimary2"
++            android:fontFamily="@font/poppins_regular"
++            android:text="Login"
++            android:textColor="#FFFFFF"
++            android:textSize="16sp"
++            android:textStyle="bold" />
++
++        <Button
++            android:id="@+id/toRegisterActivity"
++            android:layout_width="0dp"
++            android:layout_height="wrap_content"
++            android:layout_marginStart="10dp"
++            android:layout_weight="1"
++            android:background="@color/colorPrimary2"
++            android:fontFamily="@font/poppins_regular"
++            android:text="Register"
++            android:textColor="#FFFFFF"
++            android:textSize="16sp"
++            android:textStyle="bold" />
++    </LinearLayout>
+ 
+ 
+ </RelativeLayout>
+\ No newline at end of file
+Index: app/src/Files/UI/TextUI.java
+===================================================================
+--- app/src/Files/UI/TextUI.java	(revision 2322d65edf20f39a0b82b546c47107e50e6ab84a)
++++ app/src/Files/UI/TextUI.java	(revision 2322d65edf20f39a0b82b546c47107e50e6ab84a)
+@@ -1,1174 +0,0 @@
+-package UI;
+-
+-import Controller.LoginFacade;
+-import Controller.MessageController;
+-import Controller.Scheduler;
+-import Controller.SignUpController;
+-import java.util.ArrayList;
+-import java.util.InputMismatchException;
+-import java.util.List;
+-import java.util.Scanner;
+-
+-/**
+- * @author Haohua Ji
+- * @FileName TextUI.java
+- * @Date 2020-11-10
+- */
+-
+-public class TextUI {
+-
+-  private final LoginFacade lf = new LoginFacade();
+-  private final Scheduler sf = new Scheduler();
+-  private String email, password;
+-  private final SignUpController suc = new SignUpController(email, lf.getUam(), sf.getVr(),
+-      sf.getEm());
+-  MessageController mc = new MessageController(email);
+-  private int choice;
+-
+-  /**
+-   * Method to run the whole program
+-   */
+-  public void run() {
+-    UserMenu();
+-  }
+-
+-  /*
+-   * ====================== User Register, Login & Switch Main Menu ===============================
+-   */
+-
+-  /**
+-   * The first menu user will see, contains 2 options. One for register(attendee only), and one for
+-   * anyone to login. The user must enter the number shows before "-" to continue.
+-   */
+-  private void UserMenu() {
+-    while (true) {
+-      Scanner sc = new Scanner(System.in);
+-      System.out.println("===================================================================");
+-      System.out.println(
+-          "Welcome to our project! \n Please enter the corresponding number to complete an action: "
+-              + "\n1 - Register(Attendee ONLY)"
+-              + "\n2 - Login");
+-      System.out.println("===================================================================");
+-
+-      UserOptionsHelper(sc);
+-
+-      switch (choice) {
+-        case 1:
+-          RegisterMenu();
+-          return;
+-        case 2:
+-          LoginMenu();
+-          return;
+-      }
+-    }
+-  }
+-
+-  /**
+-   * This is a helper method for user choice input.
+-   *
+-   * @param sc - this is the scanner
+-   */
+-  private void UserOptionsHelper(Scanner sc) {
+-    try {
+-      System.out.println("Your choice: ");
+-      choice = sc.nextInt();
+-    } catch (InputMismatchException e) {
+-      System.out.println("Invalid input, please try again.");
+-      System.out.println("Your choice: ");
+-      sc.nextInt();
+-    }
+-  }
+-
+-  /**
+-   * This is the register menu after user enter "1" in the user menu. This menu only allows attendee
+-   * to register. User have to enter their username, password, phone and email to continue. If the
+-   * input type doesn't match the program, users have to enter their info again until the type is
+-   * correct. If they failed to login, the program will display a message to tell them login failed
+-   * and automatically redirect them back to user menu and start again.
+-   */
+-  private void RegisterMenu() {
+-    while (true) {
+-      Scanner sc = new Scanner(System.in);
+-      System.out.println("===================================================================");
+-      System.out.println("[Register Menu] Please enter your details to continue...");
+-      System.out.println("===================================================================");
+-
+-      String username;
+-      String phone;
+-      try {
+-        System.out.println("Username: ");
+-        username = sc.nextLine();
+-        System.out.println("Password: ");
+-        password = sc.nextLine();
+-        System.out.println("Phone (XXX-XXX-XXXX or (XXX)XXX-XXXX): ");
+-        phone = sc.nextLine();
+-        System.out.println("Email: ");
+-        email = sc.nextLine();
+-      } catch (InputMismatchException e) {
+-        System.out.println("Invalid input, please try again.");
+-        System.out.println("Username: ");
+-        sc.nextLine();
+-        System.out.println("Password: ");
+-        sc.nextLine();
+-        System.out.println("Phone: ");
+-        sc.nextLine();
+-        System.out.println("Email: ");
+-        sc.nextLine();
+-        continue;
+-      }
+-
+-      boolean isSuccess = lf.register(username, password, phone, email);
+-      if (isSuccess) {
+-        System.out.printf("Register successful! Please remember your email and password."
+-                + "\nEmail: %s"
+-                + "\nPassword: %s"
+-                + "\nRedirecting to login menu...",
+-            email, password);
+-        lf.save();
+-        LoginMenu(email, password);
+-      } else {
+-        System.out.println("Register failed, please try again.");
+-        UserMenu();
+-      }
+-      return;
+-    }
+-  }
+-
+-  /**
+-   * This is a manually login menu for users to enter their information by hands to login. If the
+-   * input type doesn't match the program, users have to enter their info again until the type is
+-   * correct. If they failed to login, the program will display a message to tell them login failed
+-   * and automatically redirect them back to user menu and start again.
+-   */
+-  private void LoginMenu() {
+-    while (true) {
+-      Scanner sc = new Scanner(System.in);
+-      System.out.println("===================================================================");
+-      System.out.println("[Login Menu] Please enter your email and password to continue...");
+-      System.out.println("===================================================================");
+-
+-      try {
+-        System.out.println("Email: ");
+-        email = sc.nextLine();
+-        System.out.println("Password: ");
+-        password = sc.nextLine();
+-      } catch (InputMismatchException e) {
+-        System.out.println("Invalid input, please try again.");
+-        System.out.println("Email: ");
+-        sc.nextLine();
+-        System.out.println("Password: ");
+-        sc.nextLine();
+-        continue;
+-      }
+-
+-      boolean isSuccess = lf.login(email, password);
+-      SwitchMenu(email, isSuccess);
+-      return;
+-    }
+-  }
+-
+-  /**
+-   * This is a semi-autofill login menu. The reason I called it semi is because it can only be used
+-   * after register menu. User won't get access to this menu after enter "2" in the user menu.
+-   * However, user do get a chance to manually input their info if they have another account by just
+-   * simply enter "2" in the console.
+-   *
+-   * @param email    - email automatically inputted from RegisterMenu.
+-   * @param password - password automatically inputted from RegisterMenu.
+-   */
+-  private void LoginMenu(String email, String password) {
+-    while (true) {
+-      Scanner sc = new Scanner(System.in);
+-      System.out.println("===================================================================");
+-      System.out.printf("[Login Menu] Please enter the corresponding number to continue..."
+-              + "Email: %s"
+-              + "Password: %s"
+-              + "\n1 - Confirm Login"
+-              + "\n2 - Has another account?",
+-          email, password);
+-      System.out.println("===================================================================");
+-
+-      UserOptionsHelper(sc);
+-
+-      boolean isSuccess = lf.login(email, password);
+-      switch (choice) {
+-        case 1:
+-          SwitchMenu(email, isSuccess);
+-          break;
+-        case 2:
+-          LoginMenu();
+-          return;
+-      }
+-    }
+-  }
+-
+-  /**
+-   * This is a switching menu method after login. If the login process is successful, this method
+-   * helps the program to redirect into 1 of the 3 different sections by the identity of the user.
+-   *
+-   * @param email     - email is inputted in login menu.
+-   * @param isSuccess - check if login successful or failed.
+-   */
+-  private void SwitchMenu(String email, boolean isSuccess) {
+-    if (isSuccess) {
+-      String userType = lf.getUserIdentity(email);
+-      switch (userType) {
+-        case "Attendee":
+-          mc = new MessageController(email);
+-          AttendeeMenuUI(email);
+-          break;
+-        case "Organizer":
+-          mc = new MessageController(email);
+-          OrganizerMenuUI(email);
+-          break;
+-        case "Speaker":
+-          mc = new MessageController(email);
+-          SpeakerMenuUI(email);
+-          break;
+-      }
+-    } else {
+-      System.out.println("Login failed, please try again.");
+-      UserMenu();
+-    }
+-  }
+-
+-  /*
+-   * =================================== Attendee Menu ===========================================
+-   */
+-
+-  /**
+-   * This is the first big screen section, used for attendees. Once attendee logged in successfully
+-   * the program will prompt more options for them to select.
+-   *
+-   * @param email - email is inputted in login menu.
+-   */
+-  private void AttendeeMenuUI(String email) {
+-    while (true) {
+-      Scanner sc = new Scanner(System.in);
+-      System.out.println("===================================================================");
+-      System.out.println(lf.getUserInfo(email));
+-      System.out.println(
+-          "[Attendee Menu] Please enter the corresponding number to complete an action"
+-              + "\n1 - View All Events"
+-              + "\n2 - View All Signed Up Events"
+-              + "\n3 - View All Messages"
+-              + "\n4 - Sign Out");
+-      System.out.println("===================================================================");
+-
+-      UserOptionsHelper(sc);
+-
+-      switch (choice) {
+-        case 1:
+-          if (sf.ShowAllEvents() != null) {
+-            ViewAllAttendeeEventsMenuUI(email);
+-            break;
+-          }
+-          System.out.println("There are current no available events. Please check again later.");
+-          break;
+-        case 2:
+-          if (suc.ViewAllEvents() != null) {
+-            ViewSignUpEventsUI(email);
+-            break;
+-          }
+-          System.out.println("You have not signed up any events yet, please sign up.");
+-          break;
+-        case 3:
+-          if (!mc.readAllMessages().isEmpty()) {
+-            ManageOneToOneMessageUI(email);
+-            break;
+-          }
+-          System.out.println("You don't have any messages yet. Please check again later.");
+-          break;
+-        case 4:
+-          SignOutRedirectUI();
+-          return;
+-      }
+-    }
+-  }
+-
+-  /**
+-   * This is one of the three large sections under attendee menu.
+-   *
+-   * @param email - email is inputted in login menu.
+-   */
+-  private void ViewAllAttendeeEventsMenuUI(String email) {
+-    while (true) {
+-      Scanner sc = new Scanner(System.in);
+-      System.out.println("===================================================================");
+-      System.out.println("[All Events Menu] Please enter the corresponding number to continue..."
+-          + "\n1 - View All Events"
+-          + "\n2 - Go Back");
+-      System.out.println("===================================================================");
+-
+-      UserOptionsHelper(sc);
+-
+-      switch (choice) {
+-        case 1:
+-          ManageAllEventsUI(email);
+-          break;
+-        case 2:
+-          AttendeeMenuUI(email);
+-          return;
+-      }
+-    }
+-  }
+-
+-  /**
+-   * This is a small menu under view all events menu.
+-   *
+-   * @param email - email is inputted in login menu.
+-   */
+-  private void ManageAllEventsUI(String email) {
+-    while (true) {
+-      Scanner sc = new Scanner(System.in);
+-      sf.ShowAllEvents();
+-      System.out.println("===================================================================");
+-      System.out.println("The form of event is <ID> - <NAME>"
+-          + "\n Please enter the corresponding event <ID> to sign up or 'BACK' to go back");
+-      System.out.println("===================================================================");
+-
+-      String input;
+-      try {
+-        System.out.println("Event <ID> or 'BACK'");
+-        input = sc.nextLine();
+-        if (input.equals("BACK")) {
+-          ViewAllAttendeeEventsMenuUI(email);
+-          return;
+-        }
+-      } catch (InputMismatchException e) {
+-        System.out.println("Invalid input, please try again.");
+-        System.out.println("Event <ID> or 'BACK'");
+-        sc.nextLine();
+-        continue;
+-      }
+-
+-      int event_ID;
+-      while (true) {
+-        try {
+-          event_ID = Integer.parseInt(input);
+-          break;
+-        } catch (NumberFormatException e) {
+-          System.out.println("Invalid <ID>, please try again.");
+-          System.out.println("<ID>: ");
+-          sc.nextLine();
+-        }
+-      }
+-
+-      boolean isSuccess = suc.signup(event_ID);
+-      if (isSuccess) {
+-        System.out.printf("[%s] Signed Up Successful!"
+-            + "\nRedirecting to main menu...", event_ID);
+-      } else {
+-        System.out.printf("[%s] Signed Up Failed!"
+-            + "\nRedirecting to main menu...", event_ID);
+-      }
+-      AttendeeMenuUI(email);
+-      return;
+-    }
+-  }
+-
+-  /**
+-   * This is the second large sections under attendee menu.
+-   *
+-   * @param email - email is inputted in login menu.
+-   */
+-  private void ViewSignUpEventsUI(String email) {
+-    while (true) {
+-      Scanner sc = new Scanner(System.in);
+-      System.out.println("===================================================================");
+-      System.out.println(
+-          "[Signed Up Events Menu] Please enter the corresponding number to continue..."
+-              + "\n1 - View all signed up events"
+-              + "\n2 - Go Back");
+-      System.out.println("===================================================================");
+-
+-      UserOptionsHelper(sc);
+-
+-      switch (choice) {
+-        case 1:
+-          ManageSignUpEventsMenuUI(email);
+-          return;
+-        case 2:
+-          AttendeeMenuUI(email);
+-          return;
+-      }
+-    }
+-  }
+-
+-  /**
+-   * This is the second large sections under attendee menu.
+-   *
+-   * @param email - email is inputted in login menu.
+-   */
+-  private void ManageSignUpEventsMenuUI(String email) {
+-    while (true) {
+-      Scanner sc = new Scanner(System.in);
+-      System.out.println("===================================================================");
+-      System.out.println(suc.ViewAllEvents());
+-      System.out.println("The form of event is <ID> - <NAME>"
+-          + "\nPlease enter the corresponding number to continue..."
+-          + "\n1 - Cancel Event"
+-          + "\n2 - Send Message"
+-          + "\n3 - Go Back");
+-      System.out.println("===================================================================");
+-
+-      try {
+-        System.out.println("Your choice: ");
+-        choice = sc.nextInt();
+-      } catch (InputMismatchException e) {
+-        System.out.println("Invalid input, please try again.");
+-        System.out.println("Your choice: ");
+-        sc.nextInt();
+-        continue;
+-      }
+-
+-      String targetEmail;
+-      String message;
+-      int event_id;
+-      switch (choice) {
+-        case 1:
+-          try {
+-            System.out.println("Please enter the event <ID> you want to cancel: ");
+-            event_id = sc.nextInt();
+-          } catch (InputMismatchException e) {
+-            System.out.println("Invalid input, please try again.");
+-            System.out.println("Please enter the event <ID> you want to cancel: ");
+-            sc.nextInt();
+-            continue;
+-          }
+-
+-          boolean isSuccess = suc.cancelEvent(event_id);
+-          if (isSuccess) {
+-            System.out.printf("[%d] Cancel Successful!"
+-                + "\nRedirecting to main menu...", event_id);
+-          } else {
+-            System.out.printf("[%d] Cancel Failed!"
+-                + "\nRedirecting to main menu...", event_id);
+-            AttendeeMenuUI(email);
+-          }
+-          break;
+-        case 2:
+-          System.out.println(mc.generateEmailList());
+-          try {
+-            System.out.println("Please enter target's email and your message: ");
+-            System.out.println("Target Email: ");
+-            targetEmail = sc.nextLine();
+-            System.out.println("Message: ");
+-            message = sc.nextLine();
+-          } catch (InputMismatchException e) {
+-            System.out.println("Invalid input, please try again.");
+-            System.out.println("Please enter target's email and your message: ");
+-            System.out.println("Target Email: ");
+-            sc.nextLine();
+-            System.out.println("Message: ");
+-            sc.nextLine();
+-            continue;
+-          }
+-
+-          List<Integer> eventIds = new ArrayList<>();
+-          boolean isSent = mc.sendMessages("Single", message, targetEmail, "",
+-              eventIds);
+-          if (isSent) {
+-            System.out.printf("[%s: %s] Message Sent Successful!"
+-                + "\nRedirecting to main menu...", targetEmail, message);
+-          } else {
+-            System.out.printf("[%s: %s] Message Sent Failed!"
+-                + "\nRedirecting to main menu...", targetEmail, message);
+-          }
+-          AttendeeMenuUI(email);
+-          break;
+-        case 3:
+-          ViewAllAttendeeEventsMenuUI(email);
+-          return;
+-      }
+-    }
+-  }
+-
+-  /**
+-   * This is the third large sections under attendee menu.
+-   *
+-   * @param email - email is inputted in login menu.
+-   */
+-  private void ManageOneToOneMessageUI(String email) {
+-    while (true) {
+-      Scanner sc = new Scanner(System.in);
+-      System.out.println("===================================================================");
+-      System.out.println("[Message Menu] Please enter the corresponding number to continue..."
+-          + "\n1 - Show all messages"
+-          + "\n2 - Go back");
+-      System.out.println("===================================================================");
+-
+-      UserOptionsHelper(sc);
+-
+-      switch (choice) {
+-        case 1:
+-          System.out.println(mc.readAllMessages());
+-          System.out.println("Please enter the target email and your message to reply: ");
+-          String targetEmail = "", message = "";
+-          try {
+-            System.out.println("Target Email: ");
+-            targetEmail = sc.nextLine();
+-            System.out.println("Your Message: ");
+-            message = sc.nextLine();
+-            break;
+-          } catch (InputMismatchException e) {
+-            System.out.println("Invalid input, please try again.");
+-            System.out.println("Target Email: ");
+-            sc.nextLine();
+-            System.out.println("Your Message: ");
+-            sc.nextLine();
+-          }
+-
+-          List<Integer> eventIds = new ArrayList<>();
+-          boolean isSuccess = mc.sendMessages("Single", message, targetEmail, "",
+-              eventIds);
+-
+-          if (isSuccess) {
+-            System.out.printf("[%s : %s] Message replied successful!"
+-                + "\nRedirecting to main menu...", targetEmail, message);
+-          } else {
+-            System.out.printf("[%s : %s] Message replied failed!"
+-                + "\nRedirecting to main menu...", targetEmail, message);
+-          }
+-          if (lf.getUserIdentity(email).equals("Attendee")) {
+-            AttendeeMenuUI(email);
+-          }
+-          if (lf.getUserIdentity(email).equals("Speaker")) {
+-            SpeakerMenuUI(email);
+-          }
+-          if (lf.getUserIdentity(email).equals("Organizer")) {
+-            OrganizerMenuUI(email);
+-          }
+-          return;
+-        case 2:
+-          if (lf.getUserIdentity(email).equals("Attendee")) {
+-            ManageSignUpEventsMenuUI(email);
+-          }
+-          if (lf.getUserIdentity(email).equals("Speaker")) {
+-            SpeakerMenuUI(email);
+-          }
+-          if (lf.getUserIdentity(email).equals("Organizer")) {
+-            OrganizerMenuUI(email);
+-          }
+-          return;
+-      }
+-    }
+-  }
+-
+-  /*
+-   * ===================================== Speaker Menu ==========================================
+-   */
+-
+-  /**
+-   * This is the third big screen section, used for attendees. Once attendee logged in successfully
+-   * the program will prompt more options for them to select.
+-   *
+-   * @param email - email is inputted in login menu.
+-   */
+-  private void SpeakerMenuUI(String email) {
+-    while (true) {
+-      Scanner sc = new Scanner(System.in);
+-      System.out.println("===================================================================");
+-      System.out.println(lf.getUserInfo(email));
+-      System.out.println(
+-          "[Speaker Menu] Please enter the corresponding number to complete an action"
+-              + "\n1 - View all signed up events"
+-              + "\n2 - View all messages"
+-              + "\n3 - Sign Out");
+-      System.out.println("===================================================================");
+-
+-      try {
+-        System.out.println("Your choice: ");
+-        choice = sc.nextInt();
+-      } catch (InputMismatchException e) {
+-        System.out.println("Invalid input, please try again.");
+-        System.out.println("Your choice: ");
+-        sc.nextInt();
+-      }
+-
+-      switch (choice) {
+-        case 1:
+-          SpeakerSignUpEventsUI(email);
+-          break;
+-        case 2:
+-          ManageOneToOneMessageUI(email);
+-          break;
+-        case 3:
+-          SignOutRedirectUI();
+-          return;
+-      }
+-    }
+-  }
+-
+-  /**
+-   * This is the Speaker's view all signed up events function that will display 3 options and the
+-   * speaker would have to choose 1 of them to send a message, or go back.
+-   *
+-   * @param email - email is inputted in login menu.
+-   */
+-  private void SpeakerSignUpEventsUI(String email) {
+-    while (true) {
+-      Scanner sc = new Scanner(System.in);
+-      System.out.println(suc.ViewAllEvents());
+-      System.out.println("===================================================================");
+-      System.out.println("[Message Menu] Please enter the corresponding number to continue..."
+-          + "\n1 - Send message to single person"
+-          + "\n2 - Send message to attendees"
+-          + "\n3 - Go Back");
+-      System.out.println("===================================================================");
+-
+-      try {
+-        System.out.println("Your choice: ");
+-        choice = sc.nextInt();
+-      } catch (InputMismatchException e) {
+-        System.out.println("Invalid input, please try again.");
+-        System.out.println("Your choice: ");
+-        sc.nextInt();
+-      }
+-
+-      switch (choice) {
+-        case 1:
+-          while (true) {
+-            System.out.println(mc.generateEmailList());
+-            String targetEmail;
+-            String message;
+-
+-            try {
+-              System.out.println("Please enter target's email and your message: ");
+-              System.out.println("Target Email: ");
+-              targetEmail = sc.nextLine();
+-              System.out.println("Message: ");
+-              message = sc.nextLine();
+-            } catch (InputMismatchException e) {
+-              System.out.println("Invalid input, please try again.");
+-              System.out.println("Please enter target's email and your message: ");
+-              System.out.println("Target Email: ");
+-              sc.nextLine();
+-              System.out.println("Message: ");
+-              sc.nextLine();
+-              continue;
+-            }
+-
+-            List<Integer> eventIds = new ArrayList<>();
+-            boolean isSent = mc.sendMessages("Single", message, targetEmail, "",
+-                eventIds);
+-            if (isSent) {
+-              System.out.printf("[%s: %s] Message Sent Successful!"
+-                  + "\nRedirecting to main menu...", targetEmail, message);
+-            } else {
+-              System.out.printf("[%s: %s] Message Sent Failed!"
+-                  + "\nRedirecting to main menu...", targetEmail, message);
+-            }
+-            SpeakerMenuUI(email);
+-            return;
+-          }
+-        case 2:
+-          while (true) {
+-            String message;
+-            int event_id;
+-            try {
+-              System.out.println("Please enter the event ID and your message to send...");
+-              System.out.println("Event Id: ");
+-              event_id = sc.nextInt();
+-              System.out.println("Message: ");
+-              message = sc.nextLine();
+-            } catch (InputMismatchException e) {
+-              System.out.println("Invalid input, please try again.");
+-              System.out.println("Event Id: ");
+-              sc.nextInt();
+-              System.out.println("Message: ");
+-              sc.nextLine();
+-              continue;
+-            }
+-
+-            List<Integer> eventIds = new ArrayList<>();
+-            eventIds.add(event_id);
+-            boolean isSent = mc.sendMessages("Multiple", message, "", "Attendee",
+-                eventIds);
+-            if (isSent) {
+-              System.out.printf("[%s: %s] Message Sent Successful!"
+-                  + "\nRedirecting to main menu...", sf.get_single_event(event_id), message);
+-            } else {
+-              System.out.printf("[%s: %s] Message Sent Failed!"
+-                  + "\nRedirecting to main menu...", sf.get_single_event(event_id), message);
+-            }
+-            SpeakerMenuUI(email);
+-            return;
+-          }
+-        case 3:
+-          SpeakerMenuUI(email);
+-          return;
+-      }
+-    }
+-  }
+-
+-
+-  /*
+-   * ==================================== Organizer Menu ========================================
+-   */
+-
+-  /**
+-   * This is the second big screen section, used for attendees. Once attendee logged in successfully
+-   * the program will prompt more options for them to select.
+-   *
+-   * @param email - email is inputted in login menu.
+-   */
+-  private void OrganizerMenuUI(String email) {
+-    while (true) {
+-      Scanner sc = new Scanner(System.in);
+-      System.out.println("===================================================================");
+-      System.out.println(lf.getUserInfo(email));
+-      System.out.println(
+-          "[Organizer Menu] Please enter the corresponding number to complete an action"
+-              + "\n1 - Manage Events"
+-              + "\n2 - Manage Messages"
+-              + "\n3 - Manage Speaker"
+-              + "\n4 - Manage Room"
+-              + "\n5 - Sign Out");
+-      System.out.println("===================================================================");
+-      try {
+-        System.out.println("Your choice: ");
+-        choice = sc.nextInt();
+-      } catch (InputMismatchException e) {
+-        System.out.println("Invalid input, please try again.");
+-        System.out.println("Your choice: ");
+-        sc.nextInt();
+-        continue;
+-      }
+-
+-      switch (choice) {
+-        case 1:
+-          ManageEventsUI(email);
+-          break;
+-        case 2:
+-          ManageOneToOneMessageUI(email);
+-          break;
+-        case 3:
+-          ManageSpeakerUI(email);
+-          break;
+-        case 4:
+-          ManageRoomUI(email);
+-          break;
+-        case 5:
+-          SignOutRedirectUI();
+-          return;
+-      }
+-    }
+-  }
+-
+-  /**
+-   * This is the manage event section for organizers. Organizer can view, add, edit, delete events
+-   * and send messages to specific group of users.
+-   *
+-   * @param email - email is inputted in login menu.
+-   */
+-  private void ManageEventsUI(String email) {
+-    while (true) {
+-      Scanner sc = new Scanner(System.in);
+-      System.out.println("[Manage Events] Please enter the corresponding number to continue..."
+-          + "\n1 - View all events"
+-          + "\n2 - Add event"
+-          + "\n3 - Delete event"
+-          + "\n4 - Edit event"
+-          + "\n5 - Go Back");
+-
+-      try {
+-        System.out.println("Your choice: ");
+-        choice = sc.nextInt();
+-      } catch (InputMismatchException e) {
+-        System.out.println("Invalid input, please try again.");
+-        System.out.println("Your choice: ");
+-        sc.nextInt();
+-        continue;
+-      }
+-
+-      switch (choice) {
+-        case 1:
+-          OrganizerViewEventsUI();
+-          break;
+-        case 2:
+-          OrganizerAddEventUI();
+-          break;
+-        case 3:
+-          OrganizerDeleteEventUI();
+-          break;
+-        case 4:
+-          OrganizerEditEventUI();
+-          break;
+-        case 5:
+-          OrganizerMenuUI(email);
+-          return;
+-      }
+-    }
+-  }
+-
+-  /**
+-   * This is one of the methods from manage events ui. Organizer can send their message to specific
+-   * group (speakers or attendees) by enter the event id and message after view all the events.
+-   */
+-  private void OrganizerViewEventsUI() {
+-    while (true) {
+-      Scanner sc = new Scanner(System.in);
+-      sf.ShowAllEvents();
+-      System.out.println("===================================================================");
+-      System.out.println("The form of event is <ID> - <NAME>"
+-          + "\nPlease enter the corresponding number to continue..."
+-          + "\n1 - Send message (All speakers)"
+-          + "\n2 - Send message (All attendees)"
+-          + "\n3 - Go Back");
+-      System.out.println("===================================================================");
+-
+-      try {
+-        System.out.println("Your choice: ");
+-        choice = sc.nextInt();
+-      } catch (InputMismatchException e) {
+-        System.out.println("Invalid input, please try again.");
+-        System.out.println("Your choice: ");
+-        sc.nextInt();
+-        continue;
+-      }
+-
+-      int event_ID = 0;
+-      String message = "";
+-      boolean isSent;
+-      switch (choice) {
+-        case 1:
+-          System.out.println("Please enter the event <ID> and your message to send...");
+-          try {
+-            System.out.println("Event <ID>: ");
+-            event_ID = sc.nextInt();
+-            System.out.println("Your message: ");
+-            message = sc.nextLine();
+-          } catch (InputMismatchException e) {
+-            System.out.println("Invalid input, please try again.");
+-            System.out.println("Event <ID>: ");
+-            event_ID = sc.nextInt();
+-            System.out.println("Your message: ");
+-            sc.nextLine();
+-          }
+-
+-          List<Integer> eventIds = new ArrayList<>();
+-          eventIds.add(event_ID);
+-          isSent = mc.sendMessages("Multiple", message, "",
+-              "Speaker", eventIds);
+-          if (isSent) {
+-            System.out.printf("[%s: %s] Message sent successful!"
+-                + "\nRedirecting to main menu...", event_ID, message);
+-            mc.saveMessage();
+-          } else {
+-            System.out.printf("[%s: %s] Message sent failed!"
+-                + "\nRedirecting to main menu...", event_ID, message);
+-          }
+-          OrganizerMenuUI(email);
+-          break;
+-        case 2:
+-          System.out.println("Please enter the event <ID> and your message to send...");
+-          try {
+-            System.out.println("Event <ID>: ");
+-            event_ID = sc.nextInt();
+-            System.out.println("Your message: ");
+-            message = sc.nextLine();
+-          } catch (InputMismatchException e) {
+-            System.out.println("Invalid input, please try again.");
+-            System.out.println("Event <ID>: ");
+-            event_ID = sc.nextInt();
+-            System.out.println("Your message: ");
+-            sc.nextLine();
+-          }
+-
+-          eventIds = new ArrayList<>();
+-          eventIds.add(event_ID);
+-          isSent = mc.sendMessages("Multiple", message, "",
+-              "Attendee", eventIds);
+-          if (isSent) {
+-            System.out.printf("[%s: %s] Message sent successful!"
+-                + "\nRedirecting to main menu...", event_ID, message);
+-            mc.saveMessage();
+-          } else {
+-            System.out.printf("[%s: %s] Message sent failed!"
+-                + "\nRedirecting to main menu...", event_ID, message);
+-          }
+-          OrganizerMenuUI(email);
+-          break;
+-        case 3:
+-          OrganizerMenuUI(email);
+-          return;
+-      }
+-    }
+-  }
+-
+-  /**
+-   * This is the add event function for organizers. Organizer have to enter the details to create a
+-   * new event.
+-   */
+-  private void OrganizerAddEventUI() {
+-    Scanner sc = new Scanner(System.in);
+-    System.out.println("Please enter the following details to add a new event...");
+-    int roomNum = 0, speakerId = 0;
+-    String startTime = "", endTime = "", eventTopic = "";
+-
+-    try {
+-      System.out.println("Room Number: ");
+-      roomNum = sc.nextInt();
+-      System.out.println("Start Time (12:05:35 means 5 minutes and 35 seconds past 12pm): ");
+-      startTime = sc.nextLine();
+-      System.out.println("End Time (12:05:35 means 5 minutes and 35 seconds past 12pm): ");
+-      endTime = sc.nextLine();
+-      System.out.println("Speaker ID: ");
+-      speakerId = sc.nextInt();
+-      System.out.println("Event Topic: ");
+-      eventTopic = sc.nextLine();
+-    } catch (InputMismatchException e) {
+-      System.out.println("Invalid input, please try again.");
+-      System.out.println("Room Number: ");
+-      sc.nextInt();
+-      System.out.println("Start Time (12:05:35 means 5 minutes and 35 seconds past 12pm): ");
+-      sc.nextLine();
+-      System.out.println("End Time (12:05:35 means 5 minutes and 35 seconds past 12pm): ");
+-      sc.nextLine();
+-      System.out.println("Speaker ID: ");
+-      sc.nextInt();
+-      System.out.println("Event Topic: ");
+-      sc.nextLine();
+-    }
+-
+-    boolean isAdded = sf.ConfirmAddEvent(roomNum, startTime, endTime, speakerId, eventTopic);
+-    if (isAdded) {
+-      System.out.printf("[%s: %s] Event created successful!"
+-          + "\nRedirecting to main menu...", eventTopic, startTime);
+-      sf.saveevents();
+-    } else {
+-      System.out.printf("[%s: %s] Event created failed!"
+-          + "\nRedirecting to main menu...", eventTopic, startTime);
+-    }
+-    SpeakerMenuUI(email);
+-  }
+-
+-  /**
+-   * This is the delete event function for organizers. Organizer have to enter the event id to
+-   * delete an event.
+-   */
+-  private void OrganizerDeleteEventUI() {
+-    Scanner sc = new Scanner(System.in);
+-    System.out.println("Please enter the event <ID> to delete an event...");
+-    int eventId = 0;
+-
+-    try {
+-      System.out.println("Event ID: ");
+-      eventId = sc.nextInt();
+-    } catch (InputMismatchException e) {
+-      System.out.println("Invalid input, please try again.");
+-      System.out.println("Event ID: ");
+-      sc.nextInt();
+-    }
+-
+-    boolean isDeleted = sf.ConfirmDeleteEvent(eventId);
+-    if (isDeleted) {
+-      System.out.printf("[%s] Event deleted successful!"
+-          + "\nRedirecting to main menu...", eventId);
+-      sf.saveevents();
+-    } else {
+-      System.out.printf("[%s] Event deleted failed!"
+-          + "\nRedirecting to main menu...", eventId);
+-    }
+-    SpeakerMenuUI(email);
+-  }
+-
+-  /**
+-   * This is the edit event function for organizers. Organizer have to enter the details to edit a
+-   * created event.
+-   */
+-  private void OrganizerEditEventUI() {
+-    Scanner sc = new Scanner(System.in);
+-    System.out.println("Please enter the following details to edit an event...");
+-    int eventId = 0, roomNum = 0, speakerId = 0;
+-    String startTime = "", endTime = "", eventTopic = "";
+-
+-    try {
+-      System.out.println("Event <ID>: ");
+-      eventId = sc.nextInt();
+-      System.out.println("New room Number: ");
+-      roomNum = sc.nextInt();
+-      System.out.println("New Start Time (12:05:35 means 5 minutes and 35 seconds past 12pm): ");
+-      startTime = sc.nextLine();
+-      System.out.println("New End Time (12:05:35 means 5 minutes and 35 seconds past 12pm): ");
+-      endTime = sc.nextLine();
+-      System.out.println("New Speaker ID: ");
+-      speakerId = sc.nextInt();
+-      System.out.println("New Event Topic: ");
+-      eventTopic = sc.nextLine();
+-    } catch (InputMismatchException e) {
+-      System.out.println("Invalid input, please try again.");
+-      System.out.println("Event <ID>: ");
+-      sc.nextInt();
+-      System.out.println("New room Number: ");
+-      sc.nextInt();
+-      System.out.println("New Start Time (12:05:35 means 5 minutes and 35 seconds past 12pm): ");
+-      sc.nextLine();
+-      System.out.println("New End Time (12:05:35 means 5 minutes and 35 seconds past 12pm): ");
+-      sc.nextLine();
+-      System.out.println("New Speaker ID: ");
+-      sc.nextInt();
+-      System.out.println("New Event Topic: ");
+-      sc.nextLine();
+-    }
+-
+-    boolean isEdited = sf.ConfirmEditEvent(eventId, roomNum, startTime, endTime,
+-        eventTopic, speakerId);
+-    if (isEdited) {
+-      System.out.printf("[%s] Event edited successful!"
+-          + "\nRedirecting to main menu...", eventId);
+-      sf.saveevents();
+-    } else {
+-      System.out.printf("[%s] Event edited failed!"
+-          + "\nRedirecting to main menu...", eventId);
+-    }
+-    SpeakerMenuUI(email);
+-  }
+-
+-  /**
+-   * This is the manage speaker function inside organizer that give the organizer permission to
+-   * create speaker's account. (By our assumption inside README.md that speakers cannot create its
+-   * own account)
+-   *
+-   * @param email - email is inputted in login menu.
+-   */
+-  private void ManageSpeakerUI(String email) {
+-    while (true) {
+-      Scanner sc = new Scanner(System.in);
+-      System.out.println("[Manage Speaker UI]"
+-          + "\n1 - Create Speaker Account"
+-          + "\n2 - Go Back");
+-      try {
+-        System.out.println("Your choice: ");
+-        choice = sc.nextInt();
+-      } catch (InputMismatchException e) {
+-        System.out.println("Invalid input, please try again.");
+-        System.out.println("Your choice: ");
+-        sc.nextInt();
+-      }
+-
+-      switch (choice) {
+-        case 1:
+-          System.out.println("Please enter the details to add a new speaker account...");
+-          String speakerName, speakerPhone, speakerPassword, speakerEmail;
+-          try {
+-            System.out.println("Speaker Name: ");
+-            speakerName = sc.nextLine();
+-            System.out.println("Password: ");
+-            speakerPassword = sc.nextLine();
+-            System.out.println("Phone: ");
+-            speakerPhone = sc.nextLine();
+-            System.out.println("Email: ");
+-            speakerEmail = sc.nextLine();
+-          } catch (InputMismatchException e) {
+-            System.out.println("Invalid input, please try again.");
+-            System.out.println("Speaker Name: ");
+-            speakerName = sc.nextLine();
+-            System.out.println("Password: ");
+-            speakerPassword = sc.nextLine();
+-            System.out.println("Phone: ");
+-            speakerPhone = sc.nextLine();
+-            System.out.println("Email: ");
+-            speakerEmail = sc.nextLine();
+-          }
+-
+-          boolean isAdded = sf.addSpeaker(speakerName, speakerPassword, speakerPhone, speakerEmail);
+-          if (isAdded) {
+-            System.out.printf("[%s: %s] Speaker Add Successful!"
+-                + "\nRedirecting to main menu...", speakerName, speakerPassword);
+-          } else {
+-            System.out.printf("[%s: %s] Speaker Add Failed!"
+-                + "\nRedirecting to main menu...", speakerName, speakerPassword);
+-          }
+-          OrganizerMenuUI(email);
+-          return;
+-        case 2:
+-          OrganizerMenuUI(email);
+-          return;
+-      }
+-    }
+-  }
+-
+-  /**
+-   * This is the manage room function for organizers that will give 3 options, add room, delete room
+-   * or go back.
+-   *
+-   * @param email - email is inputted in login menu.
+-   */
+-  private void ManageRoomUI(String email) {
+-    while (true) {
+-      Scanner sc = new Scanner(System.in);
+-      System.out.println("[Manage Room UI]"
+-          + "\n1 - Add Room"
+-          + "\n2 - Delete Room"
+-          + "\n3 - Go Back");
+-      try {
+-        System.out.println("Your choice: ");
+-        choice = sc.nextInt();
+-      } catch (InputMismatchException e) {
+-        System.out.println("Invalid input, please try again.");
+-        System.out.println("Your choice: ");
+-        sc.nextInt();
+-      }
+-
+-      int roomId = 0;
+-      switch (choice) {
+-        case 1:
+-          System.out.println("Please enter the room ID to create a new room...");
+-          try {
+-            System.out.println("Room ID: ");
+-            roomId = sc.nextInt();
+-          } catch (InputMismatchException e) {
+-            System.out.println("Invalid input, please try again.");
+-            System.out.println("Room ID: ");
+-            sc.nextInt();
+-          }
+-          boolean isAdded = sf.confirmaddroom(roomId);
+-          if (isAdded) {
+-            System.out.printf("[%d] Room Added Successful!"
+-                + "\nRedirecting to main menu...", roomId);
+-            sf.saverooms();
+-          } else {
+-            System.out.printf("[%d] Room Added Failed!"
+-                + "\nRedirecting to main menu...", roomId);
+-          }
+-          OrganizerMenuUI(email);
+-          break;
+-        case 2:
+-          System.out.println("Please enter a room ID to continue...");
+-          try {
+-            System.out.println("Room ID: ");
+-            roomId = sc.nextInt();
+-          } catch (InputMismatchException e) {
+-            System.out.println("Invalid input, please try again.");
+-            System.out.println("Room ID: ");
+-            sc.nextInt();
+-          }
+-
+-          boolean isDeleted = sf.confirmdeleteroom(roomId);
+-          if (isDeleted) {
+-            System.out.printf("[%d] Room Deleted Successful!"
+-                + "\nRedirecting to main menu...", roomId);
+-          } else {
+-            System.out.printf("[%d] Room Deleted Failed!"
+-                + "\nRedirecting to main menu...", roomId);
+-          }
+-          SpeakerMenuUI(email);
+-          break;
+-        case 3:
+-          OrganizerMenuUI(email);
+-          return;
+-      }
+-    }
+-  }
+-
+-
+-  /**
+-   * This is a method to tell the user its account will be signing out.
+-   */
+-  private void SignOutRedirectUI() {
+-    System.out.println("Signing Out...");
+-    UserMenu();
+-  }
+-}
+Index: app/src/Files/UI/Main.java
+===================================================================
+--- app/src/Files/UI/Main.java	(revision 2322d65edf20f39a0b82b546c47107e50e6ab84a)
++++ app/src/Files/UI/Main.java	(revision 2322d65edf20f39a0b82b546c47107e50e6ab84a)
+@@ -1,10 +0,0 @@
+-package UI;
+-
+-public class Main {
+-
+-  public static void main(String[] args) {
+-    TextUI ui = new TextUI();
+-    ui.run();
+-  }
+-
+-}
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n  package=\"com.group0014.iconference\">\r\n\r\n  <application\r\n    android:allowBackup=\"true\"\r\n    android:icon=\"@mipmap/ic_launcher\"\r\n    android:label=\"@string/app_name\"\r\n    android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n    android:supportsRtl=\"true\"\r\n    android:theme=\"@style/AppTheme\">\r\n    <activity android:name=\".StartActivity\">\r\n      <intent-filter>\r\n        <action android:name=\"android.intent.action.MAIN\" />\r\n        <category android:name=\"android.intent.category.LAUNCHER\" />\r\n      </intent-filter>\r\n    </activity>\r\n      <activity android:name=\".RegisterActivity\"\r\n        android:parentActivityName=\".StartActivity\"/>\r\n    <activity android:name=\".MainActivity\" />\r\n  </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 2322d65edf20f39a0b82b546c47107e50e6ab84a)
++++ app/src/main/AndroidManifest.xml	(date 1606671905556)
+@@ -1,23 +1,29 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+-  package="com.group0014.iconference">
++    package="com.group0014.iconference">
+ 
+-  <application
+-    android:allowBackup="true"
+-    android:icon="@mipmap/ic_launcher"
+-    android:label="@string/app_name"
+-    android:roundIcon="@mipmap/ic_launcher_round"
+-    android:supportsRtl="true"
+-    android:theme="@style/AppTheme">
+-    <activity android:name=".StartActivity">
+-      <intent-filter>
+-        <action android:name="android.intent.action.MAIN" />
+-        <category android:name="android.intent.category.LAUNCHER" />
+-      </intent-filter>
+-    </activity>
+-      <activity android:name=".RegisterActivity"
+-        android:parentActivityName=".StartActivity"/>
+-    <activity android:name=".MainActivity" />
+-  </application>
++    <application
++        android:allowBackup="true"
++        android:icon="@mipmap/ic_launcher"
++        android:label="@string/app_name"
++        android:roundIcon="@mipmap/ic_launcher_round"
++        android:supportsRtl="true"
++        android:theme="@style/AppTheme">
++        <activity android:name=".LoginActivity"></activity>
++        <activity
++            android:name=".ui.login.LoginActivity"
++            android:label="@string/title_activity_login" />
++        <activity android:name=".StartActivity">
++            <intent-filter>
++                <action android:name="android.intent.action.MAIN" />
++
++                <category android:name="android.intent.category.LAUNCHER" />
++            </intent-filter>
++        </activity>
++        <activity
++            android:name=".RegisterActivity"
++            android:parentActivityName=".StartActivity" />
++        <activity android:name=".MainActivity" />
++    </application>
+ 
+ </manifest>
+\ No newline at end of file
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">iConference</string>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision 2322d65edf20f39a0b82b546c47107e50e6ab84a)
++++ app/src/main/res/values/strings.xml	(date 1606671795684)
+@@ -1,3 +1,12 @@
+ <resources>
+     <string name="app_name">iConference</string>
++    <string name="title_activity_login">LoginActivity</string>
++    <string name="prompt_email">Email</string>
++    <string name="prompt_password">Password</string>
++    <string name="action_sign_in">Sign in or register</string>
++    <string name="action_sign_in_short">Sign in</string>
++    <string name="welcome">"Welcome !"</string>
++    <string name="invalid_username">Not a valid username</string>
++    <string name="invalid_password">Password must be >5 characters</string>
++    <string name="login_failed">"Login failed"</string>
+ </resources>
+\ No newline at end of file
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>apply plugin: 'com.android.application'\r\napply plugin: 'com.google.gms.google-services'\r\n\r\nandroid {\r\n    compileSdkVersion 30\r\n    buildToolsVersion \"30.0.0\"\r\n\r\n    defaultConfig {\r\n        applicationId \"com.group0014.iconference\"\r\n        minSdkVersion 27\r\n        targetSdkVersion 30\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n}\r\n\r\ndependencies {\r\n    implementation fileTree(dir: \"libs\", include: [\"*.jar\"])\r\n    implementation 'androidx.appcompat:appcompat:1.2.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'\r\n    testImplementation 'junit:junit:4.12'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.2'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'\r\n\r\n    //Lib\r\n    implementation 'androidx.legacy:legacy-support-v4:1.0.0'\r\n    implementation 'com.google.android.material:material:1.2.1'\r\n    implementation 'com.google.firebase:firebase-auth:20.0.1'\r\n    implementation 'com.google.firebase:firebase-database:19.5.1'\r\n    implementation 'com.google.firebase:firebase-core:18.0.0'\r\n    implementation 'androidx.cardview:cardview:1.0.0'\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision 2322d65edf20f39a0b82b546c47107e50e6ab84a)
++++ app/build.gradle	(date 1606671796231)
+@@ -27,6 +27,9 @@
+     implementation fileTree(dir: "libs", include: ["*.jar"])
+     implementation 'androidx.appcompat:appcompat:1.2.0'
+     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
++    implementation 'androidx.annotation:annotation:1.1.0'
++    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
++    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+     testImplementation 'junit:junit:4.12'
+     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
