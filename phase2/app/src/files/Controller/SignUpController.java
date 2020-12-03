@@ -1,6 +1,6 @@
 import com.group0014.iconference.Gateway.UserScheduleDataAccess;
 import com.group0014.iconference.UseCase.RoomManager;
-import com.group0014.iconference.UseCase.UserScheduleManager;
+import com.group0014.iconference.UseCase.SignupManager;
 import com.group0014.iconference.UseCase.EventManager;
 import com.group0014.iconference.UseCase.UserAccountManager;
 
@@ -18,7 +18,7 @@ public class SignUpController {
   private UserAccountManager uam;
 
   private MapGateway mg = new UserScheduleDataAccess();
-  private UserScheduleManager us;
+  private SignupManager us;
   private String email;
 
   public SignUpController(String email, UserAccountManager userAccountManager,

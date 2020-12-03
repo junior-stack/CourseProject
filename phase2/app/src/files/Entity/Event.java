@@ -43,6 +43,8 @@ public abstract class Event implements Serializable {
     counter++;
   }
 
+  public Event() {}
+
   /**
    * This method sets a User's counter.
    *

@@ -28,6 +28,8 @@ public class Message {
         counter++;
     }
 
+    public Message() {}
+
     /**
      * This method is the getter for the id of this message.
      * @return int The id of this message.
