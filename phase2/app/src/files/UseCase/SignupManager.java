@@ -14,7 +14,7 @@ import java.util.HashMap;
  * @author Ye Zhou &
  * @version 1.0
  **/
-public class UserScheduleManager {
+public class SignupManager {
 
   public HashMap<User, ArrayList<Event>> user_schedule;
 
@@ -24,7 +24,7 @@ public class UserScheduleManager {
    *
    * @param user_schedule
    */
-  public UserScheduleManager(HashMap<User, ArrayList<Event>> user_schedule) {
+  public SignupManager(HashMap<User, ArrayList<Event>> user_schedule) {
     this.user_schedule = user_schedule;
   }
 
