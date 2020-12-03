@@ -1,6 +1,3 @@
-package com.group0014.iconference.Controller;
-
-
 import com.group0014.iconference.Gateway.UserScheduleDataAccess;
 import com.group0014.iconference.UseCase.RoomManager;
 import com.group0014.iconference.UseCase.UserScheduleManager;

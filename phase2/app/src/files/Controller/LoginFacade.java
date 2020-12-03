@@ -1,5 +1,3 @@
-package com.group0014.iconference.Controller;
-
 import com.group0014.iconference.Gateway.Igateway;
 import com.group0014.iconference.Gateway.InitializeOrganizers;
 import com.group0014.iconference.Gateway.UserDataAccess;

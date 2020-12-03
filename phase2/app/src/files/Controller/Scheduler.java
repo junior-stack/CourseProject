@@ -1,6 +1,3 @@
-package com.group0014.iconference.Controller;
-
-
 import com.group0014.iconference.Gateway.EventDataAccess;
 import com.group0014.iconference.Gateway.Igateway;
 import com.group0014.iconference.UseCase.EventManager;

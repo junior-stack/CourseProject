@@ -40,10 +40,6 @@ public class LoginActivity extends AppCompatActivity {
     password = findViewById(R.id.password);
     btn_login = findViewById(R.id.button_login);
 
-    firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-    databaseReference = FirebaseDatabase.getInstance().getReference("Users")
-        .child(firebaseUser.getUid());
-
     btn_login.setOnClickListener(v -> {
       String txt_email = email.getText().toString();
       String txt_password = password.getText().toString();
@@ -56,6 +52,10 @@ public class LoginActivity extends AppCompatActivity {
               @Override
               public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                  firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                  databaseReference = FirebaseDatabase.getInstance().getReference("Users")
+                      .child(firebaseUser.getUid());
+
                   databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -107,11 +107,6 @@ public class LoginActivity extends AppCompatActivity {
                           .show();
                     }
                   });
-
-//                  Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                  intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                  startActivity(intent);
-//                  finish();
                 } else {
                   Toast.makeText(LoginActivity.this, "Login failed!", Toast.LENGTH_SHORT).show();
                 }

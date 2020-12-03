@@ -15,12 +15,23 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="80dp"
     android:layout_alignParentTop="true"
-
     android:layout_centerHorizontal="true"
     android:fontFamily="@font/poppins_semibold"
     android:text="Attendee"
     android:textColor="@color/colorPrimary2"
     android:textSize="30sp" />
+
+  <com.google.android.material.bottomnavigation.BottomNavigationView
+    android:id="@+id/navigation_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@color/colorPrimary"
+    app:itemBackground="@color/colorPrimary"
+    app:itemIconTint="#FFFFFF"
+    app:itemTextColor="#FFFFFF"
+    app:labelVisibilityMode="labeled"
+    app:menu="@menu/AttendeeMenu" />
 
 
 </RelativeLayout>

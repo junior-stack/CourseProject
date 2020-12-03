@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,8 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
 
   private EditText email, password, phone, name;
   private Button btn_register, btn_back;
-  private RadioGroup radioGroup;
-  private RadioButton radioButton;
+  private RadioButton RegisterAsAttendee, RegisterAsOrganizer;
   private String type;
 
   FirebaseAuth auth;
@@ -43,15 +43,15 @@ public class RegisterActivity extends AppCompatActivity {
     name = findViewById(R.id.name);
     btn_register = findViewById(R.id.button_register);
 
-    radioGroup = findViewById(R.id.radio_group_1);
+    RadioGroup radioGroup = findViewById(R.id.radio_group_1);
     radioGroup.clearCheck();
-    radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-      @SuppressLint("ResourceType")
+    radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
       @Override
-      public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-        radioButton = radioGroup.findViewById(checkedId);
-        if (radioButton != null && checkedId > -1) {
-          type = radioButton.getText().toString();
+      public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if (checkedId == R.id.radio_attendee) {
+          type = "Attendee";
+        } else {
+          type = "Organizer";
         }
       }
     });
@@ -74,9 +74,13 @@ public class RegisterActivity extends AppCompatActivity {
         } else if (userepwd.length() < 6) {
           Toast.makeText(RegisterActivity.this, "Password must be at least 6 " +
               "characters", Toast.LENGTH_SHORT).show();
+        } else if (userphone.length() < 10) {
+          Toast.makeText(RegisterActivity.this, "Phone must be at least 10 digits",
+              Toast.LENGTH_SHORT).show();
         } else {
           register(useremail, userepwd, userphone, userename, type);
         }
+
       }
     });
   }
@@ -98,6 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
               HashMap<String, String> hashMap = new HashMap<>();
               hashMap.put("id", userid);
               hashMap.put("name", name);
+              hashMap.put("email", email);
               hashMap.put("phone", phone);
               hashMap.put("type", type);
 
