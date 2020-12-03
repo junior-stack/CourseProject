@@ -28,6 +28,8 @@ public class Room implements Serializable, Schedulable {
 
   }
 
+  public Room() {}
+
   /**
    * This method returns a Room's roomId.
    *

@@ -44,6 +44,10 @@ public abstract class User implements Serializable {
     }
 
     /**
+     * default contractor of User class
+     */
+    public User() {}
+    /**
      * This method sets a User's counter.
      *
      * @param counter
