@@ -91,7 +91,7 @@ public class MessageManager {
      * @param eventIds This represents the List of events the speaker wants to send message to.
      * @return ArrayList All email addresses of the attendees of certain events.
      */
-    public ArrayList<String> SpeakerGenerateEmail(ArrayList<Integer> eventIds){
+    public ArrayList<String> SpeakerGenerateEmail(List<Integer> eventIds){
         List<Event> events = EventManager.eventpool;
         List<Event> e = new ArrayList<>();
         for (Event temp: events){
