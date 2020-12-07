@@ -31,3 +31,8 @@ gradle clean
 # builds the executable jar (fat jar)
 gradle jar
 ```
+
+Verifying that the jar really worked
+```
+java -jar ./build/libs/all-in-one.jar
+```
