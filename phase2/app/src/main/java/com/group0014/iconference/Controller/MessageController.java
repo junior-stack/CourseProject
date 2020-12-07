@@ -32,24 +32,15 @@ public class MessageController {
   }
 
   /**
-   * This method sends the message to the target user email from current user.
+   * This method if for Speaker to send the message to the target user email from current user.
    * @param targetEmail The email address of the target user.
    * @param content The content of the message.
    * @return boolean True iff the message is sent successfully.
    */
-  public boolean sendSingleMessage(String targetEmail, String content){
-    String targetIdentity = UserAccountManager.getEmailToIdentity(targetEmail);
+  public boolean speakerSendSingleMessage(String targetEmail, String content){
     if (userType.equals("Speaker") && mm.validateResponse(userEmail, targetEmail)){
       mm.singleMessageRequest(userEmail, targetEmail, content);
-      return true;
-    } else if (userType.equals("Attendee") && !targetIdentity.equals("Organizer")){
-      mm.singleMessageRequest(userEmail, targetEmail, content);
-      return true;
-    } else {
-      if (!targetIdentity.equals("Organizer")){
-        mm.singleMessageRequest(userEmail, targetEmail, content);
-        return true;}
-    }
+      return true;}
     return false;
   }
 
