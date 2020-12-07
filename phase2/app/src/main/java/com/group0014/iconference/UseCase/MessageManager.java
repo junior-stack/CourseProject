@@ -20,7 +20,7 @@ public class MessageManager {
      * This is a constructor for MessageManager.
      * @param messages This represents the list of message entities in the system.
      */
-    public MessageManager(ArrayList<Message> messages){
+    public MessageManager(List<Message> messages){
         this.messages = messages;
     }
 
@@ -49,7 +49,7 @@ public class MessageManager {
      * @param receiverEmails This represents a list of all receiver email addresses.
      * @param content This represents the content of the message.
      */
-    public void multipleMessageRequest(String senderEmail, ArrayList<String> receiverEmails, String content){
+    public void multipleMessageRequest(String senderEmail, List<String> receiverEmails, String content){
         for (String e : receiverEmails){
             singleMessageRequest(senderEmail, e, content);
         }
@@ -75,9 +75,9 @@ public class MessageManager {
      * @param targetIdentity This represents the targetIdentity. Either "Attendee" or "Speaker".
      * @return ArrayList All email addresses of the targetIdentity.
      */
-    public ArrayList<String> OrganizerGenerateEmail(String targetIdentity){
+    public List<String> OrganizerGenerateEmail(String targetIdentity){
         List<User> users = UserAccountManager.userList;
-        ArrayList<String> emails = new ArrayList<>();
+        List<String> emails = new ArrayList<>();
         for (User u : users){
             if (u.getType().equals(targetIdentity)){
                 emails.add(u.getEmail());
@@ -91,7 +91,7 @@ public class MessageManager {
      * @param eventIds This represents the List of events the speaker wants to send message to.
      * @return ArrayList All email addresses of the attendees of certain events.
      */
-    public ArrayList<String> SpeakerGenerateEmail(List<Integer> eventIds){
+    public List<String> SpeakerGenerateEmail(List<Integer> eventIds){
         List<Event> events = EventManager.eventpool;
         List<Event> e = new ArrayList<>();
         for (Event temp: events){
@@ -99,11 +99,11 @@ public class MessageManager {
                 e.add(temp);
             }
         }
-        ArrayList<Integer> userIds = new ArrayList<>();
+        List<Integer> userIds = new ArrayList<>();
         for (Event temp2 : e){
             userIds.addAll(temp2.getAllAttendee());
         }
-        ArrayList<String> emails = new ArrayList<>();
+        List<String> emails = new ArrayList<>();
         for (Integer Id: userIds){
             emails.add(UserAccountManager.idToEmail(Id));
         }

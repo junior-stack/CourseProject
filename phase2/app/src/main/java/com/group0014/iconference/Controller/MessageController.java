@@ -4,6 +4,7 @@ import com.group0014.iconference.UseCase.MessageManager;
 import com.group0014.iconference.UseCase.UserAccountManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is the controller for message system.
@@ -60,7 +61,7 @@ public class MessageController {
    */
   public boolean sendMultipleMessage(String targetIdentity, String content){
     if (userType.equals("Organizer")){
-      ArrayList<String> emails = mm.OrganizerGenerateEmail(targetIdentity);
+      List<String> emails = mm.OrganizerGenerateEmail(targetIdentity);
       mm.multipleMessageRequest(userEmail, emails, content);
       return true;
     }
@@ -75,7 +76,7 @@ public class MessageController {
    */
   public boolean sendMultipleMessage(ArrayList<Integer> eventIds, String content){
     if (userType.equals("Speaker")){
-      ArrayList<String> emails = mm.SpeakerGenerateEmail(eventIds);
+      List<String> emails = mm.SpeakerGenerateEmail(eventIds);
       mm.multipleMessageRequest(userEmail, emails, content);
       return true;
     }
@@ -86,16 +87,16 @@ public class MessageController {
    * This method is to generate all email addresses that the current user can send message to.
    * @return ArrayList All user email addresses that the current user can send message to.
    */
-  public ArrayList<String> generateEmailList() {
-    ArrayList<String> allAttendee= UserAccountManager.getAllAvailableEmails("Attendee");
-    ArrayList<String> allSpeaker= UserAccountManager.getAllAvailableEmails("Speaker");
-    ArrayList<String> emails;
+  public List<String> generateEmailList() {
+    List<String> allAttendee= UserAccountManager.getAllAvailableEmails("Attendee");
+    List<String> allSpeaker= UserAccountManager.getAllAvailableEmails("Speaker");
+    List<String> emails;
     if (userType.equals("Attendee") || userType.equals("Organizer")){
       emails = allAttendee;
       emails.addAll(allSpeaker);
     } else {
       emails = new ArrayList<>();
-      ArrayList<String> allEmails = UserAccountManager.getAllEmails();
+      List<String> allEmails = UserAccountManager.getAllEmails();
       for (String e: allEmails){
         if (mm.validateResponse(userEmail, e)){
           emails.add(e);
