@@ -1,9 +1,8 @@
-package com.group0014.iconference.UseCase;
+package UseCase;
 
-import com.group0014.iconference.Entity.Event;
-import com.group0014.iconference.Entity.Room;
-import com.group0014.iconference.Entity.Schedulable;
-import com.group0014.iconference.Entity.User;
+import Entity.Event;
+import Entity.User;
+
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;

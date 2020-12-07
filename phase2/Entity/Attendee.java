@@ -1,4 +1,4 @@
-package com.group0014.iconference.Entity;
+package Entity;
 
 /**
  * This class represents an Attendee.

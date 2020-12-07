@@ -1,8 +1,8 @@
-package com.group0014.iconference.UseCase;
+package UseCase;
 
-import com.group0014.iconference.Entity.Event;
-import com.group0014.iconference.Entity.Message;
-import com.group0014.iconference.Entity.User;
+import Entity.Event;
+import Entity.Message;
+import Entity.User;
 
 import java.util.ArrayList;
 import java.util.List;

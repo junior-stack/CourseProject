@@ -1,4 +1,4 @@
-package com.group0014.iconference.Entity;
+package Entity;
 
 import java.sql.Time;
 import java.util.ArrayList;

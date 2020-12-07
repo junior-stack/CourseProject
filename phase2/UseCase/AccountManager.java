@@ -1,4 +1,4 @@
-package com.group0014.iconference.UseCase;
+package UseCase;
 
 import java.util.regex.Pattern;
 

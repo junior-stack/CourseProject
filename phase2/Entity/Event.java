@@ -1,4 +1,4 @@
-package com.group0014.iconference.Entity;
+package Entity;
 
 import java.io.Serializable;
 import java.sql.Time;

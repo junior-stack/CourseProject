@@ -1,6 +1,6 @@
-package com.group0014.iconference.Controller;
+package Controller;
 
-import com.group0014.iconference.UseCase.AccountManager;
+import UseCase.AccountManager;
 
 public class UserAccountsController {
     private AccountManager am;

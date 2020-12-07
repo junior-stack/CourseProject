@@ -1,10 +1,9 @@
-package com.group0014.iconference.UseCase;
+package UseCase;
 
-import com.group0014.iconference.Entity.User;
-
-import com.group0014.iconference.Entity.Attendee;
-import com.group0014.iconference.Entity.Organizer;
-import com.group0014.iconference.Entity.Speaker;
+import Entity.Attendee;
+import Entity.Organizer;
+import Entity.Speaker;
+import Entity.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;

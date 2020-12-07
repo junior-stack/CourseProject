@@ -1,6 +1,6 @@
-package com.group0014.iconference.Presenter;
+package Presenter;
 
-import com.group0014.iconference.UseCase.UserAccountManager;
+import UseCase.UserAccountManager;
 
 import java.util.List;
 

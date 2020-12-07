@@ -1,7 +1,7 @@
-package com.group0014.iconference.Controller;
+package Controller;
 
-import com.group0014.iconference.Presenter.LoginPresenter;
-import com.group0014.iconference.UseCase.UserAccountManager;
+import Presenter.LoginPresenter;
+import UseCase.UserAccountManager;
 
 import java.util.ArrayList;
 import java.util.List;

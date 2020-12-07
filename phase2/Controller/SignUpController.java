@@ -1,9 +1,9 @@
-package com.group0014.iconference.Controller;
+package Controller;
 
-import com.group0014.iconference.UseCase.RoomManager;
-import com.group0014.iconference.UseCase.SignupManager;
-import com.group0014.iconference.UseCase.EventManager;
-import com.group0014.iconference.UseCase.UserAccountManager;
+import UseCase.EventManager;
+import UseCase.RoomManager;
+import UseCase.SignupManager;
+import UseCase.UserAccountManager;
 
 import java.sql.Time;
 import java.util.ArrayList;

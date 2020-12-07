@@ -1,14 +1,12 @@
-package com.group0014.iconference.UseCase;
+package UseCase;
 
-import com.group0014.iconference.Entity.Event;
-import com.group0014.iconference.Entity.MultiSpeakerEvent;
-import com.group0014.iconference.Entity.NoSpeakerEvent;
-import com.group0014.iconference.Entity.OneSpeakerEvent;
-
+import Entity.Event;
+import Entity.MultiSpeakerEvent;
+import Entity.NoSpeakerEvent;
+import Entity.OneSpeakerEvent;
 
 import java.sql.Time;
 import java.util.ArrayList;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
