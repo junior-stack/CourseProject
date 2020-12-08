@@ -3,7 +3,7 @@ package Controller;
 import UseCase.AccountManager;
 
 public class UserAccountsController {
-    private final AccountManager am;
+    private AccountManager am;
 
 
     public UserAccountsController(AccountManager am) {
