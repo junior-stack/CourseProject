@@ -44,7 +44,7 @@ public class Room implements Serializable, Schedulable {
   public static void setUp(ConnectionSource conn) throws Exception{
     roomDao = DaoManager.createDao(conn, Room.class);
     // if you need to create the table
-    TableUtils.createTable(conn, Room.class);
+    TableUtils.createTableIfNotExists(conn, Room.class);
   }
 
   /**
