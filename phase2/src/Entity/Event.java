@@ -1,5 +1,6 @@
 package Entity;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * @version 1.0
  */
 @DatabaseTable(tableName = "events")
-public abstract class Event implements Serializable {
+public class Event implements Serializable {
 
   private static int counter = 0;
   protected ArrayList<Integer> speakerId = new ArrayList<>();
@@ -23,13 +24,13 @@ public abstract class Event implements Serializable {
   @DatabaseField(columnName = "event_type")
   String eventtype = "";
 
-  @DatabaseField(columnName = "event_id")
+  @DatabaseField(columnName = "event_id", generatedId = true)
   int eventId = 0;
   @DatabaseField(columnName = "room_id")
   int roomId = 0;
-  @DatabaseField(columnName = "start_time")
+  @DatabaseField(columnName = "start_time", dataType = DataType.SERIALIZABLE)
   Time startTime = null;
-  @DatabaseField(columnName = "end_time")
+  @DatabaseField(columnName = "end_time", dataType = DataType.SERIALIZABLE)
   Time endTime = null;
   @DatabaseField(columnName = "topic")
   String topic = "";
@@ -56,7 +57,7 @@ public abstract class Event implements Serializable {
     counter++;
   }
 
-//  public Event() {}
+  public Event() {}
 
     /**
      * This method sets a User's counter.
@@ -180,7 +181,9 @@ public abstract class Event implements Serializable {
      *
      * @param s
      */
-    public abstract void setSpeakerId(ArrayList<Integer> s);
+    public void setSpeakerId(ArrayList<Integer> s){
+      System.out.println("Error: cannot setSpeakerId in an abstract class. " + s.toString());
+    }
 
     public void setMaximum_attentees(int maximum_attentees) {
         this.maximum_attentees = maximum_attentees;

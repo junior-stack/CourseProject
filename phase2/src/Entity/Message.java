@@ -1,16 +1,24 @@
 package Entity;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 /**
  * The class representing the message.
  *
  * @author Zhongyuan Liang & Jiahao Zhang
  */
+@DatabaseTable(tableName = "message")
 public class Message {
-    private static int counter = 0;
-    private final int messageId;
-    private final String senderEmail;
-    private final String receiverEmail;
-    private final String content;
+    @DatabaseField(columnName = "message_id", generatedId = true)
+    private int messageId;
+    @DatabaseField(columnName = "sender_email")
+    private String senderEmail;
+    @DatabaseField(columnName = "receiver_email")
+    private String receiverEmail;
+    @DatabaseField(columnName = "content")
+    private String content;
+    @DatabaseField(columnName = "current_status")
     private String currentStatus;
 
     /**
@@ -20,13 +28,14 @@ public class Message {
      * @param content The content of the message.
      */
     public Message(String senderEmail, String receiverEmail, String content){
-        this.messageId = counter;
+
         this.senderEmail = senderEmail;
         this.receiverEmail = receiverEmail;
         this.content = content;
         this.currentStatus = "unread";
-        counter++;
     }
+
+    public Message(){}
 
     /**
      * This method is the getter for the id of this message.
