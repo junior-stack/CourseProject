@@ -10,7 +10,7 @@ public interface AccountManager {
      * @param email
      * @return boolean whether email is valid or not.
      */
-    public default boolean isValidEmail(String email) {
+    default boolean isValidEmail(String email) {
         // Create a regular expression format for a valid email
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
                 "[a-zA-Z0-9_+&*-]+)*@" +
@@ -24,22 +24,24 @@ public interface AccountManager {
 
         return emailPat.matcher(email).matches();
     }
+
     /**
      * This method checks is the password is valid.
      *
      * @param password
      * @return boolean whether password is valid or not.
      */
-    public default boolean isValidPassword(String password) {
+    default boolean isValidPassword(String password) {
         return !password.isEmpty() && !password.contains(" ");
     }
+
     /**
      * This method checks is the phone is valid.
      *
      * @param phone
      * @return boolean whether phone is valid or not.
      */
-    public default boolean isValidPhone(String phone) {
+    default boolean isValidPhone(String phone) {
         return phone.matches("^\\(?([0-9]{3})\\)?[-]?([0-9]{3})[-]?([0-9]{4})$");
     }
 
