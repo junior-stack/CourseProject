@@ -1,5 +1,6 @@
 package Controller;
 
+import Dao.MessageDao;
 import UseCase.MessageManager;
 import UseCase.UserAccountManager;
 
@@ -30,7 +31,7 @@ public class MessageController {
         this.userEmail = useremail;
         //HashMap<String, HashMap<String, List<String>>> previousMessageStorage = ig.read();
         // When the gateway is finished, the parameter should be the previous messages.
-        mm = new MessageManager(new ArrayList<>());
+        mm = new MessageManager(MessageDao.getAll());
     }
 
     /**

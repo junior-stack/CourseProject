@@ -1,5 +1,6 @@
 package UseCase;
 
+import Dao.EventDao;
 import Entity.Event;
 import Entity.MultiSpeakerEvent;
 import Entity.NoSpeakerEvent;
@@ -225,6 +226,9 @@ public class EventManager implements Iterable<Event> {
             return res;
 
         }
+    }
+    public void saveEvents(){
+        EventDao.saveAll(eventpool);
     }
 }
 

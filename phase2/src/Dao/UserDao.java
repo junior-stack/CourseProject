@@ -25,6 +25,15 @@ public final class UserDao {
         // if you need to create the table
         TableUtils.createTableIfNotExists(conn, User.class);
     }
+    public static void truncate(){
+        String tableName = "user";
+        String truncateQuery = "DELETE FROM "+tableName+";";
+        try{
+            UserDao.getInstance().executeRaw(truncateQuery);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     public static List<User> getAll(){
         try{
             return instance.queryForAll();
@@ -32,5 +41,15 @@ public final class UserDao {
             e.printStackTrace();
         }
         return new ArrayList<>();
+    }
+    public static void saveAll(List<User> objs){
+        truncate();
+        for (User o:objs){
+            try{
+                instance.createOrUpdate(o);
+            }catch (Exception err){
+                err.printStackTrace();
+            }
+        }
     }
 }

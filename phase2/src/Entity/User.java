@@ -1,5 +1,6 @@
 package Entity;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -7,6 +8,7 @@ import com.j256.ormlite.table.DatabaseTable;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class represents an Attendee.
@@ -30,7 +32,11 @@ public class User implements Serializable {
     private String phone = "";
     @DatabaseField(columnName = "email")
     private String email = "";
+
+
     private List<Integer> events = null;
+    @DatabaseField(columnName = "_events")
+    private String _commaSeparatedEvents = "";
 
     public User(){
 
@@ -52,7 +58,7 @@ public class User implements Serializable {
         this.password = password;
         this.phone = phone;
         this.email = email;
-        this.events = new ArrayList<>();
+        this.events = this.getEvents();
         counter++;
     }
 
@@ -158,7 +164,19 @@ public class User implements Serializable {
      * @return User's related events
      */
     public List<Integer> getEvents() {
-        return events;
+        if (this.events != null){
+            return this.events;
+        }
+        this.events = new ArrayList<>();
+        if (!this._commaSeparatedEvents.isEmpty()){
+            String[] eventIds = this._commaSeparatedEvents.split(",");
+            for(int i=0;i<eventIds.length;i++){
+                String eid = eventIds[i];
+                Integer id = Integer.parseInt(eid);
+                this.events.add(id);
+            }
+        }
+        return this.events;
     }
 
     /**
@@ -168,6 +186,8 @@ public class User implements Serializable {
      */
     public void addEvents(int event_id) {
         this.events.add(event_id);
+        // reference https://stackoverflow.com/questions/57602096/convert-list-of-integer-into-comma-separated-string
+        this._commaSeparatedEvents = this.events.stream().map(String::valueOf).collect(Collectors.joining(","));
     }
 
     /**

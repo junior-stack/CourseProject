@@ -1,5 +1,6 @@
 package UseCase;
 
+import Dao.MessageDao;
 import Entity.Event;
 import Entity.Message;
 import Entity.User;
@@ -217,5 +218,7 @@ public class MessageManager {
         return result;
     }
 
-
+    public void saveMessages(){
+        MessageDao.saveAll(messages);
+    }
 }

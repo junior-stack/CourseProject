@@ -36,6 +36,8 @@ public class Event implements Serializable {
   String topic = "";
   @DatabaseField(columnName = "maximum_attendees")
   int maximum_attentees = 0;
+//  @DatabaseField(columnName = "attendees", dataType = DataType.SERIALIZABLE)
+// TODO manually serialize this field?
   List<Integer> attendees = new ArrayList<>();
 
   /**

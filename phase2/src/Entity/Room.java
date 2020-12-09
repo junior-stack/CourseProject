@@ -2,6 +2,7 @@ package Entity;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.DatabaseTable;
@@ -60,6 +61,7 @@ public class Room implements Serializable, Schedulable {
     private int roomName = 0;
     @DatabaseField(columnName = "capacity")
     private int capacity = 0;
+    @DatabaseField(columnName = "schedule", dataType = DataType.SERIALIZABLE)
     public HashMap<ArrayList<Time>, Integer> schedule = new HashMap<>();
 
     /**

@@ -21,7 +21,7 @@ public class Bootstrap {
             // setup our database and DAOs
             setUpDaos(connectionSource);
             // comment out this part in production
-            testData();
+            Test.testData();
             // read and write some data
             System.out.println("\n\nIt works\n\n");
         } catch (Exception e){
@@ -39,29 +39,6 @@ public class Bootstrap {
         UserDao.init(conn);
         MessageDao.init(conn);
         EventDao.init(conn);
-    }
-
-    public static void testData() throws Exception{
-        testRoomAndUser();
-        testEventAndMessage();
-    }
-
-    public static void testRoomAndUser() throws Exception{
-        Room rm1 = new Room(123, 20);
-        RoomDao.getInstance().createOrUpdate(rm1);
-        Speaker speaker = new Speaker("John", "pass", "1234", "xx@yy.com");
-        UserDao.getInstance().createOrUpdate(speaker);
-    }
-
-    public static void testEventAndMessage() throws Exception{
-        long now = System.currentTimeMillis();
-        Time start = new Time(now);
-        Time end = new Time(now+1000000);
-        Event event = new Event(123, start, end, "test-topic", 20);
-        Event event2 = new Event(123, start, end, "test-topic2", 30);
-        EventDao.getInstance().createOrUpdate(event);
-        EventDao.getInstance().createOrUpdate(event2);
-        Message m = new Message("xx@yy.com", "randomEmail", "test content");
-        MessageDao.getInstance().createOrUpdate(m);
+        UserEventDao.init(conn);
     }
 }

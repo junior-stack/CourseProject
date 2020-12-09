@@ -1,5 +1,8 @@
 package Controller;
 
+import Dao.UserEventDao;
+import Entity.Event;
+import Entity.User;
 import UseCase.EventManager;
 import UseCase.RoomManager;
 import UseCase.SignupManager;
@@ -29,16 +32,15 @@ public class SignUpController {
         this.rooms_list = roomManager;
         this.em = eventManager;
         this.uam = userAccountManager;
-//  TODO
-//    HashMap userschedule = mg.read();
-//    try {
-//      if (!userschedule.containsKey(uam.get_single_user(uam.get_user_id(email)))) {
-//        userschedule.put(uam.get_single_user(uam.get_user_id(email)), new ArrayList<>());
-//      }
-//    }catch (NullPointerException e){
-//      userschedule.put(uam.get_single_user(uam.get_user_id(email)), new ArrayList<>());
-//    }
-//    us = new SignUpController(userschedule);
+        HashMap<User, ArrayList<Event>> userschedule = UserEventDao.getAsHashMap();
+        try {
+          if (!userschedule.containsKey(uam.get_single_user(uam.get_user_id(email)))) {
+            userschedule.put(uam.get_single_user(uam.get_user_id(email)), new ArrayList<>());
+          }
+        }catch (NullPointerException e){
+          userschedule.put(uam.get_single_user(uam.get_user_id(email)), new ArrayList<>());
+        }
+        us = new SignupManager(userschedule);
     }
 
     public ArrayList<String> viewEventRegister() {
@@ -114,10 +116,4 @@ public class SignUpController {
         }
         return false;
     }
-
-    public void saveuserschedule() {
-        // TODO
-//    mg.write(us.user_schedule);
-    }
-
 }

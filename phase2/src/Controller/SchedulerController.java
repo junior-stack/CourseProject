@@ -1,5 +1,7 @@
 package Controller;
 
+import Dao.EventDao;
+import Dao.RoomDao;
 import UseCase.EventManager;
 import UseCase.RoomManager;
 import UseCase.SchedulableManager;
@@ -27,9 +29,8 @@ public class SchedulerController {
     public SchedulerController(UserAccountManager uam) {
 
         this.uam = uam;
-        // TODO
-//    rmm = new RoomManager(ig.read()); //check later
-//    this.em = new EventManager(ig.read()); ////check later
+    rmm = new RoomManager(RoomDao.getAll()); //check later
+    this.em = new EventManager(new ArrayList<>(EventDao.getAll())); ////check later
     }
 
     // EventController
@@ -176,7 +177,8 @@ public class SchedulerController {
     }
 
     public void savedata() {
-        // TODO
+        rmm.saveRooms();
+        em.saveEvents();
     }
 
 

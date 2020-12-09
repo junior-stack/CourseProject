@@ -289,12 +289,6 @@ public class UserAccountManager implements AccountManager {
     }
 
     public static void save(){
-        for(User u:userList){
-            try{
-                UserDao.getInstance().createOrUpdate(u);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        }
+        UserDao.saveAll(userList);
     }
 }

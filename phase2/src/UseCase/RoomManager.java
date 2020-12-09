@@ -1,5 +1,6 @@
 package UseCase;
 
+import Dao.RoomDao;
 import Entity.Room;
 import Entity.Schedulable;
 
@@ -145,6 +146,8 @@ public class RoomManager implements Iterable<Room> {
             roomList.remove(current - 1);
         }
     }
-
+    public void saveRooms(){
+        RoomDao.saveAll(roomList);
+    }
 }
 

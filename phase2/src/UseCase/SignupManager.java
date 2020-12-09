@@ -1,5 +1,6 @@
 package UseCase;
 
+import Dao.UserEventDao;
 import Entity.Event;
 import Entity.User;
 
@@ -90,8 +91,8 @@ public class SignupManager {
      */
     public boolean deleteUserschedule(User u, Event e) {
         if (user_schedule.get(u).remove(e)) {
-            u.getEvents().remove(e.getId());
-            e.getAllAttendee().remove(e.getId());
+            u.getEvents().remove(e);
+            e.getAllAttendee().remove(u);
             return true;
         }
         return false;
@@ -111,5 +112,8 @@ public class SignupManager {
         return tmp;
     }
 
+    public void saveUserSchedule(){
+        UserEventDao.saveHashMap(this.user_schedule);
+    }
 
 }
