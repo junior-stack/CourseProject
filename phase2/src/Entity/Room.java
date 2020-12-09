@@ -5,25 +5,16 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.support.ConnectionSource;
-import com.j256.ormlite.table.DatabaseTable;
-import com.j256.ormlite.table.TableUtils;
-
 /**
  * This class represents an Room.
  *
  * @author Jun Xing
  * @version 1.0
  */
-@DatabaseTable(tableName = "room")
 public class Room implements Serializable, Schedulable {
-  @DatabaseField(id = true)
-  private int roomName = 0;
-  @DatabaseField(columnName="capacity")
-  private int capacity = 0;
+
+  final int roomName;
+  private int capacity;
   public HashMap<ArrayList<Time>, Integer> schedule = new HashMap<>();
 
   /**
@@ -34,12 +25,8 @@ public class Room implements Serializable, Schedulable {
   public Room(int roomName, int capacity) {
     this.roomName = roomName;
     this.capacity = capacity;
-  }
-
-  public Room(){
 
   }
-
 
   /**
    * This method returns a Room's roomId.
