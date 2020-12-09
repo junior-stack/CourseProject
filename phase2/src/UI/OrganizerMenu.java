@@ -49,6 +49,16 @@ public class OrganizerMenu extends JFrame {
     organizerPanel.add(manageRooms);
     organizerPanel.add(logout);
 
+    viewMyEvents.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        OrganizerMenu.this.setVisible(false);
+        JFrame myEventsMenu = new MyEventsMenu(email, loginFacade, schedulerController,
+            signUpController, messageController);
+        myEventsMenu.setVisible(true);
+      }
+    });
+
     logout.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
