@@ -104,6 +104,8 @@ public class LoginFacade {
         return uam;
     }
 
+    public void exit() {}
+
     public void save() {
         // TODO
 //        ig.write(UserAccountManager.userList);
