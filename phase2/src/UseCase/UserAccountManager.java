@@ -1,5 +1,6 @@
 package UseCase;
 
+import Dao.UserDao;
 import Entity.Attendee;
 import Entity.Organizer;
 import Entity.Speaker;
@@ -29,20 +30,6 @@ public class UserAccountManager implements AccountManager{
 
     UserAccountManager.userList = userList;
 
-  }
-  /**
-   * This method creates organizers by adding all the organizers from the list.
-   *
-   * @param organizers
-   */
-  public void createOrganizer(List<String> organizers){
-    if (organizers.size()<=1){return ;}
-    for (int i = 1; i < organizers.size(); i++) {
-      String[] temp = organizers.get(i).split(",");
-      if (!(this.existingUser(temp[3]))){
-        Organizer neworganizer =new Organizer(temp[0], temp[1], temp[2], temp[3]);
-        userList.add(neworganizer);}
-    }
   }
 
   /**
@@ -225,14 +212,6 @@ public class UserAccountManager implements AccountManager{
     }
     return emailToIdentity.get(email);
   }
-  /**
-   * This method sets up a new counter.
-   *
-   * @param newcounter
-   */
-  public void setNewCounter(int newcounter) {
-    User.setCounter(newcounter);
-  }
 
   /**
    * This method returns a list of Speakers
@@ -267,5 +246,13 @@ public class UserAccountManager implements AccountManager{
     return allemails;
   }
 
-
+  public static void save(){
+    for(User u:userList){
+      try{
+        UserDao.getInstance().createOrUpdate(u);
+      }catch(Exception e){
+        e.printStackTrace();
+      }
+    }
+  }
 }

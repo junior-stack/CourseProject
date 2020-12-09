@@ -1,5 +1,7 @@
 package Controller;
 
+import Dao.UserDao;
+import Entity.User;
 import Presenter.LoginPresenter;
 import UseCase.UserAccountManager;
 
@@ -17,21 +19,11 @@ public class LoginFacade {
     private LoginPresenter lp;
     private UserAccountManager uam;
 
-//    private InitializeOrganizers io = new InitializeOrganizers();
-
     public LoginFacade() {
-        // TODO
-//        ArrayList users = ig.read();
-//        uam = new UserAccountManager(users);
-//        uam.createOrganizer(io.initialize());
-//        uam.setNewCounter(users.size());
-//        uac = new UserAccountsController(uam);
-//        lp = new LoginPresenter(uam);
-    }
-
-    public ArrayList readusers() {
-//        return ig.read();
-        return new ArrayList();
+        List<User> users = UserDao.getAll();
+        uam = new UserAccountManager(users);
+        uac = new UserAccountsController(uam);
+        lp = new LoginPresenter(uam);
     }
 
     /**
@@ -107,8 +99,7 @@ public class LoginFacade {
     public void exit() {}
 
     public void save() {
-        // TODO
-//        ig.write(UserAccountManager.userList);
+        UserAccountManager.save();
     }
 
 }

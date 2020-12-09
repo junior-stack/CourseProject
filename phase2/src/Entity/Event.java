@@ -1,5 +1,6 @@
 package Entity;
 
+import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
@@ -18,14 +19,23 @@ public abstract class Event implements Serializable {
 
   private static int counter = 0;
   protected ArrayList<Integer> speakerId = new ArrayList<>();
-  String eventtype;
-  final int eventId;
-  int roomId;
-  Time startTime;
-  Time endTime;
-  String topic;
-  final List<Integer> attendees = new ArrayList<>();
-  int maximum_attentees;
+
+  @DatabaseField(columnName = "event_type")
+  String eventtype = "";
+
+  @DatabaseField(columnName = "event_id")
+  int eventId = 0;
+  @DatabaseField(columnName = "room_id")
+  int roomId = 0;
+  @DatabaseField(columnName = "start_time")
+  Time startTime = null;
+  @DatabaseField(columnName = "end_time")
+  Time endTime = null;
+  @DatabaseField(columnName = "topic")
+  String topic = "";
+  @DatabaseField(columnName = "maximum_attendees")
+  int maximumAttendees = 0;
+  List<Integer> attendees = new ArrayList<>();
 
   /**
    * This method creates an Instance of Event. Every event has a unique eventId, a speaker, a
@@ -42,7 +52,7 @@ public abstract class Event implements Serializable {
     this.topic = topic;
     this.startTime = startTime;
     this.endTime = endTime;
-    maximum_attentees = max;
+    maximumAttendees = max;
     counter++;
   }
 
@@ -171,12 +181,12 @@ public abstract class Event implements Serializable {
    */
   public abstract void setSpeakerId(ArrayList<Integer> s);
 
-  public void setMaximum_attentees(int maximum_attentees){
-    this.maximum_attentees = maximum_attentees;
+  public void setMaximumAttendees(int maximumAttendees){
+    this.maximumAttendees = maximumAttendees;
   }
 
-  public int getMaximum_attentees(){
-    return this.maximum_attentees;
+  public int getMaximumAttendees(){
+    return this.maximumAttendees;
   }
 
   public int getCountAttendeeEnrolled() {

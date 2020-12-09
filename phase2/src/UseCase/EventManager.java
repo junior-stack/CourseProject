@@ -170,7 +170,7 @@ public class EventManager implements Iterable<Event>{
     if (new_maximum < e.getCountAttendeeEnrolled()) {
       return false;
     }
-    e.setMaximum_attentees(new_maximum);
+    e.setMaximumAttendees(new_maximum);
     return true;
   }
 

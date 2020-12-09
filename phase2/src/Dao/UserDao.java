@@ -6,6 +6,9 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class UserDao {
     private static Dao<User, Integer> instance;
     private UserDao(){
@@ -21,5 +24,13 @@ public final class UserDao {
         instance = DaoManager.createDao(conn, User.class);
         // if you need to create the table
         TableUtils.createTableIfNotExists(conn, User.class);
+    }
+    public static List<User> getAll(){
+        try{
+            return instance.queryForAll();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 }
