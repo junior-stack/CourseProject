@@ -1,11 +1,68 @@
 package UI;
 
 import Controller.LoginFacade;
-
-import javax.swing.*;
+import Controller.MessageController;
+import Controller.SchedulerController;
+import Controller.SignUpController;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class OrganizerMenu extends JFrame {
 
-    public OrganizerMenu(String email, LoginFacade loginFacade) {
-    }
+  final int MENU_HEIGHT = 500;
+  final int MENU_WIDTH = 500;
+  String email;
+  LoginFacade loginFacade;
+  SchedulerController schedulerController;
+  SignUpController signUpController;
+  MessageController messageController;
+  JButton viewMyMessage;
+  JButton viewMyEvents;
+  JButton viewAllEvents;
+  JButton manageAccounts;
+  JButton manageRooms;
+  JButton logout;
+
+  public OrganizerMenu(String email, LoginFacade loginFacade,
+      SchedulerController schedulerController,
+      SignUpController signUpController, MessageController messageController) {
+    this.email = email;
+    this.loginFacade = loginFacade;
+    this.schedulerController = schedulerController;
+    this.signUpController = signUpController;
+    this.messageController = messageController;
+
+    JPanel organizerPanel = new JPanel();
+    viewAllEvents = new JButton("Display All Events");
+    viewMyEvents = new JButton("Display My Events");
+    viewMyMessage = new JButton("Display My Messages");
+    manageRooms = new JButton("Manage Rooms");
+    manageAccounts = new JButton("Manage Accounts");
+    logout = new JButton("Logout");
+    organizerPanel.add(viewAllEvents);
+    organizerPanel.add(viewMyEvents);
+    organizerPanel.add(viewMyMessage);
+    organizerPanel.add(manageAccounts);
+    organizerPanel.add(manageRooms);
+    organizerPanel.add(logout);
+
+    logout.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        OrganizerMenu.this.setVisible(false);
+        JFrame loginMenu = new LoginMenu(loginFacade);
+        loginMenu.setVisible(true);
+      }
+    });
+
+    organizerPanel.setSize(MENU_WIDTH, MENU_HEIGHT);
+    organizerPanel.setLocation((MENU_WIDTH - 250) / 2, (MENU_HEIGHT - 250) / 2);
+    this.add(organizerPanel);
+    this.setSize(MENU_WIDTH, MENU_HEIGHT);
+    this.setTitle("Attendee Menu");
+    this.setResizable(false);
+  }
 }
