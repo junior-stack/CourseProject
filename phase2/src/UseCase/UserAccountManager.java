@@ -286,7 +286,6 @@ public class UserAccountManager implements AccountManager {
             }
         }
         return speakers;
-
     }
 
     public static void save(){

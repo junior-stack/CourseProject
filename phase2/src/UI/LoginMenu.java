@@ -1,6 +1,7 @@
 package UI;
 
 import Controller.LoginFacade;
+import Entity.User;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -51,6 +52,10 @@ public class LoginMenu extends JFrame {
                     if (!isSuccess) {
                         JOptionPane.showMessageDialog(null, "Login failed!");
                     } else {
+                        System.out.println("Logged in as " + userEmail + " with pass: " + userPassword);
+                        for (String u : loginFacade.getallUsers()){
+                            System.out.println(u);
+                        }
                         LoginMenu.this.setVisible(false);
                         if (loginFacade.getUserIdentity(userEmail).equals("Attendee")) {
                             JFrame attendeeMenu = new AttendeeMenu(userEmail, loginFacade);

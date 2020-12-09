@@ -79,7 +79,7 @@ public class LoginFacade {
      *
      * @return all user information
      */
-    public List getallUsers() {
+    public List<String> getallUsers() {
         return lp.allUserInfo();
     }
 

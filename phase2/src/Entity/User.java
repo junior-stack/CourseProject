@@ -1,5 +1,9 @@
 package Entity;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,17 +14,27 @@ import java.util.List;
  * @author Jun Xing
  * @version 1.0
  */
-public abstract class User implements Serializable {
+@DatabaseTable(tableName = "user")
+public class User implements Serializable {
 
     private static int counter = 0;
-    protected String type;
+    @DatabaseField(columnName = "type")
+    protected String type ="";
+    @DatabaseField(generatedId = true)
+    private int userId = 0;
+    @DatabaseField(columnName = "username")
+    private String username = "";
+    @DatabaseField(columnName = "password")
+    private String password = "";
+    @DatabaseField(columnName = "phone")
+    private String phone = "";
+    @DatabaseField(columnName = "email")
+    private String email = "";
+    private List<Integer> events = null;
 
-    private final int userId;
-    private String username;
-    private String password;
-    private String phone;
-    private String email;
-    private final List<Integer> events;
+    public User(){
+
+    }
 
     /**
      * This method creates an instance of User, In order to do this, username, password, phone, and
@@ -40,7 +54,6 @@ public abstract class User implements Serializable {
         this.email = email;
         this.events = new ArrayList<>();
         counter++;
-
     }
 
     /**

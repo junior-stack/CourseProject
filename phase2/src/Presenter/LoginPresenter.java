@@ -22,7 +22,7 @@ public class LoginPresenter {
         return uam.getUserIdentity(email);
     }
 
-    public List allUserInfo() {
+    public List<String> allUserInfo() {
         return uam.getUserList();
     }
 

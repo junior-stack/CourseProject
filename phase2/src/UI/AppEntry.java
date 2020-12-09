@@ -1,12 +1,14 @@
 package UI;
 
 import Controller.LoginFacade;
+import Gateway.Bootstrap;
 
 import javax.swing.*;
 
 public class AppEntry {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
+        Bootstrap.bootstrap();
         LoginFacade loginFacade = new LoginFacade();
         LoginMenu loginMenu = new LoginMenu(loginFacade);
         loginMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -17,7 +19,6 @@ public class AppEntry {
                 loginFacade.exit();
             }
         });
-
         loginMenu.setVisible(true);
     }
 }
