@@ -22,7 +22,9 @@ public class Speaker extends User implements Schedulable{
    */
 
   private ArrayList<ArrayList<Time>> schedule = new ArrayList<>();
-
+  public Speaker(){
+    super();
+  }
   public Speaker(String username, String password, String phone, String email) {
     super(username, password, phone, email);
     this.type = "Speaker";

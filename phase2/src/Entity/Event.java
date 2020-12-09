@@ -1,5 +1,7 @@
 package Entity;
 
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import java.util.List;
  * @author Jun Xing
  * @version 1.0
  */
+@DatabaseTable(tableName = "events")
 public abstract class Event implements Serializable {
 
   private static int counter = 0;
