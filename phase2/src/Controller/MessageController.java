@@ -104,7 +104,7 @@ public class MessageController {
      * @param content  The content of the message.
      * @return boolean True iff the message is sent successfully.
      */
-    public boolean sendMultipleMessage(ArrayList<Integer> eventIds, String content) {
+    public boolean sendMultipleMessage(List<Integer> eventIds, String content) {
         if (userType.equals("Speaker")) {
             List<String> emails = mm.SpeakerGenerateEmail(eventIds);
             mm.multipleMessageRequest(userEmail, emails, content);
