@@ -183,7 +183,7 @@ public class MessageController {
      *
      * @return StringBuilder The string of all unread emails.
      */
-    public StringBuilder generateUnreadMessage() {
+    public List<String> generateUnreadMessage() {
         return mm.generateMessage(userEmail, "unread");
     }
 
@@ -192,11 +192,11 @@ public class MessageController {
      *
      * @return StringBuilder The string of all archived emails.
      */
-    public StringBuilder generateArchiveMessage() {
+    public List<String> generateArchiveMessage() {
         return mm.generateMessage(userEmail, "archive");
     }
 
-    public StringBuilder generateReadMessage() {
+    public List<String> generateReadMessage() {
         return mm.generateMessage(userEmail, "read");
     }
 
