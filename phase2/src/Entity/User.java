@@ -19,6 +19,8 @@ public class User {
   private static int counter = 0;
   @DatabaseField(columnName = "type")
   protected String type = "";
+  @DatabaseField(columnName = "schedule", dataType = DataType.SERIALIZABLE)
+  protected ArrayList<ArrayList<Time>> schedule = new ArrayList<>();
   @DatabaseField(id = true)
   private int userId = 0;
   @DatabaseField(columnName = "username")
@@ -29,16 +31,14 @@ public class User {
   private String phone = "";
   @DatabaseField(columnName = "email")
   private String email = "";
-
   @DatabaseField(columnName = "events", dataType = DataType.SERIALIZABLE)
   private ArrayList<Integer> events = new ArrayList<>();
-  @DatabaseField(columnName = "schedule", dataType = DataType.SERIALIZABLE)
-  protected ArrayList<ArrayList<Time>> schedule = new ArrayList<>();
 
   /**
    * default contractor of User class
    */
-  public User() {}
+  public User() {
+  }
 
   /**
    * This method creates an instance of User, In order to do this, username, password, phone, and
