@@ -104,6 +104,7 @@ public class UserAccountManager implements AccountManager {
    * @param email
    * @return boolean whether organizer is created or not.
    */
+  @Override
   public boolean createOrganizer(String username, String password, String phone, String email) {
     if ((!this.isValidEmail(email)) || (!this.isValidPassword(password)) || (!this
         .isValidPhone(phone))) {

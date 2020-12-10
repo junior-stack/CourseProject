@@ -49,6 +49,17 @@ public class UserAccountsController {
 
   }
 
+  public boolean createOrganizer(String username, String password, String phone, String email) {
+    if (am.existingUser(email)) {
+      return false;
+    } else {
+
+      return am.createOrganizer(username, password, phone, email);
+    }
+
+  }
+
+
   /**
    * This method checks email and password match the account information
    *

@@ -44,6 +44,10 @@ public class LoginFacade {
     return uac.createSpeaker(username, password, phone, email);
   }
 
+  public boolean createOrganizer(String username, String password, String phone, String email) {
+    return uac.createOrganizer(username, password, phone, email);
+  }
+
   /**
    * This method enable user to login to the system.
    *

@@ -49,7 +49,7 @@ public interface AccountManager {
   boolean existingUser(String email);
 
   boolean createAttendee(String username, String password, String phone, String email);
-
+  boolean createOrganizer(String username, String password, String phone, String email);
   boolean createSpeaker(String username, String password, String phone, String email);
 
   boolean verifyUser(String email, String password);
