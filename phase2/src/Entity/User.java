@@ -3,7 +3,6 @@ package Entity;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.List;
  * @version 1.0
  */
 @DatabaseTable(tableName = "user")
-public class User implements Serializable {
+public class User {
 
   private static int counter = 0;
   @DatabaseField(columnName = "type")
@@ -35,9 +34,11 @@ public class User implements Serializable {
   private ArrayList<Integer> events = new ArrayList<>();
   @DatabaseField(columnName = "schedule", dataType = DataType.SERIALIZABLE)
   protected ArrayList<ArrayList<Time>> schedule = new ArrayList<>();
-  public User() {
 
-  }
+  /**
+   * default contractor of User class
+   */
+  public User() {}
 
   /**
    * This method creates an instance of User, In order to do this, username, password, phone, and
@@ -58,11 +59,6 @@ public class User implements Serializable {
     this.getEvents();
     counter++;
   }
-
-  /**
-   * default contractor of User class
-   */
-//    public User() {}
 
   /**
    * This method sets a User's counter.
@@ -188,24 +184,28 @@ public class User implements Serializable {
     return type;
   }
 
-//  /**
-//   * This method returns a string representation of the User, including its userId, username,
-//   * password, phone, email, related events and identity.
-//   *
-//   * @return a string representation of the User
-//   */
-//  @Override
-//  public String toString() {
-//    return "User{" +
-//        "userId=" + userId +
-//        ", username='" + username + '\'' +
-//        ", password='" + password + '\'' +
-//        ", phone='" + phone + '\'' +
-//        ", email='" + email + '\'' +
-//        ", events=" + events +
-//        ", Identity=" + type +
-//        '}';
-//  }
+  @Override
+  public String toString() {
+    return "User{" +
+        "type='" + type + '\'' +
+        ", userId=" + userId +
+        ", username='" + username + '\'' +
+        ", password='" + password + '\'' +
+        ", phone='" + phone + '\'' +
+        ", email='" + email + '\'' +
+        ", events=" + events +
+        ", schedule=" + schedule +
+        '}';
+  }
+
+  /**
+   * This method returns a string representation of the User, including its userId, username,
+   * password, phone, email, related events and identity.
+   *
+   * @return a string representation of the User
+   */
+
+
 }
 
 

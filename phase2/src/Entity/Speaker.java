@@ -79,19 +79,6 @@ public class Speaker extends User implements Schedulable {
     return false;
   }
 
-  @Override
-  public String toString() {
-    return "User{" +
-        "userId=" + super.getUserId() +
-        ", username='" + super.getUsername() + '\'' +
-        ", password='" + super.getPassword() + '\'' +
-        ", phone='" + super.getPhone() + '\'' +
-        ", email='" + super.getEmail() + '\'' +
-        ", events=" + super.getEvents() +
-        ", schedule=" + schedule +
-        ", Identity=" + type +
-        '}';
-  }
 
   @Override
   public ArrayList<ArrayList<Time>> getScheduleableSchedulelist() {

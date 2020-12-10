@@ -39,17 +39,5 @@ public class OneSpeakerEvent extends Event {
     this.speakerId = s;
   }
 
-  @Override
-  public String toString() {
-    return "Event{" +
-        "id=" + eventId +
-        ", speakerId=" + speakerId +
-        ", roomId=" + roomId +
-        ", startTime=" + startTime +
-        ", endTime=" + endTime +
-        ", topic='" + topic + '\'' +
-        ", attendees=" + attendees +
-        '}';
-  }
 
 }

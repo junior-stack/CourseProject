@@ -19,15 +19,5 @@ public class NoSpeakerEvent extends Event {
   }
 
 
-  public String toString() {
-    return "Event{" +
-        "id=" + eventId +
-        ", roomId=" + roomId +
-        ", startTime=" + startTime +
-        ", endTime=" + endTime +
-        ", topic='" + topic + '\'' +
-        ", attendees=" + attendees +
-        '}';
-  }
 
 }

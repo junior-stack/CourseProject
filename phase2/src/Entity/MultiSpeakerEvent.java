@@ -29,18 +29,6 @@ public class MultiSpeakerEvent extends Event {
   }
 
 
-  public String toString() {
-    return "Event{" +
-        "id=" + eventId +
-        ", speakerId=" + speakerId +
-        ", roomId=" + roomId +
-        ", startTime=" + startTime +
-        ", endTime=" + endTime +
-        ", topic='" + topic + '\'' +
-        ", attendees=" + attendees +
-        '}';
-  }
-
   @Override
   public void setSpeakerId(ArrayList<Integer> s) {
     speakerId = s;

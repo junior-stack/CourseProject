@@ -3,7 +3,7 @@ package Entity;
 public class Admin extends User{
   /**
    * This method creates an Instance of Attendee. Username, password phone, email are required. Also
-   * an Attendee has an identity of "Attendee".
+   * an Admin has an identity of "Admin".
    *
    * @param username
    * @param password
