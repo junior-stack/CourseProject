@@ -3,8 +3,8 @@ package Entity;
 public class Admin extends User {
 
   /**
-   * This method creates an Instance of Admin. Username, password phone, email are required. Also
-   * an Admin has an identity of "Admin".
+   * This method creates an Instance of Admin. Username, password phone, email are required. Also an
+   * Admin has an identity of "Admin".
    *
    * @param username
    * @param password

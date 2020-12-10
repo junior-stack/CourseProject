@@ -74,8 +74,25 @@ public class ManageRoomMenu extends JFrame {
         boolean isDeleted = schedulerController.confirmdeleteroom(Integer.parseInt(roomId[0]));
         if (isDeleted) {
           JOptionPane.showMessageDialog(null, "Room deleted");
+          schedulerController.savedata();
         } else {
           JOptionPane.showMessageDialog(null, "Room delete failed");
+        }
+      }
+    });
+
+    addRoomButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        if (roomIdField.getText() != null) {
+          int roomId = Integer.parseInt(roomIdField.getText());
+          boolean isAdded = schedulerController.confirmaddroom(roomId, 50);
+          if (isAdded) {
+            JOptionPane.showMessageDialog(null, "Room added");
+            schedulerController.savedata();
+          } else {
+            JOptionPane.showMessageDialog(null, "Room add failed");
+          }
         }
       }
     });

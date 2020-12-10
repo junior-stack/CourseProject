@@ -203,9 +203,10 @@ public class User {
         ", schedule=" + schedule +
         '}';
   }
+
   /**
-   * This method return whether other User is equals to this User. They are equal when the
-   * Object are the same userId.
+   * This method return whether other User is equals to this User. They are equal when the Object
+   * are the same userId.
    *
    * @param other
    * @return boolean of whether other Object is equals to this Speaker.
@@ -213,7 +214,7 @@ public class User {
   @Override
   public boolean equals(Object other) {
     User u = (User) other;
-    return u.getUserId() == this.getUserId()&&(u.getEmail().equals(this.getEmail()));
+    return u.getUserId() == this.getUserId() && (u.getEmail().equals(this.getEmail()));
   }
 
 

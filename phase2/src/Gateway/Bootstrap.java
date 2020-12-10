@@ -7,8 +7,8 @@ import Dao.UserDao;
 import Dao.UserEventDao;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.logger.Log;
-import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.logger.Logger;
+import com.j256.ormlite.support.ConnectionSource;
 
 public class Bootstrap {
 

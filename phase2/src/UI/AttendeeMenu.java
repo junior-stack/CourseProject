@@ -4,6 +4,7 @@ import Controller.LoginFacade;
 import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -35,6 +36,7 @@ public class AttendeeMenu extends JFrame {
     this.messageController = messageController;
 
     JPanel attendeePanel = new JPanel();
+    attendeePanel.setLayout(new GridLayout(4, 1));
     viewAllEvents = new JButton("Display All Events");
     viewMyEvents = new JButton("Display My Events");
     viewMyMessage = new JButton("Display My Messages");
@@ -78,8 +80,7 @@ public class AttendeeMenu extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         AttendeeMenu.this.setVisible(false);
-        JFrame loginMenu = new LoginMenu(loginFacade);
-        loginMenu.setVisible(true);
+        System.exit(0);
       }
     });
 

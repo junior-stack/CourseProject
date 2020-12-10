@@ -19,7 +19,7 @@ public class AllEventsMenu extends JFrame {
   JButton viewMyMessage;
   JButton viewMyEvents;
   JButton viewAllEvents;
-  JButton logout;
+  JButton backButton;
 
   public AllEventsMenu(String email, LoginFacade loginFacade,
       SchedulerController schedulerController, SignUpController

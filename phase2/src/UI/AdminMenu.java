@@ -4,6 +4,7 @@ import Controller.LoginFacade;
 import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -36,6 +37,7 @@ public class AdminMenu extends JFrame {
     this.messageController = messageController;
 
     JPanel adminPanel = new JPanel();
+    adminPanel.setLayout(new GridLayout(4, 1));
     hintLabel1 = new JLabel("User email: ");
     banUserEmail = new JTextField(40);
     banAccount = new JButton("Ban this user");
@@ -49,8 +51,7 @@ public class AdminMenu extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         AdminMenu.this.setVisible(false);
-        JFrame loginMenu = new LoginMenu(loginFacade);
-        loginMenu.setVisible(true);
+        System.exit(0);
       }
     });
 
