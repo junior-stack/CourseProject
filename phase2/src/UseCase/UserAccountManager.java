@@ -98,20 +98,19 @@ public class UserAccountManager implements AccountManager {
 
   /**
    * This method creates organizers by adding all the organizers from the list.
-   *
-   * @param organizers
+   * @param username
+   * @param password
+   * @param phone
+   * @param email
+   * @return boolean whether organizer is created or not.
    */
-  public void createOrganizer(List<String> organizers) {
-    if (organizers.size() <= 1) {
-      return;
+  public boolean createOrganizer(String username, String password, String phone, String email) {
+    if ((!this.isValidEmail(email)) || (!this.isValidPassword(password)) || (!this
+        .isValidPhone(phone))) {
+      return false;
     }
-    for (int i = 1; i < organizers.size(); i++) {
-      String[] temp = organizers.get(i).split(",");
-      if (!(this.existingUser(temp[3]))) {
-        Organizer neworganizer = new Organizer(temp[0], temp[1], temp[2], temp[3]);
-        userList.add(neworganizer);
-      }
-    }
+    userList.add(new Organizer(username, password, phone, email));
+    return true;
   }
 
   /**

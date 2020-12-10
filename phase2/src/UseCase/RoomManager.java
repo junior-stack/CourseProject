@@ -2,7 +2,6 @@ package UseCase;
 
 import Dao.RoomDao;
 import Entity.Room;
-import Entity.Schedulable;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -40,8 +39,8 @@ public class RoomManager implements Iterable<Room> {
    *
    * @return List<Schedulable> the list of the room
    */
-  public List<Schedulable> getRoomList() {
-    List<Schedulable> tmp = new ArrayList<>();
+  public List getRoomList() {
+    List tmp = new ArrayList<>();
     for (Room room : this) {
       tmp.add(room);
     }
