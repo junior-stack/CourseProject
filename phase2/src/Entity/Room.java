@@ -57,7 +57,7 @@ public class Room implements Schedulable {
   /**
    * This method sets a Room's capacity.
    *
-   * @param capacity
+   * @param capacity the capacity of this room
    */
   public void setCapacity(int capacity) {
     this.capacity = capacity;
@@ -82,7 +82,7 @@ public class Room implements Schedulable {
    * This method returns whether other Object is equals to this Room. They are equal when the Object
    * is an instance of Room and they have the same roomId and capacity.
    *
-   * @param other
+   * @param other another Room object
    * @return boolean of whether other Object is equals to this Attendee.
    */
   @Override
@@ -105,6 +105,11 @@ public class Room implements Schedulable {
     return this.getRoomName();
   }
 
+  /**
+   * This method checks whether this room has a schedule at a given time period
+   * @param start the start time of the given time period
+   * @param end  the end time of the given time period
+   */
   @Override
   public boolean CheckSchedulable(Time start, Time end) {
     for (ArrayList<Time> t : schedule.keySet()) {
@@ -119,6 +124,12 @@ public class Room implements Schedulable {
     return true;
   }
 
+  /**
+   *  This method adds a schedule to the room's schedule list, which gives information whether this
+   *  room is available at this time
+   * @param start the start time of the given time period
+   * @param end the end time of the given time period
+   */
   @Override
   public void giveSchedulableNewSchedule(Time start, Time end) {
     ArrayList<Time> tmp = new ArrayList<>();
@@ -127,6 +138,12 @@ public class Room implements Schedulable {
     schedule.put(tmp, this.getCapacity());
   }
 
+  /**
+   * This method deletes the Schedule from the room's schedule list
+   * @param start the start time of the given schedule
+   * @param end the end time of the given schedule
+   * @return boolean whether the deletion of the schedule time is successful
+   */
   @Override
   public boolean delSchedulableSchedule(Time start, Time end) {
     for (ArrayList<Time> t : schedule.keySet()) {
@@ -138,6 +155,11 @@ public class Room implements Schedulable {
     return false;
   }
 
+  /**
+   *
+   * @return ArrayList<ArrayList<Time>> a list of the room's schedule times which contains start
+   *    *  time and end time
+   */
   @Override
   public ArrayList<ArrayList<Time>> getScheduleableSchedulelist() {
     ArrayList<ArrayList<Time>> tmp = new ArrayList<>();
@@ -145,11 +167,20 @@ public class Room implements Schedulable {
     return tmp;
   }
 
+  /**
+   *
+   * @param sch the id of this schedulable, it is a roomID
+   * @return String the information about this schedulable instance
+   */
   @Override
   public String get_sch_info(int sch) {
     return schedule.toString();
   }
 
+  /**
+   *
+   * @return Integer the id of this schedulable. It is SpeakerId
+   */
   @Override
   public Integer give_id() {
     return this.getRoomName();
@@ -160,6 +191,12 @@ public class Room implements Schedulable {
     return this.toString();
   }
 
+  /**
+   *  This method decreases the remaining spot at a given time.
+   * @param start the start time of a given time period(Event start time)
+   * @param end the end time of a given time period(Event start time)
+   * @return boolean whether the change is succesful
+   */
   public boolean DecreaseRemainingspot(Time start, Time end) {
     for (ArrayList<Time> t : schedule.keySet()) {
       if (t.get(0).equals(start) && t.get(1).equals(end)) {
@@ -170,6 +207,12 @@ public class Room implements Schedulable {
     return false;
   }
 
+  /**
+   * This method increases the remaining spot at a given time.
+   * @param start the start time of a given time period(Event start time)
+   * @param end the end time of a given time period(Event start time)
+   * @return boolean whether the change is succesful
+   */
   public boolean IncreaseRemainingspot(Time start, Time end) {
     for (ArrayList<Time> t : schedule.keySet()) {
       if (t.get(0).equals(start) && t.get(1).equals(end)) {
@@ -180,6 +223,12 @@ public class Room implements Schedulable {
     return false;
   }
 
+  /**
+   * This method gets the how many remaining spots are left at a given event time period
+   * @param start the start time of a given time period(Event start time)
+   * @param end the end time of a given time period(Event start time)
+   * @return Integer the remaining spot during this event period
+   */
   public Integer getRemainingSpot(Time start, Time end) {
     ArrayList<Time> tmp = new ArrayList<>();
     tmp.add(start);

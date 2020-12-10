@@ -43,10 +43,10 @@ public class Event {
    * This method creates an Instance of Event. Every event has a unique eventId, a speaker, a
    * related roomId, a topic, its startTime and endTime and a List of attendees.
    *
-   * @param roomId
-   * @param startTime
-   * @param endTime
-   * @param topic
+   * @param roomId roomID where the event takes place
+   * @param startTime the start time of the event
+   * @param endTime the end time of the event
+   * @param topic the topic of this event
    */
   public Event(int roomId, Time startTime, Time endTime, String topic, int max) {
     this.eventId = counter;
@@ -64,7 +64,7 @@ public class Event {
   /**
    * This method sets a User's counter.
    *
-   * @param counter
+   * @param counter a counter for generating the event ID
    */
   public static void setCounter(int counter) {
     Event.counter = counter;
@@ -91,7 +91,7 @@ public class Event {
   /**
    * This method sets a Event's startTime.
    *
-   * @param startTime
+   * @param startTime the new start time of the event user want to change to
    */
   public void setStartTime(Time startTime) {
     this.startTime = startTime;
@@ -109,7 +109,7 @@ public class Event {
   /**
    * This method sets a Event's endTime.
    *
-   * @param endTime
+   * @param endTime the new end time of the event user want to change to
    */
   public void setEndTime(Time endTime) {
     this.endTime = endTime;
@@ -127,7 +127,7 @@ public class Event {
   /**
    * This method sets a Event's topic.
    *
-   * @param topic
+   * @param topic the topic of the event the user want to change to
    */
   public void setTopic(String topic) {
     this.topic = topic;
@@ -145,7 +145,7 @@ public class Event {
   /**
    * This method add a new attendee to the Event by adding its attendeeId to the List of attendees.
    *
-   * @param attendee_id
+   * @param attendee_id the attendees of the event
    */
   public void addAttendee(int attendee_id) {
     this.attendees.add(attendee_id);
@@ -163,7 +163,7 @@ public class Event {
   /**
    * This method sets a Event's roomId.
    *
-   * @param roomId
+   * @param roomId the new place roomID the user may want to change to
    */
   public void setRoomId(int roomId) {
     this.roomId = roomId;
@@ -181,16 +181,25 @@ public class Event {
   /**
    * This method sets a Event's speaker.
    *
-   * @param s
+   * @param s the list of speakers of the event user may want to change to
    */
   public void setSpeakerId(ArrayList<Integer> s) {
     this.speakerId = s;
   }
 
 
+  /**
+   * This method returns the capacity of this event
+   * @return int the capacity of this event
+   */
   public int getMaximum_attentees() {
     return this.maximum_attentees;
   }
+
+  /**
+   * This method changes the capacity of this event
+   * @param maximum_attentees a new capacity the user may want to change to
+   */
 
   public void setMaximum_attentees(int maximum_attentees) {
     this.maximum_attentees = maximum_attentees;

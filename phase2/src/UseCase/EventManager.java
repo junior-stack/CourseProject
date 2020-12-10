@@ -24,7 +24,7 @@ public class EventManager implements Iterable<Event> {
   /**
    * Create a EventManager with a RoomManager, a SpeakerScheduleManager and an ArrayList of Events.
    *
-   * @param eventpool
+   * @param eventpool list of events
    */
   public EventManager(ArrayList<Event> eventpool) {
     EventManager.eventpool = eventpool;
@@ -34,11 +34,11 @@ public class EventManager implements Iterable<Event> {
   /**
    * Add a Event with given parameters to the system.
    *
-   * @param rm_id
-   * @param start
-   * @param end
-   * @param sp
-   * @param topic
+   * @param rm_id this represents the roomID of the room where event holds
+   * @param start the start time of the event
+   * @param end the end time of the event
+   * @param sp the speakerIDs of the speakers of the event
+   * @param topic the topic of the event
    */
   public void addEvent(int rm_id, Time start, Time end, String topic, int max, String eventtype,
       ArrayList<Integer> sp) {
@@ -58,7 +58,7 @@ public class EventManager implements Iterable<Event> {
    * Delete the given Event from the system. Print "There is no event with such id to be deleted" if
    * the event does not exist in the system.
    *
-   * @param id
+   * @param id the eventID of the event
    * @return boolean of whether the event is successfully deleted
    */
   public boolean delEvent(int id) {
@@ -78,12 +78,12 @@ public class EventManager implements Iterable<Event> {
    * new Event is still valid, otherwise keep the old event unchanged. If there is no such event,
    * print "There is no event with such id to edit".
    *
-   * @param id
-   * @param new_rm
-   * @param start
-   * @param end
-   * @param topic
-   * @param new_sp
+   * @param id the id of the target event going to be edited
+   * @param new_rm the id of the new room assigned to the event
+   * @param start the new start time of the event
+   * @param end the new end time of the event
+   * @param topic the topic of the event
+   * @param new_sp the new speakers assigned to this event
    * @return boolean of whether the Event is successfully edited
    */
   public boolean editEvent(int id, int new_rm, Time start, Time end, String topic,
@@ -104,7 +104,7 @@ public class EventManager implements Iterable<Event> {
    * Return the Event with given eventId in the system. Print "There is no event with such ID" if no
    * such Event is in the system.
    *
-   * @param event_ID
+   * @param event_ID the id of the event
    * @return Event with given eventId or null if no such Event
    */
   public Event get_event(int event_ID) {
@@ -133,7 +133,7 @@ public class EventManager implements Iterable<Event> {
   /**
    * Return an ArrayList of all the string representation of Events in the system with given topic.
    *
-   * @param topic
+   * @param topic the topic of the event users may want to browse
    * @return ArrayList of all the string representation of Events in the system with given topic
    */
   public ArrayList<String> browse(String topic) {
@@ -159,12 +159,18 @@ public class EventManager implements Iterable<Event> {
   /**
    * This method sets up a new counter.
    *
-   * @param newcounter
+   * @param newcounter a counter for creating the event IDs
    */
   public void setNewCounter(int newcounter) {
     Event.setCounter(newcounter);
   }
 
+  /**
+   * This method can change the capacity of a single event
+   * @param event_id target eventId
+   * @param new_maximum new maximum user may want to assign to this event
+   * @return true iff the event capacity is changes
+   */
   public boolean setEventCapacity(int event_id, int new_maximum) {
     Event e = get_event(event_id);
     if (new_maximum < e.getCountAttendeeEnrolled()) {
@@ -174,7 +180,11 @@ public class EventManager implements Iterable<Event> {
     return true;
   }
 
-
+  /**
+   * This method can get the roomID of the event by giving eventID
+   * @param eventID the ID of target event
+   * @return the roomID
+   */
   public Integer getLocation(int eventID) {
     Event e = this.get_event(eventID);
     if (e != null) {
@@ -182,7 +192,11 @@ public class EventManager implements Iterable<Event> {
     }
     return null;
   }
-
+  /**
+   * This method gives time of the event by passing eventID
+   * @param eventID the target event id
+   * @return the arraylist comprising the start time and end time
+   */
   public ArrayList<Time> gettime(int eventID) {
     ArrayList<Time> tmp = new ArrayList<>();
     Event e = get_event(eventID);
@@ -192,7 +206,11 @@ public class EventManager implements Iterable<Event> {
     }
     return tmp;
   }
-
+  /**
+   * This method gives all the speakers ID of the event by passing eventID
+   * @param eventID the target event id
+   * @return A list of speakers ID
+   */
   public ArrayList<Integer> getSpeaker(int eventID) {
     Event e = get_event(eventID);
     if (e != null) {

@@ -35,6 +35,18 @@ public class SchedulerController {
   }
 
   // EventController
+
+  /**
+   * This method creates and adds an event to the system
+   * @param rm_ID the roomID of the room where the event takes place
+   * @param start the start time of the event
+   * @param end the end time of the event
+   * @param speaker_ID the speakers of the event
+   * @param topic the topic of the event
+   * @param max the capacity of the event
+   * @param eventtype the type of the event, it can be MultipleSpeaker, OneSpeakerEvent or
+   * @return true iff the addition is successfull
+   */
   public boolean ConfirmAddEvent(int rm_ID, String start, String end, ArrayList<Integer> speaker_ID,
       String topic, int max, String eventtype) {
     Time st = java.sql.Time.valueOf(start);
@@ -57,6 +69,11 @@ public class SchedulerController {
     return true;
   }
 
+  /**
+   *  This method deletes an event by passing the event ID of that event
+   * @param eventID the target event ID
+   * @return true iff the deletion is successful
+   */
   public boolean ConfirmDeleteEvent(int eventID) {
     if (em.get_event(eventID) != null) {
       ArrayList<Time> time = em.gettime(eventID);
@@ -74,6 +91,16 @@ public class SchedulerController {
     return false;
   }
 
+  /**
+   * This method changes and edit the information of an event
+   * @param old_event_ID the ID of the target event
+   * @param new_room_ID the new room ID of the room where the event takes place
+   * @param st the new start time of the event
+   * @param en the new end time of the event
+   * @param topic the new topic of the event
+   * @param sp_ID the new speaker IDs of the event
+   * @return boolean true iff the edition is successful
+   */
   public boolean ConfirmEditEvent(int old_event_ID, int new_room_ID, String st, String en,
       String topic, ArrayList<Integer> sp_ID) {
 
@@ -118,6 +145,13 @@ public class SchedulerController {
     return em.editEvent(old_event_ID, new_room_ID, start, end, topic, sp_ID);
   }
 
+  /**
+   * This method returns changes the capacity of the event
+   * @param room_id the room where the event takes place
+   * @param event_id the target event
+   * @param new_maximum the new capacity of the event
+   * @return true iff the change is made
+   */
   public boolean setEventCapacity(int room_id, int event_id, int new_maximum) {
     int rc = rmm.getCapacity(room_id);
     if (new_maximum > rc) {
@@ -126,37 +160,68 @@ public class SchedulerController {
     return em.setEventCapacity(event_id, new_maximum);
   }
 
+  /**
+   * This method returns the hashmap that maps each event ID to the string information of that event
+   * @return the hashmap that maps each event ID to the string information of that event
+   */
   public HashMap<Integer, String> ShowAllEvents() {   //Event -> String;改EventController
     return em.get_events_info();
   }
 
+  /**
+   * This methof returns the string information of a single event
+   * @param event_ID the target event ID
+   * @return String the string information of a single event
+   */
   public String get_single_event(int event_ID) {
 
     return em.get_events_info().get(event_ID);
   }
 
 
+  /**
+   * This method adds the speaker to the system
+   * @param SpeakerName the name of the speaker
+   * @param Password the password of the speaker account
+   * @param phone the phone number of the speaker
+   * @param email the email address of the speaker
+   */
   public void addSpeaker(String SpeakerName, String Password, String phone, String email) {
 
     uam.createSpeaker(SpeakerName, Password, phone, email);
   }
 
 
+  /**
+   * This method returns the list of speakers string
+   * @return the list of speakers string
+   */
   public ArrayList<String> getSpeakers() {  //Speaker_ID
     return sm.get_schedulables_info(uam.getSpeakerList());
   }
 
 
   // RoomController
+
+  /**
+   * This method adds the room to the system
+   * @param roomID the roomId of the room
+   * @param capacity the capacity of the room
+   * @return true iff the addition is sucessful
+   */
   public boolean confirmaddroom(int roomID, int capacity) {
     return rmm.addRoom(roomID, capacity);
   }
 
 
+  /**
+   *  This method deletes the room from the system
+   * @param roomID the roomId of the room
+   * @return true iff the deletion is sucessful
+   */
   public boolean confirmdeleteroom(int roomID) {
     List rmm_list = rmm.getRoomList();
-    HashMap<Integer, ArrayList<ArrayList<Time>>> room_schedule = sm
-        .getScheduleableSchedulelist(rmm_list);
+    HashMap<Integer, ArrayList<ArrayList<Time>>> room_schedule = sm.getScheduleableSchedulelist(rmm_list);
     if (!room_schedule.containsKey(roomID)) {
       return false;
     }
@@ -166,19 +231,34 @@ public class SchedulerController {
     return false;
   }
 
+  /**
+   * Returns list of string info of the rooms within the system
+   * @return ArrayList<String> list of string info of the rooms within the system
+   */
   public ArrayList<String> get_rooms() {
     return sm.get_schedulables_info(rmm.getRoomList());
   }
 
 
+  /**
+   * Returns the EventManager attributes to other classes so that other classes can accesss
+   * @return EventManager
+   */
   public EventManager getEm() {
     return em;
   }
 
+  /**
+   * Returns the RoomManager attributes to other classes so that other classes can accesss
+   * @return RoomManafer
+   */
   public RoomManager getVr() {
     return rmm;
   }
 
+  /**
+   * This method saves the rooms information and event information in the database
+   */
   public void savedata() {
     rmm.saveRooms();
     em.saveEvents();
