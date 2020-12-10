@@ -1,8 +1,7 @@
 package Controller;
 
 import Dao.UserEventDao;
-import Entity.Event;
-import Entity.User;
+
 import UseCase.EventManager;
 import UseCase.RoomManager;
 import UseCase.SignupManager;
@@ -31,7 +30,7 @@ public class SignUpController {
     this.em = eventManager;
     this.uam = userAccountManager;
 
-    HashMap<User, ArrayList<Event>> userschedule = UserEventDao.getAsHashMap();
+    HashMap userschedule = UserEventDao.getAsHashMap();
     try {
       if (!userschedule.containsKey(uam.get_single_user(uam.get_user_id(email)))) {
         userschedule.put(uam.get_single_user(uam.get_user_id(email)), new ArrayList<>());
