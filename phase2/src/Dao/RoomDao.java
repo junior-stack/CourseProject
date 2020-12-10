@@ -32,6 +32,7 @@ public class RoomDao {
   public static void truncate() {
     String tableName = "room";
     String truncateQuery = "DELETE FROM " + tableName + ";";
+
     try {
       RoomDao.getInstance().executeRaw(truncateQuery);
     } catch (Exception e) {
@@ -40,6 +41,7 @@ public class RoomDao {
   }
 
   public static List<Room> getAll() {
+
     try {
       return instance.queryForAll();
     } catch (Exception e) {
@@ -50,6 +52,7 @@ public class RoomDao {
 
   public static void saveAll(List<Room> objs) {
     truncate();
+
     for (Room o : objs) {
       try {
         instance.createOrUpdate(o);

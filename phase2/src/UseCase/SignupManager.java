@@ -41,7 +41,7 @@ public class SignupManager {
    * Check if the user is available during the time period of the given Event.
    *
    * @param user the given user
-   * @param e the event the user wants to sign up
+   * @param e    the event the user wants to sign up
    * @return boolean of the result
    */
   public boolean CheckUserIsBusy(User user, Event e) {

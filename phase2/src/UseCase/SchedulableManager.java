@@ -13,13 +13,14 @@ public class SchedulableManager {
 
 
   /**
-   *  This method takes the schedulable lists from the class which stores the Schedulables and help
-   *  the organizer analyze whether the target schedulable is available at a given time when scheduling
-   *  an event
+   * This method takes the schedulable lists from the class which stores the Schedulables and help
+   * the organizer analyze whether the target schedulable is available at a given time when
+   * scheduling an event
+   *
    * @param schedulables the list of schedulables
-   * @param id the id of the target schedulable
-   * @param start the start time of the event
-   * @param end the end time of the event
+   * @param id           the id of the target schedulable
+   * @param start        the start time of the event
+   * @param end          the end time of the event
    * @return boolean true iff the target schedulable is available during the event period
    */
   public boolean CheckSchedulableAvailable(List<Schedulable> schedulables, Integer id, Time start,
@@ -33,12 +34,13 @@ public class SchedulableManager {
   }
 
   /**
-   * This method takes the schedulable lists from the class which stores the Schedulables and adds
-   * a new schedule time to the schedulable's schedule list by organizer
+   * This method takes the schedulable lists from the class which stores the Schedulables and adds a
+   * new schedule time to the schedulable's schedule list by organizer
+   *
    * @param schedulables the list of schedulables
-   * @param id the id of the target schedulable
-   * @param start the start time of the event
-   * @param end the end time of the event
+   * @param id           the id of the target schedulable
+   * @param start        the start time of the event
+   * @param end          the end time of the event
    */
   public void giveSchedulableNewSchedule(List<Schedulable> schedulables, Integer id, Time start,
       Time end) {
@@ -50,12 +52,13 @@ public class SchedulableManager {
   }
 
   /**
-   * This method takes the schedulable lists from the class which stores the Schedulables and deletes
-   * schedule time from the schedulable's schedule list by organizer
+   * This method takes the schedulable lists from the class which stores the Schedulables and
+   * deletes schedule time from the schedulable's schedule list by organizer
+   *
    * @param schedulables the list of schedulables
-   * @param id id the id of the target schedulable
-   * @param start the start time of the event
-   * @param end the end time of the event
+   * @param id           id the id of the target schedulable
+   * @param start        the start time of the event
+   * @param end          the end time of the event
    * @return true iff the deletion is successful
    */
 
@@ -70,8 +73,9 @@ public class SchedulableManager {
   }
 
   /**
-   * This method returns the hashmap that corresponds each schedulable's id to this their schedule list
-   * from the schedulables
+   * This method returns the hashmap that corresponds each schedulable's id to this their schedule
+   * list from the schedulables
+   *
    * @param schedulables the list of schedulables
    * @return Hashmaph hashmap that corresponds each schedulable's id to this their schedule list
    * from the schedulables
@@ -87,7 +91,8 @@ public class SchedulableManager {
 
 
   /**
-   *  This method returns the list of string information of the schedulables
+   * This method returns the list of string information of the schedulables
+   *
    * @param schedulables the list of schedulables
    * @return list of schedulables string information
    */

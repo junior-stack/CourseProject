@@ -33,6 +33,7 @@ public class UserEventDao {
   }
 
   public static List<UserEventMapper> getAll() {
+
     try {
       return instance.queryForAll();
     } catch (Exception e) {
@@ -43,6 +44,7 @@ public class UserEventDao {
 
   public static void saveAll(List<UserEventMapper> objs) {
     truncate();
+
     for (UserEventMapper o : objs) {
       try {
         instance.createOrUpdate(o);

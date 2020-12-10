@@ -32,6 +32,7 @@ public class MessageDao {
   public static void truncate() {
     String tableName = "message";
     String truncateQuery = "DELETE FROM " + tableName + ";";
+
     try {
       MessageDao.getInstance().executeRaw(truncateQuery);
     } catch (Exception e) {
@@ -40,6 +41,7 @@ public class MessageDao {
   }
 
   public static List<Message> getAll() {
+
     try {
       return instance.queryForAll();
     } catch (Exception e) {

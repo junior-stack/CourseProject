@@ -7,7 +7,6 @@ import Entity.NoSpeakerEvent;
 import Entity.OneSpeakerEvent;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -37,8 +36,8 @@ public class EventManager implements Iterable<Event> {
    *
    * @param rm_id this represents the roomID of the room where event holds
    * @param start the start time of the event
-   * @param end the end time of the event
-   * @param sp the speakerIDs of the speakers of the event
+   * @param end   the end time of the event
+   * @param sp    the speakerIDs of the speakers of the event
    * @param topic the topic of the event
    */
   public void addEvent(int rm_id, Time start, Time end, String topic, int max, String eventtype,
@@ -79,11 +78,11 @@ public class EventManager implements Iterable<Event> {
    * new Event is still valid, otherwise keep the old event unchanged. If there is no such event,
    * print "There is no event with such id to edit".
    *
-   * @param id the id of the target event going to be edited
+   * @param id     the id of the target event going to be edited
    * @param new_rm the id of the new room assigned to the event
-   * @param start the new start time of the event
-   * @param end the new end time of the event
-   * @param topic the topic of the event
+   * @param start  the new start time of the event
+   * @param end    the new end time of the event
+   * @param topic  the topic of the event
    * @param new_sp the new speakers assigned to this event
    * @return boolean of whether the Event is successfully edited
    */
@@ -168,7 +167,8 @@ public class EventManager implements Iterable<Event> {
 
   /**
    * This method can change the capacity of a single event
-   * @param event_id target eventId
+   *
+   * @param event_id    target eventId
    * @param new_maximum new maximum user may want to assign to this event
    * @return true iff the event capacity is changes
    */
@@ -183,6 +183,7 @@ public class EventManager implements Iterable<Event> {
 
   /**
    * This method can get the roomID of the event by giving eventID
+   *
    * @param eventID the ID of target event
    * @return the roomID
    */
@@ -193,8 +194,10 @@ public class EventManager implements Iterable<Event> {
     }
     return null;
   }
+
   /**
    * This method gives time of the event by passing eventID
+   *
    * @param eventID the target event id
    * @return the arraylist comprising the start time and end time
    */
@@ -207,8 +210,10 @@ public class EventManager implements Iterable<Event> {
     }
     return tmp;
   }
+
   /**
    * This method gives all the speakers ID of the event by passing eventID
+   *
    * @param eventID the target event id
    * @return A list of speakers ID
    */

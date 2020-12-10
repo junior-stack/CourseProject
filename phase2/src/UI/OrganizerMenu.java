@@ -113,7 +113,7 @@ public class OrganizerMenu extends JFrame {
     organizerPanel.setLocation((MENU_WIDTH - 250) / 2, (MENU_HEIGHT - 250) / 2);
     this.add(organizerPanel);
     this.setSize(MENU_WIDTH, MENU_HEIGHT);
-    this.setTitle("Attendee Menu");
+    this.setTitle("Organizer Menu");
     this.setResizable(false);
   }
 }

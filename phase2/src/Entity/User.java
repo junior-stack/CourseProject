@@ -1,7 +1,6 @@
 package Entity;
 
 import com.j256.ormlite.field.DataType;
-import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -17,22 +16,38 @@ import java.util.List;
 public class User {
 
   private static int counter = 0;
-  @DatabaseField(columnName = "type")
+  @Database
   protected String type = "";
-  @DatabaseField(columnName = "schedule", dataType = DataType.SERIALIZABLE)
+  @Database
   protected ArrayList<ArrayList<Time>> schedule = new ArrayList<>();
-  @DatabaseField(id = true)
+  @Database
   private int userId = 0;
-  @DatabaseField(columnName = "username")
+  @Database
   private String username = "";
-  @DatabaseField(columnName = "password")
+  @Database
   private String password = "";
-  @DatabaseField(columnName = "phone")
+  @Database
   private String phone = "";
-  @DatabaseField(columnName = "email")
+  @Database
   private String email = "";
-  @DatabaseField(columnName = "events", dataType = DataType.SERIALIZABLE)
+  @Database
   private ArrayList<Integer> events = new ArrayList<>();
+
+  Field(columnName ="type")
+
+  Field(columnName ="schedule", dataType =DataType.SERIALIZABLE)
+
+  Field(id =true)
+
+  Field(columnName ="username")
+
+  Field(columnName ="password")
+
+  Field(columnName ="phone")
+
+  Field(columnName ="email")
+
+  Field(columnName ="events", dataType =DataType.SERIALIZABLE)
 
   /**
    * default contractor of User class

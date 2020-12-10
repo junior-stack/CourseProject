@@ -107,6 +107,13 @@ public class AllEventsMenu extends JFrame {
         backToMenu();
       }
     });
+
+    allEventPanel.setSize(MENU_WIDTH, MENU_HEIGHT);
+    allEventPanel.setLocation((MENU_WIDTH - 250) / 2, (MENU_HEIGHT - 250) / 2);
+    this.add(allEventPanel);
+    this.setSize(MENU_WIDTH, MENU_HEIGHT);
+    this.setTitle("All events panel");
+    this.setResizable(false);
   }
 
   static void backhelper(LoginFacade loginFacade, String email,
@@ -135,6 +142,7 @@ public class AllEventsMenu extends JFrame {
       speakerMenu.setVisible(true);
     }
   }
+
 
   private void backToMenu() {
     backhelper(loginFacade, email, schedulerController, signUpController, messageController);

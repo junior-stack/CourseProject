@@ -82,8 +82,8 @@ public class Speaker extends User implements Schedulable {
 
 
   /**
-   * @return ArrayList<ArrayList < Time>> a list of the speaker's schedule times which contains start
-   * time and end time
+   * @return ArrayList<ArrayList < Time>> a list of the speaker's schedule times which contains
+   * start time and end time
    */
   @Override
   public ArrayList<ArrayList<Time>> getScheduleableSchedulelist() {

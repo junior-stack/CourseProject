@@ -1,6 +1,5 @@
 package Entity;
 
-import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -11,16 +10,26 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "message")
 public class Message {
 
-  @DatabaseField(columnName = "message_id", generatedId = true)
+  @Database
   private int messageId;
-  @DatabaseField(columnName = "sender_email")
+  @Database
   private String senderEmail;
-  @DatabaseField(columnName = "receiver_email")
+  @Database
   private String receiverEmail;
-  @DatabaseField(columnName = "content")
+  @Database
   private String content;
-  @DatabaseField(columnName = "current_status")
+  @Database
   private String currentStatus;
+
+  Field(columnName ="message_id", generatedId =true)
+
+  Field(columnName ="sender_email")
+
+  Field(columnName ="receiver_email")
+
+  Field(columnName ="content")
+
+  Field(columnName ="current_status")
 
   /**
    * This is the constructor of the message.
