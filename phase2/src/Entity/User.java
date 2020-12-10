@@ -22,7 +22,7 @@ public class User implements Serializable {
     private static int counter = 0;
     @DatabaseField(columnName = "type")
     protected String type ="";
-    @DatabaseField(generatedId = true)
+    @DatabaseField(id = true)
     private int userId = 0;
     @DatabaseField(columnName = "username")
     private String username = "";
@@ -33,10 +33,8 @@ public class User implements Serializable {
     @DatabaseField(columnName = "email")
     private String email = "";
 
-
-    private List<Integer> events = null;
-    @DatabaseField(columnName = "_events")
-    private String _commaSeparatedEvents = "";
+    @DatabaseField(columnName = "events", dataType = DataType.SERIALIZABLE)
+    private ArrayList<Integer> events = new ArrayList<>();
 
     public User(){
 
@@ -58,7 +56,7 @@ public class User implements Serializable {
         this.password = password;
         this.phone = phone;
         this.email = email;
-        this.events = this.getEvents();
+        this.getEvents();
         counter++;
     }
 
@@ -168,14 +166,6 @@ public class User implements Serializable {
             return this.events;
         }
         this.events = new ArrayList<>();
-        if (!this._commaSeparatedEvents.isEmpty()){
-            String[] eventIds = this._commaSeparatedEvents.split(",");
-            for(int i=0;i<eventIds.length;i++){
-                String eid = eventIds[i];
-                Integer id = Integer.parseInt(eid);
-                this.events.add(id);
-            }
-        }
         return this.events;
     }
 
@@ -186,8 +176,6 @@ public class User implements Serializable {
      */
     public void addEvents(int event_id) {
         this.events.add(event_id);
-        // reference https://stackoverflow.com/questions/57602096/convert-list-of-integer-into-comma-separated-string
-        this._commaSeparatedEvents = this.events.stream().map(String::valueOf).collect(Collectors.joining(","));
     }
 
     /**

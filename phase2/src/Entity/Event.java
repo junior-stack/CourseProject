@@ -15,16 +15,17 @@ import java.util.List;
  * @author Jun Xing
  * @version 1.0
  */
-@DatabaseTable(tableName = "events")
+@DatabaseTable(tableName = "event")
 public class Event implements Serializable {
 
   private static int counter = 0;
+  @DatabaseField(columnName = "speaker_ids", dataType = DataType.SERIALIZABLE)
   protected ArrayList<Integer> speakerId = new ArrayList<>();
 
   @DatabaseField(columnName = "event_type")
   String eventtype = "";
 
-  @DatabaseField(columnName = "event_id", generatedId = true)
+  @DatabaseField(columnName = "event_id", id = true)
   int eventId = 0;
   @DatabaseField(columnName = "room_id")
   int roomId = 0;
@@ -36,9 +37,8 @@ public class Event implements Serializable {
   String topic = "";
   @DatabaseField(columnName = "maximum_attendees")
   int maximum_attentees = 0;
-//  @DatabaseField(columnName = "attendees", dataType = DataType.SERIALIZABLE)
-// TODO manually serialize this field?
-  List<Integer> attendees = new ArrayList<>();
+  @DatabaseField(columnName = "attendees", dataType = DataType.SERIALIZABLE)
+  ArrayList<Integer> attendees = new ArrayList<>();
 
   /**
    * This method creates an Instance of Event. Every event has a unique eventId, a speaker, a
