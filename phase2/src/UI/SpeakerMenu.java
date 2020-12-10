@@ -4,6 +4,7 @@ import Controller.LoginFacade;
 import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -34,6 +35,7 @@ public class SpeakerMenu extends JFrame {
     this.messageController = messageController;
 
     JPanel speakerPanel = new JPanel();
+    speakerPanel.setLayout(new GridLayout(3, 1));
     viewMyEvents = new JButton("Display my events");
     viewMyMessage = new JButton("Display my messages");
     logout = new JButton("Logout");
@@ -65,8 +67,7 @@ public class SpeakerMenu extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         SpeakerMenu.this.setVisible(false);
-        JFrame loginMenu = new LoginMenu(loginFacade);
-        loginMenu.setVisible(true);
+        System.exit(0);
       }
     });
 

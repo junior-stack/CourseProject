@@ -68,7 +68,7 @@ public class RegisterMenu extends JFrame {
           boolean isSuccess = loginFacade.register(userName, userPassword, userPhone, userEmail);
           if (isSuccess) {
             loginFacade.save();
-            JOptionPane.showConfirmDialog(null, "Register successful!");
+            JOptionPane.showMessageDialog(null, "Register successful!");
             RegisterMenu.this.setVisible(false);
             JFrame loginMenu = new LoginMenu(loginFacade);
             loginMenu.setVisible(true);
