@@ -14,6 +14,8 @@ import javax.swing.JTextField;
 
 public class AdminMenu extends JFrame {
 
+  final int MENU_WIDTH = 500;
+  final int MENU_HEIGHT = 500;
   String email;
   LoginFacade loginFacade;
   SchedulerController schedulerController;
@@ -23,8 +25,6 @@ public class AdminMenu extends JFrame {
   JTextField banUserEmail;
   JButton banAccount;
   JButton logout;
-  final int MENU_WIDTH = 500;
-  final int MENU_HEIGHT = 500;
 
   public AdminMenu(String email, LoginFacade loginFacade, SchedulerController schedulerController,
       SignUpController

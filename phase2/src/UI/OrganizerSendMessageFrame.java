@@ -1,79 +1,98 @@
 package UI;
 
+import Controller.LoginFacade;
 import Controller.MessageController;
-
-import javax.swing.*;
-import java.awt.*;
+import Controller.SchedulerController;
+import Controller.SignUpController;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
-public class OrganizerSendMessageFrame extends JFrame  {
-    private JPanel panel;
-    private final int FRAME_HEIGHT = 500;
-    private final int FRAME_WIDTH = 500;
-    private MessageController mc;
-    private JButton ViewEmails;
-    private JButton SendSingleMessage;
-    private JButton SendMultipleMessages;
-    private JList AllEmails;
+public class OrganizerSendMessageFrame extends JFrame {
+
+  private final JList<Object> AllEmails;
+  String email;
+  LoginFacade loginFacade;
+  SchedulerController schedulerController;
+  SignUpController signUpController;
+  MessageController messageController;
 
 
-    public OrganizerSendMessageFrame(MessageController mc){
-        this.mc = mc;
+  public OrganizerSendMessageFrame(String email, LoginFacade loginFacade,
+      SchedulerController schedulerController, SignUpController
+      signUpController, MessageController messageController) {
+    this.email = email;
+    this.loginFacade = loginFacade;
+    this.schedulerController = schedulerController;
+    this.signUpController = signUpController;
+    this.messageController = messageController;
 
-        panel = new JPanel();
-        panel.setLayout(new GridLayout(3,2));
+    JPanel panel = new JPanel();
+    panel.setLayout(new GridLayout(3, 2));
 
-        ViewEmails = new JButton("View All Email Addresses that you could send message to");
-        panel.add(ViewEmails);
+    JButton viewEmails = new JButton("View All Email Addresses that you could send message to");
+    panel.add(viewEmails);
 
-        SendSingleMessage = new JButton("Send a single message");
-        panel.add(SendSingleMessage);
+    JButton sendSingleMessage = new JButton("Send a single message");
+    panel.add(sendSingleMessage);
 
-        SendMultipleMessages = new JButton("Send multiple messages");
-        panel.add(SendMultipleMessages);
+    JButton sendMultipleMessages = new JButton("Send multiple messages");
+    panel.add(sendMultipleMessages);
 
-        AllEmails = new JList();
-        panel.add(AllEmails);
+    AllEmails = new JList<>();
+    panel.add(AllEmails);
 
-        ViewEmails.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AllEmails.setListData(mc.generateEmailList().toArray());
-            }
-        });
+    viewEmails.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        AllEmails.setListData(messageController.generateEmailList().toArray());
+      }
+    });
 
-        SendSingleMessage.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String a;
-                a = JOptionPane.showInputDialog("Enter the email address that you want to send a message to");
-                String b;
-                b = JOptionPane.showInputDialog("Enter the content of the message");
-                if (!mc.organizerSendSingleMessage(a, b)){
-                    JOptionPane.showMessageDialog(null, "Not valid Message");
-                } else{
-                    JOptionPane.showMessageDialog(null, "Sent Successfully");
-                }
-            }
-        });
+    sendSingleMessage.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        String a;
+        a = JOptionPane
+            .showInputDialog("Enter the email address that you want to send a message to");
+        String b;
+        b = JOptionPane.showInputDialog("Enter the content of the message");
+        if (!messageController.organizerSendSingleMessage(a, b)) {
+          JOptionPane.showMessageDialog(null, "Not valid Message");
+        } else {
+          JOptionPane.showMessageDialog(null, "Sent Successfully");
+        }
+      }
+    });
 
-        SendMultipleMessages.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String a;
-                a = JOptionPane.showInputDialog("Enter the target identity that you want to send messages to(Attendee/Speaker)");
-                String b;
-                b = JOptionPane.showInputDialog("Enter the content of the message");
-                if (!mc.sendMultipleMessage(a, b)){
-                    JOptionPane.showMessageDialog(null, "Not valid Message");
-                } else{
-                    JOptionPane.showMessageDialog(null, "Sent Successfully");
-                }
-            }
-        });
+    sendMultipleMessages.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        String a;
+        a = JOptionPane.showInputDialog(
+            "Enter the target identity that you want to send messages to(Attendee/Speaker)");
+        String b;
+        b = JOptionPane.showInputDialog("Enter the content of the message");
+        if (!messageController.sendMultipleMessage(a, b)) {
+          JOptionPane.showMessageDialog(null, "Not valid Message");
+        } else {
+          JOptionPane.showMessageDialog(null, "Sent Successfully");
+        }
+      }
+    });
 
-        this.add (panel);
-        this.setSize (FRAME_WIDTH, FRAME_HEIGHT);
-    }
+    int MENU_WIDTH = 500;
+    int MENU_HEIGHT = 500;
+    panel.setSize(MENU_WIDTH, MENU_HEIGHT);
+    panel.setLocation((MENU_WIDTH - 250) / 2, (MENU_HEIGHT - 250) / 2);
+    this.add(panel);
+    this.setSize(MENU_WIDTH, MENU_HEIGHT);
+    this.setTitle("Organizer send message menu");
+    this.setResizable(false);
+  }
 }

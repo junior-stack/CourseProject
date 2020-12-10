@@ -21,7 +21,8 @@ public class OneSpeakerEvent extends Event {
    * @param endTime
    * @param topic
    */
-  public OneSpeakerEvent(int roomId, Time startTime, Time endTime, String topic, int max, ArrayList<Integer> speakerId) {
+  public OneSpeakerEvent(int roomId, Time startTime, Time endTime, String topic, int max,
+      ArrayList<Integer> speakerId) {
     super(roomId, startTime, endTime, topic, max);
     this.speakerId = speakerId;
   }

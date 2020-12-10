@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author Jun Xing
  * @version 1.0
  */
-public class Speaker extends User implements Schedulable{
+public class Speaker extends User implements Schedulable {
 
   /**
    * This method creates an Instance of Speaker. Username, password phone, email are required. Also
@@ -21,7 +21,7 @@ public class Speaker extends User implements Schedulable{
    * @param email
    */
 
-  private ArrayList<ArrayList<Time>> schedule = new ArrayList<>();
+  private final ArrayList<ArrayList<Time>> schedule = new ArrayList<>();
 
   public Speaker(String username, String password, String phone, String email) {
     super(username, password, phone, email);
@@ -50,14 +50,12 @@ public class Speaker extends User implements Schedulable{
 
   @Override
   public boolean CheckSchedulable(Time start, Time end) {
-    for(ArrayList<Time> t: schedule){
-      if(start.compareTo(t.get(0)) >= 0 && start.compareTo(t.get(1)) < 0){
+    for (ArrayList<Time> t : schedule) {
+      if (start.compareTo(t.get(0)) >= 0 && start.compareTo(t.get(1)) < 0) {
         return false;
-      }
-      else if(end.compareTo(t.get(0)) > 0 && end.compareTo(t.get(1)) <= 0){
+      } else if (end.compareTo(t.get(0)) > 0 && end.compareTo(t.get(1)) <= 0) {
         return false;
-      }
-      else if(start.compareTo(end) >= 0){
+      } else if (start.compareTo(end) >= 0) {
         return false;
       }
     }
@@ -74,8 +72,8 @@ public class Speaker extends User implements Schedulable{
 
   @Override
   public boolean delSchedulableSchedule(Time start, Time end) {
-    for(ArrayList<Time> t: schedule){
-      if(t.get(0).equals(start) && t.get(1).equals(end)){
+    for (ArrayList<Time> t : schedule) {
+      if (t.get(0).equals(start) && t.get(1).equals(end)) {
         schedule.remove(t);
         return true;
       }

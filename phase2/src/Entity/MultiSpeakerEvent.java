@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Created by yezhou on 2020/11/28
  **/
-public class MultiSpeakerEvent extends Event{
+public class MultiSpeakerEvent extends Event {
 
   public MultiSpeakerEvent(int roomId, Time startTime, Time endTime, String topic,
       int max, ArrayList<Integer> sp_id) {
@@ -16,19 +16,17 @@ public class MultiSpeakerEvent extends Event{
   }
 
 
-
-  public void AddSpeaker(Integer sp_id){
+  public void AddSpeaker(Integer sp_id) {
     speakerId.add(sp_id);
   }
 
-  public boolean DelSpeaker(Integer sp_id){
-    if(speakerId.contains(sp_id)){
+  public boolean DelSpeaker(Integer sp_id) {
+    if (speakerId.contains(sp_id)) {
       speakerId.remove(sp_id);
       return true;
     }
     return false;
   }
-
 
 
   public String toString() {

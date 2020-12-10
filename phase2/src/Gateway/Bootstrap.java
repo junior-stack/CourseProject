@@ -1,44 +1,44 @@
 package Gateway;
 
-import Entity.Event;
-import Entity.Message;
-import Entity.Room;
-import Dao.*;
-import Entity.Speaker;
+import Dao.EventDao;
+import Dao.MessageDao;
+import Dao.RoomDao;
+import Dao.UserDao;
+import Dao.UserEventDao;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 
-import java.sql.Time;
-
 
 public class Bootstrap {
-    private final static String DB_URL = "jdbc:sqlite:conference.sqlite.db";
-    public static void bootstrap() throws Exception{
-        JdbcConnectionSource connectionSource = null;
-        try {
-            // create our data-source for the database
-            connectionSource = new JdbcConnectionSource(DB_URL);
-            // setup our database and DAOs
-            setUpDaos(connectionSource);
-            // comment out this part in production
-            Test.testData();
-            // read and write some data
-            System.out.println("\n\nIt works\n\n");
-        } catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            // destroy the data source which should close underlying connections
-            if (connectionSource != null) {
-                connectionSource.close();
-            }
-        }
-    }
 
-    public static void setUpDaos(ConnectionSource conn) throws Exception{
-        RoomDao.init(conn);
-        UserDao.init(conn);
-        MessageDao.init(conn);
-        EventDao.init(conn);
-        UserEventDao.init(conn);
+  private final static String DB_URL = "jdbc:sqlite:conference.sqlite.db";
+
+  public static void bootstrap() throws Exception {
+    JdbcConnectionSource connectionSource = null;
+    try {
+      // create our data-source for the database
+      connectionSource = new JdbcConnectionSource(DB_URL);
+      // setup our database and DAOs
+      setUpDaos(connectionSource);
+      // comment out this part in production
+      Test.testData();
+      // read and write some data
+      System.out.println("\n\nIt works\n\n");
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      // destroy the data source which should close underlying connections
+      if (connectionSource != null) {
+        connectionSource.close();
+      }
     }
+  }
+
+  public static void setUpDaos(ConnectionSource conn) throws Exception {
+    RoomDao.init(conn);
+    UserDao.init(conn);
+    MessageDao.init(conn);
+    EventDao.init(conn);
+    UserEventDao.init(conn);
+  }
 }

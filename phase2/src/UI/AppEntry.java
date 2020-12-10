@@ -2,7 +2,6 @@ package UI;
 
 import Controller.LoginFacade;
 import Gateway.Bootstrap;
-
 import javax.swing.JFrame;
 
 public class AppEntry {

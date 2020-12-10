@@ -26,7 +26,7 @@ public class MyEventsMenu extends JFrame {
   MessageController messageController;
   JButton signOffEvent;
   JButton backButton;
-  private ArrayList<String> allMyEvents = new ArrayList<String>();
+  private final ArrayList<String> allMyEvents = new ArrayList<String>();
 
   public MyEventsMenu(String email, LoginFacade loginFacade,
       SchedulerController schedulerController,

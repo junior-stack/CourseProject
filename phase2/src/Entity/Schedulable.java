@@ -19,7 +19,6 @@ public interface Schedulable {
   String get_sch_info(int sch);
 
 
-
   Integer give_id();
 
   String get_sch_info();
