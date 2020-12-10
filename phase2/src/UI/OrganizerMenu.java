@@ -49,6 +49,16 @@ public class OrganizerMenu extends JFrame {
     organizerPanel.add(manageRooms);
     organizerPanel.add(logout);
 
+    viewAllEvents.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        OrganizerMenu.this.setVisible(false);
+        JFrame myAllEvents = new AllEventsMenu(email, loginFacade, schedulerController,
+            signUpController, messageController);
+        myAllEvents.setVisible(true);
+      }
+    });
+
     viewMyEvents.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -56,6 +66,36 @@ public class OrganizerMenu extends JFrame {
         JFrame myEventsMenu = new MyEventsMenu(email, loginFacade, schedulerController,
             signUpController, messageController);
         myEventsMenu.setVisible(true);
+      }
+    });
+
+    viewMyMessage.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        OrganizerMenu.this.setVisible(false);
+        JFrame myMessageMenu = new MessageMenu(email, loginFacade, schedulerController,
+            signUpController, messageController);
+        myMessageMenu.setVisible(true);
+      }
+    });
+
+    manageRooms.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        OrganizerMenu.this.setVisible(false);
+        JFrame manageRoomsMenu = new ManageRoomMenu(email, loginFacade, schedulerController,
+            signUpController, messageController);
+        manageRoomsMenu.setVisible(true);
+      }
+    });
+
+    manageAccounts.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        OrganizerMenu.this.setVisible(false);
+        JFrame manageAccountMenu = new ManageAccountMenu(email, loginFacade, schedulerController,
+            signUpController, messageController);
+        manageAccountMenu.setVisible(true);
       }
     });
 

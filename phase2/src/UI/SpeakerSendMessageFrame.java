@@ -92,6 +92,7 @@ public class SpeakerSendMessageFrame extends JFrame {
           JOptionPane.showMessageDialog(null, "Not valid Message");
         } else {
           JOptionPane.showMessageDialog(null, "Sent Successfully");
+          messageController.saveMessage();
         }
       }
     });

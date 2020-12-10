@@ -17,6 +17,7 @@ public class MyEventsMenu extends JFrame {
 
   final int MENU_HEIGHT = 500;
   final int MENU_WIDTH = 500;
+  private final ArrayList<String> allMyEvents = new ArrayList<String>();
   JList myEventsList;
   JPanel myEventsPanel;
   String email;
@@ -26,7 +27,6 @@ public class MyEventsMenu extends JFrame {
   MessageController messageController;
   JButton signOffEvent;
   JButton backButton;
-  private final ArrayList<String> allMyEvents = new ArrayList<String>();
 
   public MyEventsMenu(String email, LoginFacade loginFacade,
       SchedulerController schedulerController,

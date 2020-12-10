@@ -206,5 +206,7 @@ public class MessageController {
   /**
    * This method is to save current message system to database.
    */
-    public void saveMessage() {mm.saveMessages();}
+  public void saveMessage() {
+    mm.saveMessages();
+  }
 }

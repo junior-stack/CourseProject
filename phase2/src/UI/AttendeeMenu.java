@@ -57,7 +57,10 @@ public class AttendeeMenu extends JFrame {
     viewMyMessage.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-
+        AttendeeMenu.this.setVisible(false);
+        JFrame myMessageMenu = new MessageMenu(email, loginFacade, schedulerController,
+            signUpController, messageController);
+        myMessageMenu.setVisible(true);
       }
     });
 

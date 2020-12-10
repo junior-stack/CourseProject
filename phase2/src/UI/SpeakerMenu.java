@@ -51,6 +51,16 @@ public class SpeakerMenu extends JFrame {
       }
     });
 
+    viewMyMessage.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        SpeakerMenu.this.setVisible(false);
+        JFrame myMessageMenu = new MessageMenu(email, loginFacade, schedulerController,
+            signUpController, messageController);
+        myMessageMenu.setVisible(true);
+      }
+    });
+
     logout.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {

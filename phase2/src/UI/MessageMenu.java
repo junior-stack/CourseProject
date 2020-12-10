@@ -37,6 +37,9 @@ public class MessageMenu extends JFrame {
     viewMyMessage = new JButton("View my messages");
     sendMessage = new JButton("Send messages");
 
+    messageMenuPanel.add(viewMyMessage);
+    messageMenuPanel.add(sendMessage);
+
     viewMyMessage.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {

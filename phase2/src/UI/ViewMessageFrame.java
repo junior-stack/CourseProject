@@ -71,6 +71,7 @@ public class ViewMessageFrame extends JFrame {
         a = JOptionPane.showInputDialog("Type the id of the message that you want to delete");
         try {
           messageController.deleteMessage(Integer.parseInt(a));
+          messageController.saveMessage();
         } catch (Exception e1) {
           JOptionPane.showMessageDialog(null, "Invalid ID!");
         }
@@ -99,6 +100,7 @@ public class ViewMessageFrame extends JFrame {
             .showInputDialog("Type the id of the message that you want to mark as archive");
         try {
           messageController.archiveMessage(Integer.parseInt(a));
+          messageController.saveMessage();
         } catch (Exception e1) {
           JOptionPane.showMessageDialog(null, "Invalid ID!");
         }
