@@ -27,8 +27,11 @@ public class SchedulerController {
   public SchedulerController(UserAccountManager uam) {
 
     this.uam = uam;
-    rmm = new RoomManager(RoomDao.getAll()); //check later
-    this.em = new EventManager(new ArrayList<>(EventDao.getAll())); ////check later
+    rmm = new RoomManager(RoomDao.getAll());
+    ArrayList events = new ArrayList<>(EventDao.getAll());
+
+    this.em = new EventManager(events);
+    em.setNewCounter(events.size());
   }
 
   // EventController

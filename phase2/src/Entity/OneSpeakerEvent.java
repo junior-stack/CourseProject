@@ -25,19 +25,9 @@ public class OneSpeakerEvent extends Event {
       ArrayList<Integer> speakerId) {
     super(roomId, startTime, endTime, topic, max);
     this.speakerId = speakerId;
+    this.eventtype = "OneSpeakerEvent";
   }
 
-
-  /**
-   * This method sets a OneSpeakerEvent's speakerId
-   *
-   * @param s
-   */
-
-  @Override
-  public void setSpeakerId(ArrayList<Integer> s) {
-    this.speakerId = s;
-  }
 
 
 }

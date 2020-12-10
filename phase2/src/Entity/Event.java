@@ -3,7 +3,7 @@ package Entity;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import java.io.Serializable;
+
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  * @version 1.0
  */
 @DatabaseTable(tableName = "event")
-public class Event implements Serializable {
+public class Event {
 
   private static int counter = 0;
   @DatabaseField(columnName = "speaker_ids", dataType = DataType.SERIALIZABLE)
@@ -184,8 +184,9 @@ public class Event implements Serializable {
    * @param s
    */
   public void setSpeakerId(ArrayList<Integer> s) {
-    System.out.println("Error: cannot setSpeakerId in an abstract class. " + s.toString());
+    this.speakerId = s;
   }
+
 
   public int getMaximum_attentees() {
     return this.maximum_attentees;
@@ -209,16 +210,16 @@ public class Event implements Serializable {
   @Override
   public String toString() {
     return "Event{" +
-        "id=" + eventId +
-        ", speakerId=" + speakerId +
+        "speakerId=" + speakerId +
+        ", eventtype='" + eventtype + '\'' +
+        ", eventId=" + eventId +
         ", roomId=" + roomId +
         ", startTime=" + startTime +
         ", endTime=" + endTime +
         ", topic='" + topic + '\'' +
+        ", maximum_attentees=" + maximum_attentees +
         ", attendees=" + attendees +
         '}';
   }
-
-
 }
 

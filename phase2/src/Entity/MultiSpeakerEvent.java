@@ -15,7 +15,6 @@ public class MultiSpeakerEvent extends Event {
     speakerId = sp_id;
   }
 
-
   public void AddSpeaker(Integer sp_id) {
     speakerId.add(sp_id);
   }
@@ -28,10 +27,5 @@ public class MultiSpeakerEvent extends Event {
     return false;
   }
 
-
-  @Override
-  public void setSpeakerId(ArrayList<Integer> s) {
-    speakerId = s;
-  }
 
 }
