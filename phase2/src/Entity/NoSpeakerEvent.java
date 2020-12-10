@@ -14,9 +14,4 @@ public class NoSpeakerEvent extends Event {
     this.eventtype = "NoSpeakerEvent";
   }
 
-  @Override
-  public void setSpeakerId(ArrayList<Integer> s) {
-  }
-
-
 }
