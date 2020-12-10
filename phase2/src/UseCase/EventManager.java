@@ -9,6 +9,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -122,10 +123,10 @@ public class EventManager implements Iterable<Event> {
    *
    * @return HashMap of all Events' eventId to the related Event's string representation
    */
-  public HashMap<Integer, String> get_events_info() {
-    HashMap<Integer, String> events_info = new HashMap<>();
+  public List<String> get_events_info() {
+    List<String> events_info = new ArrayList<>();
     for (Event e : this) {
-      events_info.put(e.getId(), e.toString());
+      events_info.add(e.toString());
     }
     return events_info;
   }

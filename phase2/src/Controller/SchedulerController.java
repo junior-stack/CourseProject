@@ -170,7 +170,7 @@ public class SchedulerController {
    *
    * @return the hashmap that maps each event ID to the string information of that event
    */
-  public HashMap<Integer, String> ShowAllEvents() {   //Event -> String;改EventController
+  public List<String> ShowAllEvents() {   //Event -> String;改EventController
     return em.get_events_info();
   }
 

@@ -10,6 +10,7 @@ import UseCase.UserAccountManager;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by yezhou on 2020/11/14
@@ -54,7 +55,7 @@ public class SignUpController {
    *
    * @return a map of all event and their information
    */
-  public HashMap<Integer, String> ViewAllEvents() {
+  public List<String> ViewAllEvents() {
     return em.get_events_info();
   }
 
