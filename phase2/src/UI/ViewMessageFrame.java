@@ -134,7 +134,7 @@ public class ViewMessageFrame extends JFrame {
     panel.setLocation((MENU_WIDTH - 250) / 2, (MENU_HEIGHT - 250) / 2);
     this.add(panel);
     this.setSize(MENU_WIDTH, MENU_HEIGHT);
-    this.setTitle("Admin Menu");
+    this.setTitle("Message Menu");
     this.setResizable(false);
   }
 
