@@ -107,8 +107,9 @@ public class Room implements Schedulable {
 
   /**
    * This method checks whether this room has a schedule at a given time period
+   *
    * @param start the start time of the given time period
-   * @param end  the end time of the given time period
+   * @param end   the end time of the given time period
    */
   @Override
   public boolean CheckSchedulable(Time start, Time end) {
@@ -125,10 +126,11 @@ public class Room implements Schedulable {
   }
 
   /**
-   *  This method adds a schedule to the room's schedule list, which gives information whether this
-   *  room is available at this time
+   * This method adds a schedule to the room's schedule list, which gives information whether this
+   * room is available at this time
+   *
    * @param start the start time of the given time period
-   * @param end the end time of the given time period
+   * @param end   the end time of the given time period
    */
   @Override
   public void giveSchedulableNewSchedule(Time start, Time end) {
@@ -140,8 +142,9 @@ public class Room implements Schedulable {
 
   /**
    * This method deletes the Schedule from the room's schedule list
+   *
    * @param start the start time of the given schedule
-   * @param end the end time of the given schedule
+   * @param end   the end time of the given schedule
    * @return boolean whether the deletion of the schedule time is successful
    */
   @Override
@@ -156,9 +159,8 @@ public class Room implements Schedulable {
   }
 
   /**
-   *
-   * @return ArrayList<ArrayList<Time>> a list of the room's schedule times which contains start
-   *    *  time and end time
+   * @return ArrayList<ArrayList < Time>> a list of the room's schedule times which contains start *
+   * time and end time
    */
   @Override
   public ArrayList<ArrayList<Time>> getScheduleableSchedulelist() {
@@ -168,7 +170,6 @@ public class Room implements Schedulable {
   }
 
   /**
-   *
    * @param sch the id of this schedulable, it is a roomID
    * @return String the information about this schedulable instance
    */
@@ -178,7 +179,6 @@ public class Room implements Schedulable {
   }
 
   /**
-   *
    * @return Integer the id of this schedulable. It is SpeakerId
    */
   @Override
@@ -192,9 +192,10 @@ public class Room implements Schedulable {
   }
 
   /**
-   *  This method decreases the remaining spot at a given time.
+   * This method decreases the remaining spot at a given time.
+   *
    * @param start the start time of a given time period(Event start time)
-   * @param end the end time of a given time period(Event start time)
+   * @param end   the end time of a given time period(Event start time)
    * @return boolean whether the change is succesful
    */
   public boolean DecreaseRemainingspot(Time start, Time end) {
@@ -209,8 +210,9 @@ public class Room implements Schedulable {
 
   /**
    * This method increases the remaining spot at a given time.
+   *
    * @param start the start time of a given time period(Event start time)
-   * @param end the end time of a given time period(Event start time)
+   * @param end   the end time of a given time period(Event start time)
    * @return boolean whether the change is succesful
    */
   public boolean IncreaseRemainingspot(Time start, Time end) {
@@ -225,8 +227,9 @@ public class Room implements Schedulable {
 
   /**
    * This method gets the how many remaining spots are left at a given event time period
+   *
    * @param start the start time of a given time period(Event start time)
-   * @param end the end time of a given time period(Event start time)
+   * @param end   the end time of a given time period(Event start time)
    * @return Integer the remaining spot during this event period
    */
   public Integer getRemainingSpot(Time start, Time end) {

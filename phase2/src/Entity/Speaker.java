@@ -17,8 +17,8 @@ public class Speaker extends User implements Schedulable {
    *
    * @param username the name of this speaker
    * @param password the password of this speaker account
-   * @param phone the phone number of this speaker
-   * @param email the email address of this speaker
+   * @param phone    the phone number of this speaker
+   * @param email    the email address of this speaker
    */
 
   public Speaker(String username, String password, String phone, String email) {
@@ -29,8 +29,9 @@ public class Speaker extends User implements Schedulable {
 
   /**
    * This method checks whether this speaker has a schedule at a given time period
+   *
    * @param start the start time of the given time period
-   * @param end  the end time of the given time period
+   * @param end   the end time of the given time period
    */
   @Override
   public boolean CheckSchedulable(Time start, Time end) {
@@ -47,9 +48,10 @@ public class Speaker extends User implements Schedulable {
   }
 
   /**
-   *  This method adds a schedule to the speakers' schedule list
+   * This method adds a schedule to the speakers' schedule list
+   *
    * @param start the start time of the given time period
-   * @param end the end time of the given time period
+   * @param end   the end time of the given time period
    */
 
   @Override
@@ -62,8 +64,9 @@ public class Speaker extends User implements Schedulable {
 
   /**
    * This method deletes a schedule time from the speaker's schedule list
+   *
    * @param start the start time of the given schedule
-   * @param end the end time of the given schedule
+   * @param end   the end time of the given schedule
    * @return boolean whether the deletion is successful
    */
   @Override
@@ -79,9 +82,8 @@ public class Speaker extends User implements Schedulable {
 
 
   /**
-   *
-   * @return ArrayList<ArrayList<Time>> a list of the speaker's schedule times which contains start
-   *  time and end time
+   * @return ArrayList<ArrayList < Time>> a list of the speaker's schedule times which contains start
+   * time and end time
    */
   @Override
   public ArrayList<ArrayList<Time>> getScheduleableSchedulelist() {
@@ -89,7 +91,6 @@ public class Speaker extends User implements Schedulable {
   }
 
   /**
-   *
    * @param sch the id of this schedulable, it is a speakerID
    * @return String the information about this schedulable instance
    */
@@ -99,7 +100,6 @@ public class Speaker extends User implements Schedulable {
   }
 
   /**
-   *
    * @return Integer the id of this schedulable. It is SpeakerId
    */
   @Override

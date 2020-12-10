@@ -109,22 +109,8 @@ public class ManageRoomMenu extends JFrame {
   static void backhelper(LoginFacade loginFacade, String email,
       SchedulerController schedulerController, SignUpController signUpController,
       MessageController messageController) {
-    String userType = loginFacade.getUserIdentity(email);
-    if (userType.equals("Attendee")) {
-      JFrame attendeeMenu = new AttendeeMenu(email, loginFacade, schedulerController,
-          signUpController, messageController);
-      attendeeMenu.setVisible(true);
-    }
-    if (userType.equals("Organizer")) {
-      JFrame organizerMenu = new OrganizerMenu(email, loginFacade, schedulerController,
-          signUpController, messageController);
-      organizerMenu.setVisible(true);
-    }
-    if (userType.equals("Speaker")) {
-      JFrame speakerMenu = new SpeakerMenu(email, loginFacade, schedulerController,
-          signUpController, messageController);
-      speakerMenu.setVisible(true);
-    }
+    AllEventsMenu
+        .backhelper2(loginFacade, email, schedulerController, signUpController, messageController);
   }
 
   private void backToMenu() {

@@ -42,10 +42,10 @@ public class Event {
    * This method creates an Instance of Event. Every event has a unique eventId, a speaker, a
    * related roomId, a topic, its startTime and endTime and a List of attendees.
    *
-   * @param roomId roomID where the event takes place
+   * @param roomId    roomID where the event takes place
    * @param startTime the start time of the event
-   * @param endTime the end time of the event
-   * @param topic the topic of this event
+   * @param endTime   the end time of the event
+   * @param topic     the topic of this event
    */
   public Event(int roomId, Time startTime, Time endTime, String topic, int max) {
     this.eventId = counter;
@@ -189,6 +189,7 @@ public class Event {
 
   /**
    * This method returns the capacity of this event
+   *
    * @return int the capacity of this event
    */
   public int getMaximum_attentees() {
@@ -197,6 +198,7 @@ public class Event {
 
   /**
    * This method changes the capacity of this event
+   *
    * @param maximum_attentees a new capacity the user may want to change to
    */
 

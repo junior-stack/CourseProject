@@ -6,7 +6,6 @@ import java.sql.Time;
 public class NoSpeakerEvent extends Event {
 
   /**
-   *
    * @param roomId
    * @param startTime
    * @param endTime
