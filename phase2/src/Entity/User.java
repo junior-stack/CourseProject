@@ -184,6 +184,12 @@ public class User {
     return type;
   }
 
+  /**
+   * This method returns a string representation of the User, including its userId, username,
+   * password, phone, email, related events and identity.
+   *
+   * @return a string representation of the User
+   */
   @Override
   public String toString() {
     return "User{" +
@@ -197,13 +203,18 @@ public class User {
         ", schedule=" + schedule +
         '}';
   }
-
   /**
-   * This method returns a string representation of the User, including its userId, username,
-   * password, phone, email, related events and identity.
+   * This method return whether other User is equals to this User. They are equal when the
+   * Object are the same userId.
    *
-   * @return a string representation of the User
+   * @param other
+   * @return boolean of whether other Object is equals to this Speaker.
    */
+  @Override
+  public boolean equals(Object other) {
+    User u = (User) other;
+    return u.getUserId() == this.getUserId()&&(u.getEmail().equals(this.getEmail()));
+  }
 
 
 }

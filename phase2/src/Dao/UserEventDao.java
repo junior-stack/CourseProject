@@ -2,7 +2,7 @@ package Dao;
 
 import Entity.Event;
 import Entity.User;
-import Entity.UserEvent;
+import UseCase.UserEventMapper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.support.ConnectionSource;
@@ -13,13 +13,13 @@ import java.util.List;
 
 public class UserEventDao {
 
-  private static Dao<UserEvent, Integer> instance;
+  private static Dao<UserEventMapper, Integer> instance;
 
   private UserEventDao() {
 
   }
 
-  public static Dao<UserEvent, Integer> getInstance() {
+  public static Dao<UserEventMapper, Integer> getInstance() {
     if (instance == null) {
       System.out.println("Trying to access dao before initialization");
     }
@@ -27,12 +27,12 @@ public class UserEventDao {
   }
 
   public static void init(ConnectionSource conn) throws Exception {
-    instance = DaoManager.createDao(conn, UserEvent.class);
+    instance = DaoManager.createDao(conn, UserEventMapper.class);
     // if you need to create the table
-    TableUtils.createTableIfNotExists(conn, UserEvent.class);
+    TableUtils.createTableIfNotExists(conn, UserEventMapper.class);
   }
 
-  public static List<UserEvent> getAll() {
+  public static List<UserEventMapper> getAll() {
     try {
       return instance.queryForAll();
     } catch (Exception e) {
@@ -41,9 +41,9 @@ public class UserEventDao {
     return new ArrayList<>();
   }
 
-  public static void saveAll(List<UserEvent> objs) {
+  public static void saveAll(List<UserEventMapper> objs) {
     truncate();
-    for (UserEvent o : objs) {
+    for (UserEventMapper o : objs) {
       try {
         instance.createOrUpdate(o);
       } catch (Exception err) {
@@ -65,7 +65,7 @@ public class UserEventDao {
   public static HashMap<User, ArrayList<Event>> getAsHashMap() {
     HashMap<User, ArrayList<Event>> result = new HashMap<>();
     try {
-      for (UserEvent ue : instance.queryForAll()) {
+      for (UserEventMapper ue : instance.queryForAll()) {
         ArrayList<Event> ae = result.getOrDefault(ue.user, new ArrayList<Event>());
         ae.add(ue.event);
         result.put(ue.user, ae);
@@ -83,7 +83,7 @@ public class UserEventDao {
       userschedule.forEach((user, ae) -> {
         ae.forEach((e) -> {
           try {
-            UserEvent ue = new UserEvent(user, e);
+            UserEventMapper ue = new UserEventMapper(user, e);
             UserEventDao.getInstance().createOrUpdate(ue);
           } catch (Exception err) {
             err.printStackTrace();
