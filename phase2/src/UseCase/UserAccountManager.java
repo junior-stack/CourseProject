@@ -280,7 +280,7 @@ public class UserAccountManager implements AccountManager {
         ArrayList speakers = new ArrayList();
         if (userList != null && userList.size() > 0) {
             for (User i : userList) {
-                if (i.getType().equals("Speaker")) {
+                if (i instanceof Speaker) {
                     speakers.add(i);
                 }
             }

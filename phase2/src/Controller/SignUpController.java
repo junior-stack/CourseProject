@@ -115,4 +115,8 @@ public class SignUpController {
         }
         return false;
     }
+
+    public void save(){
+        us.saveUserSchedule();
+    }
 }
