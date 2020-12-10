@@ -6,8 +6,9 @@ import Dao.RoomDao;
 import Dao.UserDao;
 import Dao.UserEventDao;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
+import com.j256.ormlite.logger.Log;
 import com.j256.ormlite.support.ConnectionSource;
-
+import com.j256.ormlite.logger.Logger;
 
 public class Bootstrap {
 
@@ -15,13 +16,12 @@ public class Bootstrap {
 
   public static void bootstrap() throws Exception {
     JdbcConnectionSource connectionSource = null;
+    Logger.setGlobalLogLevel(Log.Level.ERROR);
     try {
       // create our data-source for the database
       connectionSource = new JdbcConnectionSource(DB_URL);
       // setup our database and DAOs
       setUpDaos(connectionSource);
-      // comment out this part in production
-      Test.testData();
       // read and write some data
       System.out.println("\n\nIt works\n\n");
     } catch (Exception e) {
