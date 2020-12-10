@@ -96,6 +96,8 @@ public class Message {
 
   @Override
   public String toString() {
-    return "Id " + messageId + " " + senderEmail + "sends " + content;
+    return "Id: " + messageId + " \n"
+        + "From: "+senderEmail + " \n"
+        + "Content: " + content;
   }
 }

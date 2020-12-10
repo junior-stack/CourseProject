@@ -1,7 +1,6 @@
 package Controller;
 
 import Dao.UserDao;
-import Entity.User;
 import Presenter.LoginPresenter;
 import UseCase.UserAccountManager;
 import java.util.List;
@@ -19,7 +18,7 @@ public class LoginFacade {
   private final UserAccountManager uam;
 
   public LoginFacade() {
-    List<User> users = UserDao.getAll();
+    List users = UserDao.getAll();
     uam = new UserAccountManager(users);
     uac = new UserAccountsController(uam);
     lp = new LoginPresenter(uam);
