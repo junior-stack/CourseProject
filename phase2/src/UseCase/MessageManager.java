@@ -15,7 +15,7 @@ import java.util.List;
  * @version 1.0
  */
 public class MessageManager {
-    private final List<Message> messages;
+    private static List<Message> messages;
 
     /**
      * This is a constructor for MessageManager.
@@ -23,7 +23,7 @@ public class MessageManager {
      * @param messages This represents the list of message entities in the system.
      */
     public MessageManager(List<Message> messages) {
-        this.messages = messages;
+        MessageManager.messages = messages;
     }
 
     /**
