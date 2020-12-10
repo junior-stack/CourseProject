@@ -23,7 +23,6 @@ public class Bootstrap {
       // setup our database and DAOs
       setUpDaos(connectionSource);
       // read and write some data
-      System.out.println("\n\nIt works\n\n");
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
