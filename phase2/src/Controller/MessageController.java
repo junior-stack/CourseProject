@@ -206,7 +206,5 @@ public class MessageController {
   /**
    * This method is to save current message system to database.
    */
-//  public void saveMessage() {
-//    ig.write(mm.getMessages());
-//  }
+    public void saveMessage() {mm.saveMessages();}
 }
