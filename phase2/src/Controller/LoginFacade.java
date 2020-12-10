@@ -23,6 +23,9 @@ public class LoginFacade {
     uam = new UserAccountManager(users);
     uac = new UserAccountsController(uam);
     lp = new LoginPresenter(uam);
+
+    uam.setNewCounter(users.size());
+
   }
 
   /**
