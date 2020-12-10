@@ -75,7 +75,7 @@ public class SpeakerMenu extends JFrame {
     speakerPanel.setLocation((MENU_WIDTH - 250) / 2, (MENU_HEIGHT - 250) / 2);
     this.add(speakerPanel);
     this.setSize(MENU_WIDTH, MENU_HEIGHT);
-    this.setTitle("Attendee Menu");
+    this.setTitle("Speaker Menu");
     this.setResizable(false);
   }
 }

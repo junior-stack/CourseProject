@@ -43,6 +43,7 @@ public class UserAccountsController {
     if (am.existingUser(email)) {
       return false;
     } else {
+
       return am.createSpeaker(username, password, phone, email);
     }
 

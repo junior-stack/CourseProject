@@ -1,7 +1,8 @@
 package Controller;
 
 import Dao.UserEventDao;
-
+import Entity.Event;
+import Entity.User;
 import UseCase.EventManager;
 import UseCase.RoomManager;
 import UseCase.SignupManager;
@@ -9,7 +10,6 @@ import UseCase.UserAccountManager;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by yezhou on 2020/11/14
@@ -30,7 +30,8 @@ public class SignUpController {
     this.rooms_list = roomManager;
     this.em = eventManager;
     this.uam = userAccountManager;
-    HashMap userschedule = UserEventDao.getAsHashMap();
+
+    HashMap<User, ArrayList<Event>> userschedule = UserEventDao.getAsHashMap();
     try {
       if (!userschedule.containsKey(uam.get_single_user(uam.get_user_id(email)))) {
         userschedule.put(uam.get_single_user(uam.get_user_id(email)), new ArrayList<>());
@@ -49,23 +50,14 @@ public class SignUpController {
     }
   }
 
-  /**
-   * This method return a list of all events and their information
-   *
-   * @return a map of all event and their information
-   */
-  public List<String> ViewAllEvents() {
-    return em.get_events_info();
-  }
-
-  /**
-   * This method return all topics.
-   *
-   * @return a list of all topics of events
-   */
-  public ArrayList<String> browse(String topic) {
-    return em.browse(topic);
-  }
+//  /**
+//   * This method return all topics.
+//   *
+//   * @return a list of all topics of events
+//   */
+//  public ArrayList<String> browse(String topic) {
+//    return em.browse(topic);
+//  }
 
 
   /**

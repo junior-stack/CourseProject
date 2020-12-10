@@ -32,6 +32,7 @@ public final class UserDao {
   public static void truncate() {
     String tableName = "user";
     String truncateQuery = "DELETE FROM " + tableName + ";";
+
     try {
       UserDao.getInstance().executeRaw(truncateQuery);
     } catch (Exception e) {
@@ -40,6 +41,7 @@ public final class UserDao {
   }
 
   public static List<User> getAll() {
+
     try {
       return instance.queryForAll();
     } catch (Exception e) {
@@ -50,6 +52,7 @@ public final class UserDao {
 
   public static void saveAll(List<User> objs) {
     truncate();
+
     for (User o : objs) {
       try {
         instance.createOrUpdate(o);

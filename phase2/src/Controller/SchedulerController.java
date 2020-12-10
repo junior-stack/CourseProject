@@ -161,6 +161,7 @@ public class SchedulerController {
     if (new_maximum > rc) {
       return false;
     }
+
     return em.setEventCapacity(event_id, new_maximum);
   }
 

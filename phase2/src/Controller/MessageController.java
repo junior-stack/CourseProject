@@ -164,6 +164,7 @@ public class MessageController {
       mm.archive(messageId);
       return true;
     }
+
     return false;
   }
 

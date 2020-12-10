@@ -21,7 +21,8 @@ public class RoomManager implements Iterable<Room> {
   }
 
   /**
-   *  This method returns a single room object from the roomList given the roomID
+   * This method returns a single room object from the roomList given the roomID
+   *
    * @param roomID int the ID of the Room object
    * @return Room the room object
    */
@@ -36,6 +37,7 @@ public class RoomManager implements Iterable<Room> {
 
   /**
    * This method returns the roomlist in Schedulable form so that SchedulableManager can analyze
+   *
    * @return List<Schedulable> the list of the room
    */
   public List<Schedulable> getRoomList() {
@@ -48,7 +50,8 @@ public class RoomManager implements Iterable<Room> {
 
   /**
    * This method adds the room to the roomList
-   * @param roomID the ID of the room
+   *
+   * @param roomID   the ID of the room
    * @param capacity the capacity of the room
    * @return boolean whether the addition is successful
    */
@@ -65,6 +68,7 @@ public class RoomManager implements Iterable<Room> {
 
   /**
    * This method deletes the Room object from the roomList given an ID
+   *
    * @param roomID the ID of the Room Object
    * @return boolean true iff the deletionis successful
    */
@@ -86,6 +90,7 @@ public class RoomManager implements Iterable<Room> {
 
   /**
    * This method returns the list of rooms
+   *
    * @return the list of rooms
    */
   public List<Room> getRooms() {
@@ -95,6 +100,7 @@ public class RoomManager implements Iterable<Room> {
 
   /**
    * This method tells the capacity of a room given the roomID
+   *
    * @param roomID the ID of the Room objetc
    * @return Integer the capacity of the Room Object
    */
@@ -108,11 +114,12 @@ public class RoomManager implements Iterable<Room> {
 
 
   /**
-   * This method checks whether the Room is still available or not when the attendees sign up the event
-   * at this room
+   * This method checks whether the Room is still available or not when the attendees sign up the
+   * event at this room
+   *
    * @param roomID the ID of the room
-   * @param start the start time of the room
-   * @param end the end time of the room
+   * @param start  the start time of the room
+   * @param end    the end time of the room
    * @return boolean true iff the room is not full
    */
   public boolean CheckRemainingSpot(Integer roomID, Time start, Time end) {
@@ -125,9 +132,10 @@ public class RoomManager implements Iterable<Room> {
 
   /**
    * This method gives the remaining spot of a room given the ID at the given time
+   *
    * @param roomID the ID of the room
-   * @param start the start time of the event at this room
-   * @param end the end time of the event at this room
+   * @param start  the start time of the event at this room
+   * @param end    the end time of the event at this room
    * @return the remaining spot of the room from start time to end time
    */
   public Integer getRemainingSpot(Integer roomID, Time start, Time end) {
@@ -139,11 +147,12 @@ public class RoomManager implements Iterable<Room> {
   }
 
   /**
-   * Thid method increases the remaining spot of a given room at the given time when user cancels the event at
-   * this room
+   * Thid method increases the remaining spot of a given room at the given time when user cancels
+   * the event at this room
+   *
    * @param roomID the ID of the room
-   * @param start the start time of the event
-   * @param end the end time of the event
+   * @param start  the start time of the event
+   * @param end    the end time of the event
    * @return boolean iff the the increase  is successful
    */
   public boolean IncreaseRemainingSpot(Integer roomID, Time start, Time end) {
@@ -159,11 +168,12 @@ public class RoomManager implements Iterable<Room> {
   }
 
   /**
-   * This method decreases the remaining spot of a given room at the given time when user signs up the event at
-   * this room
+   * This method decreases the remaining spot of a given room at the given time when user signs up
+   * the event at this room
+   *
    * @param roomID the ID of the room
-   * @param start the start time of the event
-   * @param end the end time of the event
+   * @param start  the start time of the event
+   * @param end    the end time of the event
    * @return boolean iff the the decrease is successful
    */
   public boolean DecreaseRemainingSpot(Integer roomID, Time start, Time end) {
