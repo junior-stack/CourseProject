@@ -4,6 +4,7 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,8 @@ public class User implements Serializable {
 
   @DatabaseField(columnName = "events", dataType = DataType.SERIALIZABLE)
   private ArrayList<Integer> events = new ArrayList<>();
-
+  @DatabaseField(columnName = "schedule", dataType = DataType.SERIALIZABLE)
+  protected ArrayList<ArrayList<Time>> schedule = new ArrayList<>();
   public User() {
 
   }

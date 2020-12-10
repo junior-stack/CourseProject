@@ -21,8 +21,6 @@ public class Speaker extends User implements Schedulable {
    * @param email
    */
 
-  private final ArrayList<ArrayList<Time>> schedule = new ArrayList<>();
-
   public Speaker(String username, String password, String phone, String email) {
     super(username, password, phone, email);
     this.type = "Speaker";
