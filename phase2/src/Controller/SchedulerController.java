@@ -57,7 +57,7 @@ public class SchedulerController {
     }
 
     public boolean ConfirmDeleteEvent(int eventID) {
-        if (em.delEvent(eventID)) {
+        if (em.get_event(eventID)!=null) {
             ArrayList<Time> time = em.gettime(eventID);
             Integer rm = em.getLocation(eventID);
             ArrayList<Integer> sp = em.getSpeaker(eventID);
@@ -67,6 +67,7 @@ public class SchedulerController {
                 sm.delSchedulableSchedule(sps, i, time.get(0), time.get(1));
             }
             sm.delSchedulableSchedule(rms, rm, time.get(0), time.get(1));
+            em.delEvent(eventID);
             return true;
         }
         return false;
@@ -87,7 +88,7 @@ public class SchedulerController {
             old_end = em.gettime(old_event_ID).get(1);
             old_sp = em.getSpeaker(old_event_ID);
             old_rm = em.getLocation(old_event_ID);
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             return false;
         }
 
