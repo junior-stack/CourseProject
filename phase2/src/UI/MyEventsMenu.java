@@ -74,21 +74,7 @@ public class MyEventsMenu extends JFrame {
   }
 
   private void backToMenu() {
-    String userType = loginFacade.getUserIdentity(email);
-    if (userType.equals("Attendee")) {
-      JFrame attendeeMenu = new AttendeeMenu(email, loginFacade, schedulerController,
-          signUpController, messageController);
-      attendeeMenu.setVisible(true);
-    }
-    if (userType.equals("Organizer")) {
-      JFrame organizerMenu = new OrganizerMenu(email, loginFacade, schedulerController,
-          signUpController, messageController);
-      organizerMenu.setVisible(true);
-    }
-    if (userType.equals("Speaker")) {
-      JFrame speakerMenu = new SpeakerMenu(email, loginFacade, schedulerController,
-          signUpController, messageController);
-      speakerMenu.setVisible(true);
-    }
+    ManageRoomMenu
+        .backhelper(loginFacade, email, schedulerController, signUpController, messageController);
   }
 }

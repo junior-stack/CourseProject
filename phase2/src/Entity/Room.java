@@ -11,7 +11,6 @@ import java.util.HashMap;
  * This class represents an Room.
  *
  * @author Jun Xing;
- *
  */
 @DatabaseTable(tableName = "room")
 public class Room implements Schedulable {
