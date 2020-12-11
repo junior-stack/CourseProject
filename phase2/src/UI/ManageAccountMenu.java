@@ -111,12 +111,12 @@ public class ManageAccountMenu extends JFrame {
 
         if (userType[0].equals("Attendee")) {
           boolean isSuccess = userAccountsController.
-              createAttendee(userName, userPassword, userPhone, email);
+              createAttendee(userName, userPassword, userPhone, userEmail);
           sendCheck(isSuccess);
         }
         if (userType[0].equals("Speaker")) {
           boolean isSuccess = userAccountsController
-              .createSpeaker(userName, userPassword, userPhone, email);
+              .createSpeaker(userName, userPassword, userPhone, userEmail);
           sendCheck(isSuccess);
         }
         if (userType[0].equals("Organizer")) {

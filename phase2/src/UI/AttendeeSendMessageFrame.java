@@ -58,11 +58,11 @@ public class AttendeeSendMessageFrame extends JFrame {
     JButton sendMessage = new JButton("Send a message");
     panel.add(sendMessage);
 
-    AllEmails = new JList<>();
-    panel.add(AllEmails);
-
     JButton Back = new JButton("Back");
     panel.add(Back);
+
+    AllEmails = new JList<>();
+    panel.add(AllEmails);
 
     viewEmails.addActionListener(
         e -> AllEmails.setListData(messageController.generateEmailList().toArray()));
