@@ -4,11 +4,13 @@ import Controller.LoginFacade;
 import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+/**
+ * Created by Haohua Ji
+ **/
 
 public class MessageMenu extends JFrame {
 
@@ -42,45 +44,35 @@ public class MessageMenu extends JFrame {
     messageMenuPanel.add(viewMyMessage);
     messageMenuPanel.add(sendMessage);
 
-
-    viewMyMessage.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        MessageMenu.this.setVisible(false);
-        JFrame viewMessageFrame = new ViewMessageFrame(email, loginFacade, schedulerController,
-            signUpController, messageController);
-        viewMessageFrame.setVisible(true);
-      }
+    viewMyMessage.addActionListener(e -> {
+      MessageMenu.this.setVisible(false);
+      JFrame viewMessageFrame = new ViewMessageFrame(email, loginFacade, schedulerController,
+          signUpController, messageController);
+      viewMessageFrame.setVisible(true);
     });
 
-    sendMessage.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        MessageMenu.this.setVisible(false);
-        if (loginFacade.getUserIdentity(email).equals("Attendee")) {
-          JFrame attendeeSendMessageFrame = new AttendeeSendMessageFrame(email, loginFacade,
-              schedulerController, signUpController, messageController);
-          attendeeSendMessageFrame.setVisible(true);
-        }
-        if (loginFacade.getUserIdentity(email).equals("Speaker")) {
-          JFrame speakerSendMessageFrame = new SpeakerSendMessageFrame(email, loginFacade,
-              schedulerController, signUpController, messageController);
-          speakerSendMessageFrame.setVisible(true);
-        }
-        if (loginFacade.getUserIdentity(email).equals("Organizer")) {
-          JFrame organizerSendMessageFrame = new OrganizerSendMessageFrame(email, loginFacade,
-              schedulerController, signUpController, messageController);
-          organizerSendMessageFrame.setVisible(true);
-        }
+    sendMessage.addActionListener(e -> {
+      MessageMenu.this.setVisible(false);
+      if (loginFacade.getUserIdentity(email).equals("Attendee")) {
+        JFrame attendeeSendMessageFrame = new AttendeeSendMessageFrame(email, loginFacade,
+            schedulerController, signUpController, messageController);
+        attendeeSendMessageFrame.setVisible(true);
+      }
+      if (loginFacade.getUserIdentity(email).equals("Speaker")) {
+        JFrame speakerSendMessageFrame = new SpeakerSendMessageFrame(email, loginFacade,
+            schedulerController, signUpController, messageController);
+        speakerSendMessageFrame.setVisible(true);
+      }
+      if (loginFacade.getUserIdentity(email).equals("Organizer")) {
+        JFrame organizerSendMessageFrame = new OrganizerSendMessageFrame(email, loginFacade,
+            schedulerController, signUpController, messageController);
+        organizerSendMessageFrame.setVisible(true);
       }
     });
-    backButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        messageMenuPanel.setVisible(false);
-        AllEventsMenu.backhelper2(loginFacade, email,
-           schedulerController, signUpController, messageController);
-      }
+    backButton.addActionListener(e -> {
+      messageMenuPanel.setVisible(false);
+      AllEventsMenu.back_helper2(loginFacade, email,
+          schedulerController, signUpController, messageController);
     });
     messageMenuPanel.setSize(MENU_WIDTH, MENU_HEIGHT);
     messageMenuPanel.setLocation((MENU_WIDTH - 250) / 2, (MENU_HEIGHT - 250) / 2);

@@ -1,14 +1,16 @@
 package UI;
 
 import Controller.LoginFacade;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+/**
+ * Created by Haohua Ji
+ **/
 
 public class RegisterMenu extends JFrame {
 
@@ -55,39 +57,33 @@ public class RegisterMenu extends JFrame {
     registerPanel.add(registerButton);
     registerPanel.add(backButton);
 
-    registerButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        if (!userNameInput.getText().isEmpty() && !userPasswordInput.getText().isEmpty() &&
-            !userEmailInput.getText().isEmpty() && !userPhoneInput.getText().isEmpty()) {
-          String userName = userNameInput.getText();
-          String userPassword = userPasswordInput.getText();
-          String userEmail = userEmailInput.getText();
-          String userPhone = userPhoneInput.getText();
+    registerButton.addActionListener(e -> {
+      if (!userNameInput.getText().isEmpty() && !userPasswordInput.getText().isEmpty() &&
+          !userEmailInput.getText().isEmpty() && !userPhoneInput.getText().isEmpty()) {
+        String userName = userNameInput.getText();
+        String userPassword = userPasswordInput.getText();
+        String userEmail = userEmailInput.getText();
+        String userPhone = userPhoneInput.getText();
 
-          boolean isSuccess = loginFacade.register(userName, userPassword, userPhone, userEmail);
-          if (isSuccess) {
-            loginFacade.save();
-            JOptionPane.showMessageDialog(null, "Register successful!");
-            RegisterMenu.this.setVisible(false);
-            JFrame loginMenu = new LoginMenu(loginFacade);
-            loginMenu.setVisible(true);
-          } else {
-            JOptionPane.showMessageDialog(null, "Register failed!");
-          }
+        boolean isSuccess = loginFacade.register(userName, userPassword, userPhone, userEmail);
+        if (isSuccess) {
+          loginFacade.save();
+          JOptionPane.showMessageDialog(null, "Register successful!");
+          RegisterMenu.this.setVisible(false);
+          JFrame loginMenu = new LoginMenu(loginFacade);
+          loginMenu.setVisible(true);
         } else {
-          JOptionPane.showMessageDialog(null, "You must fill everything in order to register!");
+          JOptionPane.showMessageDialog(null, "Register failed!");
         }
+      } else {
+        JOptionPane.showMessageDialog(null, "You must fill everything in order to register!");
       }
     });
 
-    backButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        RegisterMenu.this.setVisible(false);
-        JFrame loginMenu = new LoginMenu(loginFacade);
-        loginMenu.setVisible(true);
-      }
+    backButton.addActionListener(e -> {
+      RegisterMenu.this.setVisible(false);
+      JFrame loginMenu = new LoginMenu(loginFacade);
+      loginMenu.setVisible(true);
     });
 
     registerPanel.setSize(MENU_WIDTH, MENU_HEIGHT);

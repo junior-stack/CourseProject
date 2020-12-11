@@ -5,8 +5,6 @@ import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -48,52 +46,42 @@ public class SpeakerSendMessageFrame extends JFrame {
     AllEmails = new JList<>();
     panel.add(AllEmails);
 
-    viewEmails.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        AllEmails.setListData(messageController.generateEmailList().toArray());
+    viewEmails.addActionListener(
+        e -> AllEmails.setListData(messageController.generateEmailList().toArray()));
+
+    sendSingleMessage.addActionListener(e -> {
+      String a;
+      a = JOptionPane
+          .showInputDialog("Enter the email address that you want to send a message to");
+      String b;
+      b = JOptionPane.showInputDialog("Enter the content of the message");
+      if (!messageController.speakerSendSingleMessage(a, b)) {
+        JOptionPane.showMessageDialog(null, "Not valid Message");
+      } else {
+        JOptionPane.showMessageDialog(null, "Sent Successfully");
       }
     });
 
-    sendSingleMessage.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        String a;
-        a = JOptionPane
-            .showInputDialog("Enter the email address that you want to send a message to");
-        String b;
-        b = JOptionPane.showInputDialog("Enter the content of the message");
-        if (!messageController.speakerSendSingleMessage(a, b)) {
-          JOptionPane.showMessageDialog(null, "Not valid Message");
-        } else {
-          JOptionPane.showMessageDialog(null, "Sent Successfully");
+    sendMultipleMessages.addActionListener(e -> {
+      String a;
+      a = JOptionPane.showInputDialog(
+          "Enter the event ids(separated by one space) that you want to send message to");
+      String[] c = a.split(" ");
+      ArrayList<Integer> d = new ArrayList<Integer>();
+      for (String number : c) {
+        try {
+          d.add(Integer.parseInt(number));
+        } catch (Exception e2) {
+          JOptionPane.showMessageDialog(null, "Not valid EventIds");
         }
       }
-    });
-
-    sendMultipleMessages.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        String a;
-        a = JOptionPane.showInputDialog(
-            "Enter the event ids(separated by one space) that you want to send message to");
-        String[] c = a.split(" ");
-        ArrayList<Integer> d = new ArrayList<Integer>();
-        for (String number : c) {
-          try {
-            d.add(Integer.parseInt(number));
-          } catch (Exception e2) {
-            JOptionPane.showMessageDialog(null, "Not valid EventIds");
-          }
-        }
-        String b;
-        b = JOptionPane.showInputDialog("Enter the content of the message");
-        if (!messageController.sendMultipleMessage(d, b)) {
-          JOptionPane.showMessageDialog(null, "Not valid Message");
-        } else {
-          JOptionPane.showMessageDialog(null, "Sent Successfully");
-          messageController.saveMessage();
-        }
+      String b;
+      b = JOptionPane.showInputDialog("Enter the content of the message");
+      if (!messageController.sendMultipleMessage(d, b)) {
+        JOptionPane.showMessageDialog(null, "Not valid Message");
+      } else {
+        JOptionPane.showMessageDialog(null, "Sent Successfully");
+        messageController.saveMessage();
       }
     });
 

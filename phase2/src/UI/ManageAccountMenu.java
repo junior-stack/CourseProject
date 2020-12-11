@@ -5,8 +5,6 @@ import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
 import Controller.UserAccountsController;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -14,6 +12,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+/**
+ * Created by Haohua Ji
+ **/
 
 public class ManageAccountMenu extends JFrame {
 
@@ -62,7 +64,6 @@ public class ManageAccountMenu extends JFrame {
     selection = new JLabel("Select the type you want to create from below");
     String[] userTypes = {"Attendee", "Organizer", "Speaker", "Admin"};
     userTypeSelection = new JComboBox<>(userTypes);
-    userTypeSelection.setSelectedIndex(0);
 
     registerButton = new JButton("Register");
     backButton = new JButton("Back");
@@ -81,38 +82,32 @@ public class ManageAccountMenu extends JFrame {
     createAccountPanel.add(backButton);
 
     final String[] userType = new String[1];
-    userTypeSelection.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        JComboBox cb = (JComboBox) e.getSource();
-        userType[0] = (String) cb.getSelectedItem();
-      }
+    userTypeSelection.addActionListener(e -> {
+      JComboBox cb = (JComboBox) e.getSource();
+      userType[0] = (String) cb.getSelectedItem();
     });
 
-    registerButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        if (!userNameInput.getText().isEmpty() && !userPasswordInput.getText().isEmpty() &&
-            !userEmailInput.getText().isEmpty() && !userPhoneInput.getText().isEmpty()) {
-          String userName = userNameInput.getText();
-          String userPassword = userPasswordInput.getText();
-          String userEmail = userEmailInput.getText();
-          String userPhone = userPhoneInput.getText();
+    registerButton.addActionListener(e -> {
+      if (!userNameInput.getText().isEmpty() && !userPasswordInput.getText().isEmpty() &&
+          !userEmailInput.getText().isEmpty() && !userPhoneInput.getText().isEmpty()) {
+        String userName = userNameInput.getText();
+        String userPassword = userPasswordInput.getText();
+        String userEmail = userEmailInput.getText();
+        String userPhone = userPhoneInput.getText();
 
-          if (userType[0].equals("Attendee")) {
-            boolean isSuccess = userAccountsController
-                .createAttendee(userName, userPassword, userPhone, email);
-            sendCheck(isSuccess);
-          }
-          if (userType[0].equals("Speaker")) {
-            boolean isSuccess = userAccountsController
-                .createSpeaker(userName, userPassword, userPhone, email);
-            sendCheck(isSuccess);
-          }
-        } else {
-          JOptionPane.showMessageDialog(null, "You must fill everything in"
-              + " order to register!");
+        if (userType[0].equals("Attendee")) {
+          boolean isSuccess = userAccountsController
+              .createAttendee(userName, userPassword, userPhone, email);
+          sendCheck(isSuccess);
         }
+        if (userType[0].equals("Speaker")) {
+          boolean isSuccess = userAccountsController
+              .createSpeaker(userName, userPassword, userPhone, email);
+          sendCheck(isSuccess);
+        }
+      } else {
+        JOptionPane.showMessageDialog(null, "You must fill everything in"
+            + " order to register!");
       }
     });
 

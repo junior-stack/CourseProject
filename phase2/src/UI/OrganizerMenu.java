@@ -5,11 +5,13 @@ import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+/**
+ * Created by Haohua Ji
+ **/
 
 public class OrganizerMenu extends JFrame {
 
@@ -51,62 +53,44 @@ public class OrganizerMenu extends JFrame {
     organizerPanel.add(manageRooms);
     organizerPanel.add(logout);
 
-    viewAllEvents.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        OrganizerMenu.this.setVisible(false);
-        JFrame myAllEvents = new AllEventsMenu(email, loginFacade, schedulerController,
-            signUpController, messageController);
-        myAllEvents.setVisible(true);
-      }
+    viewAllEvents.addActionListener(e -> {
+      OrganizerMenu.this.setVisible(false);
+      JFrame myAllEvents = new AllEventsMenu(email, loginFacade, schedulerController,
+          signUpController, messageController);
+      myAllEvents.setVisible(true);
     });
 
-    viewMyEvents.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        OrganizerMenu.this.setVisible(false);
-        JFrame myEventsMenu = new MyEventsMenu(email, loginFacade, schedulerController,
-            signUpController, messageController);
-        myEventsMenu.setVisible(true);
-      }
+    viewMyEvents.addActionListener(e -> {
+      OrganizerMenu.this.setVisible(false);
+      JFrame myEventsMenu = new MyEventsMenu(email, loginFacade, schedulerController,
+          signUpController, messageController);
+      myEventsMenu.setVisible(true);
     });
 
-    viewMyMessage.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        OrganizerMenu.this.setVisible(false);
-        JFrame myMessageMenu = new MessageMenu(email, loginFacade, schedulerController,
-            signUpController, messageController);
-        myMessageMenu.setVisible(true);
-      }
+    viewMyMessage.addActionListener(e -> {
+      OrganizerMenu.this.setVisible(false);
+      JFrame myMessageMenu = new MessageMenu(email, loginFacade, schedulerController,
+          signUpController, messageController);
+      myMessageMenu.setVisible(true);
     });
 
-    manageRooms.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        OrganizerMenu.this.setVisible(false);
-        JFrame manageRoomsMenu = new ManageRoomMenu(email, loginFacade, schedulerController,
-            signUpController, messageController);
-        manageRoomsMenu.setVisible(true);
-      }
+    manageRooms.addActionListener(e -> {
+      OrganizerMenu.this.setVisible(false);
+      JFrame manageRoomsMenu = new ManageRoomMenu(email, loginFacade, schedulerController,
+          signUpController, messageController);
+      manageRoomsMenu.setVisible(true);
     });
 
-    manageAccounts.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        OrganizerMenu.this.setVisible(false);
-        JFrame manageAccountMenu = new ManageAccountMenu(email, loginFacade, schedulerController,
-            signUpController, messageController);
-        manageAccountMenu.setVisible(true);
-      }
+    manageAccounts.addActionListener(e -> {
+      OrganizerMenu.this.setVisible(false);
+      JFrame manageAccountMenu = new ManageAccountMenu(email, loginFacade, schedulerController,
+          signUpController, messageController);
+      manageAccountMenu.setVisible(true);
     });
 
-    logout.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        OrganizerMenu.this.setVisible(false);
-        System.exit(0);
-      }
+    logout.addActionListener(e -> {
+      OrganizerMenu.this.setVisible(false);
+      System.exit(0);
     });
 
     organizerPanel.setSize(MENU_WIDTH, MENU_HEIGHT);

@@ -5,8 +5,6 @@ import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -64,69 +62,48 @@ public class ViewMessageFrame extends JFrame {
     ArchiveMessages = new JList<>();
     panel.add(ArchiveMessages);
 
-    delete.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        String a;
-        a = JOptionPane.showInputDialog("Type the id of the message that you want to delete");
-        try {
-          messageController.deleteMessage(Integer.parseInt(a));
-          messageController.saveMessage();
-        } catch (Exception e1) {
-          JOptionPane.showMessageDialog(null, "Invalid ID!");
-        }
+    delete.addActionListener(e -> {
+      String a;
+      a = JOptionPane.showInputDialog("Type the id of the message that you want to delete");
+      try {
+        messageController.deleteMessage(Integer.parseInt(a));
+        messageController.saveMessage();
+      } catch (Exception e1) {
+        JOptionPane.showMessageDialog(null, "Invalid ID!");
       }
     });
 
-    unread.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        String a;
-        a = JOptionPane
-            .showInputDialog("Type the id of the message that you want to mark as unread");
-        try {
-          messageController.unreadMessage(Integer.parseInt(a));
-        } catch (Exception e1) {
-          JOptionPane.showMessageDialog(null, "Invalid ID!");
-        }
+    unread.addActionListener(e -> {
+      String a;
+      a = JOptionPane
+          .showInputDialog("Type the id of the message that you want to mark as unread");
+      try {
+        messageController.unreadMessage(Integer.parseInt(a));
+      } catch (Exception e1) {
+        JOptionPane.showMessageDialog(null, "Invalid ID!");
       }
     });
 
-    archive.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        String a;
-        a = JOptionPane
-            .showInputDialog("Type the id of the message that you want to mark as archive");
-        try {
-          messageController.archiveMessage(Integer.parseInt(a));
-          messageController.saveMessage();
-        } catch (Exception e1) {
-          JOptionPane.showMessageDialog(null, "Invalid ID!");
-        }
+    archive.addActionListener(e -> {
+      String a;
+      a = JOptionPane
+          .showInputDialog("Type the id of the message that you want to mark as archive");
+      try {
+        messageController.archiveMessage(Integer.parseInt(a));
+        messageController.saveMessage();
+      } catch (Exception e1) {
+        JOptionPane.showMessageDialog(null, "Invalid ID!");
       }
     });
 
-    viewUnreadMessages.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        UnreadMessages.setListData(messageController.generateUnreadMessage().toArray());
-      }
-    });
+    viewUnreadMessages.addActionListener(
+        e -> UnreadMessages.setListData(messageController.generateUnreadMessage().toArray()));
 
-    viewReadMessages.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        ReadMessages.setListData(messageController.generateReadMessage().toArray());
-      }
-    });
+    viewReadMessages.addActionListener(
+        e -> ReadMessages.setListData(messageController.generateReadMessage().toArray()));
 
-    viewArchiveMessages.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        ArchiveMessages.setListData(messageController.generateArchiveMessage().toArray());
-      }
-    });
+    viewArchiveMessages.addActionListener(
+        e -> ArchiveMessages.setListData(messageController.generateArchiveMessage().toArray()));
 
     int MENU_HEIGHT = 500;
     int MENU_WIDTH = 500;

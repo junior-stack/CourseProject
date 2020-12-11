@@ -4,6 +4,10 @@ import Controller.LoginFacade;
 import Gateway.Bootstrap;
 import javax.swing.JFrame;
 
+/**
+ * Created by Haohua Ji
+ **/
+
 public class AppEntry {
 
   public static void main(String[] args) throws Exception {

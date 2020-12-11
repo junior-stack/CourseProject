@@ -98,6 +98,7 @@ public class UserAccountManager implements AccountManager {
 
   /**
    * This method creates organizers by adding all the organizers from the list.
+   *
    * @param username
    * @param password
    * @param phone

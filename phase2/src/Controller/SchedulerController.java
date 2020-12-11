@@ -48,7 +48,7 @@ public class SchedulerController {
    * @param eventtype  the type of the event, it can be MultipleSpeaker, OneSpeakerEvent or
    * @return true iff the addition is successfull
    */
-  public boolean ConfirmAddEvent(int rm_ID, String start, String end, ArrayList<Integer> speaker_ID,
+  public boolean confirmAddEvent(int rm_ID, String start, String end, ArrayList<Integer> speaker_ID,
       String topic, int max, String eventtype) {
     Time st = java.sql.Time.valueOf(start);
     Time en = java.sql.Time.valueOf(end);
@@ -76,7 +76,7 @@ public class SchedulerController {
    * @param eventID the target event ID
    * @return true iff the deletion is successful
    */
-  public boolean ConfirmDeleteEvent(int eventID) {
+  public boolean confirmDeleteEvent(int eventID) {
     if (em.get_event(eventID) != null) {
       ArrayList<Time> time = em.gettime(eventID);
       Integer rm = em.getLocation(eventID);
@@ -104,7 +104,7 @@ public class SchedulerController {
    * @param sp_ID        the new speaker IDs of the event
    * @return boolean true iff the edition is successful
    */
-  public boolean ConfirmEditEvent(int old_event_ID, int new_room_ID, String st, String en,
+  public boolean confirmEditEvent(int old_event_ID, int new_room_ID, String st, String en,
       String topic, ArrayList<Integer> sp_ID) {
 
     Time start = java.sql.Time.valueOf(st);

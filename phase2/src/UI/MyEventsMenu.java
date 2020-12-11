@@ -4,13 +4,15 @@ import Controller.LoginFacade;
 import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+/**
+ * Created by Haohua Ji
+ **/
 
 public class MyEventsMenu extends JFrame {
 
@@ -49,23 +51,17 @@ public class MyEventsMenu extends JFrame {
       }
 
       final String[] selectedEvent = new String[1];
-      myEventsList.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          JComboBox cb = (JComboBox) e.getSource();
-          selectedEvent[0] = (String) cb.getSelectedItem();
-        }
+      myEventsList.addActionListener(e -> {
+        JComboBox cb = (JComboBox) e.getSource();
+        selectedEvent[0] = (String) cb.getSelectedItem();
       });
 
-      signOffEvent.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          boolean isSuccess = signUpController.cancelEvent(Integer.parseInt(selectedEvent[0]));
-          if (isSuccess) {
-            JOptionPane.showMessageDialog(null, "Sign off success");
-          } else {
-            JOptionPane.showMessageDialog(null, "Sign off failed");
-          }
+      signOffEvent.addActionListener(e -> {
+        boolean isSuccess = signUpController.cancelEvent(Integer.parseInt(selectedEvent[0]));
+        if (isSuccess) {
+          JOptionPane.showMessageDialog(null, "Sign off success");
+        } else {
+          JOptionPane.showMessageDialog(null, "Sign off failed");
         }
       });
     } else {
@@ -73,12 +69,9 @@ public class MyEventsMenu extends JFrame {
       backButton = new JButton("Back");
       myEventsPanel.add(backButton);
 
-      backButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          MyEventsMenu.this.setVisible(false);
-          backToMenu();
-        }
+      backButton.addActionListener(e -> {
+        MyEventsMenu.this.setVisible(false);
+        backToMenu();
       });
     }
 

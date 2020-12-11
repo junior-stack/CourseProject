@@ -4,8 +4,6 @@ import Controller.LoginFacade;
 import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -13,6 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+/**
+ * Created by Haohua Ji
+ **/
 
 public class ManageRoomMenu extends JFrame {
 
@@ -46,7 +48,6 @@ public class ManageRoomMenu extends JFrame {
     if (schedulerController.get_rooms() != null) {
       roomMenuPanel.add(hintLabel1);
       roomsSelections = new JComboBox<>(schedulerController.get_rooms().toArray(new String[0]));
-      roomsSelections.setSelectedIndex(0);
       roomMenuPanel.add(roomsSelections);
       roomMenuPanel.add(deleteRoomButton);
     }
@@ -60,49 +61,37 @@ public class ManageRoomMenu extends JFrame {
     roomMenuPanel.add(backButton);
 
     final String[] roomId = new String[1];
-    roomsSelections.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        JComboBox cb = (JComboBox) e.getSource();
-        roomId[0] = (String) cb.getSelectedItem();
+    roomsSelections.addActionListener(e -> {
+      JComboBox cb = (JComboBox) e.getSource();
+      roomId[0] = (String) cb.getSelectedItem();
+    });
+
+    deleteRoomButton.addActionListener(e -> {
+      boolean isDeleted = schedulerController.confirmdeleteroom(Integer.parseInt(roomId[0]));
+      if (isDeleted) {
+        JOptionPane.showMessageDialog(null, "Room deleted");
+        schedulerController.savedata();
+      } else {
+        JOptionPane.showMessageDialog(null, "Room delete failed");
       }
     });
 
-    deleteRoomButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        boolean isDeleted = schedulerController.confirmdeleteroom(Integer.parseInt(roomId[0]));
-        if (isDeleted) {
-          JOptionPane.showMessageDialog(null, "Room deleted");
+    addRoomButton.addActionListener(e -> {
+      if (roomIdField.getText() != null) {
+        int roomId1 = Integer.parseInt(roomIdField.getText());
+        boolean isAdded = schedulerController.confirmaddroom(roomId1, 50);
+        if (isAdded) {
+          JOptionPane.showMessageDialog(null, "Room added");
           schedulerController.savedata();
         } else {
-          JOptionPane.showMessageDialog(null, "Room delete failed");
+          JOptionPane.showMessageDialog(null, "Room add failed");
         }
       }
     });
 
-    addRoomButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        if (roomIdField.getText() != null) {
-          int roomId = Integer.parseInt(roomIdField.getText());
-          boolean isAdded = schedulerController.confirmaddroom(roomId, 50);
-          if (isAdded) {
-            JOptionPane.showMessageDialog(null, "Room added");
-            schedulerController.savedata();
-          } else {
-            JOptionPane.showMessageDialog(null, "Room add failed");
-          }
-        }
-      }
-    });
-
-    backButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        ManageRoomMenu.this.setVisible(false);
-        backToMenu();
-      }
+    backButton.addActionListener(e -> {
+      ManageRoomMenu.this.setVisible(false);
+      backToMenu();
     });
   }
 
@@ -110,7 +99,7 @@ public class ManageRoomMenu extends JFrame {
       SchedulerController schedulerController, SignUpController signUpController,
       MessageController messageController) {
     AllEventsMenu
-        .backhelper2(loginFacade, email, schedulerController, signUpController, messageController);
+        .back_helper2(loginFacade, email, schedulerController, signUpController, messageController);
   }
 
   private void backToMenu() {

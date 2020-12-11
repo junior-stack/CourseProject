@@ -4,12 +4,19 @@ import Controller.LoginFacade;
 import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.GridLayout;
+import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+/**
+ * Created by Haohua Ji
+ **/
 
 public class AllEventsMenu extends JFrame {
 
@@ -24,9 +31,21 @@ public class AllEventsMenu extends JFrame {
   JButton addEventButton;
   JButton deleteEventButton;
   JButton backButton;
-  JComboBox allEvents;
+  JList<String> allEvents;
+  JLabel hintLabel1;
+  JTextField selectedEvent;
   JButton signUpButton;
   JPanel allEventPanel;
+  JLabel roomIdLabel;
+  JTextField roomIdInput;
+  JLabel startTimeLabel;
+  JTextField startTimeInput;
+  JLabel endTimeLabel;
+  JTextField endTimeInput;
+  JLabel speakerIdLabel;
+  JTextField speakerIdInput;
+  JLabel topicLabel;
+  JTextField topicInput;
 
   public AllEventsMenu(String email, LoginFacade loginFacade,
       SchedulerController schedulerController, SignUpController
@@ -44,7 +63,35 @@ public class AllEventsMenu extends JFrame {
     backButton = new JButton("Back");
     signUpButton = new JButton("Sign up event");
 
+    allEvents = new JList<>(schedulerController.ShowAllEvents().toArray(new String[0]));
+    hintLabel1 = new JLabel("Enter the event Id to continue: ");
+    selectedEvent = new JTextField(40);
+    allEventPanel.add(hintLabel1);
+    allEventPanel.add(selectedEvent);
+
+    roomIdLabel = new JLabel("Room ID: ");
+    roomIdInput = new JTextField(40);
+    startTimeLabel = new JLabel("Start Time: ");
+    startTimeInput = new JTextField(40);
+    endTimeLabel = new JLabel("End Time: ");
+    endTimeInput = new JTextField(40);
+    speakerIdLabel = new JLabel("Speaker ID(s), separate by ',' ");
+    speakerIdInput = new JTextField(40);
+    topicLabel = new JLabel("Topic: ");
+    topicInput = new JTextField(40);
+
     if (loginFacade.getUserIdentity(email).equals("Organizer")) {
+      allEventPanel.setLayout(new GridLayout(20, 1));
+      allEventPanel.add(roomIdLabel);
+      allEventPanel.add(roomIdInput);
+      allEventPanel.add(startTimeLabel);
+      allEventPanel.add(startTimeInput);
+      allEventPanel.add(endTimeLabel);
+      allEventPanel.add(endTimeInput);
+      allEventPanel.add(speakerIdLabel);
+      allEventPanel.add(speakerIdInput);
+      allEventPanel.add(topicLabel);
+      allEventPanel.add(topicInput);
       allEventPanel.add(editEventButton);
       allEventPanel.add(addEventButton);
       allEventPanel.add(deleteEventButton);
@@ -52,60 +99,100 @@ public class AllEventsMenu extends JFrame {
     allEventPanel.add(signUpButton);
     allEventPanel.add(backButton);
 
-//    editEventButton.addActionListener(new ActionListener() {
-//      @Override
-//      public void actionPerformed(ActionEvent e) {
-//        boolean isSuccess = schedulerController.confirmEditEvent();
-//        if (isSuccess) {
-//          JOptionPane.showMessageDialog(null, "更新成功");
-//        } else {
-//          JOptionPane.showMessageDialog(null, "更新失败");
-//        }
-//      }
-//    });
-//
-//    addEventButton.addActionListener(new ActionListener() {
-//      @Override
-//      public void actionPerformed(ActionEvent e) {
-//        boolean isSuccess = schedulerController.confirmAddEvent();
-//        if (isSuccess) {
-//          JOptionPane.showMessageDialog(null, "添加成功");
-//        } else {
-//          JOptionPane.showMessageDialog(null, "添加失败");
-//        }
-//      }
-//    });
-//
-//    deleteEventButton.addActionListener(new ActionListener() {
-//      @Override
-//      public void actionPerformed(ActionEvent e) {
-//        boolean isSuccess = schedulerController.confirmDeleteEvent();
-//        if (isSuccess) {
-//          JOptionPane.showMessageDialog(null, "删除成功");
-//        } else {
-//          JOptionPane.showMessageDialog(null, "删除失败");
-//        }
-//      }
-//    });
-//
-//    signUpButton.addActionListener(new ActionListener() {
-//      @Override
-//      public void actionPerformed(ActionEvent e) {
-//        boolean isSuccess = signUpController.signup();
-//        if (isSuccess) {
-//          JOptionPane.showMessageDialog(null, "注册成功");
-//        } else {
-//          JOptionPane.showMessageDialog(null, "注册失败");
-//        }
-//      }
-//    });
+    editEventButton.addActionListener(e -> {
+      if (!roomIdInput.getText().isEmpty() && !startTimeInput.getText().isEmpty() && !endTimeInput
+          .getText().isEmpty() && !topicInput.getText()
+          .isEmpty()) {
 
-    backButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        AllEventsMenu.this.setVisible(false);
-        backToMenu();
+        int roomId = Integer.parseInt(roomIdInput.getText());
+        String startTime = startTimeInput.getText();
+        String endTime = endTimeInput.getText();
+        String[] speakerIds = speakerIdInput.getText().split(",");
+        ArrayList<Integer> speakerIdss = new ArrayList<>();
+        for (String s : speakerIds) {
+          speakerIdss.add(Integer.valueOf(s));
+        }
+        String topic = topicInput.getText();
+        String eventId = JOptionPane.showInputDialog(null, "Event Id: ");
+        boolean isSuccess = schedulerController
+            .confirmEditEvent(Integer.parseInt(eventId), roomId, startTime, endTime, topic,
+                speakerIdss);
+        if (isSuccess) {
+          JOptionPane.showMessageDialog(null, "Edit success");
+        } else {
+          JOptionPane.showMessageDialog(null, "Edit failed");
+        }
       }
+    });
+
+    addEventButton.addActionListener(e ->
+
+    {
+      if (!roomIdInput.getText().isEmpty() && !startTimeInput.getText().isEmpty() && !endTimeInput
+          .getText().isEmpty() && !topicInput.getText()
+          .isEmpty()) {
+        String capacityInput = JOptionPane.showInputDialog(null,
+            "Room capacity: ");
+        int roomId = Integer.parseInt(roomIdInput.getText());
+        String startTime = startTimeInput.getText();
+        String endTime = endTimeInput.getText();
+        String[] speakerIds = speakerIdInput.getText().split(",");
+        ArrayList<Integer> speakerIdss = new ArrayList<>();
+        for (String s : speakerIds) {
+          speakerIdss.add(Integer.valueOf(s));
+        }
+        String topic = topicInput.getText();
+        int capacity = Integer.parseInt(capacityInput);
+        String eventType;
+        if (speakerIds.length == 0) {
+          eventType = "NoSpeakerEvent";
+        } else if (speakerIds.length == 1) {
+          eventType = "OneSpeakerEvent";
+        } else {
+          eventType = "MultipleSpeakerEvent";
+        }
+        boolean isSuccess = schedulerController
+            .confirmAddEvent(roomId, startTime, endTime, speakerIdss, topic, capacity, eventType);
+        if (isSuccess) {
+          JOptionPane.showMessageDialog(null, "Add event success");
+        } else {
+          JOptionPane.showMessageDialog(null, "Add event failed");
+        }
+      }
+    });
+
+    deleteEventButton.addActionListener(e ->
+
+    {
+      if (!selectedEvent.getText().isEmpty()) {
+        boolean isSuccess = schedulerController
+            .confirmDeleteEvent(Integer.parseInt(selectedEvent.getText()));
+        if (isSuccess) {
+          JOptionPane.showMessageDialog(null, "Delete event success");
+        } else {
+          JOptionPane.showMessageDialog(null, "Delete event failed");
+        }
+      }
+    });
+
+    signUpButton.addActionListener(e ->
+
+    {
+      if (!selectedEvent.getText().isEmpty()) {
+        boolean isSuccess = signUpController.signup(Integer.parseInt(selectedEvent.getText()));
+        if (isSuccess) {
+          JOptionPane.showMessageDialog(null, "Sign up event success");
+        } else {
+          JOptionPane.showMessageDialog(null, "Sign up event failed");
+        }
+      }
+    });
+
+    backButton.addActionListener(e ->
+
+    {
+      AllEventsMenu.this.setVisible(false);
+      backToMenu();
     });
 
     allEventPanel.setSize(MENU_WIDTH, MENU_HEIGHT);
@@ -116,13 +203,13 @@ public class AllEventsMenu extends JFrame {
     this.setResizable(false);
   }
 
-  static void backhelper(LoginFacade loginFacade, String email,
+  static void back_helper(LoginFacade loginFacade, String email,
       SchedulerController schedulerController, SignUpController signUpController,
       MessageController messageController) {
-    backhelper2(loginFacade, email, schedulerController, signUpController, messageController);
+    back_helper2(loginFacade, email, schedulerController, signUpController, messageController);
   }
 
-  static void backhelper2(LoginFacade loginFacade, String email,
+  static void back_helper2(LoginFacade loginFacade, String email,
       SchedulerController schedulerController, SignUpController signUpController,
       MessageController messageController) {
     String userType = loginFacade.getUserIdentity(email);
@@ -145,7 +232,7 @@ public class AllEventsMenu extends JFrame {
 
 
   private void backToMenu() {
-    backhelper(loginFacade, email, schedulerController, signUpController, messageController);
+    back_helper(loginFacade, email, schedulerController, signUpController, messageController);
   }
 
 }

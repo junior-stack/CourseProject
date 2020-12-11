@@ -5,13 +5,15 @@ import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+/**
+ * Created by Haohua Ji
+ **/
 
 public class AdminMenu extends JFrame {
 
@@ -47,12 +49,9 @@ public class AdminMenu extends JFrame {
     adminPanel.add(banAccount);
     adminPanel.add(logout);
 
-    logout.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        AdminMenu.this.setVisible(false);
-        System.exit(0);
-      }
+    logout.addActionListener(e -> {
+      AdminMenu.this.setVisible(false);
+      System.exit(0);
     });
 
     adminPanel.setSize(MENU_WIDTH, MENU_HEIGHT);

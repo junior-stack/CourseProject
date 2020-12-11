@@ -5,8 +5,6 @@ import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -45,27 +43,20 @@ public class AttendeeSendMessageFrame extends JFrame {
     AllEmails = new JList<>();
     panel.add(AllEmails);
 
-    viewEmails.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        AllEmails.setListData(messageController.generateEmailList().toArray());
-      }
-    });
+    viewEmails.addActionListener(
+        e -> AllEmails.setListData(messageController.generateEmailList().toArray()));
 
-    sendMessage.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        String a;
-        a = JOptionPane
-            .showInputDialog("Enter the email address that you want to send a message to");
-        String b;
-        b = JOptionPane.showInputDialog("Enter the content of the message");
-        if (!messageController.attendeeSendSingleMessage(a, b)) {
-          JOptionPane.showMessageDialog(null, "Not valid Message");
-        } else {
-          JOptionPane.showMessageDialog(null, "Sent Successfully");
-          messageController.saveMessage();
-        }
+    sendMessage.addActionListener(e -> {
+      String a;
+      a = JOptionPane
+          .showInputDialog("Enter the email address that you want to send a message to");
+      String b;
+      b = JOptionPane.showInputDialog("Enter the content of the message");
+      if (!messageController.attendeeSendSingleMessage(a, b)) {
+        JOptionPane.showMessageDialog(null, "Not valid Message");
+      } else {
+        JOptionPane.showMessageDialog(null, "Sent Successfully");
+        messageController.saveMessage();
       }
     });
 

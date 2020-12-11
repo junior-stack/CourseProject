@@ -5,11 +5,13 @@ import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+/**
+ * Created by Haohua Ji
+ **/
 
 public class SpeakerMenu extends JFrame {
 
@@ -43,32 +45,23 @@ public class SpeakerMenu extends JFrame {
     speakerPanel.add(viewMyMessage);
     speakerPanel.add(logout);
 
-    viewMyEvents.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        SpeakerMenu.this.setVisible(false);
-        JFrame myEventsMenu = new MyEventsMenu(email, loginFacade, schedulerController,
-            signUpController, messageController);
-        myEventsMenu.setVisible(true);
-      }
+    viewMyEvents.addActionListener(e -> {
+      SpeakerMenu.this.setVisible(false);
+      JFrame myEventsMenu = new MyEventsMenu(email, loginFacade, schedulerController,
+          signUpController, messageController);
+      myEventsMenu.setVisible(true);
     });
 
-    viewMyMessage.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        SpeakerMenu.this.setVisible(false);
-        JFrame myMessageMenu = new MessageMenu(email, loginFacade, schedulerController,
-            signUpController, messageController);
-        myMessageMenu.setVisible(true);
-      }
+    viewMyMessage.addActionListener(e -> {
+      SpeakerMenu.this.setVisible(false);
+      JFrame myMessageMenu = new MessageMenu(email, loginFacade, schedulerController,
+          signUpController, messageController);
+      myMessageMenu.setVisible(true);
     });
 
-    logout.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        SpeakerMenu.this.setVisible(false);
-        System.exit(0);
-      }
+    logout.addActionListener(e -> {
+      SpeakerMenu.this.setVisible(false);
+      System.exit(0);
     });
 
     speakerPanel.setSize(MENU_WIDTH, MENU_HEIGHT);
