@@ -68,6 +68,7 @@ public class ManageRoomMenu extends JFrame {
     roomIdLabel = new JLabel("Enter room id: ");
     roomIdField = new JTextField(40);
     roomMenuPanel.add(roomIdLabel);
+    roomMenuPanel.add(roomIdField);
     roomMenuPanel.add(addRoomButton);
 
     backButton = new JButton("Back");
@@ -115,7 +116,7 @@ public class ManageRoomMenu extends JFrame {
     roomMenuPanel.setLocation((MENU_WIDTH - 250) / 2, (MENU_HEIGHT - 250) / 2);
     this.add(roomMenuPanel);
     this.setSize(MENU_WIDTH, MENU_HEIGHT);
-    this.setTitle("Manage Account Menu");
+    this.setTitle("Manage Room Menu");
     this.setResizable(false);
     Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
     int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
