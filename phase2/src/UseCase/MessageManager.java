@@ -189,25 +189,6 @@ public class MessageManager {
     return "";
   }
 
-  /**
-   * This method is to generate all messages in a string with certain status.
-   *
-   * @param userEmail This represents the email of a certain user.
-   * @param status    This represents the status to be generated.
-   * @return StringBuilder All messages in a string with certain status.
-   */
-//    public StringBuilder generateMessage(String userEmail, String status) {
-//        StringBuilder result = new StringBuilder();
-//        for (Message m : messages) {
-//            if (m.getreceiverEmail().equals(userEmail) && m.getcurrentStatus().equals(status)) {
-//                result.append(m.toString());
-//                if (status.equals("unread")) {
-//                    m.setCurrentStatus("read");
-//                }
-//            }
-//        }
-//        return result;
-//    }
   public List<String> generateMessage(String userEmail, String status) {
     List<String> result = new ArrayList<>();
     for (Message m : messages) {
