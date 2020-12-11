@@ -1,7 +1,5 @@
 package UseCase;
-/*
-    Table for many to many relationship between event and user
- */
+
 
 import Entity.Event;
 import Entity.User;

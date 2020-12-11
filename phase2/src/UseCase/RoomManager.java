@@ -187,24 +187,42 @@ public class RoomManager implements Iterable<Room> {
     return true;
   }
 
+  /**
+   * This method override the <>iterator()</> in <>Iterable</> interface.
+   * @return Iterator
+   */
   @Override
   public Iterator<Room> iterator() {
     return new RoomManagerIterator();
   }
 
+  /**
+   * save roomlist to database.
+   */
   public void saveRooms() {
     RoomDao.saveAll(roomList);
   }
 
+  /**
+   * a private class RoomManagerIterator
+   */
   private class RoomManagerIterator implements Iterator<Room> {
 
     private int current = 0;
 
+    /**
+     * This method override the <>hasNext()</> method in <>Iterable</> interface.
+     * @return  {@code true} if the iteration has more Rooms
+     */
     @Override
     public boolean hasNext() {
       return current < roomList.size();
     }
 
+    /**
+     * This method override the <>next()</> method in <>Iterable</> interface.
+     * @return Room   the next Room in the iteration
+     */
     @Override
     public Room next() {
       Room res;
@@ -218,6 +236,9 @@ public class RoomManager implements Iterable<Room> {
 
     }
 
+    /**
+     * This method override the <>remove()</> method in <>Iterable</> interface.
+     */
     @Override
     public void remove() {
       roomList.remove(current - 1);

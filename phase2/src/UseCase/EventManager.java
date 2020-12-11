@@ -224,25 +224,42 @@ public class EventManager implements Iterable<Event> {
     }
     return null;
   }
-
+  /**
+   * This method override the <>iterator()</> in <>Iterable</> interface.
+   * @return Iterator
+   */
   @Override
   public Iterator<Event> iterator() {
     return new EventManagerIterator();
   }
 
+  /**
+   * save eventpool to database.
+   */
   public void saveEvents() {
     EventDao.saveAll(eventpool);
   }
 
+  /**
+   * a private class RoomManagerIterator
+   */
   private class EventManagerIterator implements Iterator<Event> {
 
     private int current = 0;
 
+    /**
+     * This method override the <>hasNext()</> method in <>Iterable</> interface.
+     * @return  {@code true} if the iteration has more Events
+     */
     @Override
     public boolean hasNext() {
       return current < eventpool.size();
     }
 
+    /**
+     * This method override the <>next()</> method in <>Iterable</> interface.
+     * @return Room   the next Event in the iteration
+     */
     @Override
     public Event next() {
       Event res;
