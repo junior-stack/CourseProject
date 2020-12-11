@@ -92,7 +92,7 @@ public class AttendeeSendMessageFrame extends JFrame {
     panel.setLocation((MENU_WIDTH - 250) / 2, (MENU_HEIGHT - 250) / 2);
     this.add(panel);
     this.setSize(MENU_WIDTH, MENU_HEIGHT);
-    this.setTitle("Admin Menu");
+    this.setTitle("Attendee send message menu");
     this.setResizable(false);
     Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
     int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
