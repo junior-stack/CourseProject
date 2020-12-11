@@ -4,6 +4,9 @@ import UseCase.UserAccountManager;
 import java.util.List;
 
 
+/**
+ * class for presenting login information
+ */
 public class LoginPresenter {
 
   private final UserAccountManager uam;

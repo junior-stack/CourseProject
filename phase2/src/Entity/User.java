@@ -217,6 +217,15 @@ public class User {
     return u.getUserId() == this.getUserId() && (u.getEmail().equals(this.getEmail()));
   }
 
+  /**
+   * The hashcode method for user since we used it as key in the hashmap
+   * @return userid
+   */
+  @Override
+  public int hashCode() {
+    return this.getUserId();
+  }
+
 
 }
 
