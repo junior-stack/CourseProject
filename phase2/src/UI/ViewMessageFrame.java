@@ -33,7 +33,7 @@ public class ViewMessageFrame extends JFrame {
     this.messageController = messageController;
 
     JPanel panel = new JPanel();
-    panel.setLayout(new GridLayout(3, 2));
+    panel.setLayout(new GridLayout(4, 2));
 
     JButton viewUnreadMessages = new JButton("View Unread Messages");
     panel.add(viewUnreadMessages);
@@ -61,6 +61,9 @@ public class ViewMessageFrame extends JFrame {
 
     ArchiveMessages = new JList<>();
     panel.add(ArchiveMessages);
+
+    JButton Back = new JButton("Back");
+    panel.add(Back);
 
     delete.addActionListener(e -> {
       String a;
@@ -105,8 +108,14 @@ public class ViewMessageFrame extends JFrame {
     viewArchiveMessages.addActionListener(
         e -> ArchiveMessages.setListData(messageController.generateArchiveMessage().toArray()));
 
+    Back.addActionListener(e -> {
+      ViewMessageFrame.this.setVisible(false);
+      MessageMenu mm = new MessageMenu(email, loginFacade, schedulerController, signUpController, messageController);
+      mm.setVisible(true);
+    });
+
     int MENU_HEIGHT = 500;
-    int MENU_WIDTH = 500;
+    int MENU_WIDTH = 2000;
     panel.setSize(MENU_WIDTH, MENU_HEIGHT);
     panel.setLocation((MENU_WIDTH - 250) / 2, (MENU_HEIGHT - 250) / 2);
     this.add(panel);

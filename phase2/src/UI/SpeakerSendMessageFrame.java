@@ -46,6 +46,9 @@ public class SpeakerSendMessageFrame extends JFrame {
     AllEmails = new JList<>();
     panel.add(AllEmails);
 
+    JButton Back = new JButton("Back");
+    panel.add(Back);
+
     viewEmails.addActionListener(
         e -> AllEmails.setListData(messageController.generateEmailList().toArray()));
 
@@ -83,6 +86,12 @@ public class SpeakerSendMessageFrame extends JFrame {
         JOptionPane.showMessageDialog(null, "Sent Successfully");
         messageController.saveMessage();
       }
+    });
+
+    Back.addActionListener(e -> {
+      SpeakerSendMessageFrame.this.setVisible(false);
+      MessageMenu mm = new MessageMenu(email, loginFacade, schedulerController, signUpController, messageController);
+      mm.setVisible(true);
     });
 
     int MENU_WIDTH = 500;

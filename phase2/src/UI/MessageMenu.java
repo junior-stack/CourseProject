@@ -70,7 +70,7 @@ public class MessageMenu extends JFrame {
       }
     });
     backButton.addActionListener(e -> {
-      messageMenuPanel.setVisible(false);
+      MessageMenu.this.setVisible(false);
       AllEventsMenu.back_helper2(loginFacade, email,
           schedulerController, signUpController, messageController);
     });
