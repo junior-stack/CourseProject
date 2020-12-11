@@ -21,6 +21,7 @@ public class MessageMenu extends JFrame {
   MessageController messageController;
   JButton viewMyMessage;
   JButton sendMessage;
+  JButton backButton;
   JPanel messageMenuPanel;
 
 
@@ -36,9 +37,11 @@ public class MessageMenu extends JFrame {
     messageMenuPanel = new JPanel();
     viewMyMessage = new JButton("View my messages");
     sendMessage = new JButton("Send messages");
-
+    backButton = new JButton("Back");
+    messageMenuPanel.add(backButton);
     messageMenuPanel.add(viewMyMessage);
     messageMenuPanel.add(sendMessage);
+
 
     viewMyMessage.addActionListener(new ActionListener() {
       @Override
@@ -71,7 +74,14 @@ public class MessageMenu extends JFrame {
         }
       }
     });
-
+    backButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        messageMenuPanel.setVisible(false);
+        AllEventsMenu.backhelper2(loginFacade, email,
+           schedulerController, signUpController, messageController);
+      }
+    });
     messageMenuPanel.setSize(MENU_WIDTH, MENU_HEIGHT);
     messageMenuPanel.setLocation((MENU_WIDTH - 250) / 2, (MENU_HEIGHT - 250) / 2);
     this.add(messageMenuPanel);
