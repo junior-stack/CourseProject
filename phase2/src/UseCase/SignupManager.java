@@ -98,7 +98,7 @@ public class SignupManager {
   }
 
   /**
-   * Return an ArrayList of all string representattion of Event of this User.
+   * Return an ArrayList of all string representation of Event of this User.
    *
    * @param user the given user
    * @return ArrayList of all string representattion of Event of this User

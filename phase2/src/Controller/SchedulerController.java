@@ -24,6 +24,11 @@ public class SchedulerController {
   private final EventManager em;
   private final RoomManager rmm;
 
+  /**
+   * Constructor for SchedulerController.
+   *
+   * @param uam  an UserAccountManager instance
+   */
   public SchedulerController(UserAccountManager uam) {
 
     this.uam = uam;
