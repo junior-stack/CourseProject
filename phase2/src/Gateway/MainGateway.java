@@ -10,11 +10,11 @@ import com.j256.ormlite.logger.Log;
 import com.j256.ormlite.logger.Logger;
 import com.j256.ormlite.support.ConnectionSource;
 
-public class Bootstrap {
+public class MainGateway {
 
   private final static String DB_URL = "jdbc:sqlite:conference.sqlite.db";
 
-  public static void bootstrap() throws Exception {
+  public static void connect() throws Exception {
     JdbcConnectionSource connectionSource = null;
     Logger.setGlobalLogLevel(Log.Level.ERROR);
     try {

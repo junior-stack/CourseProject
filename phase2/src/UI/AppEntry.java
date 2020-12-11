@@ -1,7 +1,7 @@
 package UI;
 
 import Controller.LoginFacade;
-import Gateway.Bootstrap;
+import Gateway.MainGateway;
 import javax.swing.JFrame;
 
 /**
@@ -14,7 +14,9 @@ public class AppEntry {
    * Start our app from here.
    */
   public static void main(String[] args) throws Exception {
-    Bootstrap.bootstrap();
+
+    MainGateway.connect();
+
     LoginFacade loginFacade = new LoginFacade();
     LoginMenu loginMenu = new LoginMenu(loginFacade);
     loginMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
