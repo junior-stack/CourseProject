@@ -90,9 +90,11 @@ public class ManageRoomMenu extends JFrame {
     });
 
     addRoomButton.addActionListener(e -> {
-      if (roomIdField.getText() != null) {
+      String roomCapacity = JOptionPane.showInputDialog(null, "Room Capacity: ");
+      if (!roomIdField.getText().isEmpty() && !roomCapacity.isEmpty()) {
         int roomId1 = Integer.parseInt(roomIdField.getText());
-        boolean isAdded = schedulerController.confirmaddroom(roomId1, 50);
+        boolean isAdded = schedulerController
+            .confirmaddroom(roomId1, Integer.parseInt(roomCapacity));
         if (isAdded) {
           JOptionPane.showMessageDialog(null, "Room added");
           schedulerController.savedata();
