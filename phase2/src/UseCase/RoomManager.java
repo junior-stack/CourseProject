@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
- * Created by yezhou on 2020/11/29
+ * @author yezhou
  **/
 public class RoomManager implements Iterable<Room> {
 

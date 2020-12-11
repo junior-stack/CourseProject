@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- * Created by Haohua Ji
+ * @author Haohua Ji
  **/
 
 public class RegisterMenu extends JFrame {
@@ -29,6 +29,11 @@ public class RegisterMenu extends JFrame {
   JButton backButton;
   LoginFacade loginFacade;
 
+  /**
+   * App's register menu.
+   *
+   * @param loginFacade - each user has only 1 facade running at a time.
+   */
   public RegisterMenu(LoginFacade loginFacade) {
     this.loginFacade = loginFacade;
     registerPanel = new JPanel();

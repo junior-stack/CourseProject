@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- * Created by Haohua Ji
+ * @author Haohua Ji
  **/
 
 public class ManageAccountMenu extends JFrame {
@@ -39,6 +39,16 @@ public class ManageAccountMenu extends JFrame {
   JButton backButton;
   JPanel createAccountPanel;
 
+  /**
+   * Manage account menu for organizers, organizers can create attendee, speaker & organizer
+   * accounts here.
+   *
+   * @param email               - user's email
+   * @param loginFacade         - each user has only 1 facade running at a time.
+   * @param schedulerController - each user has only 1 schedule controller running at a time.
+   * @param signUpController    - each user has only 1 signup controller running at a time.
+   * @param messageController   - each user has only 1 message controller running at a time.
+   */
   public ManageAccountMenu(String email, LoginFacade loginFacade,
       SchedulerController schedulerController,
       SignUpController signUpController, MessageController messageController) {
@@ -62,7 +72,7 @@ public class ManageAccountMenu extends JFrame {
     userPhoneInput = new JTextField(40);
 
     selection = new JLabel("Select the type you want to create from below");
-    String[] userTypes = {"Attendee", "Organizer", "Speaker", "Admin"};
+    String[] userTypes = {"Attendee", "Organizer", "Speaker"};
     userTypeSelection = new JComboBox<>(userTypes);
 
     registerButton = new JButton("Register");
@@ -96,13 +106,18 @@ public class ManageAccountMenu extends JFrame {
         String userPhone = userPhoneInput.getText();
 
         if (userType[0].equals("Attendee")) {
-          boolean isSuccess = userAccountsController
-              .createAttendee(userName, userPassword, userPhone, email);
+          boolean isSuccess = userAccountsController.
+              createAttendee(userName, userPassword, userPhone, email);
           sendCheck(isSuccess);
         }
         if (userType[0].equals("Speaker")) {
           boolean isSuccess = userAccountsController
               .createSpeaker(userName, userPassword, userPhone, email);
+          sendCheck(isSuccess);
+        }
+        if (userType[0].equals("Organizer")) {
+          boolean isSuccess = userAccountsController
+              .createOrganizer(userName, userPassword, userPhone, userEmail);
           sendCheck(isSuccess);
         }
       } else {
@@ -111,16 +126,28 @@ public class ManageAccountMenu extends JFrame {
       }
     });
 
+    backButton.addActionListener(e -> {
+      ManageAccountMenu.this.setVisible(false);
+      JFrame organizerMenu = new OrganizerMenu(email, loginFacade, schedulerController,
+          signUpController, messageController);
+      organizerMenu.setVisible(true);
+    });
+
     int MENU_WIDTH = 500;
     int MENU_HEIGHT = 500;
     createAccountPanel.setSize(MENU_WIDTH, MENU_HEIGHT);
     createAccountPanel.setLocation((MENU_WIDTH - 250) / 2, (MENU_HEIGHT - 250) / 2);
     this.add(createAccountPanel);
     this.setSize(MENU_WIDTH, MENU_HEIGHT);
-    this.setTitle("Organizer send message menu");
+    this.setTitle("Manage Account Menu");
     this.setResizable(false);
   }
 
+  /**
+   * Helper method to check if accounts registered successfully or not.
+   *
+   * @param isSuccess - a boolean value for input to check
+   */
   private void sendCheck(boolean isSuccess) {
     if (isSuccess) {
       loginFacade.save();

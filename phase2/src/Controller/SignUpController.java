@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by yezhou on 2020/11/14
+ * @author yezhou
  **/
 public class SignUpController {
 

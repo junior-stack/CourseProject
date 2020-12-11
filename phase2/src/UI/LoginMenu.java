@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- * Created by Haohua Ji
+ * @author Haohua Ji
  **/
 
 public class LoginMenu extends JFrame {
@@ -28,6 +28,11 @@ public class LoginMenu extends JFrame {
   JButton loginButton;
   JButton registerButton;
 
+  /**
+   * App's login menu.
+   *
+   * @param loginFacade - each user has only 1 facade running at a time.
+   */
   public LoginMenu(LoginFacade loginFacade) {
     this.loginFacade = loginFacade;
     loginPanel = new JPanel();

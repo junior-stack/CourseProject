@@ -4,7 +4,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 
 /**
- * Created by yezhou on 2020/11/28
+ * @author yezhou
  **/
 public class MultiSpeakerEvent extends Event {
 

@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
- * Created by Haohua Ji
+ * @author Haohua Ji
  **/
 
 public class MyEventsMenu extends JFrame {
@@ -28,6 +28,15 @@ public class MyEventsMenu extends JFrame {
   JButton signOffEvent;
   JButton backButton;
 
+  /**
+   * My events menu for attendees and organizers. They can sign off their events here.
+   *
+   * @param email               - user's email
+   * @param loginFacade         - each user has only 1 facade running at a time.
+   * @param schedulerController - each user has only 1 schedule controller running at a time.
+   * @param signUpController    - each user has only 1 signup controller running at a time.
+   * @param messageController   - each user has only 1 message controller running at a time.
+   */
   public MyEventsMenu(String email, LoginFacade loginFacade,
       SchedulerController schedulerController,
       SignUpController signUpController, MessageController messageController) {
@@ -59,6 +68,7 @@ public class MyEventsMenu extends JFrame {
       signOffEvent.addActionListener(e -> {
         boolean isSuccess = signUpController.cancelEvent(Integer.parseInt(selectedEvent[0]));
         if (isSuccess) {
+          signUpController.save();
           JOptionPane.showMessageDialog(null, "Sign off success");
         } else {
           JOptionPane.showMessageDialog(null, "Sign off failed");
@@ -79,10 +89,13 @@ public class MyEventsMenu extends JFrame {
     myEventsPanel.setLocation((MENU_WIDTH - 250) / 2, (MENU_HEIGHT - 250) / 2);
     this.add(myEventsPanel);
     this.setSize(MENU_WIDTH, MENU_HEIGHT);
-    this.setTitle("Attendee Menu");
+    this.setTitle("My Events Menu");
     this.setResizable(false);
   }
 
+  /**
+   * Call helper methods to return to the previous menu by details.
+   */
   private void backToMenu() {
     ManageRoomMenu
         .backhelper(loginFacade, email, schedulerController, signUpController, messageController);

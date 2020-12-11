@@ -28,7 +28,7 @@ public class SchedulerController {
 
     this.uam = uam;
     rmm = new RoomManager(RoomDao.getAll());
-    ArrayList events = new ArrayList<>(EventDao.getAll());
+    ArrayList<Entity.Event> events = new ArrayList<>(EventDao.getAll());
 
     this.em = new EventManager(events);
     em.setNewCounter(events.size());
@@ -184,20 +184,6 @@ public class SchedulerController {
   public String get_single_event(int event_ID) {
 
     return em.get_events_info().get(event_ID);
-  }
-
-
-  /**
-   * This method adds the speaker to the system
-   *
-   * @param SpeakerName the name of the speaker
-   * @param Password    the password of the speaker account
-   * @param phone       the phone number of the speaker
-   * @param email       the email address of the speaker
-   */
-  public void addSpeaker(String SpeakerName, String Password, String phone, String email) {
-
-    uam.createSpeaker(SpeakerName, Password, phone, email);
   }
 
 

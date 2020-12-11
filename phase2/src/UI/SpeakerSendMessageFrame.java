@@ -12,6 +12,13 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+/**
+ * This class is the controller for message system.
+ *
+ * @author Zhongyuan Liang & Jiahao Zhang
+ * @editor by Haohua Ji
+ */
+
 public class SpeakerSendMessageFrame extends JFrame {
 
   private final JList<Object> AllEmails;
@@ -22,6 +29,15 @@ public class SpeakerSendMessageFrame extends JFrame {
   MessageController messageController;
 
 
+  /**
+   * Send message for speaker.
+   *
+   * @param email               - user's email
+   * @param loginFacade         - each user has only 1 facade running at a time.
+   * @param schedulerController - each user has only 1 schedule controller running at a time.
+   * @param signUpController    - each user has only 1 signup controller running at a time.
+   * @param messageController   - each user has only 1 message controller running at a time.
+   */
   public SpeakerSendMessageFrame(String email, LoginFacade loginFacade,
       SchedulerController schedulerController, SignUpController
       signUpController, MessageController messageController) {
@@ -90,7 +106,8 @@ public class SpeakerSendMessageFrame extends JFrame {
 
     Back.addActionListener(e -> {
       SpeakerSendMessageFrame.this.setVisible(false);
-      MessageMenu mm = new MessageMenu(email, loginFacade, schedulerController, signUpController, messageController);
+      MessageMenu mm = new MessageMenu(email, loginFacade, schedulerController, signUpController,
+          messageController);
       mm.setVisible(true);
     });
 

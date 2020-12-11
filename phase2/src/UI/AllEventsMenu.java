@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- * Created by Haohua Ji
+ * @author Haohua Ji
  **/
 
 public class AllEventsMenu extends JFrame {
@@ -47,6 +47,13 @@ public class AllEventsMenu extends JFrame {
   JLabel topicLabel;
   JTextField topicInput;
 
+  /**
+   * @param email               - user's email
+   * @param loginFacade         - each user has only 1 facade running at a time.
+   * @param schedulerController - each user has only 1 schedule controller running at a time.
+   * @param signUpController    - each user has only 1 signup controller running at a time.
+   * @param messageController   - each user has only 1 message controller running at a time.
+   */
   public AllEventsMenu(String email, LoginFacade loginFacade,
       SchedulerController schedulerController, SignUpController
       signUpController, MessageController messageController) {
@@ -118,6 +125,7 @@ public class AllEventsMenu extends JFrame {
             .confirmEditEvent(Integer.parseInt(eventId), roomId, startTime, endTime, topic,
                 speakerIdss);
         if (isSuccess) {
+          schedulerController.savedata();
           JOptionPane.showMessageDialog(null, "Edit success");
         } else {
           JOptionPane.showMessageDialog(null, "Edit failed");
@@ -154,6 +162,7 @@ public class AllEventsMenu extends JFrame {
         boolean isSuccess = schedulerController
             .confirmAddEvent(roomId, startTime, endTime, speakerIdss, topic, capacity, eventType);
         if (isSuccess) {
+          schedulerController.savedata();
           JOptionPane.showMessageDialog(null, "Add event success");
         } else {
           JOptionPane.showMessageDialog(null, "Add event failed");
@@ -168,6 +177,7 @@ public class AllEventsMenu extends JFrame {
         boolean isSuccess = schedulerController
             .confirmDeleteEvent(Integer.parseInt(selectedEvent.getText()));
         if (isSuccess) {
+          schedulerController.savedata();
           JOptionPane.showMessageDialog(null, "Delete event success");
         } else {
           JOptionPane.showMessageDialog(null, "Delete event failed");
@@ -181,6 +191,7 @@ public class AllEventsMenu extends JFrame {
       if (!selectedEvent.getText().isEmpty()) {
         boolean isSuccess = signUpController.signup(Integer.parseInt(selectedEvent.getText()));
         if (isSuccess) {
+          schedulerController.savedata();
           JOptionPane.showMessageDialog(null, "Sign up event success");
         } else {
           JOptionPane.showMessageDialog(null, "Sign up event failed");
@@ -203,12 +214,30 @@ public class AllEventsMenu extends JFrame {
     this.setResizable(false);
   }
 
+  /**
+   * Helper method for back button.
+   *
+   * @param email               - user's email
+   * @param loginFacade         - each user has only 1 facade running at a time.
+   * @param schedulerController - each user has only 1 schedule controller running at a time.
+   * @param signUpController    - each user has only 1 signup controller running at a time.
+   * @param messageController   - each user has only 1 message controller running at a time.
+   */
   static void back_helper(LoginFacade loginFacade, String email,
       SchedulerController schedulerController, SignUpController signUpController,
       MessageController messageController) {
     back_helper2(loginFacade, email, schedulerController, signUpController, messageController);
   }
 
+  /**
+   * Helper method for back button.
+   *
+   * @param email               - user's email
+   * @param loginFacade         - each user has only 1 facade running at a time.
+   * @param schedulerController - each user has only 1 schedule controller running at a time.
+   * @param signUpController    - each user has only 1 signup controller running at a time.
+   * @param messageController   - each user has only 1 message controller running at a time.
+   */
   static void back_helper2(LoginFacade loginFacade, String email,
       SchedulerController schedulerController, SignUpController signUpController,
       MessageController messageController) {
@@ -230,7 +259,9 @@ public class AllEventsMenu extends JFrame {
     }
   }
 
-
+  /**
+   * Call helper methods to return to the previous menu by details.
+   */
   private void backToMenu() {
     back_helper(loginFacade, email, schedulerController, signUpController, messageController);
   }

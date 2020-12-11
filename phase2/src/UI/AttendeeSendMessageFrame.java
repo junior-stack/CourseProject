@@ -11,6 +11,13 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+/**
+ * This class is the controller for message system.
+ *
+ * @author Zhongyuan Liang & Jiahao Zhang
+ * @editor by Haohua Ji
+ */
+
 public class AttendeeSendMessageFrame extends JFrame {
 
   final int MENU_HEIGHT = 500;
@@ -22,6 +29,15 @@ public class AttendeeSendMessageFrame extends JFrame {
   SignUpController signUpController;
   MessageController messageController;
 
+  /**
+   * Send message menu for attendee.
+   *
+   * @param email               - user's email
+   * @param loginFacade         - each user has only 1 facade running at a time.
+   * @param schedulerController - each user has only 1 schedule controller running at a time.
+   * @param signUpController    - each user has only 1 signup controller running at a time.
+   * @param messageController   - each user has only 1 message controller running at a time.
+   */
   public AttendeeSendMessageFrame(String email, LoginFacade loginFacade,
       SchedulerController schedulerController, SignUpController
       signUpController, MessageController messageController) {
@@ -46,7 +62,6 @@ public class AttendeeSendMessageFrame extends JFrame {
     JButton Back = new JButton("Back");
     panel.add(Back);
 
-
     viewEmails.addActionListener(
         e -> AllEmails.setListData(messageController.generateEmailList().toArray()));
 
@@ -66,7 +81,8 @@ public class AttendeeSendMessageFrame extends JFrame {
 
     Back.addActionListener(e -> {
       AttendeeSendMessageFrame.this.setVisible(false);
-      MessageMenu mm = new MessageMenu(email, loginFacade, schedulerController, signUpController, messageController);
+      MessageMenu mm = new MessageMenu(email, loginFacade, schedulerController, signUpController,
+          messageController);
       mm.setVisible(true);
     });
 

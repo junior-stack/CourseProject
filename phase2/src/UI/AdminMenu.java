@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- * Created by Haohua Ji
+ * @author Haohua Ji
  **/
 
 public class AdminMenu extends JFrame {
@@ -29,6 +29,15 @@ public class AdminMenu extends JFrame {
   JButton banAccount;
   JButton logout;
 
+  /**
+   * Admin's menu, admin can view the stats of the app. (E.g. No. of speaker accounts)
+   *
+   * @param email               - user's email
+   * @param loginFacade         - each user has only 1 facade running at a time.
+   * @param schedulerController - each user has only 1 schedule controller running at a time.
+   * @param signUpController    - each user has only 1 signup controller running at a time.
+   * @param messageController   - each user has only 1 message controller running at a time.
+   */
   public AdminMenu(String email, LoginFacade loginFacade, SchedulerController schedulerController,
       SignUpController
           signUpController, MessageController messageController) {

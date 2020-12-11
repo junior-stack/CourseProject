@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * Created by Haohua Ji
+ * @author Haohua Ji
  **/
 
 public class OrganizerMenu extends JFrame {
@@ -29,6 +29,17 @@ public class OrganizerMenu extends JFrame {
   JButton manageRooms;
   JButton logout;
 
+  /**
+   * Organizer's menu, organizer can view all events, sign up or sign off events, add or delete
+   * events, edit events, view signed up events, view or send message, manage room and accounts,
+   * etc.
+   *
+   * @param email               - user's email
+   * @param loginFacade         - each user has only 1 facade running at a time.
+   * @param schedulerController - each user has only 1 schedule controller running at a time.
+   * @param signUpController    - each user has only 1 signup controller running at a time.
+   * @param messageController   - each user has only 1 message controller running at a time.
+   */
   public OrganizerMenu(String email, LoginFacade loginFacade,
       SchedulerController schedulerController,
       SignUpController signUpController, MessageController messageController) {

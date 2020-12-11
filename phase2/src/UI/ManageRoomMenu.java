@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- * Created by Haohua Ji
+ * @author Haohua Ji
  **/
 
 public class ManageRoomMenu extends JFrame {
@@ -32,6 +32,15 @@ public class ManageRoomMenu extends JFrame {
   JPanel roomMenuPanel;
   JButton backButton;
 
+  /**
+   * Manage room menu for organizers, organizers can create room or delete room here.
+   *
+   * @param email               - user's email
+   * @param loginFacade         - each user has only 1 facade running at a time.
+   * @param schedulerController - each user has only 1 schedule controller running at a time.
+   * @param signUpController    - each user has only 1 signup controller running at a time.
+   * @param messageController   - each user has only 1 message controller running at a time.
+   */
   public ManageRoomMenu(String email, LoginFacade loginFacade,
       SchedulerController schedulerController,
       SignUpController signUpController, MessageController messageController) {
@@ -95,6 +104,15 @@ public class ManageRoomMenu extends JFrame {
     });
   }
 
+  /**
+   * Helper method for back button.
+   *
+   * @param email               - user's email
+   * @param loginFacade         - each user has only 1 facade running at a time.
+   * @param schedulerController - each user has only 1 schedule controller running at a time.
+   * @param signUpController    - each user has only 1 signup controller running at a time.
+   * @param messageController   - each user has only 1 message controller running at a time.
+   */
   static void backhelper(LoginFacade loginFacade, String email,
       SchedulerController schedulerController, SignUpController signUpController,
       MessageController messageController) {
@@ -102,6 +120,9 @@ public class ManageRoomMenu extends JFrame {
         .back_helper2(loginFacade, email, schedulerController, signUpController, messageController);
   }
 
+  /**
+   * Call helper methods to return to the previous menu by details.
+   */
   private void backToMenu() {
     backhelper(loginFacade, email, schedulerController, signUpController, messageController);
   }

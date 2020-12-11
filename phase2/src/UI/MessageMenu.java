@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * Created by Haohua Ji
+ * @author Haohua Ji
  **/
 
 public class MessageMenu extends JFrame {
@@ -27,6 +27,15 @@ public class MessageMenu extends JFrame {
   JPanel messageMenuPanel;
 
 
+  /**
+   * Message menu for users, user can view message, send message here.
+   *
+   * @param email               - user's email
+   * @param loginFacade         - each user has only 1 facade running at a time.
+   * @param schedulerController - each user has only 1 schedule controller running at a time.
+   * @param signUpController    - each user has only 1 signup controller running at a time.
+   * @param messageController   - each user has only 1 message controller running at a time.
+   */
   public MessageMenu(String email, LoginFacade loginFacade,
       SchedulerController schedulerController, SignUpController
       signUpController, MessageController messageController) {

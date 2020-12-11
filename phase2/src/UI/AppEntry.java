@@ -5,11 +5,14 @@ import Gateway.Bootstrap;
 import javax.swing.JFrame;
 
 /**
- * Created by Haohua Ji
+ * @author Haohua Ji
  **/
 
 public class AppEntry {
 
+  /**
+   * Start our app from here.
+   */
   public static void main(String[] args) throws Exception {
     Bootstrap.bootstrap();
     LoginFacade loginFacade = new LoginFacade();

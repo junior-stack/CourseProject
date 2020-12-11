@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * Created by Haohua Ji
+ * @author Haohua Ji
  **/
 
 public class AttendeeMenu extends JFrame {
@@ -27,6 +27,16 @@ public class AttendeeMenu extends JFrame {
   JButton viewAllEvents;
   JButton logout;
 
+  /**
+   * Attendee's menu, attendee can view all available events, sign up pr sign off events, send
+   * message to people and view any messages received.
+   *
+   * @param email               - user's email
+   * @param loginFacade         - each user has only 1 facade running at a time.
+   * @param schedulerController - each user has only 1 schedule controller running at a time.
+   * @param signUpController    - each user has only 1 signup controller running at a time.
+   * @param messageController   - each user has only 1 message controller running at a time.
+   */
   public AttendeeMenu(String email, LoginFacade loginFacade,
       SchedulerController schedulerController, SignUpController
       signUpController, MessageController messageController) {
