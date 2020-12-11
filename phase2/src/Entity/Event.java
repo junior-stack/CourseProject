@@ -57,6 +57,9 @@ public class Event {
     counter++;
   }
 
+  /**
+   * default constructor for Event.
+   */
   public Event() {
   }
 

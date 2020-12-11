@@ -45,10 +45,10 @@ public class User {
    * email are required. Also, a unique userId and a event list are generated and each Users has an
    * Identity of Attendee or Organizer or Speaker.
    *
-   * @param username
-   * @param password
-   * @param phone
-   * @param email
+   * @param username  the username of the user
+   * @param password  the password of the user
+   * @param phone     the phone of the user
+   * @param email     the email of the user
    */
   public User(String username, String password, String phone, String email) {
     this.userId = counter;

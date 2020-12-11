@@ -15,11 +15,11 @@ public class OneSpeakerEvent extends Event {
    * This method creates an Instance of OneSpeakerEvent. Every OneSpeakerEvent has a unique eventId,
    * one speaker, a related roomId, a topic, its startTime and endTime and a List of attendees.
    *
-   * @param speakerId
-   * @param roomId
-   * @param startTime
-   * @param endTime
-   * @param topic
+   * @param speakerId   the speaker id of the event
+   * @param roomId      the room id of the event
+   * @param startTime   the start time of the event
+   * @param endTime     the end time of the event
+   * @param topic       the topic of the event
    */
   public OneSpeakerEvent(int roomId, Time startTime, Time endTime, String topic, int max,
       ArrayList<Integer> speakerId) {

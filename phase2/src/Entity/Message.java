@@ -36,7 +36,9 @@ public class Message {
     this.content = content;
     this.currentStatus = "unread";
   }
-
+  /**
+   * Default constructor of the Message.
+   */
   public Message() {
   }
 

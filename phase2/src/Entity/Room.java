@@ -25,13 +25,16 @@ public class Room implements Schedulable {
   /**
    * This method creates an Instance of Room, a Room has a roomId and capacity.
    *
-   * @param roomName
+   * @param roomName the name of the room
    */
   public Room(int roomName, int capacity) {
     this.roomName = roomName;
     this.capacity = capacity;
   }
 
+  /**
+   * Default constructor of the Room.
+   */
   public Room() {
 
   }
