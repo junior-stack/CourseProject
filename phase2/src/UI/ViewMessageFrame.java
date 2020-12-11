@@ -82,6 +82,7 @@ public class ViewMessageFrame extends JFrame {
           .showInputDialog("Type the id of the message that you want to mark as unread");
       try {
         messageController.unreadMessage(Integer.parseInt(a));
+        messageController.saveMessage();
       } catch (Exception e1) {
         JOptionPane.showMessageDialog(null, "Invalid ID!");
       }
