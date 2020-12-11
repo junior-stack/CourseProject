@@ -4,6 +4,9 @@ import Controller.LoginFacade;
 import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -46,6 +49,7 @@ public class MyEventsMenu extends JFrame {
     this.signUpController = signUpController;
     this.messageController = messageController;
     myEventsPanel = new JPanel();
+    myEventsPanel.setLayout(new GridLayout(10, 1));
 
     if (!signUpController.viewEventRegister().isEmpty()) {
       myEventsList = new JComboBox<>(signUpController.viewEventRegister().toArray(new String[0]));
@@ -91,6 +95,10 @@ public class MyEventsMenu extends JFrame {
     this.setSize(MENU_WIDTH, MENU_HEIGHT);
     this.setTitle("My Events Menu");
     this.setResizable(false);
+    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+    int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
+    int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
+    this.setLocation(x, y);
   }
 
   /**

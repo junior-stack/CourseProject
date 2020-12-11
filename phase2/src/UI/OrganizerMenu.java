@@ -4,7 +4,9 @@ import Controller.LoginFacade;
 import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,7 +17,7 @@ import javax.swing.JPanel;
 
 public class OrganizerMenu extends JFrame {
 
-  final int MENU_HEIGHT = 500;
+  final int MENU_HEIGHT = 400;
   final int MENU_WIDTH = 500;
   String email;
   LoginFacade loginFacade;
@@ -50,7 +52,7 @@ public class OrganizerMenu extends JFrame {
     this.messageController = messageController;
 
     JPanel organizerPanel = new JPanel();
-    organizerPanel.setLayout(new GridLayout(6, 1));
+    organizerPanel.setLayout(new GridLayout(10, 1));
     viewAllEvents = new JButton("Display All Events");
     viewMyEvents = new JButton("Display My Events");
     viewMyMessage = new JButton("Display My Messages");
@@ -110,5 +112,9 @@ public class OrganizerMenu extends JFrame {
     this.setSize(MENU_WIDTH, MENU_HEIGHT);
     this.setTitle("Organizer Menu");
     this.setResizable(false);
+    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+    int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
+    int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
+    this.setLocation(x, y);
   }
 }

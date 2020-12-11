@@ -4,6 +4,9 @@ import Controller.LoginFacade;
 import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,7 +20,7 @@ import javax.swing.JTextField;
 
 public class LoginMenu extends JFrame {
 
-  final int MENU_HEIGHT = 200;
+  final int MENU_HEIGHT = 400;
   final int MENU_WIDTH = 500;
   LoginFacade loginFacade;
   JPanel loginPanel;
@@ -36,6 +39,7 @@ public class LoginMenu extends JFrame {
   public LoginMenu(LoginFacade loginFacade) {
     this.loginFacade = loginFacade;
     loginPanel = new JPanel();
+    loginPanel.setLayout(new GridLayout(10, 1));
 
     userEmailLabel = new JLabel("Email: ");
     loginPanel.add(userEmailLabel);
@@ -110,5 +114,9 @@ public class LoginMenu extends JFrame {
     this.setSize(MENU_WIDTH, MENU_HEIGHT);
     this.setTitle("Login");
     this.setResizable(false);
+    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+    int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
+    int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
+    this.setLocation(x, y);
   }
 }

@@ -5,6 +5,9 @@ import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
 import Controller.UserAccountsController;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -60,6 +63,7 @@ public class ManageAccountMenu extends JFrame {
     this.userAccountsController = new UserAccountsController(loginFacade.getUam());
 
     createAccountPanel = new JPanel();
+    createAccountPanel.setLayout(new GridLayout(10, 1));
 
     userName = new JLabel("Username: ");
     userPassword = new JLabel("Password: ");
@@ -141,6 +145,10 @@ public class ManageAccountMenu extends JFrame {
     this.setSize(MENU_WIDTH, MENU_HEIGHT);
     this.setTitle("Manage Account Menu");
     this.setResizable(false);
+    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+    int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
+    int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
+    this.setLocation(x, y);
   }
 
   /**

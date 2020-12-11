@@ -4,7 +4,9 @@ import Controller.LoginFacade;
 import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,7 +20,7 @@ import javax.swing.JTextField;
 public class AdminMenu extends JFrame {
 
   final int MENU_WIDTH = 500;
-  final int MENU_HEIGHT = 500;
+  final int MENU_HEIGHT = 400;
   String email;
   LoginFacade loginFacade;
   SchedulerController schedulerController;
@@ -48,7 +50,7 @@ public class AdminMenu extends JFrame {
     this.messageController = messageController;
 
     JPanel adminPanel = new JPanel();
-    adminPanel.setLayout(new GridLayout(4, 1));
+    adminPanel.setLayout(new GridLayout(10, 1));
     hintLabel1 = new JLabel("User email: ");
     banUserEmail = new JTextField(40);
     banAccount = new JButton("Ban this user");
@@ -69,5 +71,9 @@ public class AdminMenu extends JFrame {
     this.setSize(MENU_WIDTH, MENU_HEIGHT);
     this.setTitle("Admin Menu");
     this.setResizable(false);
+    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+    int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
+    int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
+    this.setLocation(x, y);
   }
 }

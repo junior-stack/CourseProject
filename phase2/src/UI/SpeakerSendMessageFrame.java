@@ -4,7 +4,9 @@ import Controller.LoginFacade;
 import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -48,7 +50,7 @@ public class SpeakerSendMessageFrame extends JFrame {
     this.messageController = messageController;
 
     JPanel panel = new JPanel();
-    panel.setLayout(new GridLayout(3, 2));
+    panel.setLayout(new GridLayout(10, 1));
 
     JButton viewEmails = new JButton("View All Email Addresses that you could send message to");
     panel.add(viewEmails);
@@ -119,5 +121,9 @@ public class SpeakerSendMessageFrame extends JFrame {
     this.setSize(MENU_WIDTH, MENU_HEIGHT);
     this.setTitle("Organizer send message menu");
     this.setResizable(false);
+    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+    int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
+    int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
+    this.setLocation(x, y);
   }
 }

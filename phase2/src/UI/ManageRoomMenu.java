@@ -4,6 +4,9 @@ import Controller.LoginFacade;
 import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -51,6 +54,7 @@ public class ManageRoomMenu extends JFrame {
     this.messageController = messageController;
 
     roomMenuPanel = new JPanel();
+    roomMenuPanel.setLayout(new GridLayout(10, 1));
     deleteRoomButton = new JButton("Delete selected room");
     addRoomButton = new JButton("Add room");
     hintLabel1 = new JLabel("Select a room below to delete or enter a room ID to add.");
@@ -102,6 +106,19 @@ public class ManageRoomMenu extends JFrame {
       ManageRoomMenu.this.setVisible(false);
       backToMenu();
     });
+
+    int MENU_WIDTH = 500;
+    int MENU_HEIGHT = 500;
+    roomMenuPanel.setSize(MENU_WIDTH, MENU_HEIGHT);
+    roomMenuPanel.setLocation((MENU_WIDTH - 250) / 2, (MENU_HEIGHT - 250) / 2);
+    this.add(roomMenuPanel);
+    this.setSize(MENU_WIDTH, MENU_HEIGHT);
+    this.setTitle("Manage Account Menu");
+    this.setResizable(false);
+    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+    int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
+    int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
+    this.setLocation(x, y);
   }
 
   /**

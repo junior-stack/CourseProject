@@ -4,6 +4,9 @@ import Controller.LoginFacade;
 import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -46,6 +49,7 @@ public class MessageMenu extends JFrame {
     this.messageController = messageController;
 
     messageMenuPanel = new JPanel();
+    messageMenuPanel.setLayout(new GridLayout(10, 1));
     viewMyMessage = new JButton("View my messages");
     sendMessage = new JButton("Send messages");
     backButton = new JButton("Back");
@@ -89,6 +93,10 @@ public class MessageMenu extends JFrame {
     this.setSize(MENU_WIDTH, MENU_HEIGHT);
     this.setTitle("Message Menu");
     this.setResizable(false);
+    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+    int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
+    int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
+    this.setLocation(x, y);
   }
 
 }

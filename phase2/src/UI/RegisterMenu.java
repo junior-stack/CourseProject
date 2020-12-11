@@ -1,6 +1,9 @@
 package UI;
 
 import Controller.LoginFacade;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,7 +18,7 @@ import javax.swing.JTextField;
 public class RegisterMenu extends JFrame {
 
   final int MENU_WIDTH = 500;
-  final int MENU_HEIGHT = 300;
+  final int MENU_HEIGHT = 400;
   JPanel registerPanel;
   JLabel userName;
   JLabel userPassword;
@@ -37,6 +40,7 @@ public class RegisterMenu extends JFrame {
   public RegisterMenu(LoginFacade loginFacade) {
     this.loginFacade = loginFacade;
     registerPanel = new JPanel();
+    registerPanel.setLayout(new GridLayout(10, 1));
 
     userName = new JLabel("Username: ");
     userPassword = new JLabel("Password: ");
@@ -97,5 +101,9 @@ public class RegisterMenu extends JFrame {
     this.setSize(MENU_WIDTH, MENU_HEIGHT);
     this.setTitle("Register");
     this.setResizable(false);
+    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+    int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
+    int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
+    this.setLocation(x, y);
   }
 }

@@ -4,7 +4,9 @@ import Controller.LoginFacade;
 import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -49,7 +51,7 @@ public class ViewMessageFrame extends JFrame {
     this.messageController = messageController;
 
     JPanel panel = new JPanel();
-    panel.setLayout(new GridLayout(4, 2));
+    panel.setLayout(new GridLayout(10, 1));
 
     JButton viewUnreadMessages = new JButton("View Unread Messages");
     panel.add(viewUnreadMessages);
@@ -133,13 +135,17 @@ public class ViewMessageFrame extends JFrame {
     });
 
     int MENU_HEIGHT = 500;
-    int MENU_WIDTH = 2000;
+    int MENU_WIDTH = 800;
     panel.setSize(MENU_WIDTH, MENU_HEIGHT);
     panel.setLocation((MENU_WIDTH - 250) / 2, (MENU_HEIGHT - 250) / 2);
     this.add(panel);
     this.setSize(MENU_WIDTH, MENU_HEIGHT);
     this.setTitle("Message Menu");
     this.setResizable(false);
+    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+    int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
+    int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
+    this.setLocation(x, y);
   }
 
 }

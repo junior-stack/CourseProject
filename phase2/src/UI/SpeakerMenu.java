@@ -4,7 +4,9 @@ import Controller.LoginFacade;
 import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,7 +17,7 @@ import javax.swing.JPanel;
 
 public class SpeakerMenu extends JFrame {
 
-  final int MENU_HEIGHT = 500;
+  final int MENU_HEIGHT = 400;
   final int MENU_WIDTH = 500;
   String email;
   LoginFacade loginFacade;
@@ -47,7 +49,7 @@ public class SpeakerMenu extends JFrame {
     this.messageController = messageController;
 
     JPanel speakerPanel = new JPanel();
-    speakerPanel.setLayout(new GridLayout(3, 1));
+    speakerPanel.setLayout(new GridLayout(10, 1));
     viewMyEvents = new JButton("Display my events");
     viewMyMessage = new JButton("Display my messages");
     logout = new JButton("Logout");
@@ -80,5 +82,9 @@ public class SpeakerMenu extends JFrame {
     this.setSize(MENU_WIDTH, MENU_HEIGHT);
     this.setTitle("Speaker Menu");
     this.setResizable(false);
+    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+    int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
+    int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
+    this.setLocation(x, y);
   }
 }

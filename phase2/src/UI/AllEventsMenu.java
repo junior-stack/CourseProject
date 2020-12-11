@@ -4,7 +4,9 @@ import Controller.LoginFacade;
 import Controller.MessageController;
 import Controller.SchedulerController;
 import Controller.SignUpController;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -88,7 +90,7 @@ public class AllEventsMenu extends JFrame {
     topicInput = new JTextField(40);
 
     if (loginFacade.getUserIdentity(email).equals("Organizer")) {
-      allEventPanel.setLayout(new GridLayout(20, 1));
+      allEventPanel.setLayout(new GridLayout(10, 1));
       allEventPanel.add(roomIdLabel);
       allEventPanel.add(roomIdInput);
       allEventPanel.add(startTimeLabel);
@@ -212,6 +214,10 @@ public class AllEventsMenu extends JFrame {
     this.setSize(MENU_WIDTH, MENU_HEIGHT);
     this.setTitle("All events panel");
     this.setResizable(false);
+    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+    int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
+    int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
+    this.setLocation(x, y);
   }
 
   /**
