@@ -14,6 +14,10 @@ public class MainGateway {
 
   private final static String DB_URL = "jdbc:sqlite:conference.sqlite.db";
 
+  /**
+   *  connect to the datbase
+   * @throws Exception occurs when the connection fails
+   */
   public static void connect() throws Exception {
     JdbcConnectionSource connectionSource = null;
     Logger.setGlobalLogLevel(Log.Level.ERROR);
@@ -33,6 +37,11 @@ public class MainGateway {
     }
   }
 
+  /**
+   * Initialize all Dao classes
+   * @param conn the database
+   * @throws Exception occurs when the initialization fails
+   */
   public static void setUpDaos(ConnectionSource conn) throws Exception {
     RoomDao.init(conn);
     UserDao.init(conn);
