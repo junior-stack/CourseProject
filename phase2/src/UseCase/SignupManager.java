@@ -111,6 +111,9 @@ public class SignupManager {
     return tmp;
   }
 
+  /**
+   * Save the data
+   */
   public void saveUserSchedule() {
     UserEventDao.saveHashMap(this.user_schedule);
   }
