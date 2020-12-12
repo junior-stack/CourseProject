@@ -12,10 +12,17 @@ public class EventDao {
 
   private static Dao<Event, Integer> instance;
 
+  /**
+   * the constructor of EventDao
+   */
   private EventDao() {
 
   }
 
+  /**
+   * Access the database at the start of the program
+   * @return Dao<Event, Integer> the content stored from database of event
+   */
   public static Dao<Event, Integer> getInstance() {
     if (instance == null) {
       System.out.println("Trying to access dao before initialization");
@@ -23,12 +30,20 @@ public class EventDao {
     return instance;
   }
 
+  /**
+   *  Initialize the connection to database
+   * @param conn  the database
+   * @throws Exception occurs when the connection fails
+   */
   public static void init(ConnectionSource conn) throws Exception {
     instance = DaoManager.createDao(conn, Event.class);
     // if you need to create the table
     TableUtils.createTableIfNotExists(conn, Event.class);
   }
 
+  /**
+   * Reformat to SQL Language
+   */
   public static void truncate() {
     String tableName = "event";
     String truncateQuery = "DELETE FROM " + tableName + ";";
@@ -39,6 +54,10 @@ public class EventDao {
     }
   }
 
+  /**
+   * Return the list of events for EventManager
+   * @return List<Event> list of events
+   */
   public static List<Event> getAll() {
     try {
       return instance.queryForAll();
@@ -48,6 +67,10 @@ public class EventDao {
     return new ArrayList<>();
   }
 
+  /**
+   * Save the program information into the database
+   * @param objs the item you want to store
+   */
   public static void saveAll(List<Event> objs) {
     truncate();
     for (Event e : objs) {

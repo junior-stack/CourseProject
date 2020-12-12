@@ -15,10 +15,17 @@ public class UserEventDao {
 
   private static Dao<UserEventMapper, Integer> instance;
 
+  /**
+   * the constructor of UserDao
+   */
   private UserEventDao() {
 
   }
 
+  /**
+   * Access the database at the start of the program
+   * @return Dao<UserEventMapper, Integer> the content stored from database of event
+   */
   public static Dao<UserEventMapper, Integer> getInstance() {
     if (instance == null) {
       System.out.println("Trying to access dao before initialization");
@@ -26,12 +33,22 @@ public class UserEventDao {
     return instance;
   }
 
+  /**
+   *  Initialize the connection to database
+   * @param conn  the database
+   * @throws Exception occurs when the connection fails
+   */
   public static void init(ConnectionSource conn) throws Exception {
     instance = DaoManager.createDao(conn, UserEventMapper.class);
     // if you need to create the table
     TableUtils.createTableIfNotExists(conn, UserEventMapper.class);
   }
 
+
+  /**
+   * Return the list of User for UserEventMapper
+   * @return List<UserEventManager> list of UserEventMapper
+   */
   public static List<UserEventMapper> getAll() {
 
     try {
@@ -42,6 +59,10 @@ public class UserEventDao {
     return new ArrayList<>();
   }
 
+  /**
+   * Save the program information into the database
+   * @param objs the item you want to store
+   */
   public static void saveAll(List<UserEventMapper> objs) {
     truncate();
 
@@ -54,6 +75,9 @@ public class UserEventDao {
     }
   }
 
+  /**
+   * Reformat to SQL Language
+   */
   public static void truncate() {
     String tableName = "user_event";
     String truncateQuery = "DELETE FROM " + tableName + ";";

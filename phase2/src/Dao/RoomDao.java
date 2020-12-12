@@ -12,10 +12,17 @@ public class RoomDao {
 
   private static Dao<Room, Integer> instance;
 
+  /**
+   * the constructor of RoomDao
+   */
   private RoomDao() {
 
   }
 
+  /**
+   * Access the database at the start of the program
+   * @return Dao<Room, Integer> the content stored from database of event
+   */
   public static Dao<Room, Integer> getInstance() {
     if (instance == null) {
       System.out.println("Trying to access dao before initialization");
@@ -23,12 +30,20 @@ public class RoomDao {
     return instance;
   }
 
+  /**
+   *  Initialize the connection to database
+   * @param conn  the database
+   * @throws Exception occurs when the connection fails
+   */
   public static void init(ConnectionSource conn) throws Exception {
     instance = DaoManager.createDao(conn, Room.class);
     // if you need to create the table
     TableUtils.createTableIfNotExists(conn, Room.class);
   }
 
+  /**
+   * Reformat to SQL Language
+   */
   public static void truncate() {
     String tableName = "room";
     String truncateQuery = "DELETE FROM " + tableName + ";";
@@ -40,6 +55,10 @@ public class RoomDao {
     }
   }
 
+  /**
+   * Return the list of Room for Room
+   * @return List<Room> list of Room
+   */
   public static List<Room> getAll() {
 
     try {
@@ -50,6 +69,10 @@ public class RoomDao {
     return new ArrayList<>();
   }
 
+  /**
+   * Save the program information into the database
+   * @param objs the item you want to store
+   */
   public static void saveAll(List<Room> objs) {
     truncate();
 

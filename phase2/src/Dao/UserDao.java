@@ -12,10 +12,17 @@ public final class UserDao {
 
   private static Dao<User, Integer> instance;
 
+  /**
+   * the constructor of UserDao
+   */
   private UserDao() {
 
   }
 
+  /**
+   * Access the database at the start of the program
+   * @return Dao<User, Integer> the content stored from database of event
+   */
   public static Dao<User, Integer> getInstance() {
     if (instance == null) {
       System.out.println("Trying to access dao before initialization");
@@ -23,12 +30,20 @@ public final class UserDao {
     return instance;
   }
 
+  /**
+   *  Initialize the connection to database
+   * @param conn  the database
+   * @throws Exception occurs when the connection fails
+   */
   public static void init(ConnectionSource conn) throws Exception {
     instance = DaoManager.createDao(conn, User.class);
     // if you need to create the table
     TableUtils.createTableIfNotExists(conn, User.class);
   }
 
+  /**
+   * Reformat to SQL Language
+   */
   public static void truncate() {
     String tableName = "user";
     String truncateQuery = "DELETE FROM " + tableName + ";";
@@ -40,6 +55,10 @@ public final class UserDao {
     }
   }
 
+  /**
+   * Return the list of User for UserAccountManager
+   * @return List<User> list of User
+   */
   public static List<User> getAll() {
 
     try {
@@ -50,6 +69,10 @@ public final class UserDao {
     return new ArrayList<>();
   }
 
+  /**
+   * Save the program information into the database
+   * @param objs the item you want to store
+   */
   public static void saveAll(List<User> objs) {
     truncate();
 
