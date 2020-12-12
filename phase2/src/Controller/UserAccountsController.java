@@ -2,11 +2,18 @@ package Controller;
 
 import UseCase.AccountManager;
 
+/**
+ * class of UserAccounts controller
+ */
 public class UserAccountsController {
 
   private final AccountManager am;
 
 
+  /**
+   * constructor of useraccountscontroller
+   * @param am
+   */
   public UserAccountsController(AccountManager am) {
     this.am = am;
 
@@ -49,6 +56,14 @@ public class UserAccountsController {
 
   }
 
+  /**
+   * This method register a organzier account for the user.
+   * @param username
+   * @param password
+   * @param phone
+   * @param email
+   * @return
+   */
   public boolean createOrganizer(String username, String password, String phone, String email) {
     if (am.existingUser(email)) {
       return false;

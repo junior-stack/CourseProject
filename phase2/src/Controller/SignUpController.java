@@ -20,6 +20,13 @@ public class SignUpController {
   private final String email;
   private final SignupManager us;
 
+  /**
+   * Constructor of signupcontroller
+   * @param email
+   * @param userAccountManager
+   * @param roomManager
+   * @param eventManager
+   */
   public SignUpController(String email, UserAccountManager userAccountManager,
       RoomManager roomManager, EventManager eventManager) {
 
@@ -47,15 +54,6 @@ public class SignUpController {
       return null;
     }
   }
-
-//  /**
-//   * This method return all topics.
-//   *
-//   * @return a list of all topics of events
-//   */
-//  public ArrayList<String> browse(String topic) {
-//    return em.browse(topic);
-//  }
 
 
   /**
@@ -105,6 +103,9 @@ public class SignUpController {
     return false;
   }
 
+  /**
+   * save schedule infor to database
+   */
   public void save() {
     us.saveUserSchedule();
   }

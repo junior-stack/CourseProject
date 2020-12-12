@@ -24,6 +24,10 @@ public class SchedulerController {
   private final EventManager em;
   private final RoomManager rmm;
 
+  /**
+   * Constructor of schedulercontroller
+   * @param uam
+   */
   public SchedulerController(UserAccountManager uam) {
 
     this.uam = uam;
@@ -34,7 +38,6 @@ public class SchedulerController {
     em.setNewCounter(events.size());
   }
 
-  // EventController
 
   /**
    * This method creates and adds an event to the system

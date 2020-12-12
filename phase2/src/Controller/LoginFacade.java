@@ -17,6 +17,9 @@ public class LoginFacade {
   private final LoginPresenter lp;
   private final UserAccountManager uam;
 
+  /**
+   * Constructor of LoginFacade
+   */
   public LoginFacade() {
     List<Entity.User> users = UserDao.getAll();
     uam = new UserAccountManager(users);
@@ -28,7 +31,7 @@ public class LoginFacade {
   }
 
   /**
-   * This method register a account for the user.
+   * This method creates a account for the attendee.
    *
    * @param username the username for the account
    * @param password the password for the account
@@ -40,10 +43,26 @@ public class LoginFacade {
     return uac.createAttendee(username, password, phone, email);
   }
 
+  /**
+   * This method create a account for speaker
+   * @param username the username for the account
+   * @param password the password for the account
+   * @param phone the phone number for the account
+   * @param email the email address of the account
+   * @return
+   */
   public boolean createspeaker(String username, String password, String phone, String email) {
     return uac.createSpeaker(username, password, phone, email);
   }
 
+  /**
+   * * This method create a account for Organizer
+   * @param username the username for the account
+   * @param password the password for the account
+   * @param phone the phone number for the account
+   * @param email the email address of the account
+   * @return
+   */
   public boolean createOrganizer(String username, String password, String phone, String email) {
     return uac.createOrganizer(username, password, phone, email);
   }
@@ -97,14 +116,24 @@ public class LoginFacade {
     return lp.allSpeakerInfo();
   }
 
+  /**
+   * Getter to get the UserAccountManager
+   * @return  UserAccountManager
+   */
   public UserAccountManager getUam() {
     return uam;
   }
 
 
+  /**
+   * Exit the login
+   */
   public void exit() {
   }
 
+  /**
+   * Save registration infor to database
+   */
   public void save() {
     UserAccountManager.save();
   }
