@@ -177,6 +177,9 @@ public class Event {
    * @return Event's speaker
    */
   public ArrayList<Integer> getSpeaker() {
+    if (speakerId == null){
+      speakerId = new ArrayList<>();
+    }
     return speakerId;
   }
 

@@ -69,6 +69,13 @@ public class User implements Schedulable{
     User.counter = counter;
   }
 
+  public ArrayList<ArrayList<Time>> getSchedule() {
+    if (schedule == null){
+      schedule = new ArrayList<>();
+    }
+    return schedule;
+  }
+
   /**
    * This method returns a User's Id.
    *
@@ -200,7 +207,7 @@ public class User implements Schedulable{
         ", phone='" + phone + '\'' +
         ", email='" + email + '\'' +
         ", events=" + events +
-        ", schedule=" + schedule +
+        ", schedule=" + getSchedule() +
         '}';
   }
 
@@ -234,7 +241,7 @@ public class User implements Schedulable{
    */
   @Override
   public boolean CheckSchedulable(Time start, Time end) {
-    for (ArrayList<Time> t : schedule) {
+    for (ArrayList<Time> t : getSchedule()) {
       if (start.compareTo(t.get(0)) >= 0 && start.compareTo(t.get(1)) < 0) {
         return false;
       } else if (end.compareTo(t.get(0)) > 0 && end.compareTo(t.get(1)) <= 0) {
@@ -270,9 +277,9 @@ public class User implements Schedulable{
    */
   @Override
   public boolean delSchedulableSchedule(Time start, Time end) {
-    for (ArrayList<Time> t : schedule) {
+    for (ArrayList<Time> t : getSchedule()) {
       if (t.get(0).equals(start) && t.get(1).equals(end)) {
-        schedule.remove(t);
+        getSchedule().remove(t);
         return true;
       }
     }
@@ -286,7 +293,7 @@ public class User implements Schedulable{
    */
   @Override
   public ArrayList<ArrayList<Time>> getScheduleableSchedulelist() {
-    return schedule;
+    return getSchedule();
   }
 
   /**
@@ -295,7 +302,7 @@ public class User implements Schedulable{
    */
   @Override
   public String get_sch_info(int sch) {
-    return schedule.toString();
+    return getSchedule().toString();
   }
 
   /**
