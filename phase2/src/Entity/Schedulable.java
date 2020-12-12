@@ -4,7 +4,6 @@ import java.sql.Time;
 import java.util.ArrayList;
 
 /**
- * Schedulable Interface.
  * @author Zhou Ye, Hanzi Zhang
  **/
 public interface Schedulable {

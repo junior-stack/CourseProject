@@ -17,9 +17,6 @@ public class LoginFacade {
   private final LoginPresenter lp;
   private final UserAccountManager uam;
 
-  /**
-   * Constructor for LoginFacade.
-   */
   public LoginFacade() {
     List<Entity.User> users = UserDao.getAll();
     uam = new UserAccountManager(users);

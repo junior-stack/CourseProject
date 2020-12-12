@@ -224,8 +224,10 @@ public class EventManager implements Iterable<Event> {
     }
     return null;
   }
+
   /**
    * This method override the <>iterator()</> in <>Iterable</> interface.
+   *
    * @return Iterator
    */
   @Override
@@ -249,7 +251,8 @@ public class EventManager implements Iterable<Event> {
 
     /**
      * This method override the <>hasNext()</> method in <>Iterable</> interface.
-     * @return  {@code true} if the iteration has more Events
+     *
+     * @return {@code true} if the iteration has more Events
      */
     @Override
     public boolean hasNext() {
@@ -258,6 +261,7 @@ public class EventManager implements Iterable<Event> {
 
     /**
      * This method override the <>next()</> method in <>Iterable</> interface.
+     *
      * @return Room   the next Event in the iteration
      */
     @Override

@@ -1,8 +1,5 @@
 package Entity;
 
-import java.sql.Time;
-import java.util.ArrayList;
-
 /**
  * This class represents an Speaker.
  *

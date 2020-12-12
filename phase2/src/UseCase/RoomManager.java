@@ -189,6 +189,7 @@ public class RoomManager implements Iterable<Room> {
 
   /**
    * This method override the <>iterator()</> in <>Iterable</> interface.
+   *
    * @return Iterator
    */
   @Override
@@ -212,7 +213,8 @@ public class RoomManager implements Iterable<Room> {
 
     /**
      * This method override the <>hasNext()</> method in <>Iterable</> interface.
-     * @return  {@code true} if the iteration has more Rooms
+     *
+     * @return {@code true} if the iteration has more Rooms
      */
     @Override
     public boolean hasNext() {
@@ -221,6 +223,7 @@ public class RoomManager implements Iterable<Room> {
 
     /**
      * This method override the <>next()</> method in <>Iterable</> interface.
+     *
      * @return Room   the next Room in the iteration
      */
     @Override

@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Class representing SignUpController.
- *
  * @author yezhou
  **/
 public class SignUpController {
@@ -22,14 +20,6 @@ public class SignUpController {
   private final String email;
   private final SignupManager us;
 
-  /**
-   * Constructor for SignUpController.
-   *
-   * @param email                 email address
-   * @param userAccountManager    a userAccountManager instance
-   * @param roomManager           a roomManager instance
-   * @param eventManager          a evenManager instance
-   */
   public SignUpController(String email, UserAccountManager userAccountManager,
       RoomManager roomManager, EventManager eventManager) {
 
@@ -50,10 +40,6 @@ public class SignUpController {
     us = new SignupManager(userschedule);
   }
 
-  /**
-   * Get an ArrayList of all string representation of Event of user with this email.
-   * @return ArrayList  ArrayList of all string representation of Event of user with this email
-   */
   public ArrayList<String> viewEventRegister() {
     try {
       return us.get_user_schedule_info(uam.get_single_user(uam.get_user_id(email)));
@@ -61,6 +47,15 @@ public class SignUpController {
       return null;
     }
   }
+
+//  /**
+//   * This method return all topics.
+//   *
+//   * @return a list of all topics of events
+//   */
+//  public ArrayList<String> browse(String topic) {
+//    return em.browse(topic);
+//  }
 
 
   /**

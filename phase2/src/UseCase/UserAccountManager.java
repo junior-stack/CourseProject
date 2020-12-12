@@ -23,7 +23,7 @@ public class UserAccountManager implements AccountManager {
   /**
    * Create a UserAccountManager with given userList.
    *
-   * @param userList  a List of User
+   * @param userList a List of User
    */
 
   public UserAccountManager(List<User> userList) {
@@ -48,7 +48,7 @@ public class UserAccountManager implements AccountManager {
   /**
    * Based on given email, this methods return the User object
    *
-   * @param email  the email to be checked
+   * @param email the email to be checked
    * @return User  User with the email
    */
   public static User getUserFromEmail(String email) {
@@ -62,6 +62,7 @@ public class UserAccountManager implements AccountManager {
 
   /**
    * Return the identity of the user with given email.
+   *
    * @param email email to be checked
    * @return String  the identity of user with given email
    */
@@ -75,6 +76,7 @@ public class UserAccountManager implements AccountManager {
 
   /**
    * Return the email of the user with given Id.
+   *
    * @param Id the id to be checked
    * @return String  the email of the user with given id
    */
@@ -89,7 +91,8 @@ public class UserAccountManager implements AccountManager {
 
   /**
    * Return an ArrayList of all email of all users with usertype as given.
-   * @param userType  the user type we want to find all email
+   *
+   * @param userType the user type we want to find all email
    * @return ArrayList  ArrayList of all email of all user with given usertype
    */
   public static ArrayList<String> getAllAvailableEmails(String userType) {
@@ -112,10 +115,10 @@ public class UserAccountManager implements AccountManager {
   /**
    * This method creates organizers by adding all the organizers from the list.
    *
-   * @param username  username of the Organizer
-   * @param password  password of the Organizer
-   * @param phone     phone of the Organizer
-   * @param email     email of the Organizer
+   * @param username username of the Organizer
+   * @param password password of the Organizer
+   * @param phone    phone of the Organizer
+   * @param email    email of the Organizer
    * @return boolean whether organizer is created or not.
    */
   @Override
@@ -131,10 +134,10 @@ public class UserAccountManager implements AccountManager {
   /**
    * This method creates an attendee with giving username, password, phone and email.
    *
-   * @param username  username of the Attendee
-   * @param password  password of the Attendee
-   * @param phone     phone of the Attendee
-   * @param email     email of the Attendee
+   * @param username username of the Attendee
+   * @param password password of the Attendee
+   * @param phone    phone of the Attendee
+   * @param email    email of the Attendee
    * @return boolean whether attendee is created or not.
    */
   @Override
@@ -151,10 +154,10 @@ public class UserAccountManager implements AccountManager {
   /**
    * This method creates an speaker with giving username, password, phone and email.
    *
-   * @param username  username of the speaker
-   * @param password  password of the speaker
-   * @param phone     phone of the speaker
-   * @param email     email of the speaker
+   * @param username username of the speaker
+   * @param password password of the speaker
+   * @param phone    phone of the speaker
+   * @param email    email of the speaker
    * @return boolean whether speaker is created or not.
    */
   @Override
@@ -172,8 +175,8 @@ public class UserAccountManager implements AccountManager {
    * This method checks if the pair of email and password already existed. And print "Provided
    * Information Match/Not Match With Registered"
    *
-   * @param email     the email we want to check
-   * @param password  the password we want to check
+   * @param email    the email we want to check
+   * @param password the password we want to check
    * @return boolean whether the pair of email and password exist or not
    */
   @Override
@@ -204,7 +207,7 @@ public class UserAccountManager implements AccountManager {
    * This method return a string representing the user with given email. Return "User does not
    * exist" when no users is registered with given email.
    *
-   * @param email  the email we want to check
+   * @param email the email we want to check
    * @return a string representation of the user with given email or "User does not exist"
    */
   public String getUserInfo(String email) {
@@ -220,7 +223,7 @@ public class UserAccountManager implements AccountManager {
    * This method return the identity of the user with given email, or return "User does not exist"
    * when no user is registered with given email.
    *
-   * @param email  the email we want to check
+   * @param email the email we want to check
    * @return String  identity related to the email or "User does not exist"
    */
   public String getUserIdentity(String email) {
@@ -235,7 +238,7 @@ public class UserAccountManager implements AccountManager {
   /**
    * This method verifies if given email has been registered, same email can only registered once.
    *
-   * @param email  the email we want to check
+   * @param email the email we want to check
    * @return {@code True} if the user with given email exists
    */
   @Override
@@ -252,7 +255,7 @@ public class UserAccountManager implements AccountManager {
    * return a User with given userId from the UserAccountManager's user list or return nothing if
    * there is no such user.
    *
-   * @param user_id  the user id we want to check
+   * @param user_id the user id we want to check
    * @return User with given userId or null
    */
 
@@ -269,7 +272,7 @@ public class UserAccountManager implements AccountManager {
    * This method returns userId of the User with given email in this UserAccountManager, or return
    * null when there is no such user
    *
-   * @param email  email we want to check
+   * @param email email we want to check
    * @return Integer  id of the user with given email
    */
   public Integer get_user_id(String email) {

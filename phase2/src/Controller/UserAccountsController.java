@@ -49,14 +49,6 @@ public class UserAccountsController {
 
   }
 
-  /**
-   * This method register an organizer account for the user.
-   * @param username the username for the account
-   * @param password the password for the account
-   * @param phone    the phone number for the account
-   * @param email    the email address of the account
-   * @return boolean and signal message whether the creation succeeds.
-   */
   public boolean createOrganizer(String username, String password, String phone, String email) {
     if (am.existingUser(email)) {
       return false;

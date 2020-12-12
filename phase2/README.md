@@ -9,7 +9,7 @@ This project is made by group_0014 during course CSC207 2020F at the University 
 project simulates a system such as Eventbrite that the user can do different operations based on
 their types. For usage, please see below.
 
-### Demo Video: Click [Here]().
+### Demo Video: Click [Here](https://youtu.be/qFRKwuiS5H8).
 
 ## Getting Started
 
@@ -113,6 +113,16 @@ at the following table before moving on.
 | Speaker ID |       3,4,5       | List<Integer> |
 |    Topic   |   "How are you?"  |     String    |
 |   Message  |   "How are you?"  |     String    |
+
+### Database Info
+
+|  userType | userId | username            | password  |   userPhone  |      userEmail     |
+|:---------:|--------|---------------------|-----------|:------------:|:------------------:|
+| Attendee  | 0      | attendee            | 123456789 | 416-289-9999 | attendee@gmail.com |
+| Organizer | 1      | UniversityofToronto | UofT      | 416-978-2011 | UofT@gmail.com     |
+| Speaker   | 2      | speaker             | speaker   | 111-111-1111 | speaker@gmail.com  |
+| Admin     | 3      | admin               | admin     | 222-222-2222 | admin@gmail.com    |
+| Attendee  | 4      | student             | student   | 333-333-3333 | student@gmail.com  |
 
 ## License
 
