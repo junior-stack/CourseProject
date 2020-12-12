@@ -299,7 +299,7 @@ public class UserAccountManager implements AccountManager {
     ArrayList speakers = new ArrayList();
     if (userList != null && userList.size() > 0) {
       for (User i : userList) {
-        if (i instanceof Speaker) {
+        if (i.getType().equals("Speaker")) {
           speakers.add(i);
         }
       }
