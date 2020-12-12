@@ -39,7 +39,6 @@ public class EventDao {
    */
   public static void init(ConnectionSource conn) throws Exception {
     instance = DaoManager.createDao(conn, Event.class);
-    // if you need to create the table
     TableUtils.createTableIfNotExists(conn, Event.class);
   }
 

@@ -16,12 +16,10 @@ public interface AccountManager {
    * @return boolean whether email is valid or not.
    */
   default boolean isValidEmail(String email) {
-    // Create a regular expression format for a valid email
     String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
         "[a-zA-Z0-9_+&*-]+)*@" +
         "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
         "A-Z]{0,9}$";
-    //Check if the email address matches the regex format
     Pattern emailPat = Pattern.compile(emailRegex);
     if (email == null) {
       return false;

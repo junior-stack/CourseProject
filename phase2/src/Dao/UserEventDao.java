@@ -42,7 +42,6 @@ public class UserEventDao {
    */
   public static void init(ConnectionSource conn) throws Exception {
     instance = DaoManager.createDao(conn, UserEventMapper.class);
-    // if you need to create the table
     TableUtils.createTableIfNotExists(conn, UserEventMapper.class);
   }
 

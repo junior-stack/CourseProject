@@ -39,7 +39,6 @@ public class RoomDao {
    */
   public static void init(ConnectionSource conn) throws Exception {
     instance = DaoManager.createDao(conn, Room.class);
-    // if you need to create the table
     TableUtils.createTableIfNotExists(conn, Room.class);
   }
 

@@ -16,10 +16,18 @@ public class UserEventMapper {
   @DatabaseField(id = true, columnName = "id")
   int id = 0;
 
+  /**
+   * Constructor for UserEventMapper
+   */
   public UserEventMapper() {
 
   }
 
+  /**
+   *  Constructor for UserEVentMapper
+   * @param user target user
+   * @param event the list of user he attends
+   */
   public UserEventMapper(User user, Event event) {
     this.user = user;
     this.event = event;
