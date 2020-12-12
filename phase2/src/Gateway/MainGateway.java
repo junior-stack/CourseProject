@@ -22,15 +22,11 @@ public class MainGateway {
     JdbcConnectionSource connectionSource = null;
     Logger.setGlobalLogLevel(Log.Level.ERROR);
     try {
-      // create our data-source for the database
       connectionSource = new JdbcConnectionSource(DB_URL);
-      // setup our database and DAOs
       setUpDaos(connectionSource);
-      // read and write some data
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
-      // destroy the data source which should close underlying connections
       if (connectionSource != null) {
         connectionSource.close();
       }
