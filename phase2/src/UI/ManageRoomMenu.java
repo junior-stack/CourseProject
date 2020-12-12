@@ -57,12 +57,11 @@ public class ManageRoomMenu extends JFrame {
     roomMenuPanel.setLayout(new GridLayout(10, 1));
     deleteRoomButton = new JButton("Delete selected room");
     addRoomButton = new JButton("Add room");
-    hintLabel1 = new JLabel("Select a room below to delete or enter a room ID to add.");
+    hintLabel1 = new JLabel("Enter a room ID to add or delete.");
     if (schedulerController.get_rooms() != null) {
       roomMenuPanel.add(hintLabel1);
       roomsSelections = new JComboBox<>(schedulerController.get_rooms().toArray(new String[0]));
       roomMenuPanel.add(roomsSelections);
-      roomMenuPanel.add(deleteRoomButton);
     }
 
     roomIdLabel = new JLabel("Enter room id: ");
@@ -70,6 +69,10 @@ public class ManageRoomMenu extends JFrame {
     roomMenuPanel.add(roomIdLabel);
     roomMenuPanel.add(roomIdField);
     roomMenuPanel.add(addRoomButton);
+
+    if (schedulerController.get_rooms() != null) {
+      roomMenuPanel.add(deleteRoomButton);
+    }
 
     backButton = new JButton("Back");
     roomMenuPanel.add(backButton);
@@ -81,7 +84,8 @@ public class ManageRoomMenu extends JFrame {
     });
 
     deleteRoomButton.addActionListener(e -> {
-      boolean isDeleted = schedulerController.confirmdeleteroom(Integer.parseInt(roomId[0]));
+      boolean isDeleted = schedulerController
+          .confirmdeleteroom(Integer.parseInt(roomIdField.getText()));
       if (isDeleted) {
         JOptionPane.showMessageDialog(null, "Room deleted");
         schedulerController.savedata();

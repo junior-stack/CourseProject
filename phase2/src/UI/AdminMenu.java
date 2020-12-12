@@ -11,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  * @author Haohua Ji
@@ -26,10 +25,10 @@ public class AdminMenu extends JFrame {
   SchedulerController schedulerController;
   SignUpController signUpController;
   MessageController messageController;
-  JLabel hintLabel1;
-  JTextField banUserEmail;
-  JButton banAccount;
   JButton logout;
+  JLabel registeredSpeaker;
+  JLabel availableRooms;
+  JLabel availableEvents;
 
   /**
    * Admin's menu, admin can view the stats of the app. (E.g. No. of speaker accounts)
@@ -51,13 +50,32 @@ public class AdminMenu extends JFrame {
 
     JPanel adminPanel = new JPanel();
     adminPanel.setLayout(new GridLayout(10, 1));
-    hintLabel1 = new JLabel("User email: ");
-    banUserEmail = new JTextField(40);
-    banAccount = new JButton("Ban this user");
+
+    if (schedulerController.getSpeakers().isEmpty()) {
+      registeredSpeaker = new JLabel("No. of registered speaker: 0");
+    } else {
+      registeredSpeaker = new JLabel(
+          "No. of registered speaker: " + schedulerController.getSpeakers().size());
+    }
+
+    if (schedulerController.get_rooms().isEmpty()) {
+      availableRooms = new JLabel("No. of available rooms: 0");
+    } else {
+      availableRooms = new JLabel(
+          "No. of available rooms: " + schedulerController.get_rooms().size());
+    }
+
+    if (schedulerController.ShowAllEvents().isEmpty()) {
+      availableEvents = new JLabel("No. of available events: 0");
+    } else {
+      availableEvents = new JLabel(
+          "No. of available events: " + schedulerController.ShowAllEvents().size());
+    }
+
     logout = new JButton("Logout");
-    adminPanel.add(hintLabel1);
-    adminPanel.add(banUserEmail);
-    adminPanel.add(banAccount);
+    adminPanel.add(registeredSpeaker);
+    adminPanel.add(availableRooms);
+    adminPanel.add(availableEvents);
     adminPanel.add(logout);
 
     logout.addActionListener(e -> {
