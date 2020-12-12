@@ -14,7 +14,7 @@ import java.util.List;
  * @version 1.0
  */
 @DatabaseTable(tableName = "user")
-public class User implements Schedulable{
+public class User implements Schedulable {
 
   private static int counter = 0;
   @DatabaseField(columnName = "type")
@@ -45,10 +45,10 @@ public class User implements Schedulable{
    * email are required. Also, a unique userId and a event list are generated and each Users has an
    * Identity of Attendee or Organizer or Speaker.
    *
-   * @param username  the username of the user
-   * @param password  the password of the user
-   * @param phone     the phone of the user
-   * @param email     the email of the user
+   * @param username the username of the user
+   * @param password the password of the user
+   * @param phone    the phone of the user
+   * @param email    the email of the user
    */
   public User(String username, String password, String phone, String email) {
     this.userId = counter;
@@ -70,7 +70,7 @@ public class User implements Schedulable{
   }
 
   public ArrayList<ArrayList<Time>> getSchedule() {
-    if (schedule == null){
+    if (schedule == null) {
       schedule = new ArrayList<>();
     }
     return schedule;
@@ -226,6 +226,7 @@ public class User implements Schedulable{
 
   /**
    * The hashcode method for user since we used it as key in the hashmap
+   *
    * @return userid
    */
   @Override

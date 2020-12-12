@@ -116,13 +116,13 @@ at the following table before moving on.
 
 ### Database Info
 
-|  userType | userId | username            | password  |   userPhone  |      userEmail     |
-|:---------:|--------|---------------------|-----------|:------------:|:------------------:|
-| Attendee  | 0      | attendee            | 123456789 | 416-289-9999 | attendee@gmail.com |
-| Organizer | 1      | UniversityofToronto | UofT      | 416-978-2011 | UofT@gmail.com     |
-| Speaker   | 2      | speaker             | speaker   | 111-111-1111 | speaker@gmail.com  |
-| Admin     | 3      | admin               | admin     | 222-222-2222 | admin@gmail.com    |
-| Attendee  | 4      | student             | student   | 333-333-3333 | student@gmail.com  |
+|  userType | userId |       username      |  password |   userPhone  |      userEmail     |
+|:---------:|:------:|:-------------------:|:---------:|:------------:|:------------------:|
+|  Attendee |    0   |       attendee      | 123456789 | 416-289-9999 | attendee@gmail.com |
+| Organizer |    1   | UniversityofToronto |    UofT   | 416-978-2011 |   UofT@gmail.com   |
+|  Speaker  |    2   |       speaker       |  speaker  | 111-111-1111 |  speaker@gmail.com |
+|   Admin   |    3   |        admin        |   admin   | 222-222-2222 |   admin@gmail.com  |
+|  Attendee |    4   |       student       |  student  | 333-333-3333 |  student@gmail.com |
 
 ## License
 
