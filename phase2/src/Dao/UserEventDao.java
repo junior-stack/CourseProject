@@ -24,6 +24,7 @@ public class UserEventDao {
 
   /**
    * Access the database at the start of the program
+   *
    * @return Dao<UserEventMapper, Integer> the content stored from database of event
    */
   public static Dao<UserEventMapper, Integer> getInstance() {
@@ -34,8 +35,9 @@ public class UserEventDao {
   }
 
   /**
-   *  Initialize the connection to database
-   * @param conn  the database
+   * Initialize the connection to database
+   *
+   * @param conn the database
    * @throws Exception occurs when the connection fails
    */
   public static void init(ConnectionSource conn) throws Exception {
@@ -47,6 +49,7 @@ public class UserEventDao {
 
   /**
    * Return the list of User for UserEventMapper
+   *
    * @return List<UserEventManager> list of UserEventMapper
    */
   public static List<UserEventMapper> getAll() {
@@ -61,6 +64,7 @@ public class UserEventDao {
 
   /**
    * Save the program information into the database
+   *
    * @param objs the item you want to store
    */
   public static void saveAll(List<UserEventMapper> objs) {

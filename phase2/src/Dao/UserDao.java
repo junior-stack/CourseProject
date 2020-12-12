@@ -21,6 +21,7 @@ public final class UserDao {
 
   /**
    * Access the database at the start of the program
+   *
    * @return Dao<User, Integer> the content stored from database of event
    */
   public static Dao<User, Integer> getInstance() {
@@ -31,8 +32,9 @@ public final class UserDao {
   }
 
   /**
-   *  Initialize the connection to database
-   * @param conn  the database
+   * Initialize the connection to database
+   *
+   * @param conn the database
    * @throws Exception occurs when the connection fails
    */
   public static void init(ConnectionSource conn) throws Exception {
@@ -57,6 +59,7 @@ public final class UserDao {
 
   /**
    * Return the list of User for UserAccountManager
+   *
    * @return List<User> list of User
    */
   public static List<User> getAll() {
@@ -71,6 +74,7 @@ public final class UserDao {
 
   /**
    * Save the program information into the database
+   *
    * @param objs the item you want to store
    */
   public static void saveAll(List<User> objs) {

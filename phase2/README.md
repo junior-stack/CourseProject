@@ -94,8 +94,8 @@ Admin in our app can:
 
 * View app's stats
 * View No. of registered speaker.
-* View No. of rooms created.
-* View No. of events created.
+* View No. of available rooms.
+* View No. of available events.
 
 ### Input Format
 

@@ -21,6 +21,7 @@ public class EventDao {
 
   /**
    * Access the database at the start of the program
+   *
    * @return Dao<Event, Integer> the content stored from database of event
    */
   public static Dao<Event, Integer> getInstance() {
@@ -31,8 +32,9 @@ public class EventDao {
   }
 
   /**
-   *  Initialize the connection to database
-   * @param conn  the database
+   * Initialize the connection to database
+   *
+   * @param conn the database
    * @throws Exception occurs when the connection fails
    */
   public static void init(ConnectionSource conn) throws Exception {
@@ -56,6 +58,7 @@ public class EventDao {
 
   /**
    * Return the list of events for EventManager
+   *
    * @return List<Event> list of events
    */
   public static List<Event> getAll() {
@@ -69,6 +72,7 @@ public class EventDao {
 
   /**
    * Save the program information into the database
+   *
    * @param objs the item you want to store
    */
   public static void saveAll(List<Event> objs) {
