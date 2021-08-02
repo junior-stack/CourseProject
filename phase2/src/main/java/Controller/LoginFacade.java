@@ -19,8 +19,14 @@ import java.util.List;
 public class LoginFacade {
 
   @RequestMapping("/login")
-  public String test(Model model){
+  public String login(Model model){
     model.addAttribute("END", "login");
+    return "index";
+  }
+
+  @RequestMapping("/test")
+  public String test(Model model){
+    model.addAttribute("END", "test");
     return "index";
   }
 
