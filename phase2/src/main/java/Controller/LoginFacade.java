@@ -30,4 +30,10 @@ public class LoginFacade {
     return "index";
   }
 
+  @RequestMapping("/hello")
+  public String hello(Model model){
+    model.addAttribute("END", "hello");
+    return "index";
+  }
+
 }
