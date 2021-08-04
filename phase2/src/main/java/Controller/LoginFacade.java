@@ -32,7 +32,7 @@ public class LoginFacade {
 
   @RequestMapping("/hello")
   public String hello(Model model){
-    model.addAttribute("END", "test2");
+    model.addAttribute("END", "sb jenkins");
     return "index";
   }
 
